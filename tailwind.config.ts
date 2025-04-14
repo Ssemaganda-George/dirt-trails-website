@@ -52,6 +52,14 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				safari: {
+					"orange": "#F97316", 
+					"green": "#166534",
+					"brown": "#8D6E63",
+					"tan": "#D2B48C",
+					"yellow": "#FFC107",
+					"sky": "#33C3F0"
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
