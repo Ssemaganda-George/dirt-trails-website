@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +16,9 @@ import ContactPage from "./pages/ContactPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import BookingConfirmationPage from "./pages/BookingConfirmationPage";
 import NotFound from "./pages/NotFound";
+import CarbonOffsetPage from "./pages/environment/CarbonOffsetPage";
+import TreePlantingPage from "./pages/environment/TreePlantingPage";
+import GeotaggingPage from "./pages/environment/GeotaggingPage";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +40,9 @@ const App = () => (
             <Route path="contact" element={<ContactPage />} />
             <Route path="checkout/:tourSlug" element={<CheckoutPage />} />
             <Route path="booking-confirmation" element={<BookingConfirmationPage />} />
+            <Route path="environment/carbon-offset" element={<CarbonOffsetPage />} />
+            <Route path="environment/tree-planting" element={<TreePlantingPage />} />
+            <Route path="environment/geotagging" element={<GeotaggingPage />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

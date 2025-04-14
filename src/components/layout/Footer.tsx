@@ -1,12 +1,12 @@
 
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin, Leaf } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-safari-brown/10 pt-16 pb-8">
+    <footer className="bg-safari-green/10 pt-16 pb-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Company Info */}
@@ -31,7 +31,6 @@ const Footer = () => {
               <FooterLink to="/destinations">Destinations</FooterLink>
               <FooterLink to="/about">About Us</FooterLink>
               <FooterLink to="/contact">Contact</FooterLink>
-              <FooterLink to="/conservation">Conservation Projects</FooterLink>
             </ul>
           </div>
 
@@ -47,21 +46,35 @@ const Footer = () => {
             </ul>
           </div>
           
-          {/* Contact Info */}
+          {/* Environmental Initiatives */}
           <div>
-            <h3 className="font-bold text-xl mb-4 text-safari-green">Contact Us</h3>
-            <div className="space-y-4">
-              <div className="flex items-start">
-                <MapPin className="mr-2 h-5 w-5 text-safari-orange shrink-0" />
-                <span>123 Safari Road, Nairobi, Kenya</span>
-              </div>
+            <h3 className="font-bold text-xl mb-4 text-safari-green">
               <div className="flex items-center">
-                <Phone className="mr-2 h-5 w-5 text-safari-orange shrink-0" />
-                <span>+254 123 456 789</span>
+                <Leaf className="mr-2 h-5 w-5" />
+                Environmental Initiatives
               </div>
-              <div className="flex items-center">
-                <Mail className="mr-2 h-5 w-5 text-safari-orange shrink-0" />
-                <span>info@eastafricatours.com</span>
+            </h3>
+            <ul className="space-y-3">
+              <FooterLink to="/environment/carbon-offset">Carbon Offset Calculator</FooterLink>
+              <FooterLink to="/environment/tree-planting">Tree Planting Initiative</FooterLink>
+              <FooterLink to="/environment/geotagging">Tree Tracking & Geotagging</FooterLink>
+            </ul>
+            
+            <div className="mt-6 pt-6 border-t border-border">
+              <h3 className="font-bold text-xl mb-4 text-safari-green">Contact Us</h3>
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <MapPin className="mr-2 h-5 w-5 text-safari-green shrink-0" />
+                  <span>123 Safari Road, Nairobi, Kenya</span>
+                </div>
+                <div className="flex items-center">
+                  <Phone className="mr-2 h-5 w-5 text-safari-green shrink-0" />
+                  <span>+254 123 456 789</span>
+                </div>
+                <div className="flex items-center">
+                  <Mail className="mr-2 h-5 w-5 text-safari-green shrink-0" />
+                  <span>info@eastafricatours.com</span>
+                </div>
               </div>
             </div>
           </div>
@@ -96,7 +109,7 @@ const SocialLink = ({ href, icon, label }: { href: string; icon: React.ReactNode
 
 const FooterLink = ({ to, children }: { to: string; children: React.ReactNode }) => (
   <li>
-    <Link to={to} className="text-muted-foreground hover:text-safari-orange transition-colors">
+    <Link to={to} className="text-muted-foreground hover:text-safari-green transition-colors">
       {children}
     </Link>
   </li>

@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -54,7 +55,7 @@ export default {
 				},
 				safari: {
 					"orange": "#F97316", 
-					"green": "#166534",
+					"green": "#4DAE4E",
 					"brown": "#8D6E63",
 					"tan": "#D2B48C",
 					"yellow": "#FFC107",
