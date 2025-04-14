@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Heart, Users, GlobePlus, TreePine } from 'lucide-react';
+import { Heart, Users, Globe, TreePine } from 'lucide-react';
 
 const AboutPage = () => {
   return (
@@ -70,7 +70,7 @@ const AboutPage = () => {
               description="Responsible tourism that respects wildlife, environments, and local communities."
             />
             <ValueCard 
-              icon={<GlobePlus className="h-10 w-10 text-safari-orange" />}
+              icon={<Globe className="h-10 w-10 text-safari-orange" />}
               title="Community Impact" 
               description="Supporting local communities through employment and development initiatives."
             />
