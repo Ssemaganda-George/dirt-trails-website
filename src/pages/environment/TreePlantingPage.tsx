@@ -1,7 +1,6 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { TreePine, MapPin, Certificate, Leaf, Users, Link as LinkIcon } from "lucide-react";
+import { TreePine, MapPin, Award, Leaf, Users, Link as LinkIcon } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -48,7 +47,7 @@ const TreePlantingPage = () => {
               
               <div className="flex items-start">
                 <div className="bg-safari-green/20 p-2 rounded-full mr-4">
-                  <Certificate className="h-5 w-5 text-safari-green" />
+                  <Award className="h-5 w-5 text-safari-green" />
                 </div>
                 <div>
                   <h3 className="font-semibold">Receive Your Certificate</h3>
