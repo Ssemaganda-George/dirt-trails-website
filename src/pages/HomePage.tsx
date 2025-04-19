@@ -1,11 +1,20 @@
-
 import { Link } from 'react-router-dom';
-import { ChevronRight, MapPin, Calendar, Star, Users } from 'lucide-react';
+import { ChevronRight, MapPin, Calendar, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { tours } from '@/data/tours';
 
 const HomePage = () => {
-  const featuredTours = tours.filter(tour => tour.featured).slice(0, 3);
+  // Group tours by country
+  const toursByCountry = tours.reduce((acc, tour) => {
+    if (!acc[tour.country]) {
+      acc[tour.country] = [];
+    }
+    acc[tour.country].push(tour);
+    return acc;
+  }, {} as Record<string, typeof tours>);
+
+  // Sort countries alphabetically
+  const countries = Object.keys(toursByCountry).sort();
   
   return (
     <div className="min-h-screen">
@@ -39,71 +48,77 @@ const HomePage = () => {
         </div>
       </section>
       
-      {/* Featured Tours Section */}
+      {/* Tours by Country Section */}
       <section className="py-20 bg-white">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Tours</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Explore Our Tours</h2>
             <p className="text-muted-foreground max-w-3xl mx-auto">
-              Discover our most popular experiences showcasing the best of East Africa's wildlife, landscapes, and cultures.
+              Discover our diverse range of tours across East Africa's most beautiful destinations.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredTours.map((tour) => (
-              <Link 
-                key={tour.id} 
-                to={`/tours/${tour.slug}`}
-                className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow"
-              >
-                <div className="relative h-64">
-                  <img 
-                    src={tour.coverImage} 
-                    alt={tour.name}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                  />
-                  {tour.discount && (
-                    <span className="absolute top-4 right-4 bg-safari-orange text-white px-2 py-1 rounded text-sm font-semibold">
-                      {tour.discount}% OFF
-                    </span>
-                  )}
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center text-muted-foreground mb-2">
-                    <MapPin size={16} className="mr-1" />
-                    <span className="text-sm">{tour.location}, {tour.country}</span>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2 group-hover:text-safari-orange transition-colors">
-                    {tour.name}
-                  </h3>
-                  <p className="text-muted-foreground mb-4 line-clamp-2">
-                    {tour.tagline}
-                  </p>
-                  <div className="flex items-center justify-between pt-4 border-t border-border">
-                    <div className="flex items-center text-safari-orange">
-                      <Star size={18} className="fill-current" />
-                      <span className="ml-1 font-medium">{tour.rating}</span>
+          {countries.map((country) => (
+            <div key={country} className="mb-16">
+              <h3 className="text-2xl font-bold mb-8 flex items-center">
+                <MapPin className="mr-2 text-safari-green" />
+                Tours in {country}
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {toursByCountry[country].map((tour) => (
+                  <Link 
+                    key={tour.id} 
+                    to={`/tours/${tour.slug}`}
+                    className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow"
+                  >
+                    <div className="relative h-48">
+                      <img 
+                        src={tour.coverImage} 
+                        alt={tour.name}
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                      />
+                      {tour.discount && (
+                        <span className="absolute top-4 right-4 bg-safari-green text-white px-2 py-1 rounded text-sm font-semibold">
+                          {tour.discount}% OFF
+                        </span>
+                      )}
                     </div>
-                    <div className="flex items-center text-muted-foreground">
-                      <Calendar size={18} className="mr-1" />
-                      <span className="text-sm">{tour.duration} days</span>
+                    <div className="p-4">
+                      <div className="flex items-center text-muted-foreground mb-2">
+                        <MapPin size={16} className="mr-1" />
+                        <span className="text-sm">{tour.location}</span>
+                      </div>
+                      <h3 className="text-lg font-semibold mb-2 group-hover:text-safari-green transition-colors line-clamp-2">
+                        {tour.name}
+                      </h3>
+                      <div className="flex items-center justify-between pt-2 border-t border-border">
+                        <div className="flex items-center text-safari-green">
+                          <Star size={16} className="fill-current" />
+                          <span className="ml-1 font-medium">{tour.rating}</span>
+                        </div>
+                        <div className="flex items-center text-muted-foreground">
+                          <Calendar size={16} className="mr-1" />
+                          <span className="text-sm">{tour.duration} days</span>
+                        </div>
+                      </div>
+                      <div className="mt-2 text-safari-green font-semibold">
+                        ${tour.price.toLocaleString()}
+                      </div>
                     </div>
-                    <div className="text-safari-green font-semibold">
-                      ${tour.price.toLocaleString()}
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-          
-          <div className="text-center mt-12">
-            <Button asChild>
-              <Link to="/tours" className="flex items-center">
-                View All Tours <ChevronRight size={18} className="ml-1" />
-              </Link>
-            </Button>
-          </div>
+                  </Link>
+                ))}
+              </div>
+              
+              <div className="mt-6">
+                <Button variant="outline" asChild>
+                  <Link to={`/tours?country=${encodeURIComponent(country)}`} className="flex items-center">
+                    View All {country} Tours <ChevronRight size={18} className="ml-1" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
       
@@ -253,7 +268,7 @@ const TestimonialCard = ({ name, location, quote, rating, imageSrc }: { name: st
           <Star 
             key={i} 
             size={18} 
-            className={i < rating ? "text-safari-orange fill-current" : "text-gray-300"}
+            className={i < rating ? "text-safari-green fill-current" : "text-gray-300"}
           />
         ))}
       </div>
