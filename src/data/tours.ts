@@ -793,3 +793,111 @@ export const tours: Tour[] = [
         meals: { breakfast: true, lunch: true, dinner: true },
         accommodation: "Governors' Camp"
       },
+      {
+        day: 5,
+        title: "Hot Air Balloon Safari",
+        description: "Optional pre-dawn hot air balloon safari over the Masai Mara, offering a spectacular aerial view of the landscape and wildlife below. After landing, enjoy a champagne breakfast in the bush. Return to camp for lunch and an afternoon game drive, focusing on finding any wildlife you may not have yet encountered.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Governors' Camp"
+      },
+      {
+        day: 6,
+        title: "Masai Mara to Nairobi",
+        description: "Final early morning game drive, followed by breakfast at camp. Fly back to Nairobi and transfer to a day room. Optional visit to the Giraffe Center or Sheldrick Wildlife Trust before your evening departure flight.",
+        meals: { breakfast: true, lunch: true, dinner: false },
+        accommodation: "Day room if required"
+      }
+    ],
+    reviews: [
+      {
+        id: "review-001",
+        name: "Michael Johnson",
+        rating: 5,
+        comment: "Seeing the Great Migration was a dream come true. Our guide was exceptional at finding the best viewing spots. The camp was luxurious and the food amazing.",
+        date: "2023-08-15"
+      },
+      {
+        id: "review-002",
+        name: "Sarah Williams",
+        rating: 5,
+        comment: "The hot air balloon ride over the Mara at sunrise was worth every penny. We saw so many animals and the landscapes were breathtaking.",
+        date: "2023-07-22"
+      },
+      {
+        id: "review-003",
+        name: "David and Lisa Chen",
+        rating: 4,
+        comment: "Great safari experience. Saw the Big Five within two days! The camp was very comfortable though nights were chilly. The Maasai village visit was enlightening.",
+        date: "2023-09-10"
+      }
+    ],
+    rating: 4.7,
+    customizationOptions: {
+      accommodation: [
+        {
+          id: "acc-001",
+          name: "Luxury Tented Camp",
+          type: "accommodation",
+          description: "Classic safari tented camp with all amenities.",
+          priceAdjustment: 0
+        },
+        {
+          id: "acc-002",
+          name: "Premium Lodge Upgrade",
+          type: "accommodation",
+          description: "Upgrade to a premium safari lodge.",
+          priceAdjustment: 800
+        }
+      ],
+      activities: [
+        {
+          id: "act-001",
+          name: "Hot Air Balloon Safari",
+          type: "activity",
+          description: "Dawn hot air balloon ride with champagne breakfast.",
+          priceAdjustment: 450
+        },
+        {
+          id: "act-002",
+          name: "Photography Workshop",
+          type: "activity",
+          description: "Wildlife photography workshop with a professional.",
+          priceAdjustment: 300
+        }
+      ],
+      transportation: [
+        {
+          id: "trans-001",
+          name: "Scheduled Flights",
+          type: "transportation",
+          description: "Regular scheduled flights between destinations.",
+          priceAdjustment: 0
+        },
+        {
+          id: "trans-002",
+          name: "Private Charter",
+          type: "transportation",
+          description: "Private aircraft charter for your group.",
+          priceAdjustment: 1200
+        }
+      ],
+      duration: [
+        {
+          id: "dur-001",
+          name: "Standard 6-Day Safari",
+          type: "duration",
+          description: "The classic 6-day Masai Mara experience.",
+          priceAdjustment: 0
+        },
+        {
+          id: "dur-002",
+          name: "Extended 8-Day Safari",
+          type: "duration",
+          description: "Extended safari with more time in the Mara.",
+          priceAdjustment: 1400
+        }
+      ]
+    },
+    featured: true
+  }
+];
