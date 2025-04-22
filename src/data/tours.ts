@@ -75,7 +75,7 @@ export const tours: Tour[] = [
     images: [
       { url: "/images/gorilla-uganda-primate-trekking-eating.jpeg", alt: "Mountain gorilla" },
       { url: "/images/kibaale.jpeg", alt: "Misty forest" },
-      { url: "/images/queen Elizabeth.jpeg", alt: "Lodge view" },
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Lodge view" },
       { url: "/images/murchison-falls-view.jpg", alt: "Local scenery" },
     ],
     mapImage: "/images/murchison-falls-view.jpg",
@@ -270,12 +270,12 @@ export const tours: Tour[] = [
     price: 1899,
     location: "Queen Elizabeth National Park",
     country: "Uganda",
-    coverImage: "/images/queen Elizabeth.jpeg",
+    coverImage: "/images/queen-Elizabeth.jpeg",
     images: [
-      { url: "/images/queen Elizabeth.jpeg", alt: "Tree climbing lions" },
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Tree climbing lions" },
       { url: "/images/murchison-falls-view.jpg", alt: "Elephants by the channel" },
       { url: "/images/kibaale.jpeg", alt: "Safari lodge" },
-      { url: "/images/queen Elizabeth.jpeg", alt: "Birds on the channel" },
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Birds on the channel" },
     ],
     mapImage: "/images/murchison-falls-view.jpg",
     highlights: [
@@ -437,7 +437,7 @@ export const tours: Tour[] = [
     coverImage: "/images/murchison-falls-view.jpg",
     images: [
       { url: "/images/murchison-falls-view.jpg", alt: "Murchison Falls" },
-      { url: "/images/queen Elizabeth.jpeg", alt: "Wildlife viewing" },
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Wildlife viewing" },
       { url: "/images/kibaale.jpeg", alt: "Luxury lodge" },
       { url: "/images/murchison-falls-view.jpg", alt: "River cruise" }
     ],
@@ -587,7 +587,7 @@ export const tours: Tour[] = [
     images: [
       { url: "/images/kibaale.jpeg", alt: "Chimpanzee tracking" },
       { url: "/images/kibaale.jpeg", alt: "Forest walks" },
-      { url: "/images/queen Elizabeth.jpeg", alt: "Lodge exterior" },
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Lodge exterior" },
       { url: "/images/murchison-falls-view.jpg", alt: "Local culture" }
     ],
     mapImage: "/images/murchison-falls-view.jpg",
@@ -736,7 +736,7 @@ export const tours: Tour[] = [
     images: [
       { url: "/images/maasai-mara-national-reserve-safari.jpg", alt: "Lions resting in Masai Mara" },
       { url: "/images/maasai-mara-national-reserve-safari.jpg", alt: "Elephants at sunset" },
-      { url: "/images/Samburu-national reserve.jpg", alt: "Safari camp" },
+      { url: "/images/Samburu-national-reserve.jpg", alt: "Safari camp" },
       { url: "/images/maasai-mara-national-reserve-safari.jpg", alt: "Giraffe on the savanna" },
     ],
     mapImage: "/images/murchison-falls-view.jpg",
@@ -913,7 +913,7 @@ export const tours: Tour[] = [
     coverImage: "/images/Amboseli.jpg",
     images: [
       { url: "/images/maasai-mara-national-reserve-safari.jpg", alt: "Elephants with Kilimanjaro view" },
-      { url: "/images/Samburu-national reserve.jpg", alt: "Amboseli landscape" },
+      { url: "/images/Samburu-national-reserve.jpg", alt: "Amboseli landscape" },
       { url: "/images/lake-nakuru.jpg", alt: "Safari lodge" },
       { url: "/images/maasai-mara-national-reserve-safari.jpg", alt: "Maasai cultural experience" }
     ],
@@ -1231,12 +1231,12 @@ export const tours: Tour[] = [
     price: 1899,
     location: "Samburu National Reserve",
     country: "Kenya",
-    coverImage: "/images/Samburu-national reserve.jpg",
+    coverImage: "/images/Samburu-national-reserve.jpg",
     images: [
-      { url: "/images/Samburu-national reserve.jpg", alt: "Reticulated giraffe" },
-      { url: "/images/Samburu-national reserve.jpg", alt: "Samburu landscape" },
-      { url: "/images/Samburu-national reserve.jpg", alt: "Safari camp" },
-      { url: "/images/Samburu-national reserve.jpg", alt: "Samburu warriors" }
+      { url: "/images/Samburu-national-reserve.jpg", alt: "Reticulated giraffe" },
+      { url: "/images/Samburu-national-reserve.jpg", alt: "Samburu landscape" },
+      { url: "/images/Samburu-national-reserve.jpg", alt: "Safari camp" },
+      { url: "/images/Samburu-national-reserve.jpg", alt: "Samburu warriors" }
     ],
     mapImage: "/images/murchison-falls-view.jpg",
     highlights: [
@@ -1918,12 +1918,12 @@ export const tours: Tour[] = [
     price: 2200,
     location: "Ngorongoro Conservation Area",
     country: "Tanzania",
-    coverImage: "/images/Ngorongoro crater.jpg",
+    coverImage: "/images/Ngorongoro-crater.jpg",
     images: [
-      { url: "/images/Ngorongoro crater.jpg", alt: "Ngorongoro Crater view" },
-      { url: "/images/Ngorongoro crater.jpg", alt: "Lions in the crater" },
-      { url: "/images/Ngorongoro crater.jpg", alt: "Crater lodge" },
-      { url: "/images/Ngorongoro crater.jpg", alt: "Maasai village" }
+      { url: "/images/Ngorongoro-crater.jpg", alt: "Ngorongoro Crater view" },
+      { url: "/images/Ngorongoro-crater.jpg", alt: "Lions in the crater" },
+      { url: "/images/Ngorongoro-crater.jpg", alt: "Crater lodge" },
+      { url: "/images/Ngorongoro-crater.jpg", alt: "Maasai village" }
     ],
     mapImage: "/images/murchison-falls-view.jpg",
     highlights: [
@@ -2443,7 +2443,7 @@ export const tours: Tour[] = [
     coverImage: "/images/Laikipia.jpg",
     images: [
       { url: "/images/Lewa.jpg", alt: "Laikipia wilderness" },
-      { url: "/images/Samburu-national reserve.jpg", alt: "Wildlife viewing" },
+      { url: "/images/Samburu-national-reserve.jpg", alt: "Wildlife viewing" },
       { url: "/images/maasai-mara-national-reserve-safari.jpg", alt: "Lodge exterior" },
       { url: "/images/Lewa.jpg", alt: "Cultural interaction" }
     ],
@@ -2779,10 +2779,10 @@ export const tours: Tour[] = [
     price: 2950,
     location: "Kidepo Valley National Park",
     country: "Uganda",
-    coverImage: "/images/kidepo valley.jpg",
+    coverImage: "/images/kidepo-valley.jpg",
     images: [
       { url: "/images/murchison-falls-view.jpg", alt: "Kidepo Valley landscape" },
-      { url: "/images/queen Elizabeth.jpeg", alt: "Wildlife viewing" },
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Wildlife viewing" },
       { url: "/images/gorilla-uganda-primate-trekking-eating.jpeg", alt: "Luxury safari lodge" },
       { url: "/images/kibaale.jpeg", alt: "Cultural interaction" }
     ],
@@ -2959,11 +2959,11 @@ export const tours: Tour[] = [
     discount: 5,
     location: "Ziwa Sanctuary & Murchison Falls",
     country: "Uganda",
-    coverImage: "/images/ziwa rhino sanctuary.jpg",
+    coverImage: "/images/ziwa-rhino-sanctuary.jpg",
     images: [
       { url: "/images/murchison-falls-view.jpg", alt: "Murchison Falls" },
       { url: "/images/murchison-falls-view.jpg", alt: "White rhino tracking" },
-      { url: "/images/queen Elizabeth.jpeg", alt: "Game drive" },
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Game drive" },
       { url: "/images/kibaale.jpeg", alt: "Safari lodge" }
     ],
     mapImage: "/images/murchison-falls-view.jpg",
@@ -3136,7 +3136,7 @@ export const tours: Tour[] = [
       { url: "/images/gorilla-uganda-primate-trekking-eating.jpeg", alt: "Rwenzori Mountains" },
       { url: "/images/kibaale.jpeg", alt: "Giant lobelias" },
       { url: "/images/murchison-falls-view.jpg", alt: "Mountain trekking" },
-      { url: "/images/queen Elizabeth.jpeg", alt: "Mountain hut" }
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Mountain hut" }
     ],
     mapImage: "/images/murchison-falls-view.jpg",
     highlights: [
@@ -3327,10 +3327,10 @@ export const tours: Tour[] = [
     country: "Uganda",
     coverImage: "/images/Lake-Mburo-National-Park-750x450-1.jpg",
     images: [
-      { url: "/images/queen Elizabeth.jpeg", alt: "Lake Mburo landscape" },
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Lake Mburo landscape" },
       { url: "/images/murchison-falls-view.jpg", alt: "Horseback safari" },
       { url: "/images/kibaale.jpeg", alt: "Zebra herd" },
-      { url: "/images/queen Elizabeth.jpeg", alt: "Lakeside lodge" }
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Lakeside lodge" }
     ],
     mapImage: "/images/murchison-falls-view.jpg",
     highlights: [
