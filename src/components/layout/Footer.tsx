@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Company Info */}
           <div>
-            <h3 className="font-bold text-xl mb-4 text-safari-green">East Africa Tours</h3>
+            <h3 className="font-bold text-xl mb-4 text-safari-green">Dirt Trails Safaris</h3>
             <p className="text-muted-foreground mb-6">
               Embark on the adventure of a lifetime with our customized East African safari experiences, designed to showcase the region's incredible wildlife, landscapes, and cultures.
             </p>
@@ -65,15 +65,15 @@ const Footer = () => {
               <div className="space-y-4">
                 <div className="flex items-start">
                   <MapPin className="mr-2 h-5 w-5 text-safari-green shrink-0" />
-                  <span>123 Safari Road, Nairobi, Kenya</span>
+                  <span>123 Bakerly Road, Kampala, Uganda</span>
                 </div>
                 <div className="flex items-center">
                   <Phone className="mr-2 h-5 w-5 text-safari-green shrink-0" />
-                  <span>+254 123 456 789</span>
+                  <span>+256 759 918649</span>
                 </div>
                 <div className="flex items-center">
                   <Mail className="mr-2 h-5 w-5 text-safari-green shrink-0" />
-                  <span>info@eastafricatours.com</span>
+                  <span>info@dirttrailssafaris.com</span>
                 </div>
               </div>
             </div>
@@ -82,7 +82,7 @@ const Footer = () => {
         
         {/* Bottom Bar */}
         <div className="border-t border-border pt-8 mt-8 text-center md:flex md:justify-between md:text-left">
-          <p>&copy; {currentYear} East Africa Tours and Travel. All rights reserved.</p>
+          <p>&copy; {currentYear} Dirt Trails Safaris and Travel. All rights reserved.</p>
           <div className="mt-4 md:mt-0">
             <Link to="/privacy" className="text-sm text-muted-foreground hover:text-foreground mr-6">
               Privacy Policy

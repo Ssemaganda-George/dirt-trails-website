@@ -9,7 +9,7 @@ const AboutPage = () => {
       {/* Hero Section */}
       <section className="relative py-20 bg-safari-brown/10">
         <div className="container">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">About East Africa Tours</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">About Dirt Trails Safaris</h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
             We're passionate about showcasing East Africa's incredible wildlife, landscapes, and cultures while promoting sustainable tourism.
           </p>
@@ -23,7 +23,7 @@ const AboutPage = () => {
             <div>
               <h2 className="text-3xl font-bold mb-6">Our Story</h2>
               <p className="mb-4">
-                East Africa Tours was founded in 2010 by a team of passionate local guides with over 30 years of combined experience. What began as a small operation has grown into a leading tour provider, but our core values remain unchanged.
+                Dirt Trails Safaris was founded in 2022 by a team of passionate local guides with over 8 years of combined experience. What began as a small operation has grown into a leading tour provider, but our core values remain unchanged.
               </p>
               <p className="mb-4">
                 We believe that travel should be transformative, educational, and responsible. Our intimate knowledge of East Africa's wildlife patterns, hidden gems, and local communities allows us to create authentic experiences that go beyond the typical tourist trail.
@@ -34,7 +34,7 @@ const AboutPage = () => {
             </div>
             <div className="rounded-lg overflow-hidden shadow-lg">
               <img 
-                src="https://images.unsplash.com/photo-1534531173927-aeb928d54385?auto=format&fit=crop&w=800&q=80" 
+                src="/images/dirt-trails.jpg" 
                 alt="Safari guides"
                 className="w-full h-full object-cover"
               />
@@ -84,7 +84,7 @@ const AboutPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1 rounded-lg overflow-hidden shadow-lg">
               <img 
-                src="https://images.unsplash.com/photo-1581005148959-534d70cf3aa9?auto=format&fit=crop&w=800&q=80" 
+                src="images/PORTRAIT.jpg" 
                 alt="Conservation efforts"
                 className="w-full h-full object-cover"
               />

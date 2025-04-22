@@ -160,7 +160,7 @@ const CarbonOffsetPage = () => {
             an equivalent amount of greenhouse gases from the atmosphere.
           </p>
           <p>
-            At East Africa Tours, we partner with local conservation organizations to plant native trees in East Africa, 
+            At Dirt Trails Safaris, we partner with local conservation organizations to plant native trees in East Africa, 
             supporting both environmental restoration and community development.
           </p>
         </div>

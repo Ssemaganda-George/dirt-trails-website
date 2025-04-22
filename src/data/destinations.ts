@@ -19,7 +19,7 @@ export const destinations: Destination[] = [
     country: "Kenya",
     description: "The Masai Mara National Reserve is one of Africa's most magnificent game reserves, world-renowned for its exceptional populations of lion, African leopard, cheetah, and African bush elephant. It is also host to the Great Migration, which secured it as one of the Seven Natural Wonders of Africa. The reserve is a photographer's and naturalist's paradise with abundant wildlife, diverse terrain, and spectacular scenery featuring vast open plains, woodlands, and riverine forest. Beyond the wildlife, visitors can also engage with the local Maasai people, learning about their distinctive customs and traditions.",
     shortDescription: "Famous for the Great Migration and abundant wildlife, the Masai Mara offers an iconic East African safari experience.",
-    image: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e",
+    image: "images/maasai-mara-national-reserve-safari.jpg",
     highlights: [
       "The Great Migration (July-October)",
       "Big Five game viewing",
@@ -53,7 +53,7 @@ export const destinations: Destination[] = [
     country: "Uganda",
     description: "Bwindi Impenetrable National Park is located in southwestern Uganda, a biodiverse, mountainous area with a magnificent misty landscape of dense rainforest. This ancient forest is home to almost half the world's population of endangered mountain gorillas, with around 400 individuals living within the park boundaries. Beyond the incredible gorilla tracking experience, the park is a sanctuary for colobus monkeys, chimpanzees, and numerous bird species. The biodiversity within Bwindi is exceptional, with over 160 tree species, 100 fern species, and numerous rare and endemic birds found nowhere else in East Africa. The challenging terrain, with steep ridges and valleys, adds to the adventure of exploring this primeval forest.",
     shortDescription: "Trek through mist-shrouded forests to encounter endangered mountain gorillas in their natural habitat.",
-    image: "https://images.unsplash.com/photo-1590312597580-d20b6bf3b24f",
+    image: "images/Bwindi.jpg",
     highlights: [
       "Mountain gorilla tracking",
       "Over 120 mammal species and 350 bird species",

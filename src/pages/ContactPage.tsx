@@ -94,8 +94,8 @@ const ContactPage = () => {
                     <div>
                       <h3 className="font-medium">Our Office</h3>
                       <address className="not-italic text-muted-foreground">
-                        123 Safari Road<br />
-                        Nairobi, Kenya
+                        123 Bakerly Road<br />
+                        Kampala, Uganda
                       </address>
                     </div>
                   </div>
@@ -103,14 +103,14 @@ const ContactPage = () => {
                     <Phone className="h-6 w-6 text-safari-orange mr-4 shrink-0" />
                     <div>
                       <h3 className="font-medium">Phone</h3>
-                      <p className="text-muted-foreground">+254 123 456 789</p>
+                      <p className="text-muted-foreground">+256 759 918649</p>
                     </div>
                   </div>
                   <div className="flex">
                     <Mail className="h-6 w-6 text-safari-orange mr-4 shrink-0" />
                     <div>
                       <h3 className="font-medium">Email</h3>
-                      <p className="text-muted-foreground">info@eastafricatours.com</p>
+                      <p className="text-muted-foreground">info@dirttrailssafaris.com</p>
                     </div>
                   </div>
                   <div className="flex">
@@ -128,7 +128,7 @@ const ContactPage = () => {
                 <p className="text-muted-foreground mb-4">
                   For urgent matters outside of office hours, please contact our 24-hour emergency line:
                 </p>
-                <div className="font-medium text-lg">+254 789 123 456</div>
+                <div className="font-medium text-lg">+256 759 918649</div>
               </div>
             </div>
           </div>

@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown, Leaf } from 'lucide-react';
@@ -19,10 +18,12 @@ const Header = () => {
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
       <div className="container mx-auto px-4 flex justify-between items-center h-20">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2" onClick={closeMenu}>
-          <span className="font-montserrat font-bold text-2xl text-safari-green">
-            East Africa <span className="text-secondary">Tours</span>
-          </span>
+        <Link to="/" className="flex items-center" onClick={closeMenu}>
+          <img 
+            src="/images/logo.png" 
+            alt="Dirt Trails Safaris Logo" 
+            className="h-12" 
+          />
         </Link>
 
         {/* Desktop Navigation */}
@@ -33,7 +34,7 @@ const Header = () => {
               className="flex items-center text-foreground hover:text-primary transition-colors"
               onClick={toggleEnvMenu}
             >
-              <Leaf className="mr-1 h-4 w-4" />
+              {/* <Leaf className="mr-1 h-4 w-4" /> */}
               Environment
               <ChevronDown className="ml-1 h-4 w-4" />
             </button>
