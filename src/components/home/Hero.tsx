@@ -33,12 +33,12 @@ const Hero = () => {
         <div className="max-w-2xl">
           {/* Main heading */}
           <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-            Experience the Magic of East Africa
+          Explore. Connect. Sustain.
           </h1>
           
           {/* Supporting text */}
           <p className="text-xl mb-8">
-            Embark on a journey through breathtaking landscapes, encounter magnificent wildlife and immerse yourself in diverse cultures.
+          With Dirt Trails Safaris, your journey goes beyond sightseeing—enjoy meaningful travel that connects you to nature, empowers communities, and leaves a positive impact.
           </p>
           
           {/* Call to action buttons */}
@@ -58,6 +58,15 @@ const Hero = () => {
               asChild
             >
               <Link to="/contact">Contact Us</Link>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-safari-green bg-safari-green/20 text-white hover:bg-safari-green hover:text-white transition-colors"
+              asChild
+            >
+              <Link to="/environment/tree-planting">Explore Conservation</Link>
             </Button>
           </div>
         </div>

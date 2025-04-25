@@ -42,7 +42,6 @@ const Footer = () => {
               <FooterLink to="/destinations/tanzania">Tanzania</FooterLink>
               <FooterLink to="/destinations/uganda">Uganda</FooterLink>
               <FooterLink to="/destinations/rwanda">Rwanda</FooterLink>
-              <FooterLink to="/destinations/ethiopia">Ethiopia</FooterLink>
             </ul>
           </div>
           
@@ -65,7 +64,7 @@ const Footer = () => {
               <div className="space-y-4">
                 <div className="flex items-start">
                   <MapPin className="mr-2 h-5 w-5 text-safari-green shrink-0" />
-                  <span>123 Bakerly Road, Kampala, Uganda</span>
+                  <span>MIICHub, Makerere University, Kampala, Uganda</span>
                 </div>
                 <div className="flex items-center">
                   <Phone className="mr-2 h-5 w-5 text-safari-green shrink-0" />
@@ -73,7 +72,7 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center">
                   <Mail className="mr-2 h-5 w-5 text-safari-green shrink-0" />
-                  <span>info@dirttrailssafaris.com</span>
+                  <span>safaris.dirttrails@gmail.com</span>
                 </div>
               </div>
             </div>

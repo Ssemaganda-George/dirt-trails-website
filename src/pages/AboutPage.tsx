@@ -120,24 +120,24 @@ const AboutPage = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <TeamMemberCard 
-              name="James Omondi" 
-              title="Founder & Lead Guide"
-              imageSrc="https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=300&q=80"
+              name="Ssemaganda George" 
+              title="Co-Founder & Lead Guide"
+              imageSrc="/images/George.jpg"
             />
             <TeamMemberCard 
-              name="Sarah Mwangi" 
-              title="Operations Manager"
-              imageSrc="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=300&q=80"
+              name="Ariho Gerald" 
+              title="Co-Founder and conservation Lead"
+              imageSrc="/images/Gerald.jpg"
             />
             <TeamMemberCard 
-              name="David Kimathi" 
-              title="Senior Safari Guide"
-              imageSrc="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=300&q=80"
+              name="Mariam Wambui" 
+              title="Chief Marketing Officer"
+              imageSrc="/images/Mariam.jpg"
             />
             <TeamMemberCard 
-              name="Rebecca Auma" 
-              title="Customer Relations"
-              imageSrc="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=300&q=80"
+              name="Nantongo Joselyne" 
+              title="Operations Manager"
+              imageSrc="/images/Joselyne.jpg"
             />
           </div>
         </div>

@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { MapPin, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -15,8 +14,12 @@ const ToursSection = () => {
     return acc;
   }, {} as Record<string, typeof tours>);
 
-  // Sort countries alphabetically
-  const countries = Object.keys(toursByCountry).sort();
+  // Sort countries with Uganda first, then others alphabetically
+  const countries = Object.keys(toursByCountry).sort((a, b) => {
+    if (a === 'Uganda') return -1;
+    if (b === 'Uganda') return 1;
+    return a.localeCompare(b);
+  });
 
   return (
     <section className="py-20 bg-white">

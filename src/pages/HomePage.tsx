@@ -1,4 +1,3 @@
-
 import Hero from '@/components/home/Hero';
 import ToursSection from '@/components/home/ToursSection';
 import WhyChooseUs from '@/components/home/WhyChooseUs';

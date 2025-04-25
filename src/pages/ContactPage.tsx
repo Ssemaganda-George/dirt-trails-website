@@ -94,7 +94,8 @@ const ContactPage = () => {
                     <div>
                       <h3 className="font-medium">Our Office</h3>
                       <address className="not-italic text-muted-foreground">
-                        123 Bakerly Road<br />
+                      MIICHub, Makerere University 
+                      <br />
                         Kampala, Uganda
                       </address>
                     </div>
@@ -110,7 +111,7 @@ const ContactPage = () => {
                     <Mail className="h-6 w-6 text-safari-orange mr-4 shrink-0" />
                     <div>
                       <h3 className="font-medium">Email</h3>
-                      <p className="text-muted-foreground">info@dirttrailssafaris.com</p>
+                      <p className="text-muted-foreground">safaris.dirttrails@gmail.com</p>
                     </div>
                   </div>
                   <div className="flex">

@@ -21,7 +21,7 @@ const Conservation = () => {
           </div>
           <div className="rounded-lg overflow-hidden shadow-lg">
             <img 
-              src="https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=800&q=80" 
+              src="/images/environmental-protection.jpg" 
               alt="Conservation efforts"
               className="w-full h-full object-cover"
             />
