@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { TreePine, MapPin, Award, Leaf, Users, Link as LinkIcon } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ChatBot from "@/components/ChatBot";
 
 const TreePlantingPage = () => {
   return (
@@ -223,6 +224,7 @@ const TreePlantingPage = () => {
           You can add the tree planting option ($50) during the checkout process for any tour
         </p>
       </div>
+      <ChatBot />
     </div>
   );
 };

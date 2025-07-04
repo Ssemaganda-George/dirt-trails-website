@@ -4,6 +4,7 @@ import { MapPin, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { destinations } from '@/data/destinations';
 import { tours } from '@/data/tours';
+import ChatBot from '@/components/ChatBot';
 
 const DestinationDetailPage = () => {
   const { destinationSlug } = useParams<{ destinationSlug: string }>();
@@ -24,6 +25,7 @@ const DestinationDetailPage = () => {
         <Button asChild>
           <Link to="/destinations">Browse All Destinations</Link>
         </Button>
+        <ChatBot />
       </div>
     );
   }
@@ -154,6 +156,7 @@ const DestinationDetailPage = () => {
           </div>
         </section>
       )}
+      <ChatBot />
     </div>
   );
 };

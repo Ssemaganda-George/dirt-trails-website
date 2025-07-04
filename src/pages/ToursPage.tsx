@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Calendar, Star } from 'lucide-react';
 import { tours } from '@/data/tours';
+import ChatBot from '@/components/ChatBot';
 
 const ToursPage = () => {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
@@ -137,6 +138,7 @@ const ToursPage = () => {
           )}
         </div>
       </section>
+      <ChatBot />
     </div>
   );
 };

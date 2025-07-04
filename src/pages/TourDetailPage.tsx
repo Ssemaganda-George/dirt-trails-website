@@ -11,6 +11,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import type { CustomizationOption } from '@/data/tours';
+import ChatBot from '@/components/ChatBot';
 
 const TourDetailPage = () => {
   const { tourSlug } = useParams<{ tourSlug: string }>();
@@ -421,6 +422,7 @@ const TourDetailPage = () => {
           </div>
         </div>
       </section>
+      <ChatBot />
     </div>
   );
 };

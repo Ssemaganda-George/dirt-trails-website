@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Leaf, Plane, Car, Ship, Bus, Calculator } from "lucide-react";
 import { Link } from 'react-router-dom';
+import ChatBot from '@/components/ChatBot';
 
 const CarbonOffsetPage = () => {
   const [transportType, setTransportType] = useState('flight');
@@ -165,6 +166,7 @@ const CarbonOffsetPage = () => {
           </p>
         </div>
       </div>
+      <ChatBot />
     </div>
   );
 };

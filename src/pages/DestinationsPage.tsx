@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 // Fix for leaflet marker icon issues
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import ChatBot from '@/components/ChatBot';
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -197,6 +198,7 @@ const DestinationsPage = () => {
           </div>
         </div>
       </section>
+      <ChatBot />
     </div>
   );
 };
