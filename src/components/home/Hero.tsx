@@ -12,7 +12,6 @@ const Hero = () => {
   const countries = [...new Set(tours.map(tour => tour.country))];
 
   const handleSearch = () => {
-    // This would typically navigate to search results with these filters
     console.log({ destination, days, guests, tripType });
   };
 
