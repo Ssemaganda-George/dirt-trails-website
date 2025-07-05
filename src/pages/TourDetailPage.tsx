@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
@@ -22,7 +21,6 @@ const TourDetailPage = () => {
     transportation: null,
     duration: null
   });
-  const [environmentalFee, setEnvironmentalFee] = useState(false);
   
   // Find the tour by slug
   const tour = tours.find(t => t.slug === tourSlug);
@@ -39,7 +37,7 @@ const TourDetailPage = () => {
     );
   }
 
-  // Calculate total price including customizations and environmental fee
+  // Calculate total price including customizations
   const calculateTotalPrice = () => {
     let total = tour.price;
     
@@ -53,11 +51,6 @@ const TourDetailPage = () => {
     // Apply discount if available
     if (tour.discount) {
       total = total * (1 - tour.discount / 100);
-    }
-    
-    // Add environmental fee
-    if (environmentalFee) {
-      total += 50;
     }
     
     return total;
@@ -177,27 +170,6 @@ const TourDetailPage = () => {
                   />
                 </Accordion>
                 
-                {/* Environmental Fee */}
-                <div className="border border-border rounded-lg p-4 mb-6">
-                  <div className="flex items-start mb-3">
-                    <input
-                      type="checkbox"
-                      id="environmental-fee"
-                      checked={environmentalFee}
-                      onChange={() => setEnvironmentalFee(!environmentalFee)}
-                      className="mr-3 mt-1"
-                    />
-                    <div>
-                      <label htmlFor="environmental-fee" className="font-medium cursor-pointer">
-                        Add Environmental Conservation Fee ($50)
-                      </label>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        Plant trees and support local conservation efforts. You'll receive a certificate and tracking link via email.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
                 {/* Price Summary */}
                 <div className="border-t border-border pt-4 mb-6">
                   <div className="flex justify-between mb-2">
@@ -214,13 +186,6 @@ const TourDetailPage = () => {
                       </div>
                     );
                   })}
-                  
-                  {environmentalFee && (
-                    <div className="flex justify-between mb-2">
-                      <span>Environmental fee:</span>
-                      <span>$50</span>
-                    </div>
-                  )}
                   
                   {tour.discount && (
                     <div className="flex justify-between mb-2 text-safari-orange">

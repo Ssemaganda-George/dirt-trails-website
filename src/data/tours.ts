@@ -66,10 +66,10 @@ export const tours: Tour[] = [
     slug: "gorilla-trekking",
     name: "Mountain Gorilla Expedition",
     tagline: "Trek through misty forests to encounter endangered mountain gorillas",
-    description: "Journey into the mist-covered forests of Bwindi Impenetrable National Park or Volcanoes National Park for an unforgettable encounter with endangered mountain gorillas. This specialized expedition offers a rare opportunity to observe these gentle giants in their natural habitat, led by experienced trackers and naturalist guides. Beyond gorilla trekking, explore the beautiful landscapes of Uganda or Rwanda, visit local communities, and enjoy comfortable accommodations in stunning settings. This transformative experience connects you with our closest wild relatives while supporting vital conservation efforts.",
+    description: "This trip gives you an opportunity to experience and explore the medley of wonders in this most visited wildlife safari park in Uganda, start the day the way nature intended at the crack of dawn to see the wild residents emerge for a drink from the bushy waterholes as the sun begins to rise over the iconic bush veld scenery. This trip engages all your senses when you combine it with Ultimate Gorilla Tracking experience in Bwindi as a Highlight for the Best of Uganda Ultimate Primate safari.",
     duration: 5,
-    price: 3800,
-    location: "Bwindi Impenetrable Forest",
+    price: 2000,
+    location: "Queen Elizabeth & Bwindi Forest National Park",
     country: "Uganda",
     coverImage: "/images/gorilla-uganda-primate-trekking-eating.jpeg",
     images: [
@@ -87,13 +87,15 @@ export const tours: Tour[] = [
       "Opportunity to see golden monkeys (optional)"
     ],
     inclusions: [
-      "Gorilla tracking permit",
-      "All accommodations",
-      "Expert naturalist guide",
-      "All meals as specified",
-      "Airport transfers",
-      "Community visits",
-      "Park fees"
+      "Meals",
+"Accommodation",
+"Transportation",
+"Soft drinks",
+"Part entrance fees",
+"Gorilla tracking permit",
+"Boat cruise",
+"Game drives",
+"Safari guide"
     ],
     exclusions: [
       "International flights",
@@ -106,36 +108,36 @@ export const tours: Tour[] = [
     itinerary: [
       {
         day: 1,
-        title: "Arrival in Entebbe",
-        description: "Arrive at Entebbe International Airport where our representative will meet and transfer you to your hotel. Relax after your journey or explore the shores of Lake Victoria if time permits. Join your guide and fellow travelers for a welcome dinner and briefing about your upcoming gorilla experience.",
+        title: "Transfer from Kampala to Queen Elizabeth NP with stopover at Equator and Igongo Cultural Center For Lunch",
+        description: "Pick up from Kampala or Entebbe international Airport and drive to Queen Elizabeth National park, with stopover at Equator crossing point at kayabwe and then proceed to Igongo cultural center in Mbarara for Lunch later after Lunch drive through Bushenyi and enjoy beautiful view of Tea plantations of south western Uganda to Queen Elizabeth National Park and check in at the Lodge in the evening.",
         meals: { breakfast: false, lunch: false, dinner: true },
         accommodation: "Hotel No. 5"
       },
       {
         day: 2,
-        title: "Fly to Bwindi Impenetrable Forest",
-        description: "After breakfast, transfer to Entebbe Airport for your scheduled flight to Kihihi Airstrip. Meet your driver-guide and transfer to your lodge near Bwindi Impenetrable National Park, enjoying the scenic landscapes of rural Uganda. After lunch at the lodge, take a guided community walk to learn about conservation efforts and local culture.",
+        title: "Morning Game Drive and Afternoon Boat Cruise",
+        description: "After early morning Breakfast drive to Kasenyi plains for morning game drive which gives you the best African classic safari experience which engages all your senses with such a beautiful scenery of Rwenzori ranges and crater lakes animals expected to be sighted includes; Buffaloes, elephants, Uganda Kobs, Warthogs, Water bucks, Lions and baboons and varieties of Birds such as grey crown cranes, Southern Red bishop.Drive back to the lodge for warm Lunch, after lunch drive to mweya for the afternoon Boat cruise along the Kazinga channel for best of this un-forgettable and memorable experience while on the boat for two hours cruise to lake Edward where you will see local fishermen, this trip highlights are elephants which come down to the banks to drink and swim, several school of Hippopotamuses, Crocodiles basking at the banks and other animals like Buffaloes, water bucks with varieties of water birds such as, Great cormorant, pied kingfisher, African fish eagle etc.",
         meals: { breakfast: true, lunch: true, dinner: true },
         accommodation: "Bwindi Lodge"
       },
       {
         day: 3,
-        title: "Gorilla Tracking Experience",
-        description: "Early breakfast before transferring to the park headquarters for a briefing by the rangers. Embark on your gorilla tracking experience, which can take between 2-6 hours depending on the gorillas' location. Spend a magical hour with a gorilla family, observing their behavior and interactions. Return to the lodge for a late lunch and time to relax and reflect on your experience.",
+        title: "Transfer to Bwindi Impenetrable Forest National Park",
+        description: "You will then drive to Bwindi Impenetrable National Park with stop over for lunch en-route at selected Restaurant, Driving on these snake roads of kigezi region it is another great experience and check in at the Lodge in the evening as you relax after this long drive.",
         meals: { breakfast: true, lunch: true, dinner: true },
         accommodation: "Bwindi Lodge"
       },
       {
         day: 4,
-        title: "Forest Walk and Community Visit",
-        description: "After breakfast, join a guided forest walk to discover the biodiversity of Bwindi, home to over 120 mammal species and 350 bird species. In the afternoon, visit a Batwa Pygmy community to learn about their traditional forest lifestyle and how they're adapting to life outside the forest. Enjoy a cultural performance before returning to your lodge.",
+        title: "Gorilla Tracking in Bwindi Impenetrable National Park",
+        description: "After Early Morning Breakfast drive to Gorilla tracking Briefing Point along with your packed lunch after briefing set off to meet the Beautiful giants in the forest enjoy the time with these closest giants to human.After tracking drive back to the lodge and have your time and relax as you enjoy the perfect view of Bwindi impenetrable forest, enjoy the balcony view of the forest from your room or on your private patio just outside at the shade besides the restaurant and the Bar.",
         meals: { breakfast: true, lunch: true, dinner: true },
         accommodation: "Bwindi Lodge"
       },
       {
         day: 5,
-        title: "Return to Entebbe and Departure",
-        description: "After breakfast, transfer to Kihihi Airstrip for your scheduled flight back to Entebbe. Depending on your international flight time, you may have the opportunity for lunch and some souvenir shopping before your transfer to Entebbe International Airport for your departure.",
+        title: "Transfer Back to Kampala",
+        description: "After early morning, breakfast Drive, back to Kampala with stop over for lunch at selected Restaurant en-route. ",
         meals: { breakfast: true, lunch: true, dinner: false },
         accommodation: "Day room if required"
       }
@@ -263,11 +265,11 @@ export const tours: Tour[] = [
   {
     id: "tour-005",
     slug: "queen-elizabeth-safari",
-    name: "Queen Elizabeth Wildlife Safari",
+    name: "3 Days Lifetime Wildlife Safari-Queen Elizabeth National Park",
     tagline: "Discover Uganda's most diverse national park",
-    description: "Experience the rich biodiversity of Queen Elizabeth National Park, home to tree-climbing lions, elephants, and over 600 bird species. This safari combines game drives, boat cruises on the Kazinga Channel, and chimpanzee tracking in Kyambura Gorge.",
-    duration: 4,
-    price: 1899,
+    description: "You are welcome to this adventure that takes you to Queen Elizabeth national park, Uganda’s second largest national park that covers an area of 1978 square km. This trip to the medley of wonders will offer you an opportunity to experience and encounter the most outstanding moment, as you will be able to see a number of flora and fauna.During your game drive, you will be able to see animals like Lions, Elephants, Leopards, Buffaloes and many others. And the boat cruise that will be done along Kazinga channel will offer you a chance to see hippos, crocodiles, water birds and others.",
+    duration: 3,
+    price: 490000,
     location: "Queen Elizabeth National Park",
     country: "Uganda",
     coverImage: "/images/queen-Elizabeth.jpeg",
@@ -286,13 +288,12 @@ export const tours: Tour[] = [
       "Cultural village visits"
     ],
     inclusions: [
-      "All accommodations",
-      "Park entry fees",
-      "Game drives",
-      "Boat cruise",
-      "Chimpanzee tracking permit",
-      "Professional guide",
-      "Meals as specified"
+      "Transportation",
+"Park entrance",
+"Accommodation",
+"Boat cruise",
+"Game drive",
+"Safari guide"
     ],
     exclusions: [
       "International flights",
@@ -305,32 +306,25 @@ export const tours: Tour[] = [
     itinerary: [
       {
         day: 1,
-        title: "Arrival in Entebbe",
-        description: "Arrive at Entebbe International Airport and transfer to your hotel.",
+        title: "Transfer from Kampala to Queen Elizabeth national park.",
+        description: "You will begin your trip from Kampala to Queen Elizabeth national park with a morning briefing by your guide upon pick up, and then begin your trip to Queen Elizabeth national park, with a number of stopovers for photography, snacks, and relaxing.You will take a stopover at the equator along masaka road, and lunch at a selected restaurant. Then after your lunch, you will embark on your journey, to the park, check in from the hotel and relax as you wait for the next day.",
         meals: { breakfast: false, lunch: false, dinner: true },
         accommodation: "Protea Hotel Entebbe"
       },
       {
         day: 2,
-        title: "Queen Elizabeth National Park",
-        description: "Fly to Queen Elizabeth National Park and enjoy an afternoon game drive.",
+        title: "Morning Game Drive and Afternoon Boat Cruise.",
+        description: "You will wake early in the morning with the early grazers, have your breakfast, and then head to the jungle, in search for the wild residents. During this game drive, you will have an opportunity to see a number wildlife, including the elephants, buffaloes, lions, leopards, beautiful birds and many others. Then then after, head to the lodge for your lunch, as your prepare for the afternoon boat cruise.Afternoon boat cruise  You will get set for the 2-3 hours boat cruise along Kazinga channel, that connects Lakes Edward and George, with over 40kn long. You will be able to see a number animals more especially the water life, like Hippos, crocodiles, water birds like kingfishers and many others.You will after, head back to the lodge for dinner and overnight. ",
         meals: { breakfast: true, lunch: true, dinner: true },
         accommodation: "Mweya Safari Lodge"
       },
       {
         day: 3,
-        title: "Kazinga Channel and Kyambura Gorge",
-        description: "Morning boat cruise on Kazinga Channel and afternoon chimpanzee tracking in Kyambura Gorge.",
+        title: "Transfer To Kampala",
+        description: "After your morning breakfast, you will exit the park with many memories, you will exit the park as you embark on the most engaging moments and memories and drive back to Kampala,You will drive and have your lunch enroute from a selected restaurant. You will reach in Kampala in the evening, and be dropped to your hotel or to the airport or Kampala, or at your respective homes.End of the Tour.",
         meals: { breakfast: true, lunch: true, dinner: true },
         accommodation: "Mweya Safari Lodge"
       },
-      {
-        day: 4,
-        title: "Departure",
-        description: "Morning game drive and transfer to the airstrip for your flight back to Entebbe.",
-        meals: { breakfast: true, lunch: false, dinner: false },
-        accommodation: null
-      }
     ],
     reviews: [
       {
@@ -427,11 +421,11 @@ export const tours: Tour[] = [
   {
     id: "tour-006",
     slug: "murchison-falls",
-    name: "Murchison Falls Adventure",
+    name: "3 Days Wildlife Encounter- Murchison Falls NP",
     tagline: "Witness the world's most powerful waterfall",
-    description: "Journey to Murchison Falls National Park to see the mighty Nile squeeze through a narrow gorge before plunging 43 meters. Enjoy game drives, boat safaris, and the chance to spot rare shoebill storks.",
+    description: "The park is located in west Nile and have a number of activities that reward you with the great connection to the nature.  You will enjoy the great and stunning view of the falls standing on the top. The park is home for a number of wildlife including the lions, elephants, buffaloes, giraffes, warthogs, leopards, hippos, and many others.While on your boat cruise, you will be able to encounter the number of animals, like hippos, crocodiles, elephants, and others. The boat cruise starts from the lower side of the river Nile, and cruise as you head towards the bottom of the falls. This will be very interesting and engaging moment than ever before.",
     duration: 3,
-    price: 1499,
+    price: 580000,
     location: "Murchison Falls",
     country: "Uganda",
     coverImage: "/images/murchison-falls-view.jpg",
@@ -450,12 +444,13 @@ export const tours: Tour[] = [
       "Traditional village visits"
     ],
     inclusions: [
-      "All accommodations",
-      "Park entry fees",
-      "Game drives",
-      "Boat safari",
-      "Professional guide",
-      "Meals as specified"
+      "Transportation",
+"Park entrance",
+"Accommodation",
+"Boat cruise",
+"Game drive",
+"Safari guide",
+
     ],
     exclusions: [
       "International flights",
@@ -467,23 +462,23 @@ export const tours: Tour[] = [
     ],
     itinerary: [
       {
-        day: 1,
-        title: "Arrival in Entebbe",
-        description: "Arrive at Entebbe International Airport and transfer to your hotel.",
-        meals: { breakfast: false, lunch: false, dinner: true },
-        accommodation: "Protea Hotel Entebbe"
-      },
+   day: 1,
+   title: "Arrival in Entebbe",
+   description: "Pick Up And Transfer From Kampala To Murchison Falls National Park. You will be picked up by our driver guide smart and in our uniform who will welcome you, and brief you about this amazing and fascinating safari in Uganda. You will start the journey and drive through kampala, one of Africa's 24/7 busy cities. You drive then to Murchison falls national park as you will drive along kampala-gulu highway, as you drive a near the most fascinating, rewarding and beautiful nature of Uganda. You will proceed to Kabalega dinners for your lunch, and the after lunch, you will proceed to Murchison falls national park. You will enter the park through kicumbanyobo gate, check in from the park entrance and as you enter the park, you will be welcomed by the sturbon baboons, singing birds, and the beautiful scent of nature. You reach the hotel, check in and then drive to the top of the falls, where you will view the falls, that is one of world's powerful where over 300 cubic meters volume of water forces itself into a narrow rock. You will have your dinner and overnight as you wait for the next day.",
+   meals: { breakfast: false, lunch: false, dinner: true },
+   accommodation: "Protea Hotel Entebbe"
+ },
       {
         day: 2,
-        title: "Murchison Falls National Park",
-        description: "Fly to Murchison Falls National Park and enjoy an afternoon game drive.",
+        title: "Morning Game Drive And Afternoon Boat Cruise.",
+        description: "You will be welcomed to a new day with a beautiful and delicious African made breakfast, and then you start a new day by driving into the jungle.You will go in for a morning game drive where you will be able to meet and encounter the wild residents including the lions, leopards, elephants,  bufalloes and many others.These wild resident will potray a clear reason for you being in this fascinating and touristic destination. Enjoy the more than a rewarding moments with these wild animals.You will then return to the lodge for your lunch and thereafter, you will go in for an afternoon boat cruise along the river nile, that takes approximately 3 hours. Within the boat cruise, you will be able to meet a number of animals like the hippos, crocodiles, and water birds like kingfishers, among others. You will also be able to see more other animals that come to drink waters on the river nile.You will then return to the hotel and relax, have your dinner and overnight.",
         meals: { breakfast: true, lunch: true, dinner: true },
         accommodation: "Paraa Safari Lodge"
       },
       {
         day: 3,
-        title: "Boat Safari and Falls Hike",
-        description: "Morning boat safari on the Nile and afternoon hike to the top of Murchison Falls.",
+        title: "Transfer To Kampala",
+        description: "After your morning breakfast, you will exit the park with a lot of memories, you will exit the park as you embark on the most engaging moments and memories and drive back to kampala,You will drive and have your lunch enroute from a selected restaurant. You will reach in kampala in the evening, and be dropped to your hotel or to the airport for your flight.End Of The Tour.",
         meals: { breakfast: true, lunch: true, dinner: true },
         accommodation: "Paraa Safari Lodge"
       },
@@ -575,6 +570,165 @@ export const tours: Tour[] = [
   },
   {
     id: "tour-007",
+    slug: "gorilla-tracking",
+    name: "5 days lifetime wildlife and gorilla tracking (Queen Elizabeth & Bwindi Forest National Park)",
+    tagline: "Track gorillas in the primate capital of the world",
+    description: "This trip gives you an opportunity to experience and explore the medley of wonders in this most visited wildlife safari park in Uganda, start the day the way nature intended at the crack of dawn to see the wild residents emerge for a drink from the bushy waterholes as the sun begins to rise over the iconic bush veld scenery. This trip engages all your senses when you combine it with Ultimate Gorilla Tracking experience in Bwindi as a Highlight for the Best of Uganda Ultimate Primate safari.",
+    duration: 5,
+    price: 2000,
+    location: "Queen Elizabeth & Bwindi Forest National Park",
+    country: "Uganda",
+    coverImage: "/images/silverback-gorilla-3.jpg",
+    images: [
+      { url: "/images/silverback-gorilla-4.jpg", alt: "Gorilla tracking" },
+      { url: "/images/walk.jpg", alt: "Forest walks" },
+      { url: "/images/silverback-gorilla-1.jpg", alt: "Silver Back" },
+      { url: "/images/lodge-uganda.jpg", alt: "Lodge" }
+    ],
+    mapImage: "/images/murchison-falls-view.jpg",
+    highlights: [
+      "Chimpanzee tracking experience",
+      "13 different primate species",
+      "Guided forest walks",
+      "Bird watching opportunities",
+      "Cultural community visits"
+    ],
+    inclusions: [
+      "Meals",
+"Accommodation",
+"Transportation",
+"Soft drinks",
+"Part entrance fees",
+"Gorilla tracking permit",
+"Boat cruise",
+"Game drives",
+"Safari guide"
+    ],
+    exclusions: [
+      "International flights",
+      "Visa fees",
+      "Travel insurance",
+      "Personal expenses",
+      "Tips and gratuities",
+      "Optional activities"
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Transfer from Kampala to Queen Elizabeth NP with stopover at Equator and Igongo Cultural Center For Lunch",
+        description: "Pick up from Kampala or Entebbe international Airport and drive to Queen Elizabeth National park, with stopover at Equator crossing point at kayabwe and then proceed to Igongo cultural center in Mbarara for Lunch later after Lunch drive through Bushenyi and enjoy beautiful view of Tea plantations of south western Uganda to Queen Elizabeth National Park and check in at the Lodge in the evening.",
+        meals: { breakfast: false, lunch: false, dinner: true },
+        accommodation: "Protea Hotel Entebbe"
+      },
+      {
+        day: 2,
+        title: "Morning Game Drive and Afternoon Boat Cruise",
+        description: "After early morning Breakfast drive to Kasenyi plains for morning game drive which gives you the best African classic safari experience which engages all your senses with such a beautiful scenery of Rwenzori ranges and crater lakes animals expected to be sighted includes; Buffaloes, elephants, Uganda Kobs, Warthogs, Water bucks, Lions and baboons and varieties of Birds such as grey crown cranes, Southern Red bishop. Drive back to the lodge for warm Lunch, after lunch drive to mweya for the afternoon Boat cruise along the Kazinga channel for best of this un-forgettable and memorable experience while on the boat for two hours cruise to lake Edward where you will see local fishermen, this trip highlights are elephants which come down to the banks to drink and swim, several school of Hippopotamuses, Crocodiles basking at the banks and other animals like Buffaloes, water bucks with varieties of water birds such as, Great cormorant, pied kingfisher, African fish eagle etc.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Primate Lodge Kibale"
+      },
+      {
+        day: 3,
+        title: "Transfer to Bwindi Impenetrable Forest National Park",
+        description: "You will then drive to Bwindi Impenetrable National Park with stop over for lunch en-route at selected Restaurant, Driving on these snake roads of kigezi region it is another great experience and check in at the Lodge in the evening as you relax after this long drive",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Primate Lodge Kibale"
+      },
+      {
+        day: 4,
+        title: "Gorilla Tracking in Bwindi Impenetrable National Park",
+        description: "After Early Morning Breakfast drive to Gorilla tracking Briefing Point along with your packed lunch after briefing set off to meet the Beautiful giants in the forest enjoy the time with these closest giants to human.After tracking drive back to the lodge and have your time and relax as you enjoy the perfect view of Bwindi impenetrable forest, enjoy the balcony view of the forest from your room or on your private patio just outside at the shade besides the restaurant and the Bar.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: null
+      },
+      {
+        day: 5,
+        title: "Transfer Back to Kampala",
+        description: "After early morning, breakfast Drive, back to Kampala with stop over for lunch at selected Restaurant en-route.",
+        meals: { breakfast: true, lunch: true, dinner: false },
+        accommodation: null
+      }
+    ],
+    reviews: [
+      {
+        id: "review-001",
+        name: "Karen White",
+        rating: 5,
+        comment: "Amazing chimpanzee tracking experience!",
+        date: "2023-09-10"
+      },
+      {
+        id: "review-002",
+        name: "Peter Green",
+        rating: 4,
+        comment: "Saw so many primates!",
+        date: "2023-08-25"
+      },
+      {
+        id: "review-003",
+        name: "Linda Brown",
+        rating: 5,
+        comment: "The forest walks were beautiful.",
+        date: "2023-08-01"
+      }
+    ],
+    rating: 4.5,
+    customizationOptions: {
+      accommodation: [
+        {
+          id: "acc-001",
+          name: "Standard Lodge",
+          type: "accommodation",
+          description: "Comfortable lodge accommodations.",
+          priceAdjustment: 0
+        },
+        {
+          id: "acc-002",
+          name: "Luxury Upgrade",
+          type: "accommodation",
+          description: "Upgraded luxury accommodations.",
+          priceAdjustment: 300
+        }
+      ],
+      activities: [
+        {
+          id: "act-001",
+          name: "Bird Watching",
+          type: "activity",
+          description: "Dedicated bird watching excursion.",
+          priceAdjustment: 150
+        },
+        {
+          id: "act-002",
+          name: "Cultural Visit",
+          type: "activity",
+          description: "Visit to a local community.",
+          priceAdjustment: 100
+        }
+      ],
+      transportation: [
+        {
+          id: "trans-001",
+          name: "Standard Transport",
+          type: "transportation",
+          description: "Standard transportation.",
+          priceAdjustment: 0
+        }
+      ],
+      duration: [
+        {
+          id: "dur-001",
+          name: "Standard 4-Day",
+          type: "duration",
+          description: "Standard 4-day itinerary.",
+          priceAdjustment: 0
+        }
+      ]
+    },
+    featured: true
+  },
+  {
+    id: "tour-008",
     slug: "kibale-primates",
     name: "Kibale Forest Primate Safari",
     tagline: "Track chimpanzees in the primate capital of the world",
@@ -640,6 +794,187 @@ export const tours: Tour[] = [
         day: 4,
         title: "Departure",
         description: "Drive back to Entebbe.",
+        meals: { breakfast: true, lunch: true, dinner: false },
+        accommodation: null
+      }
+    ],
+    reviews: [
+      {
+        id: "review-001",
+        name: "Karen White",
+        rating: 5,
+        comment: "Amazing chimpanzee tracking experience!",
+        date: "2023-09-10"
+      },
+      {
+        id: "review-002",
+        name: "Peter Green",
+        rating: 4,
+        comment: "Saw so many primates!",
+        date: "2023-08-25"
+      },
+      {
+        id: "review-003",
+        name: "Linda Brown",
+        rating: 5,
+        comment: "The forest walks were beautiful.",
+        date: "2023-08-01"
+      }
+    ],
+    rating: 4.5,
+    customizationOptions: {
+      accommodation: [
+        {
+          id: "acc-001",
+          name: "Standard Lodge",
+          type: "accommodation",
+          description: "Comfortable lodge accommodations.",
+          priceAdjustment: 0
+        },
+        {
+          id: "acc-002",
+          name: "Luxury Upgrade",
+          type: "accommodation",
+          description: "Upgraded luxury accommodations.",
+          priceAdjustment: 300
+        }
+      ],
+      activities: [
+        {
+          id: "act-001",
+          name: "Bird Watching",
+          type: "activity",
+          description: "Dedicated bird watching excursion.",
+          priceAdjustment: 150
+        },
+        {
+          id: "act-002",
+          name: "Cultural Visit",
+          type: "activity",
+          description: "Visit to a local community.",
+          priceAdjustment: 100
+        }
+      ],
+      transportation: [
+        {
+          id: "trans-001",
+          name: "Standard Transport",
+          type: "transportation",
+          description: "Standard transportation.",
+          priceAdjustment: 0
+        }
+      ],
+      duration: [
+        {
+          id: "dur-001",
+          name: "Standard 4-Day",
+          type: "duration",
+          description: "Standard 4-day itinerary.",
+          priceAdjustment: 0
+        }
+      ]
+    },
+    featured: true
+  },
+  {
+    id: "tour-009",
+    slug: "8-day-gorilla-tracking",
+    name: "8 Days Ultimate Gorilla Tracking, Chimpanzee Tracking and Wildlife Encounter in Uganda",
+    tagline: "Track gorillas in the primate capital of the world",
+    description: "This trip takes you to 3 of Uganda’s 10 national parks, which are one of the most loved and visited by tourists. While on this trip, you will encounter and explore the ultimate gorilla experience, in Bwindi, the medley of wonders in queen Elizabeth national as you will be engaged in game drive, and boat cruise, as well as the tree climbing lions of  Ishasha. While in Kibale national Park, you will experience the great moments with the chimpanzees, our closest cousins. This adventure, make the best of it, as it engages your minds, and uplifts your soul connecting you to the most outstanding and rewarding, wildlife encounter.Begin every day the way nature has intended.",
+    duration: 8,
+    price: 1699,
+    location: "Bwindi Forest,Queen Elizabeth National Park & Kibale Forest",
+    country: "Uganda",
+    coverImage: "/images/chimp1.jpg",
+    images: [
+      { url: "/images/chip2.jpg", alt: "Chimpanzee tracking" },
+      { url: "/images/chip3.jpg", alt: "Forest walks" },
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Lodge exterior" },
+      { url: "/images/hippo.jpg", alt: "Local culture" }
+    ],
+    mapImage: "/images/murchison-falls-view.jpg",
+    highlights: [
+      "Chimpanzee tracking experience",
+      "13 different primate species",
+      "Guided forest walks",
+      "Bird watching opportunities",
+      "Cultural community visits"
+    ],
+    inclusions: [
+      "Gorilla tracking permit",
+"Chimpanzee tracking permit",
+"All park entrances",
+"Transportation & Transfers",
+"Game drives",
+"Boat cruise",
+"Batwa experience",
+"Full board accommodation",
+"Professional Safari guide",
+"Snacks & drinking water"
+    ],
+    exclusions: [
+      "International flights",
+      "Visa fees",
+      "Travel insurance",
+      "Personal expenses",
+      "Tips and gratuities",
+      "Optional activities"
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Transfer from Kampala to Bwindi National Park.",
+        description: "You will begin your trip, on day one from Kampala with a briefing from the driver guide, who will the make sure you got your breakfast, and then drive to western Uganda, where your end will be Bwindi national park. You will have number stopovers for meals, snacks, photos, and your lunch.  You will be driving westwards, along the snake like roads, surrounded by the most beautiful and fantastic landscapes that will be attracting every camera lens and your eyes.Curious! You will check in from the hotel, in the evening and relax as you prepare your minds for the wonderful next day.",
+        meals: { breakfast: false, lunch: false, dinner: true },
+        accommodation: "Protea Hotel Entebbe"
+      },
+      {
+        day: 2,
+        title: "Ultimate Gorilla Tracking Experience",
+        description: "This is a long waited and a highlight day of the trip! As you will wake up In the morning have your breakfast, and packed lunch, then head to the gorilla tracking briefing point to meet the guides who will be taking you through this experience.You will take a short walk through the impenetrable and tropical rain forests, as you will meet these primates, as you will be allowed time with them, as you witness their interaction and behaviours.Thereafter, you will return to the hotel, for relaxation, sit and enjoy the balcony view of the tropical rain forests, as the beautiful birds sing for you from the nature, with that sweet and sharp nature voice. You will later have your dinner and overnight stay as you wait for the next day.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Primate Lodge Kibale"
+      },
+      {
+        day: 3,
+        title: "Batwa Experience ",
+        description: "You are welcome to this new and 3rd day of your adventure, where a morning breakfast, and then head in for the cultural encounter will welcome you. During this day, you will be able to meet the Batwa, the so said to be human but the poorest tribe of people in Uganda. During your stay with them, you will be able to enjoy the beautiful and remarkable moments, as you will enjoy their local dances, and other cultural activities, like their hunting activities and others. You will in the evening, head back to the lodge, relax and you enjoy the balcony view of the tropical rain forests. Dinner, overnight stay as you wait for the next day.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Primate Lodge Kibale"
+      },
+      {
+        day: 4,
+        title: "Transfer to Queen Elizabeth National Park via Ishasha",
+        description: "You will be welcomed to this new day for your adventure with an African delicious breakfast, and then drive to Queen Elizabeth national park via Ishasha sector in southern part of Queen Elizabeth national park.While driving to queen Elizabeth national park, a drive that will take about 5 hours, driving with a game drive through Ishasha, and with luck, you will be able to observe the tree climbing lions as the submerge in the tree branches, relaxing or playing, as they watch their territories. You will proceed to Queen Elizabeth’s northern sector, for checking in from the lodge, relax with dinner and overnight stay and wait for the next day. ",
+        meals: { breakfast: true, lunch: true, dinner: false },
+        accommodation: null
+      },
+       {
+        day: 5,
+        title: "The Morning Game Drive and Afternoon Boat Cruise",
+        description: "After early morning Breakfast drive to the Kasenyi plains for morning game drive because its believed to be a home for abundant wildlife, including the predators and the prey, which gives you the best African classic safari experience which engages all your senses with such a beautiful scenery of Rwenzori ranges and crater lakes animals expected to be sighted includes; Buffaloes, elephants, Uganda Kobs, Warthogs, Water bucks, Lions and baboons and varieties of Birds such as grey crown cranes, Southern Red bishop.Drive back to the lodge for warm Lunch, after lunch drive to mweya OR Katunguru for the afternoon Boat cruise along the Kazinga channel for best of this un-forgettable and memorable experience while on the boat for two hours cruise to lake Edward where you will see local fishermen, this trip highlights are elephants which come down to the banks to drink and swim, several school of Hippopotamuses, Crocodiles basking at the banks and other animals like Buffaloes, water bucks with varieties of water birds such as, Great cormorant, pied kingfisher, African fish eagle etc.",
+        meals: { breakfast: true, lunch: true, dinner: false },
+        accommodation: null
+      },
+      {
+        day: 6,
+        title: "Transfer to Kibale Forest National Park",
+        description: "You will wake up in the morning with your morning breakfast, and then embark on your journey to Kibale national park, via Kasese Mpondwe road, with a number of stopovers and outstanding view of the fantastic landscapes, as you drive along the zigzag road heading to fort portal. You will drive for approximately 2-3 hours where you will reach check in from the hotel, and then relax, a you prepare for an activity or the next day. On this day, we may visit the Bigodi community for nature walks to see a number of birds, and primates like the monkeys. Head back to the lodge, relax, with your dinner stay as you wait for the next day.",
+        meals: { breakfast: true, lunch: true, dinner: false },
+        accommodation: null
+      },
+      {
+        day: 7,
+        title: "Transfer to Kibale Forest National Park",
+        description: "You will wake up in the morning with a morning breakfast and head to Kanyanchu tourist information center with your parked lunch and drinking water, where you will meet the rangers or guides, who will give you the briefing and information about the chimpanzees, and go meet the wild residents from the primate capital of the world. On this day, you will have a moment with the Chimpanzees, our closest cousins. Spending that moment with these primates is so fascinating that, you will be thrilled by their behaviors and interactions. You will then after drive back to the for relaxation, and then have an evening walk, you will then head back to the lodge and relax with your dinner, and overnight stay as you wait for the next day.",
+        meals: { breakfast: true, lunch: true, dinner: false },
+        accommodation: null
+      },
+      {
+        day: 8,
+        title: "Transfer back to Kampala.",
+        description: "You will wake up in the morning with your morning breakfast, and embark on your journey back to Kampala, as this will be the last day of your adventure. You will drive with your lunch en route and through Fort portal Kampala road as you enjoy the drive through the beautiful and scenic landscapes filled and covered by the tea plantations. You will reach in Kampala in the afternoon / evening and drive to your home, or hotel, or the airport for your return flight.",
         meals: { breakfast: true, lunch: true, dinner: false },
         accommodation: null
       }
