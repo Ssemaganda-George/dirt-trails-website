@@ -50,6 +50,7 @@ export interface Tour {
   exclusions: string[];
   itinerary: TourDay[];
   reviews: Review[];
+  pricingTiers?: PricingTier[];
   rating: number;
   customizationOptions: {
     accommodation: CustomizationOption[];
@@ -58,6 +59,13 @@ export interface Tour {
     duration: CustomizationOption[];
   };
   featured: boolean;
+}
+
+export interface PricingTier {
+  min: number;
+  max: number;
+  price: number;
+  label: string;
 }
 
 export const tours: Tour[] = [
@@ -72,6 +80,7 @@ export const tours: Tour[] = [
     location: "Queen Elizabeth & Bwindi Forest National Park",
     country: "Uganda",
     coverImage: "/images/gorilla-uganda-primate-trekking-eating.jpeg",
+
     images: [
       { url: "/images/gorilla-uganda-primate-trekking-eating.jpeg", alt: "Mountain gorilla" },
       { url: "/images/kibaale.jpeg", alt: "Misty forest" },
@@ -168,97 +177,132 @@ export const tours: Tour[] = [
     rating: 4.8,
     customizationOptions: {
       accommodation: [
-        {
-          id: "acc-001",
-          name: "Comfort Lodges",
-          type: "accommodation",
-          description: "Comfortable lodges with authentic charm and essential amenities.",
-          priceAdjustment: 0
-        },
-        {
-          id: "acc-002",
-          name: "Premium Ecolodges",
-          type: "accommodation",
-          description: "Upgraded accommodations with enhanced amenities and prime locations.",
-          priceAdjustment: 600
-        },
-        {
-          id: "acc-003",
-          name: "Luxury Wilderness Retreats",
-          type: "accommodation",
-          description: "Exclusive high-end properties with exceptional service and settings.",
-          priceAdjustment: 1200
-        }
-      ],
+      {
+        id: "acc-001",
+        name: "Budget Camping",
+        type: "accommodation",
+        description: "Basic camping at UWA bandas or community campsites near Bwindi. Shared facilities with sleeping bags and basic meals.",
+        priceAdjustment: -200000 
+      },
+      {
+        id: "acc-002",
+        name: "Mid-range Lodge",
+        type: "accommodation",
+        description: "Comfortable lodges like Buhoma Haven Lodge or Engagi Lodge with en-suite rooms and restaurant facilities.",
+        priceAdjustment: 0
+      },
+      {
+        id: "acc-003",
+        name: "Luxury Safari Lodge",
+        type: "accommodation",
+        description: "Premium lodges like Sanctuary Gorilla Forest Camp or Clouds Mountain Gorilla Lodge with luxury amenities.",
+        priceAdjustment: 1500000 
+      },
+      {
+        id: "acc-004",
+        name: "Community Homestay",
+        type: "accommodation",
+        description: "Authentic cultural experience with Batwa or local families. Includes traditional meals and cultural activities.",
+        priceAdjustment: -150000 
+      }
+    ],
       activities: [
-        {
-          id: "act-001",
-          name: "Second Gorilla Trek",
-          type: "activity",
-          description: "Add an additional gorilla tracking experience to see a different family group.",
-          priceAdjustment: 700
-        },
-        {
-          id: "act-002",
-          name: "Golden Monkey Tracking",
-          type: "activity",
-          description: "Add golden monkey tracking in Mgahinga Gorilla National Park.",
-          priceAdjustment: 200
-        },
-        {
-          id: "act-003",
-          name: "Batwa Cultural Experience",
-          type: "activity",
-          description: "Extended cultural immersion with the Batwa indigenous people.",
-          priceAdjustment: 150
-        }
-      ],
+      {
+        id: "act-001",
+        name: "Gorilla Habituation Experience",
+        type: "activity",
+        description: "Full day gorilla habituation in Rushaga sector. Spend 4+ hours with gorillas and researchers learning about their behavior. Permit included.",
+        priceAdjustment: 4000000 
+      },
+      {
+        id: "act-002",
+        name: "Batwa Cultural Trail",
+        type: "activity",
+        description: "Learn about the indigenous Batwa people's traditional forest lifestyle, hunting techniques, and cultural practices.",
+        priceAdjustment: 100000 
+      },
+      {
+        id: "act-003",
+        name: "Bwindi Forest Bird Watching",
+        type: "activity",
+        description: "Guided bird watching tour in Bwindi Forest with chances to see 23 endemic Albertine Rift species.",
+        priceAdjustment: 80000 
+      },
+      {
+        id: "act-004",
+        name: "Nature Forest Walk",
+        type: "activity",
+        description: "Guided nature walk through Bwindi Forest to see primates, butterflies, and medicinal plants.",
+        priceAdjustment: 60000 
+      },
+      {
+        id: "act-005",
+        name: "Community Village Visit",
+        type: "activity",
+        description: "Visit local communities around Bwindi for traditional crafts, farming practices, and cultural performances.",
+        priceAdjustment: 50000 
+      }
+    ],
       transportation: [
-        {
-          id: "trans-001",
-          name: "Scheduled Flights",
-          type: "transportation",
-          description: "Shared scheduled flights between destinations.",
-          priceAdjustment: 0
-        },
-        {
-          id: "trans-002",
-          name: "Private Vehicle Transfer",
-          type: "transportation",
-          description: "Exclusive use of vehicle instead of flights (longer but scenic).",
-          priceAdjustment: -200
-        },
-        {
-          id: "trans-003",
-          name: "Helicopter Transfers",
-          type: "transportation",
-          description: "Spectacular helicopter flights between destinations.",
-          priceAdjustment: 1500
-        }
-      ],
+      {
+        id: "trans-001",
+        name: "Shared Safari Vehicle",
+        type: "transportation",
+        description: "Shared 4WD vehicle accommodating 6-7 passengers. Budget-friendly option for backpackers.",
+        priceAdjustment: -150000 
+      },
+      {
+        id: "trans-002",
+        name: "Private Safari Vehicle",
+        type: "transportation",
+        description: "Private 4WD vehicle with professional driver-guide. Maximum comfort and flexibility for your group.",
+        priceAdjustment: 0
+      },
+      {
+        id: "trans-003",
+        name: "Luxury Safari Vehicle",
+        type: "transportation",
+        description: "Premium 4WD with air conditioning, mini-fridge, and enhanced comfort features.",
+        priceAdjustment: 250000 
+      },
+      {
+        id: "trans-004",
+        name: "Fly-in Safari",
+        type: "transportation",
+        description: "Chartered flight from Entebbe to Kihihi airstrip, then ground transfer to Bwindi. Saves 8+ hours travel time.",
+        priceAdjustment: 2000000 
+      }
+    ],
       duration: [
-        {
-          id: "dur-001",
-          name: "Standard 5-Day Itinerary",
-          type: "duration",
-          description: "The classic gorilla experience as outlined.",
-          priceAdjustment: 0
-        },
-        {
-          id: "dur-002",
-          name: "Extended 7-Day Experience",
-          type: "duration",
-          description: "Additional days to explore surrounding areas and wildlife.",
-          priceAdjustment: 1200
-        },
-        {
-          id: "dur-003",
-          name: "Comprehensive 10-Day Journey",
-          type: "duration",
-          description: "Complete Ugandan safari including Queen Elizabeth National Park.",
-          priceAdjustment: 2400
-        }
-      ]
+      {
+        id: "dur-001",
+        name: "2 Days Express Gorilla Trek",
+        type: "duration",
+        description: "Quick 2-day trip focusing on gorilla trekking only. Fly-in recommended due to 8–10-hour drive from Entebbe.",
+        priceAdjustment: -300000 
+      },
+      {
+        id: "dur-002",
+        name: "3 Days Standard Gorilla Safari",
+        type: "duration",
+        description: "Standard 3-day itinerary with gorilla trekking and cultural activities.",
+        priceAdjustment: 0
+      },
+      {
+        id: "dur-003",
+        name: "4 Days Extended Gorilla Experience",
+        type: "duration",
+        description: "Extended safari with gorilla trekking, Batwa cultural trail, and nature walks.",
+        priceAdjustment: 200000 
+      },
+      {
+        id: "dur-004",
+        name: "5 Days Comprehensive Gorilla Adventure",
+        type: "duration",
+        description: "Comprehensive experience with gorilla habituation, cultural visits, and bird watching.",
+        priceAdjustment: 450000 
+      }
+    ]
     },
     featured: true
   },
@@ -267,9 +311,9 @@ export const tours: Tour[] = [
     slug: "queen-elizabeth-safari",
     name: "3 Days Lifetime Wildlife Safari-Queen Elizabeth National Park",
     tagline: "Discover Uganda's most diverse national park",
-    description: "You are welcome to this adventure that takes you to Queen Elizabeth national park, Uganda’s second largest national park that covers an area of 1978 square km. This trip to the medley of wonders will offer you an opportunity to experience and encounter the most outstanding moment, as you will be able to see a number of flora and fauna.During your game drive, you will be able to see animals like Lions, Elephants, Leopards, Buffaloes and many others. And the boat cruise that will be done along Kazinga channel will offer you a chance to see hippos, crocodiles, water birds and others.",
+    description: "You are welcome to this adventure that takes you to Queen Elizabeth national park, Uganda's second largest national park that covers an area of 1978 square km. This trip to the medley of wonders will offer you an opportunity to experience and encounter the most outstanding moment, as you will be able to see a number of flora and fauna.During your game drive, you will be able to see animals like Lions, Elephants, Leopards, Buffaloes and many others. And the boat cruise that will be done along Kazinga channel will offer you a chance to see hippos, crocodiles, water birds and others.",
     duration: 3,
-    price: 490000,
+    price: 490000,  
     location: "Queen Elizabeth National Park",
     country: "Uganda",
     coverImage: "/images/queen-Elizabeth.jpeg",
@@ -281,71 +325,78 @@ export const tours: Tour[] = [
     ],
     mapImage: "/images/murchison-falls-view.jpg",
     highlights: [
-      "Game drives to spot tree-climbing lions",
+      "Game drives to spot tree-climbing lions in Ishasha sector",
       "Boat cruise on Kazinga Channel",
       "Chimpanzee tracking in Kyambura Gorge",
-      "Bird watching opportunities",
-      "Cultural village visits"
+      "Bird watching with over 600 species",
+      "Cultural encounters with local communities",
+      "Visit to Maramagambo Forest",
+      "Crater lakes exploration"
     ],
     inclusions: [
-      "Transportation",
-"Park entrance",
-"Accommodation",
-"Boat cruise",
-"Game drive",
-"Safari guide"
+      "Private 4WD safari vehicle with pop-up roof",
+      "Professional English-speaking driver-guide",
+      "Park entrance fees",
+      "Accommodation as per itinerary",
+      "All meals (breakfast, lunch, dinner)",
+      "Kazinga Channel boat cruise",
+      "Game drives",
+      "Bottled water during activities",
+      "Government taxes"
     ],
     exclusions: [
       "International flights",
-      "Visa fees",
-      "Travel insurance",
-      "Personal expenses",
-      "Tips and gratuities",
-      "Optional activities"
+      "Uganda entry visa (USD 50)",
+      "Travel and medical insurance",
+      "Personal expenses and souvenirs",
+      "Tips and gratuities for guides and staff",
+      "Alcoholic beverages",
+      "Laundry services",
+      "Optional activities not mentioned in itinerary"
     ],
     itinerary: [
       {
         day: 1,
-        title: "Transfer from Kampala to Queen Elizabeth national park.",
-        description: "You will begin your trip from Kampala to Queen Elizabeth national park with a morning briefing by your guide upon pick up, and then begin your trip to Queen Elizabeth national park, with a number of stopovers for photography, snacks, and relaxing.You will take a stopover at the equator along masaka road, and lunch at a selected restaurant. Then after your lunch, you will embark on your journey, to the park, check in from the hotel and relax as you wait for the next day.",
-        meals: { breakfast: false, lunch: false, dinner: true },
-        accommodation: "Protea Hotel Entebbe"
+        title: "Transfer from Kampala to Queen Elizabeth National Park",
+        description: "Depart Kampala early morning (7:00 AM) for Queen Elizabeth National Park. Stop at the Uganda Equator crossing in Kayabwe for photos and demonstrations. Continue via Masaka-Mbarara highway with lunch break in Mbarara town. Arrive at the park in late afternoon, check into your lodge and enjoy dinner while preparing for tomorrow's adventures.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Mweya Safari Lodge / Bush Lodge / Simba Safari Camp"
       },
       {
         day: 2,
-        title: "Morning Game Drive and Afternoon Boat Cruise.",
-        description: "You will wake early in the morning with the early grazers, have your breakfast, and then head to the jungle, in search for the wild residents. During this game drive, you will have an opportunity to see a number wildlife, including the elephants, buffaloes, lions, leopards, beautiful birds and many others. Then then after, head to the lodge for your lunch, as your prepare for the afternoon boat cruise.Afternoon boat cruise  You will get set for the 2-3 hours boat cruise along Kazinga channel, that connects Lakes Edward and George, with over 40kn long. You will be able to see a number animals more especially the water life, like Hippos, crocodiles, water birds like kingfishers and many others.You will after, head back to the lodge for dinner and overnight. ",
+        title: "Morning Game Drive and Afternoon Kazinga Channel Boat Cruise",
+        description: "Early morning game drive (6:30 AM) in Kasenyi plains searching for lions, elephants, buffaloes, leopards, and Uganda kobs. Return for breakfast and rest. After lunch, enjoy a 2-hour boat cruise on Kazinga Channel connecting Lakes Edward and George. Spot hippos, crocodiles, elephants, and numerous bird species including African fish eagles, kingfishers, and pelicans. Evening at leisure.",
         meals: { breakfast: true, lunch: true, dinner: true },
-        accommodation: "Mweya Safari Lodge"
+        accommodation: "Mweya Safari Lodge / Bush Lodge / Simba Safari Camp"
       },
       {
         day: 3,
-        title: "Transfer To Kampala",
-        description: "After your morning breakfast, you will exit the park with many memories, you will exit the park as you embark on the most engaging moments and memories and drive back to Kampala,You will drive and have your lunch enroute from a selected restaurant. You will reach in Kampala in the evening, and be dropped to your hotel or to the airport or Kampala, or at your respective homes.End of the Tour.",
-        meals: { breakfast: true, lunch: true, dinner: true },
-        accommodation: "Mweya Safari Lodge"
-      },
+        title: "Ishasha Sector Game Drive and Return to Kampala",
+        description: "After breakfast, drive to Ishasha sector famous for tree-climbing lions. Game drive searching for these unique lions resting in fig trees. Also spot topi antelopes, elephants, and various bird species. Lunch en route. Begin journey back to Kampala with stopover for crafts shopping. Arrive in Kampala by evening and transfer to your hotel or Entebbe Airport.",
+        meals: { breakfast: true, lunch: true, dinner: false },
+        accommodation: "End of tour"
+      }
     ],
     reviews: [
       {
         id: "review-001",
         name: "Emily Clark",
         rating: 5,
-        comment: "Amazing experience! Seeing the tree-climbing lions was incredible.",
+        comment: "Amazing experience! Seeing the tree-climbing lions in Ishasha was incredible. Our guide was very knowledgeable about Ugandan wildlife.",
         date: "2023-09-01"
       },
       {
         id: "review-002",
         name: "John Doe",
         rating: 4,
-        comment: "The boat cruise was a highlight. Saw so many animals!",
+        comment: "The Kazinga Channel boat cruise was a highlight. Saw so many hippos and birds! The lodge was comfortable.",
         date: "2023-08-15"
       },
       {
         id: "review-003",
         name: "Alice Smith",
         rating: 5,
-        comment: "Chimpanzee tracking was unforgettable.",
+        comment: "Chimpanzee tracking in Kyambura Gorge was unforgettable. Great value for money!",
         date: "2023-07-22"
       }
     ],
@@ -354,70 +405,141 @@ export const tours: Tour[] = [
       accommodation: [
         {
           id: "acc-001",
-          name: "Standard Lodge",
+          name: "Budget Camping",
           type: "accommodation",
-          description: "Comfortable lodge accommodations.",
-          priceAdjustment: 0
+          description: "Basic camping with shared facilities at Uganda Wildlife Authority bandas or community campsites. Includes sleeping bags and basic meals.",
+          priceAdjustment: -150000 // UGX
         },
         {
           id: "acc-002",
-          name: "Luxury Upgrade",
+          name: "Mid-range Lodge",
           type: "accommodation",
-          description: "Upgraded luxury accommodations.",
-          priceAdjustment: 500
+          description: "Comfortable mid-range lodges like Bush Lodge or Simba Safari Camp with en-suite rooms and restaurant facilities.",
+          priceAdjustment: 0
+        },
+        {
+          id: "acc-003",
+          name: "Luxury Safari Lodge",
+          type: "accommodation",
+          description: "Upmarket lodges like Mweya Safari Lodge or Katara Lodge with premium amenities, spa services, and stunning views.",
+          priceAdjustment: 350000 // UGX
+        },
+        {
+          id: "acc-004",
+          name: "Community Homestay",
+          type: "accommodation",
+          description: "Authentic cultural experience staying with local families in nearby communities. Includes traditional meals and cultural activities.",
+          priceAdjustment: -100000 // UGX
         }
       ],
       activities: [
         {
           id: "act-001",
-          name: "Hot Air Balloon",
+          name: "Chimpanzee Tracking - Kyambura Gorge",
           type: "activity",
-          description: "Hot air balloon ride over the park.",
-          priceAdjustment: 400
+          description: "Track chimpanzees in the 'Valley of Apes' - Kyambura Gorge. 2-4 hour guided trek to observe our closest relatives in their natural habitat.",
+          priceAdjustment: 150000 // UGX
         },
         {
           id: "act-002",
           name: "Night Game Drive",
           type: "activity",
-          description: "Night game drive to see nocturnal animals.",
-          priceAdjustment: 200
+          description: "Guided night game drive to spot nocturnal animals like leopards, hyenas, bush babies, and nightjars. Unique opportunity to see different animal behavior.",
+          priceAdjustment: 80000 // UGX
+        },
+        {
+          id: "act-003",
+          name: "Crater Lakes Exploration",
+          type: "activity",
+          description: "Visit the beautiful crater lakes around Queen Elizabeth NP including Lake Katwe (salt mining), Lake Munyanyange, and other scenic crater lakes.",
+          priceAdjustment: 60000 // UGX
+        },
+        {
+          id: "act-004",
+          name: "Cultural Village Visit",
+          type: "activity",
+          description: "Visit local communities around the park to learn about traditional lifestyle, crafts, and cultural practices. Includes traditional dance performances.",
+          priceAdjustment: 40000 // UGX
+        },
+        {
+          id: "act-005",
+          name: "Maramagambo Forest Walk",
+          type: "activity",
+          description: "Guided nature walk through Maramagambo Forest to see primates, birds, and visit the bat cave and python cave.",
+          priceAdjustment: 50000 // UGX
         }
       ],
       transportation: [
         {
           id: "trans-001",
-          name: "Standard Flights",
+          name: "Shared Safari Vehicle",
           type: "transportation",
-          description: "Scheduled flights.",
-          priceAdjustment: 0
+          description: "Shared 4WD safari vehicle with pop-up roof, accommodating 6-7 passengers. Cost-effective option for budget travelers.",
+          priceAdjustment: -120000 // UGX
         },
         {
           id: "trans-002",
-          name: "Private Charter",
+          name: "Private Safari Vehicle",
           type: "transportation",
-          description: "Private chartered flights.",
-          priceAdjustment: 1000
+          description: "Private 4WD safari vehicle with pop-up roof and professional driver-guide. Maximum comfort and flexibility.",
+          priceAdjustment: 0
+        },
+        {
+          id: "trans-003",
+          name: "Luxury Safari Vehicle",
+          type: "transportation",
+          description: "Premium 4WD vehicle with air conditioning, mini-fridge, and enhanced comfort features. Ideal for luxury travelers.",
+          priceAdjustment: 200000 // UGX
+        },
+        {
+          id: "trans-004",
+          name: "Fly-in Safari",
+          type: "transportation",
+          description: "Chartered flight from Entebbe to Mweya or Kasese airstrip, significantly reducing travel time. Ground transfers included.",
+          priceAdjustment: 800000 // UGX
         }
       ],
       duration: [
         {
           id: "dur-001",
-          name: "Standard 4-Day",
+          name: "2 Days Express Safari",
           type: "duration",
-          description: "Standard 4-day itinerary.",
-          priceAdjustment: 0
+          description: "Quick 2-day safari focusing on game drives and Kazinga Channel boat cruise. Perfect for short visits to Uganda.",
+          priceAdjustment: -180000 // UGX
         },
         {
           id: "dur-002",
-          name: "Extended 5-Day",
+          name: "3 Days Standard Safari",
           type: "duration",
-          description: "Extended 5-day itinerary.",
-          priceAdjustment: 600
+          description: "Standard 3-day itinerary covering main attractions including Ishasha tree-climbing lions and Kazinga Channel.",
+          priceAdjustment: 0
+        },
+        {
+          id: "dur-003",
+          name: "4 Days Extended Safari",
+          type: "duration",
+          description: "Extended safari including chimpanzee tracking, cultural visits, and more game drives. More relaxed pace with extra activities.",
+          priceAdjustment: 250000 // UGX
+        },
+        {
+          id: "dur-004",
+          name: "5 Days Comprehensive Safari",
+          type: "duration",
+          description: "Comprehensive experience with all major activities, rest days, and optional visits to nearby attractions like Kibale Forest.",
+          priceAdjustment: 450000 // UGX
         }
       ]
     },
+    // Ugandan pricing tiers in UGX
+    pricingTiers: [
+      { min: 1, max: 1, price: 490000, label: "1 person" },
+      { min: 2, max: 2, price: 380000, label: "2 people" },
+      { min: 3, max: 4, price: 320000, label: "3-4 people" },
+      { min: 5, max: 6, price: 280000, label: "5-6 people" },
+      { min: 7, max: 999, price: 250000, label: "7+ people (group discount)" }
+    ],
     featured: true
-  },
+},
   {
     id: "tour-006",
     slug: "murchison-falls",
@@ -509,62 +631,132 @@ export const tours: Tour[] = [
     rating: 4.7,
     customizationOptions: {
       accommodation: [
-        {
-          id: "acc-001",
-          name: "Standard Lodge",
-          type: "accommodation",
-          description: "Comfortable lodge accommodations.",
-          priceAdjustment: 0
-        },
-        {
-          id: "acc-002",
-          name: "Luxury Upgrade",
-          type: "accommodation",
-          description: "Upgraded luxury accommodations.",
-          priceAdjustment: 400
-        }
-      ],
+      {
+        id: "acc-001",
+        name: "Budget Camping",
+        type: "accommodation",
+        description: "Basic camping at Red Chilli Rest Camp or UWA bandas with shared facilities and camping gear provided.",
+        priceAdjustment: -180000 // UGX
+      },
+      {
+        id: "acc-002",
+        name: "Mid-range Lodge",
+        type: "accommodation",
+        description: "Comfortable lodges like Pakuba Safari Lodge or Fort Murchison Lodge with en-suite facilities.",
+        priceAdjustment: 0
+      },
+      {
+        id: "acc-003",
+        name: "Luxury Safari Lodge",
+        type: "accommodation",
+        description: "Premium lodges like Chobe Safari Lodge or Nile Safari Lodge with luxury amenities and Nile views.",
+        priceAdjustment: 1000000 // UGX
+      },
+      {
+        id: "acc-004",
+        name: "Community Homestay",
+        type: "accommodation",
+        description: "Stay with local communities near the park, experiencing traditional lifestyle and local cuisine.",
+        priceAdjustment: -120000 // UGX
+      }
+    ],
       activities: [
-        {
-          id: "act-001",
-          name: "Hot Air Balloon",
-          type: "activity",
-          description: "Hot air balloon ride over the park.",
-          priceAdjustment: 500
-        },
-        {
-          id: "act-002",
-          name: "Shoebill Tracking",
-          type: "activity",
-          description: "Dedicated shoebill stork tracking excursion.",
-          priceAdjustment: 300
-        }
-      ],
+      {
+        id: "act-001",
+        name: "Nile Delta Boat Cruise",
+        type: "activity",
+        description: "Extended boat cruise to Nile Delta where the Nile enters Lake Albert. Excellent for bird watching and wildlife.",
+        priceAdjustment: 120000 // UGX
+      },
+      {
+        id: "act-002",
+        name: "Ziwa Rhino Sanctuary Visit",
+        type: "activity",
+        description: "Visit Ziwa Rhino Sanctuary en route to track white rhinos on foot. Uganda's only place to see rhinos.",
+        priceAdjustment: 200000 // UGX
+      },
+      {
+        id: "act-003",
+        name: "Top of the Falls Hike",
+        type: "activity",
+        description: "Hike to the top of Murchison Falls for spectacular views and photo opportunities of the world's most powerful waterfall.",
+        priceAdjustment: 40000 // UGX
+      },
+      {
+        id: "act-004",
+        name: "Night Game Drive",
+        type: "activity",
+        description: "Guided night game drive to spot nocturnal animals like leopards, hyenas, and bush babies.",
+        priceAdjustment: 100000 // UGX
+      },
+      {
+        id: "act-005",
+        name: "Sport Fishing on the Nile",
+        type: "activity",
+        description: "Catch and release fishing for the famous Nile perch and other fish species on the Victoria Nile.",
+        priceAdjustment: 200000 // UGX
+      }
+    ],
       transportation: [
-        {
-          id: "trans-001",
-          name: "Standard Flights",
-          type: "transportation",
-          description: "Scheduled flights.",
-          priceAdjustment: 0
-        },
-        {
-          id: "trans-002",
-          name: "Private Charter",
-          type: "transportation",
-          description: "Private chartered flights.",
-          priceAdjustment: 900
-        }
-      ],
+      {
+        id: "trans-001",
+        name: "Shared Safari Vehicle",
+        type: "transportation",
+        description: "Shared 4WD safari vehicle with pop-up roof. Cost-effective for budget travelers.",
+        priceAdjustment: -140000 // UGX
+      },
+      {
+        id: "trans-002",
+        name: "Private Safari Vehicle",
+        type: "transportation",
+        description: "Private 4WD vehicle with professional driver-guide and pop-up roof for game viewing.",
+        priceAdjustment: 0
+      },
+      {
+        id: "trans-003",
+        name: "Luxury Safari Vehicle",
+        type: "transportation",
+        description: "Premium 4WD with air conditioning, WiFi, and enhanced comfort features.",
+        priceAdjustment: 180000 // UGX
+      },
+      {
+        id: "trans-004",
+        name: "Fly-in Safari",
+        type: "transportation",
+        description: "Chartered flight from Entebbe to Pakuba airstrip. Reduces travel time to 1.5 hours.",
+        priceAdjustment: 1800000 // UGX
+      }
+    ],
       duration: [
-        {
-          id: "dur-001",
-          name: "Standard 3-Day",
-          type: "duration",
-          description: "Standard 3-day itinerary.",
-          priceAdjustment: 0
-        }
-      ]
+      {
+        id: "dur-001",
+        name: "2 Days Express Safari",
+        type: "duration",
+        description: "Quick 2-day safari with game drive and boat cruise to Murchison Falls. Fly-in recommended due to 6–8-hour drive.",
+        priceAdjustment: -200000 // UGX
+      },
+      {
+        id: "dur-002",
+        name: "3 Days Standard Safari",
+        type: "duration",
+        description: "Standard 3-day itinerary with game drives, boat cruise, and top of falls hike.",
+        priceAdjustment: 0
+      },
+      {
+        id: "dur-003",
+        name: "4 Days Extended Safari",
+        type: "duration",
+        description: "Extended safari including Ziwa Rhino Sanctuary and additional game drives.",
+        priceAdjustment: 300000 // UGX
+      },
+      {
+        id: "dur-004",
+        name: "5 Days Comprehensive Safari",
+        type: "duration",
+        description: "Comprehensive experience with all activities, rest days, and Nile Delta exploration.",
+        priceAdjustment: 500000 // UGX
+      }
+    ]
     },
     featured: false
   },
@@ -579,6 +771,11 @@ export const tours: Tour[] = [
     location: "Queen Elizabeth & Bwindi Forest National Park",
     country: "Uganda",
     coverImage: "/images/silverback-gorilla-3.jpg",
+    pricingTiers: [
+      { min: 1, max: 1, price: 2000, label: "1 person" },
+      { min: 2, max: 4, price: 1950, label: "2-4 people" },
+      { min: 5, max: 999, price: 1500, label: "5-10+ people" }
+    ],
     images: [
       { url: "/images/silverback-gorilla-4.jpg", alt: "Gorilla tracking" },
       { url: "/images/walk.jpg", alt: "Forest walks" },
@@ -675,55 +872,132 @@ export const tours: Tour[] = [
     rating: 4.5,
     customizationOptions: {
       accommodation: [
-        {
-          id: "acc-001",
-          name: "Standard Lodge",
-          type: "accommodation",
-          description: "Comfortable lodge accommodations.",
-          priceAdjustment: 0
-        },
-        {
-          id: "acc-002",
-          name: "Luxury Upgrade",
-          type: "accommodation",
-          description: "Upgraded luxury accommodations.",
-          priceAdjustment: 300
-        }
-      ],
+      {
+        id: "acc-001",
+        name: "Budget Camping/Bandas",
+        type: "accommodation",
+        description: "Mix of camping at Queen Elizabeth and budget bandas near Bwindi. Shared facilities with basic amenities.",
+        priceAdjustment: -350000 // UGX
+      },
+      {
+        id: "acc-002",
+        name: "Mid-range Lodges",
+        type: "accommodation",
+        description: "Comfortable mid-range lodges in both parks like Bush Lodge and Buhoma Haven Lodge.",
+        priceAdjustment: 0
+      },
+      {
+        id: "acc-003",
+        name: "Luxury Safari Lodges",
+        type: "accommodation",
+        description: "Premium lodges like Mweya Safari Lodge and Sanctuary Gorilla Forest Camp with luxury amenities.",
+        priceAdjustment: 2000000 // UGX
+      },
+      {
+        id: "acc-004",
+        name: "Mixed Accommodation",
+        type: "accommodation",
+        description: "Combination of mid-range at Queen Elizabeth and luxury at Bwindi for optimal gorilla experience.",
+        priceAdjustment: 400000 // UGX
+      }
+    ],
       activities: [
-        {
-          id: "act-001",
-          name: "Bird Watching",
-          type: "activity",
-          description: "Dedicated bird watching excursion.",
-          priceAdjustment: 150
-        },
-        {
-          id: "act-002",
-          name: "Cultural Visit",
-          type: "activity",
-          description: "Visit to a local community.",
-          priceAdjustment: 100
-        }
-      ],
+      {
+        id: "act-001",
+        name: "Gorilla Habituation Experience",
+        type: "activity",
+        description: "Upgrade from standard gorilla trekking to full-day habituation experience with researchers. Permit included.",
+        priceAdjustment: 4000000 // UGX
+      },
+      {
+        id: "act-002",
+        name: "Chimpanzee Tracking - Kyambura",
+        type: "activity",
+        description: "Track chimpanzees in Kyambura Gorge, the 'Valley of Apes' within Queen Elizabeth National Park. Permit included.",
+        priceAdjustment: 900000 // UGX
+      },
+      {
+        id: "act-003",
+        name: "Batwa Cultural Experience",
+        type: "activity",
+        description: "Learn about the indigenous Batwa people's traditional forest lifestyle and cultural practices.",
+        priceAdjustment: 100000 // UGX
+      },
+      {
+        id: "act-004",
+        name: "Ishasha Lion Tracking",
+        type: "activity",
+        description: "Specialized tracking of tree-climbing lions in Ishasha sector with expert guides.",
+        priceAdjustment: 80000 // UGX
+      },
+      {
+        id: "act-005",
+        name: "Maramagambo Forest Walk",
+        type: "activity",
+        description: "Guided nature walk through Maramagambo Forest to see primates, birds, and bat caves.",
+        priceAdjustment: 60000 // UGX
+      }
+    ],
       transportation: [
-        {
-          id: "trans-001",
-          name: "Standard Transport",
-          type: "transportation",
-          description: "Standard transportation.",
-          priceAdjustment: 0
-        }
-      ],
+      {
+        id: "trans-001",
+        name: "Shared Safari Vehicle",
+        type: "transportation",
+        description: "Shared 4WD vehicle for the entire 5-day journey. Budget-friendly group travel option.",
+        priceAdjustment: -200000 // UGX
+      },
+      {
+        id: "trans-002",
+        name: "Private Safari Vehicle",
+        type: "transportation",
+        description: "Private 4WD vehicle with professional driver-guide for maximum comfort and flexibility.",
+        priceAdjustment: 0
+      },
+      {
+        id: "trans-003",
+        name: "Luxury Safari Vehicle",
+        type: "transportation",
+        description: "Premium 4WD with air conditioning, WiFi, and enhanced comfort for long journeys.",
+        priceAdjustment: 350000 // UGX
+      },
+      {
+        id: "trans-004",
+        name: "Mixed Transport (Fly-Drive)",
+        type: "transportation",
+        description: "Fly to Kasese/Kihihi and drive between parks. Reduces travel time significantly.",
+        priceAdjustment: 2000000 // UGX
+      }
+    ],
       duration: [
-        {
-          id: "dur-001",
-          name: "Standard 4-Day",
-          type: "duration",
-          description: "Standard 4-day itinerary.",
-          priceAdjustment: 0
-        }
-      ]
+      {
+        id: "dur-001",
+        name: "4 Days Express Combo",
+        type: "duration",
+        description: "Compressed 4-day itinerary covering essential activities in both parks. Fly-in recommended.",
+        priceAdjustment: -300000 // UGX
+      },
+      {
+        id: "dur-002",
+        name: "5 Days Standard Combo",
+        type: "duration",
+        description: "Standard 5-day itinerary with balanced time in both Queen Elizabeth and Bwindi.",
+        priceAdjustment: 0
+      },
+      {
+        id: "dur-003",
+        name: "6 Days Extended Combo",
+        type: "duration",
+        description: "Extended safari with additional activities and more relaxed pace between parks.",
+        priceAdjustment: 400000 // UGX
+      },
+      {
+        id: "dur-004",
+        name: "7 Days Comprehensive Adventure",
+        type: "duration",
+        description: "Comprehensive experience with all optional activities and cultural experiences.",
+        priceAdjustment: 700000 // UGX
+      }
+    ]
     },
     featured: true
   },
@@ -824,55 +1098,132 @@ export const tours: Tour[] = [
     rating: 4.5,
     customizationOptions: {
       accommodation: [
-        {
-          id: "acc-001",
-          name: "Standard Lodge",
-          type: "accommodation",
-          description: "Comfortable lodge accommodations.",
-          priceAdjustment: 0
-        },
-        {
-          id: "acc-002",
-          name: "Luxury Upgrade",
-          type: "accommodation",
-          description: "Upgraded luxury accommodations.",
-          priceAdjustment: 300
-        }
-      ],
+      {
+        id: "acc-001",
+        name: "Budget Camping",
+        type: "accommodation",
+        description: "Basic camping at Kibale Forest Camp or community campsites with shared facilities.",
+        priceAdjustment: -120000 // UGX
+      },
+      {
+        id: "acc-002",
+        name: "Mid-range Lodge",
+        type: "accommodation",
+        description: "Comfortable lodges like Chimpanzee Forest Guesthouse or Kibale Forest Camp with en-suite rooms.",
+        priceAdjustment: 0
+      },
+      {
+        id: "acc-003",
+        name: "Luxury Safari Lodge",
+        type: "accommodation",
+        description: "Premium lodges like Ndali Lodge or Kyaninga Lodge with luxury amenities and crater lake views.",
+        priceAdjustment: 1200000 // UGX
+      },
+      {
+        id: "acc-004",
+        name: "Community Homestay",
+        type: "accommodation",
+        description: "Stay with local communities around Kibale Forest, experiencing traditional Tooro culture.",
+        priceAdjustment: -80000 // UGX
+      }
+    ],
       activities: [
-        {
-          id: "act-001",
-          name: "Bird Watching",
-          type: "activity",
-          description: "Dedicated bird watching excursion.",
-          priceAdjustment: 150
-        },
-        {
-          id: "act-002",
-          name: "Cultural Visit",
-          type: "activity",
-          description: "Visit to a local community.",
-          priceAdjustment: 100
-        }
-      ],
+      {
+        id: "act-001",
+        name: "Chimpanzee Habituation Experience",
+        type: "activity",
+        description: "Full-day chimpanzee habituation experience with researchers, spending 4+ hours with chimps. Permit included.",
+        priceAdjustment: 1000000 // UGX
+      },
+      {
+        id: "act-002",
+        name: "Nocturnal Forest Walk",
+        type: "activity",
+        description: "Night walk in Kibale Forest to spot nocturnal primates like bush babies and pottos.",
+        priceAdjustment: 80000 // UGX
+      },
+      {
+        id: "act-003",
+        name: "Bigodi Wetland Sanctuary",
+        type: "activity",
+        description: "Visit community-managed Bigodi Wetland Sanctuary for bird watching and swamp walks.",
+        priceAdjustment: 50000 // UGX
+      },
+      {
+        id: "act-004",
+        name: "Crater Lakes Exploration",
+        type: "activity",
+        description: "Explore the beautiful crater lakes around Kibale including Lake Nkuruba and Lake Nyabikere.",
+        priceAdjustment: 70000 // UGX
+      },
+      {
+        id: "act-005",
+        name: "Cultural Village Tour",
+        type: "activity",
+        description: "Visit local Tooro communities to learn about traditional culture, crafts, and farming practices.",
+        priceAdjustment: 60000 // UGX
+      }
+    ],
       transportation: [
-        {
-          id: "trans-001",
-          name: "Standard Transport",
-          type: "transportation",
-          description: "Standard transportation.",
-          priceAdjustment: 0
-        }
-      ],
+      {
+        id: "trans-001",
+        name: "Shared Safari Vehicle",
+        type: "transportation",
+        description: "Shared 4WD vehicle with other travelers. Cost-effective option for budget travelers.",
+        priceAdjustment: -100000 // UGX
+      },
+      {
+        id: "trans-002",
+        name: "Private Safari Vehicle",
+        type: "transportation",
+        description: "Private 4WD vehicle with professional driver-guide for personalized experience.",
+        priceAdjustment: 0
+      },
+      {
+        id: "trans-003",
+        name: "Luxury Safari Vehicle",
+        type: "transportation",
+        description: "Premium 4WD with air conditioning and enhanced comfort features.",
+        priceAdjustment: 150000 // UGX
+      },
+      {
+        id: "trans-004",
+        name: "Fly-in Safari",
+        type: "transportation",
+        description: "Chartered flight from Entebbe to Kasese airstrip, then ground transfer to Kibale.",
+        priceAdjustment: 1800000 // UGX
+      }
+    ],
       duration: [
-        {
-          id: "dur-001",
-          name: "Standard 4-Day",
-          type: "duration",
-          description: "Standard 4-day itinerary.",
-          priceAdjustment: 0
-        }
-      ]
+      {
+        id: "dur-001",
+        name: "2 Days Express Primate Safari",
+        type: "duration",
+        description: "Quick 2-day safari focusing on chimpanzee tracking and Bigodi wetland visit. Fly-in recommended.",
+        priceAdjustment: -150000 // UGX
+      },
+      {
+        id: "dur-002",
+        name: "3 Days Standard Primate Safari",
+        type: "duration",
+        description: "Standard 3-day itinerary with chimpanzee tracking and cultural activities.",
+        priceAdjustment: 0
+      },
+      {
+        id: "dur-003",
+        name: "4 Days Extended Primate Experience",
+        type: "duration",
+        description: "Extended safari with habituation experience and crater lakes exploration.",
+        priceAdjustment: 250000 // UGX
+      },
+      {
+        id: "dur-004",
+        name: "5 Days Comprehensive Primate Adventure",
+        type: "duration",
+        description: "Comprehensive experience with all activities and relaxed pace for better wildlife viewing.",
+        priceAdjustment: 400000 // UGX
+      }
+    ]
     },
     featured: true
   },
@@ -1005,55 +1356,132 @@ export const tours: Tour[] = [
     rating: 4.5,
     customizationOptions: {
       accommodation: [
-        {
-          id: "acc-001",
-          name: "Standard Lodge",
-          type: "accommodation",
-          description: "Comfortable lodge accommodations.",
-          priceAdjustment: 0
-        },
-        {
-          id: "acc-002",
-          name: "Luxury Upgrade",
-          type: "accommodation",
-          description: "Upgraded luxury accommodations.",
-          priceAdjustment: 300
-        }
-      ],
+      {
+        id: "acc-001",
+        name: "Budget Mixed Accommodation",
+        type: "accommodation",
+        description: "Combination of camping, bandas, and budget lodges across all parks. Shared facilities with basic amenities.",
+        priceAdjustment: -600000 // UGX
+      },
+      {
+        id: "acc-002",
+        name: "Mid-range Lodges",
+        type: "accommodation",
+        description: "Comfortable mid-range lodges in all parks with en-suite facilities and restaurant services.",
+        priceAdjustment: 0
+      },
+      {
+        id: "acc-003",
+        name: "Luxury Safari Lodges",
+        type: "accommodation",
+        description: "Premium lodges across all parks including Mweya Safari Lodge, Sanctuary Gorilla Forest Camp, and Ndali Lodge.",
+        priceAdjustment: 2500000 // UGX
+      },
+      {
+        id: "acc-004",
+        name: "Mixed Luxury & Mid-range",
+        type: "accommodation",
+        description: "Luxury accommodation at gorilla location, mid-range at other parks for optimal experience.",
+        priceAdjustment: 600000 // UGX
+      }
+    ],
       activities: [
-        {
-          id: "act-001",
-          name: "Bird Watching",
-          type: "activity",
-          description: "Dedicated bird watching excursion.",
-          priceAdjustment: 150
-        },
-        {
-          id: "act-002",
-          name: "Cultural Visit",
-          type: "activity",
-          description: "Visit to a local community.",
-          priceAdjustment: 100
-        }
-      ],
+      {
+        id: "act-001",
+        name: "Gorilla Habituation Experience",
+        type: "activity",
+        description: "Upgrade from standard gorilla trekking to full-day habituation experience with researchers. Permit included.",
+        priceAdjustment: 4000000 // UGX
+      },
+      {
+        id: "act-002",
+        name: "Chimpanzee Habituation - Kibale",
+        type: "activity",
+        description: "Full-day chimpanzee habituation experience in Kibale Forest with extended time with chimps. Permit included.",
+        priceAdjustment: 1000000 // UGX
+      },
+      {
+        id: "act-003",
+        name: "White Water Rafting - Jinja",
+        type: "activity",
+        description: "Full-day white water rafting adventure on the Nile River in Jinja with grade 5 rapids.",
+        priceAdjustment: 200000 // UGX
+      },
+      {
+        id: "act-004",
+        name: "Cultural Experience Package",
+        type: "activity",
+        description: "Comprehensive cultural experiences including Batwa trail, village visits, and traditional performances.",
+        priceAdjustment: 180000 // UGX
+      },
+      {
+        id: "act-005",
+        name: "Source of the Nile Visit",
+        type: "activity",
+        description: "Visit the source of the Nile River in Jinja with boat cruise and historical site exploration.",
+        priceAdjustment: 120000 // UGX
+      }
+    ],
       transportation: [
-        {
-          id: "trans-001",
-          name: "Standard Transport",
-          type: "transportation",
-          description: "Standard transportation.",
-          priceAdjustment: 0
-        }
-      ],
+      {
+        id: "trans-001",
+        name: "Shared Safari Vehicle",
+        type: "transportation",
+        description: "Shared 4WD vehicle for the entire 8-day journey. Budget-friendly group travel option.",
+        priceAdjustment: -400000 // UGX
+      },
+      {
+        id: "trans-002",
+        name: "Private Safari Vehicle",
+        type: "transportation",
+        description: "Private 4WD vehicle with professional driver-guide for the entire journey.",
+        priceAdjustment: 0
+      },
+      {
+        id: "trans-003",
+        name: "Luxury Safari Vehicle",
+        type: "transportation",
+        description: "Premium 4WD with air conditioning, WiFi, and enhanced comfort for long journeys.",
+        priceAdjustment: 500000 // UGX
+      },
+      {
+        id: "trans-004",
+        name: "Mixed Transport (Fly & Drive)",
+        type: "transportation",
+        description: "Combination of domestic flights and ground transport to reduce travel time between parks.",
+        priceAdjustment: 3000000 // UGX
+      }
+    ],
       duration: [
-        {
-          id: "dur-001",
-          name: "Standard 4-Day",
-          type: "duration",
-          description: "Standard 4-day itinerary.",
-          priceAdjustment: 0
-        }
-      ]
+      {
+        id: "dur-001",
+        name: "6 Days Express Ultimate Safari",
+        type: "duration",
+        description: "Compressed 6-day itinerary covering major highlights with faster pace. Fly-in recommended.",
+        priceAdjustment: -500000 // UGX
+      },
+      {
+        id: "dur-002",
+        name: "8 Days Standard Ultimate Safari",
+        type: "duration",
+        description: "Standard 8-day comprehensive safari covering all major Ugandan wildlife and primate experiences.",
+        priceAdjustment: 0
+      },
+      {
+        id: "dur-003",
+        name: "10 Days Extended Ultimate Safari",
+        type: "duration",
+        description: "Extended safari with additional activities, rest days, and more time in each park.",
+        priceAdjustment: 700000 // UGX
+      },
+      {
+        id: "dur-004",
+        name: "12 Days Comprehensive Uganda Adventure",
+        type: "duration",
+        description: "Most comprehensive Uganda experience with all activities, cultural experiences, and relaxed pace.",
+        priceAdjustment: 1200000 // UGX
+      }
+    ]
     },
     featured: true
   },
@@ -3217,69 +3645,132 @@ export const tours: Tour[] = [
     rating: 4.8,
     customizationOptions: {
       accommodation: [
-        {
-          id: "acc-001",
-          name: "Luxury Safari Lodge",
-          type: "accommodation",
-          description: "Stunning lodge with panoramic views over the savanna.",
-          priceAdjustment: 0
-        },
-        {
-          id: "acc-002",
-          name: "Authentic Safari Camp",
-          type: "accommodation",
-          description: "More authentic tented camp experience.",
-          priceAdjustment: -400
-        }
-      ],
+      {
+        id: "acc-001",
+        name: "Budget Camping",
+        type: "accommodation",
+        description: "Basic camping at Apoka Rest Camp or community campsites with shared facilities and camping equipment.",
+        priceAdjustment: -200000 // UGX
+      },
+      {
+        id: "acc-002",
+        name: "Mid-range Lodge",
+        type: "accommodation",
+        description: "Comfortable lodges like Nga'Moru Wilderness Camp or Apoka Safari Lodge with en-suite facilities.",
+        priceAdjustment: 0
+      },
+      {
+        id: "acc-003",
+        name: "Luxury Safari Lodge",
+        type: "accommodation",
+        description: "Premium lodges like Kidepo Savannah Lodge with luxury amenities and stunning valley views.",
+        priceAdjustment: 1000000 // UGX
+      },
+      {
+        id: "acc-004",
+        name: "Cultural Manyatta Stay",
+        type: "accommodation",
+        description: "Authentic experience staying in traditional Karamojong manyatta (homestead) with local families.",
+        priceAdjustment: -150000 // UGX
+      }
+    ],
       activities: [
-        {
-          id: "act-001",
-          name: "Scenic Helicopter Flight",
-          type: "activity",
-          description: "Aerial tour over Kidepo's magnificent landscapes.",
-          priceAdjustment: 650
-        },
-        {
-          id: "act-002",
-          name: "Extended Cultural Program",
-          type: "activity",
-          description: "In-depth cultural immersion with overnight homestay.",
-          priceAdjustment: 250
-        }
-      ],
+      {
+        id: "act-001",
+        name: "Karamojong Cultural Experience",
+        type: "activity",
+        description: "Full cultural immersion with Karamojong people including traditional ceremonies, crafts, and lifestyle.",
+        priceAdjustment: 150000 // UGX
+      },
+      {
+        id: "act-002",
+        name: "Kanangorok Hot Springs Visit",
+        type: "activity",
+        description: "Visit the famous Kanangorok Hot Springs on the border with South Sudan, a unique geological feature.",
+        priceAdjustment: 100000 // UGX
+      },
+      {
+        id: "act-003",
+        name: "Mountain Hiking - Mount Morungole",
+        type: "activity",
+        description: "Guided hike up Mount Morungole for panoramic views of Kidepo Valley and surrounding landscape.",
+        priceAdjustment: 80000 // UGX
+      },
+      {
+        id: "act-004",
+        name: "Night Game Drive",
+        type: "activity",
+        description: "Specialized night game drive to spot nocturnal animals like leopards, hyenas, and aardvarks.",
+        priceAdjustment: 120000 // UGX
+      },
+      {
+        id: "act-005",
+        name: "Bird Watching Tour",
+        type: "activity",
+        description: "Guided bird watching tour to see over 475 species including ostriches and secretary birds.",
+        priceAdjustment: 70000 // UGX
+      }
+    ],
       transportation: [
-        {
-          id: "trans-001",
-          name: "Charter Flights",
-          type: "transportation",
-          description: "Scheduled charter flights between destinations.",
-          priceAdjustment: 0
-        },
-        {
-          id: "trans-002",
-          name: "Overland Adventure",
-          type: "transportation",
-          description: "Multi-day road journey through rural Uganda (for the adventurous).",
-          priceAdjustment: -400
-        }
-      ],
+      {
+        id: "trans-001",
+        name: "Shared Safari Vehicle",
+        type: "transportation",
+        description: "Shared 4WD vehicle for the long journey to Kidepo. Budget option for adventurous travelers.",
+        priceAdjustment: -180000 // UGX
+      },
+      {
+        id: "trans-002",
+        name: "Private Safari Vehicle",
+        type: "transportation",
+        description: "Private 4WD vehicle with professional driver-guide for the challenging road to Kidepo.",
+        priceAdjustment: 0
+      },
+      {
+        id: "trans-003",
+        name: "Luxury Safari Vehicle",
+        type: "transportation",
+        description: "Premium 4WD with extra comfort features for the long journey to remote Kidepo.",
+        priceAdjustment: 250000 // UGX
+      },
+      {
+        id: "trans-004",
+        name: "Fly-in Safari",
+        type: "transportation",
+        description: "Chartered flight from Entebbe to Kidepo airstrip. Essential for saving 10+ hours of difficult driving.",
+        priceAdjustment: 2800000 // UGX
+      }
+    ],
       duration: [
-        {
-          id: "dur-001",
-          name: "Standard 6-Day Safari",
-          type: "duration",
-          description: "Classic 6-day Kidepo experience.",
-          priceAdjustment: 0
-        },
-        {
-          id: "dur-002",
-          name: "Extended 8-Day Safari",
-          type: "duration",
-          description: "Extended exploration with more activities.",
-          priceAdjustment: 1100
-        }
-      ]
+      {
+        id: "dur-001",
+        name: "3 Days Express Kidepo Safari",
+        type: "duration",
+        description: "Quick 3-day safari focusing on game drives and cultural experience. Fly-in strongly recommended due to 12–14-hour drive.",
+        priceAdjustment: -200000 // UGX
+      },
+      {
+        id: "dur-002",
+        name: "4 Days Standard Kidepo Safari",
+        type: "duration",
+        description: "Standard 4-day itinerary with game drives, cultural visits, and hot springs exploration.",
+        priceAdjustment: 0
+      },
+      {
+        id: "dur-003",
+        name: "5 Days Extended Kidepo Adventure",
+        type: "duration",
+        description: "Extended safari with mountain hiking, cultural immersion, and comprehensive wildlife viewing.",
+        priceAdjustment: 300000 // UGX
+      },
+      {
+        id: "dur-004",
+        name: "6 Days Comprehensive Kidepo Experience",
+        type: "duration",
+        description: "Most comprehensive Kidepo experience with all activities and cultural exchanges.",
+        priceAdjustment: 500000 // UGX
+      }
+    ]
     },
     featured: true
   },
@@ -3390,69 +3881,132 @@ export const tours: Tour[] = [
     rating: 4.7,
     customizationOptions: {
       accommodation: [
-        {
-          id: "acc-001",
-          name: "Standard Lodges",
-          type: "accommodation",
-          description: "Comfortable safari lodges with all amenities.",
-          priceAdjustment: 0
-        },
-        {
-          id: "acc-002",
-          name: "Luxury Accommodation",
-          type: "accommodation",
-          description: "Upgrade to premium lodges throughout.",
-          priceAdjustment: 400
-        }
-      ],
+      {
+        id: "acc-001",
+        name: "Budget Camping",
+        type: "accommodation",
+        description: "Basic camping at Ziwa Rhino Sanctuary and budget accommodation in Jinja with shared facilities.",
+        priceAdjustment: -150000 // UGX
+      },
+      {
+        id: "acc-002",
+        name: "Mid-range Lodge",
+        type: "accommodation",
+        description: "Comfortable lodges like Amuka Lodge at Ziwa and mid-range hotels in Jinja with en-suite facilities.",
+        priceAdjustment: 0
+      },
+      {
+        id: "acc-003",
+        name: "Luxury Safari Lodge",
+        type: "accommodation",
+        description: "Premium accommodation at Ziwa Guest House and luxury resorts in Jinja with Nile views.",
+        priceAdjustment: 800000 // UGX
+      },
+      {
+        id: "acc-004",
+        name: "Adventure Camp",
+        type: "accommodation",
+        description: "Specialized adventure camps near Jinja focusing on water sports and outdoor activities.",
+        priceAdjustment: 100000 // UGX
+      }
+    ],
       activities: [
-        {
-          id: "act-001",
-          name: "Hot Air Balloon Safari",
-          type: "activity",
-          description: "Dawn balloon flight over Murchison Falls landscape.",
-          priceAdjustment: 450
-        },
-        {
-          id: "act-002",
-          name: "Behind-the-Scenes Conservation",
-          type: "activity",
-          description: "Extended rhino conservation experience with researchers.",
-          priceAdjustment: 250
-        }
-      ],
+      {
+        id: "act-001",
+        name: "Grade 5 White Water Rafting",
+        type: "activity",
+        description: "Full-day extreme white water rafting on the Nile with grade 5 rapids and professional guides.",
+        priceAdjustment: 200000 // UGX
+      },
+      {
+        id: "act-002",
+        name: "Bungee Jumping",
+        type: "activity",
+        description: "Adrenaline-pumping bungee jump from 44 meters above the Nile River at Jinja.",
+        priceAdjustment: 180000 // UGX
+      },
+      {
+        id: "act-003",
+        name: "Kayaking on the Nile",
+        type: "activity",
+        description: "Multi-day kayaking adventure on the Nile River with camping and professional instruction.",
+        priceAdjustment: 250000 // UGX
+      },
+      {
+        id: "act-004",
+        name: "Horseback Rhino Tracking",
+        type: "activity",
+        description: "Unique horseback riding experience while tracking rhinos at Ziwa Rhino Sanctuary.",
+        priceAdjustment: 200000 // UGX
+      },
+      {
+        id: "act-005",
+        name: "Quad Biking Adventure",
+        type: "activity",
+        description: "Quad biking adventure through rural Uganda countryside and along the Nile banks.",
+        priceAdjustment: 120000 // UGX
+      }
+    ],
       transportation: [
-        {
-          id: "trans-001",
-          name: "Road Transfer",
-          type: "transportation",
-          description: "Standard road transfers between destinations.",
-          priceAdjustment: 0
-        },
-        {
-          id: "trans-002",
-          name: "Fly-in Safari",
-          type: "transportation",
-          description: "Flight from Murchison Falls to Entebbe (saving travel time).",
-          priceAdjustment: 300
-        }
-      ],
+      {
+        id: "trans-001",
+        name: "Shared Safari Vehicle",
+        type: "transportation",
+        description: "Shared 4WD vehicle for transfers between Ziwa and Jinja. Budget-friendly option.",
+        priceAdjustment: -80000 // UGX
+      },
+      {
+        id: "trans-002",
+        name: "Private Safari Vehicle",
+        type: "transportation",
+        description: "Private 4WD vehicle with professional driver-guide for flexible transfers.",
+        priceAdjustment: 0
+      },
+      {
+        id: "trans-003",
+        name: "Luxury Safari Vehicle",
+        type: "transportation",
+        description: "Premium 4WD with air conditioning and comfort features for smooth transfers.",
+        priceAdjustment: 120000 // UGX
+      },
+      {
+        id: "trans-004",
+        name: "Helicopter Transfer",
+        type: "transportation",
+        description: "Helicopter transfer from Entebbe to Jinja with scenic aerial views of the Nile.",
+        priceAdjustment: 3000000 // UGX
+      }
+    ],
       duration: [
-        {
-          id: "dur-001",
-          name: "Standard 5-Day Safari",
-          type: "duration",
-          description: "Classic 5-day experience as outlined.",
-          priceAdjustment: 0
-        },
-        {
-          id: "dur-002",
-          name: "Extended 7-Day Safari",
-          type: "duration",
-          description: "Extended safari including Budongo Forest chimpanzees.",
-          priceAdjustment: 850
-        }
-      ]
+      {
+        id: "dur-001",
+        name: "2 Days Express Rhinos & Rapids",
+        type: "duration",
+        description: "Quick 2-day adventure focusing on rhino tracking and one major water activity.",
+        priceAdjustment: -200000 // UGX
+      },
+      {
+        id: "dur-002",
+        name: "3 Days Standard Adventure",
+        type: "duration",
+        description: "Standard 3-day itinerary with rhino tracking, white water rafting, and source of Nile visit.",
+        priceAdjustment: 0
+      },
+      {
+        id: "dur-003",
+        name: "4 Days Extended Adventure",
+        type: "duration",
+        description: "Extended adventure with multiple water activities and extended time at Ziwa.",
+        priceAdjustment: 250000 // UGX
+      },
+      {
+        id: "dur-004",
+        name: "5 Days Comprehensive Adventure",
+        type: "duration",
+        description: "Most comprehensive adventure experience with all activities and cultural visits.",
+        priceAdjustment: 450000 // UGX
+      }
+    ]
     },
     featured: true
   },
@@ -3584,69 +4138,132 @@ export const tours: Tour[] = [
     rating: 4.7,
     customizationOptions: {
       accommodation: [
-        {
-          id: "acc-001",
-          name: "Standard Mountain Huts",
-          type: "accommodation",
-          description: "Basic but comfortable mountain huts during the trek.",
-          priceAdjustment: 0
-        },
-        {
-          id: "acc-002",
-          name: "Premium Pre/Post Trek",
-          type: "accommodation",
-          description: "Upgrade to luxury lodges before and after the trek.",
-          priceAdjustment: 300
-        }
-      ],
+      {
+        id: "acc-001",
+        name: "Basic Mountain Huts",
+        type: "accommodation",
+        description: "Basic mountain huts along the trekking route with shared facilities and sleeping bags provided.",
+        priceAdjustment: -300000 // UGX
+      },
+      {
+        id: "acc-002",
+        name: "Standard Mountain Lodges",
+        type: "accommodation",
+        description: "Standard mountain lodges with better facilities and meals included throughout the trek.",
+        priceAdjustment: 0
+      },
+      {
+        id: "acc-003",
+        name: "Premium Mountain Lodges",
+        type: "accommodation",
+        description: "Premium mountain lodges with enhanced comfort, better food, and additional services.",
+        priceAdjustment: 800000 // UGX
+      },
+      {
+        id: "acc-004",
+        name: "Camping Experience",
+        type: "accommodation",
+        description: "Camping experience with high-quality tents and camping equipment for adventurous trekkers.",
+        priceAdjustment: -200000 // UGX
+      }
+    ],
       activities: [
-        {
-          id: "act-001",
-          name: "Extended Peak Circuit",
-          type: "activity",
-          description: "Longer trek option with attempt on Margherita Peak (5,109m).",
-          priceAdjustment: 850
-        },
-        {
-          id: "act-002",
-          name: "Cultural Extension",
-          type: "activity",
-          description: "Additional day visiting local Bakonzo mountain communities.",
-          priceAdjustment: 200
-        }
-      ],
+      {
+        id: "act-001",
+        name: "Margherita Peak Summit",
+        type: "activity",
+        description: "Summit attempt to Margherita Peak (5,109m), the highest peak in the Rwenzori Mountains. Includes specialized gear and guides.",
+        priceAdjustment: 500000 
+      },
+      {
+        id: "act-002",
+        name: "Cultural Community Visit",
+        type: "activity",
+        description: "Visit Bakonzo communities around Rwenzori to learn about mountain culture and traditions.",
+        priceAdjustment: 80000 
+      },
+      {
+        id: "act-003",
+        name: "Nature Photography Workshop",
+        type: "activity",
+        description: "Professional photography workshop focusing on mountain landscapes and endemic flora.",
+        priceAdjustment: 150000 
+      },
+      {
+        id: "act-004",
+        name: "Botanical Tour",
+        type: "activity",
+        description: "Specialized botanical tour focusing on unique Rwenzori flora including giant lobelias.",
+        priceAdjustment: 100000 
+      },
+      {
+        id: "act-005",
+        name: "Rock Climbing Experience",
+        type: "activity",
+        description: "Rock climbing sessions on Rwenzori rock faces with professional climbing guides.",
+        priceAdjustment: 200000 
+      }
+    ],
       transportation: [
-        {
-          id: "trans-001",
-          name: "Road Transfer",
-          type: "transportation",
-          description: "Standard road transfers to and from the mountains.",
-          priceAdjustment: 0
-        },
-        {
-          id: "trans-002",
-          name: "Fly to Kasese",
-          type: "transportation",
-          description: "Flights between Entebbe and Kasese (saving travel time).",
-          priceAdjustment: 400
-        }
-      ],
+      {
+        id: "trans-001",
+        name: "Shared Transfer Vehicle",
+        type: "transportation",
+        description: "Shared vehicle transfer from Kampala to Kasese and return. Budget option for trekkers.",
+        priceAdjustment: -100000 
+      },
+      {
+        id: "trans-002",
+        name: "Private Transfer Vehicle",
+        type: "transportation",
+        description: "Private vehicle transfer with professional driver for comfortable journey to trek starting point.",
+        priceAdjustment: 0
+      },
+      {
+        id: "trans-003",
+        name: "Luxury Transfer Vehicle",
+        type: "transportation",
+        description: "Premium vehicle with air conditioning and comfort features for transfers to and from Rwenzori.",
+        priceAdjustment: 150000 
+      },
+      {
+        id: "trans-004",
+        name: "Helicopter Access",
+        type: "transportation",
+        description: "Helicopter transfer to higher camps to reduce trekking time and physical demands.",
+        priceAdjustment: 4000000 
+      }
+    ],
       duration: [
-        {
-          id: "dur-001",
-          name: "Standard 8-Day Trek",
-          type: "duration",
-          description: "Classic central circuit trek as outlined.",
-          priceAdjustment: 0
-        },
-        {
-          id: "dur-002",
-          name: "Extended 12-Day Trek",
-          type: "duration",
-          description: "Full circuit including Margherita Peak climb option.",
-          priceAdjustment: 1200
-        }
-      ]
+      {
+        id: "dur-001",
+        name: "5 Days Central Circuit",
+        type: "duration",
+        description: "5-day central circuit trek to Guy Yeoman Hut without summit attempt.",
+        priceAdjustment: -400000 
+      },
+      {
+        id: "dur-002",
+        name: "7 Days Standard Trek",
+        type: "duration",
+        description: "Standard 7-day trek to Margherita Peak with acclimatization days.",
+        priceAdjustment: 0
+      },
+      {
+        id: "dur-003",
+        name: "9 Days Extended Trek",
+        type: "duration",
+        description: "Extended 9-day trek with multiple peak attempts and comprehensive exploration.",
+        priceAdjustment: 500000 
+      },
+      {
+        id: "dur-004",
+        name: "12 Days Comprehensive Adventure",
+        type: "duration",
+        description: "Most comprehensive Rwenzori experience with all peaks and cultural activities.",
+        priceAdjustment: 800000 
+      }
+    ]
     },
     featured: false
   },
@@ -3743,69 +4360,132 @@ export const tours: Tour[] = [
     rating: 4.7,
     customizationOptions: {
       accommodation: [
-        {
-          id: "acc-001",
-          name: "Luxury Lodge",
-          type: "accommodation",
-          description: "Scenic luxury lodge overlooking the lake.",
-          priceAdjustment: 0
-        },
-        {
-          id: "acc-002",
-          name: "Tented Camp",
-          type: "accommodation",
-          description: "More authentic tented safari camp experience.",
-          priceAdjustment: -200
-        }
-      ],
+      {
+        id: "acc-001",
+        name: "Budget Camping",
+        type: "accommodation",
+        description: "Basic camping at Rwonyo Rest Camp or community campsites with shared facilities.",
+        priceAdjustment: -120000 
+      },
+      {
+        id: "acc-002",
+        name: "Mid-range Lodge",
+        type: "accommodation",
+        description: "Comfortable lodges like Rwakobo Rock Lodge or Arcadia Cottages with en-suite facilities.",
+        priceAdjustment: 0
+      },
+      {
+        id: "acc-003",
+        name: "Luxury Safari Lodge",
+        type: "accommodation",
+        description: "Premium lodges like Mihingo Lodge with luxury amenities and stunning lake views.",
+        priceAdjustment: 1000000 
+      },
+      {
+        id: "acc-004",
+        name: "Community Bandas",
+        type: "accommodation",
+        description: "Community-managed bandas offering authentic local experience with traditional meals.",
+        priceAdjustment: -80000 
+      }
+    ],
       activities: [
-        {
-          id: "act-001",
-          name: "Mountain Biking",
-          type: "activity",
-          description: "Half-day guided mountain biking safari.",
-          priceAdjustment: 120
-        },
-        {
-          id: "act-002",
-          name: "Extended Horseback Safari",
-          type: "activity",
-          description: "Full-day horseback adventure with bush lunch.",
-          priceAdjustment: 180
-        }
-      ],
+      {
+        id: "act-001",
+        name: "Extended Horseback Safari",
+        type: "activity",
+        description: "Multi-day horseback safari exploring different areas of Lake Mburo National Park.",
+        priceAdjustment: 200000 
+      },
+      {
+        id: "act-002",
+        name: "Boat Cruise on Lake Mburo",
+        type: "activity",
+        description: "Boat cruise on Lake Mburo to see hippos, crocodiles, and diverse water birds.",
+        priceAdjustment: 80000 
+      },
+      {
+        id: "act-003",
+        name: "Walking Safari",
+        type: "activity",
+        description: "Guided walking safari to get closer to wildlife and experience nature on foot.",
+        priceAdjustment: 60000 
+      },
+      {
+        id: "act-004",
+        name: "Cultural Community Visit",
+        type: "activity",
+        description: "Visit Bahima pastoralist communities to learn about traditional cattle keeping and lifestyle.",
+        priceAdjustment: 50000 
+      },
+      {
+        id: "act-005",
+        name: "Night Game Drive",
+        type: "activity",
+        description: "Night game drive to spot nocturnal animals like leopards, hyenas, and bush babies.",
+        priceAdjustment: 70000 
+      }
+    ],
       transportation: [
-        {
-          id: "trans-001",
-          name: "Road Transfer",
-          type: "transportation",
-          description: "Standard road transfers as outlined.",
-          priceAdjustment: 0
-        },
-        {
-          id: "trans-002",
-          name: "Private Vehicle",
-          type: "transportation",
-          description: "Exclusive use of safari vehicle throughout.",
-          priceAdjustment: 250
-        }
-      ],
+      {
+        id: "trans-001",
+        name: "Shared Safari Vehicle",
+        type: "transportation",
+        description: "Shared 4WD vehicle for transfers and game drives. Budget-friendly option.",
+        priceAdjustment: -80000 
+      },
+      {
+        id: "trans-002",
+        name: "Private Safari Vehicle",
+        type: "transportation",
+        description: "Private 4WD vehicle with professional driver-guide for personalized experience.",
+        priceAdjustment: 0
+      },
+      {
+        id: "trans-003",
+        name: "Luxury Safari Vehicle",
+        type: "transportation",
+        description: "Premium 4WD with air conditioning and enhanced comfort features.",
+        priceAdjustment: 120000 
+      },
+      {
+        id: "trans-004",
+        name: "Helicopter Safari",
+        type: "transportation",
+        description: "Helicopter scenic flight over Lake Mburo with aerial wildlife viewing opportunities.",
+        priceAdjustment: 2000000 
+      }
+    ],
       duration: [
-        {
-          id: "dur-001",
-          name: "Standard 3-Day Safari",
-          type: "duration",
-          description: "Classic 3-day Lake Mburo experience.",
-          priceAdjustment: 0
-        },
-        {
-          id: "dur-002",
-          name: "Extended 4-Day Safari",
-          type: "duration",
-          description: "Extra day to include Igongo Cultural Center visit.",
-          priceAdjustment: 350
-        }
-      ]
+      {
+        id: "dur-001",
+        name: "2 Days Express Safari",
+        type: "duration",
+        description: "Quick 2-day safari with horseback riding and game drives. Perfect for short visits.",
+        priceAdjustment: -150000 
+      },
+      {
+        id: "dur-002",
+        name: "3 Days Standard Safari",
+        type: "duration",
+        description: "Standard 3-day itinerary with horseback safari, boat cruise, and walking safari.",
+        priceAdjustment: 0
+      },
+      {
+        id: "dur-003",
+        name: "4 Days Extended Safari",
+        type: "duration",
+        description: "Extended safari with additional activities and cultural visits for comprehensive experience.",
+        priceAdjustment: 200000 
+      },
+      {
+        id: "dur-004",
+        name: "5 Days Comprehensive Safari",
+        type: "duration",
+        description: "Most comprehensive Lake Mburo experience with all activities and relaxed pace.",
+        priceAdjustment: 350000
+      }
+    ]
     },
     featured: false
   }
