@@ -76,7 +76,7 @@ export const tours: Tour[] = [
     tagline: "Trek through misty forests to encounter endangered mountain gorillas",
     description: "This trip gives you an opportunity to experience and explore the medley of wonders in this most visited wildlife safari park in Uganda, start the day the way nature intended at the crack of dawn to see the wild residents emerge for a drink from the bushy waterholes as the sun begins to rise over the iconic bush veld scenery. This trip engages all your senses when you combine it with Ultimate Gorilla Tracking experience in Bwindi as a Highlight for the Best of Uganda Ultimate Primate safari.",
     duration: 5,
-    price: 2000,
+    price: 9120000,
     location: "Queen Elizabeth & Bwindi Forest National Park",
     country: "Uganda",
     coverImage: "/images/gorilla-uganda-primate-trekking-eating.jpeg",
@@ -358,21 +358,21 @@ export const tours: Tour[] = [
       {
         day: 1,
         title: "Transfer from Kampala to Queen Elizabeth National Park",
-        description: "Depart Kampala early morning (7:00 AM) for Queen Elizabeth National Park. Stop at the Uganda Equator crossing in Kayabwe for photos and demonstrations. Continue via Masaka-Mbarara highway with lunch break in Mbarara town. Arrive at the park in late afternoon, check into your lodge and enjoy dinner while preparing for tomorrow's adventures.",
+        description: "You will begin your trip from Kampala to Queen Elizabeth national park with a morning briefing by your guide upon pick up, and then begin your trip to Queen Elizabeth national park, with a number of stopovers for photography, snacks, and relaxing.You will take a stopover at the equator along masaka road, and lunch at a selected restaurant. Then after your lunch, you will embark on your journey, to the park, check in from the hotel and relax as you wait for the next day.",
         meals: { breakfast: true, lunch: true, dinner: true },
         accommodation: "Mweya Safari Lodge / Bush Lodge / Simba Safari Camp"
       },
       {
         day: 2,
         title: "Morning Game Drive and Afternoon Kazinga Channel Boat Cruise",
-        description: "Early morning game drive (6:30 AM) in Kasenyi plains searching for lions, elephants, buffaloes, leopards, and Uganda kobs. Return for breakfast and rest. After lunch, enjoy a 2-hour boat cruise on Kazinga Channel connecting Lakes Edward and George. Spot hippos, crocodiles, elephants, and numerous bird species including African fish eagles, kingfishers, and pelicans. Evening at leisure.",
+        description: "You will wake early in the morning with the early grazers, have your breakfast, and then head to the jungle, in search for the wild residents. During this game drive, you will have an opportunity to see a number wildlife, including the elephants, buffaloes, lions, leopards, beautiful birds and many others. Then then after, head to the lodge for your lunch, as your prepare for the afternoon boat cruise.Afternoon boat cruise  You will get set for the 2-3 hours boat cruise along Kazinga channel, that connects Lakes Edward and George, with over 40kn long. You will be able to see a number animals more especially the water life, like Hippos, crocodiles, water birds like kingfishers and many others.You will after, head back to the lodge for dinner and overnight. ",
         meals: { breakfast: true, lunch: true, dinner: true },
         accommodation: "Mweya Safari Lodge / Bush Lodge / Simba Safari Camp"
       },
       {
         day: 3,
-        title: "Ishasha Sector Game Drive and Return to Kampala",
-        description: "After breakfast, drive to Ishasha sector famous for tree-climbing lions. Game drive searching for these unique lions resting in fig trees. Also spot topi antelopes, elephants, and various bird species. Lunch en route. Begin journey back to Kampala with stopover for crafts shopping. Arrive in Kampala by evening and transfer to your hotel or Entebbe Airport.",
+        title: "Transfer To Kampala",
+        description: "After your morning breakfast, you will exit the park with many memories, you will exit the park as you embark on the most engaging moments and memories and drive back to Kampala,You will drive and have your lunch enroute from a selected restaurant. You will reach in Kampala in the evening, and be dropped to your hotel or to the airport or Kampala, or at your respective homes.End of The Tour.",
         meals: { breakfast: true, lunch: true, dinner: false },
         accommodation: "End of tour"
       }
@@ -767,14 +767,14 @@ export const tours: Tour[] = [
     tagline: "Track gorillas in the primate capital of the world",
     description: "This trip gives you an opportunity to experience and explore the medley of wonders in this most visited wildlife safari park in Uganda, start the day the way nature intended at the crack of dawn to see the wild residents emerge for a drink from the bushy waterholes as the sun begins to rise over the iconic bush veld scenery. This trip engages all your senses when you combine it with Ultimate Gorilla Tracking experience in Bwindi as a Highlight for the Best of Uganda Ultimate Primate safari.",
     duration: 5,
-    price: 2000,
+    price: 7600000,
     location: "Queen Elizabeth & Bwindi Forest National Park",
     country: "Uganda",
     coverImage: "/images/silverback-gorilla-3.jpg",
     pricingTiers: [
-      { min: 1, max: 1, price: 2000, label: "1 person" },
-      { min: 2, max: 4, price: 1950, label: "2-4 people" },
-      { min: 5, max: 999, price: 1500, label: "5-10+ people" }
+      { min: 1, max: 1, price: 7600000, label: "1 person" },
+      { min: 2, max: 4, price: 7410000, label: "2-4 people" },
+      { min: 5, max: 999, price: 5700000, label: "5-10+ people" }
     ],
     images: [
       { url: "/images/silverback-gorilla-4.jpg", alt: "Gorilla tracking" },
@@ -1234,7 +1234,7 @@ export const tours: Tour[] = [
     tagline: "Track gorillas in the primate capital of the world",
     description: "This trip takes you to 3 of Uganda’s 10 national parks, which are one of the most loved and visited by tourists. While on this trip, you will encounter and explore the ultimate gorilla experience, in Bwindi, the medley of wonders in queen Elizabeth national as you will be engaged in game drive, and boat cruise, as well as the tree climbing lions of  Ishasha. While in Kibale national Park, you will experience the great moments with the chimpanzees, our closest cousins. This adventure, make the best of it, as it engages your minds, and uplifts your soul connecting you to the most outstanding and rewarding, wildlife encounter.Begin every day the way nature has intended.",
     duration: 8,
-    price: 1699,
+    price: 14020000,
     location: "Bwindi Forest,Queen Elizabeth National Park & Kibale Forest",
     country: "Uganda",
     coverImage: "/images/chimp1.jpg",
@@ -1243,6 +1243,11 @@ export const tours: Tour[] = [
       { url: "/images/chip3.jpg", alt: "Forest walks" },
       { url: "/images/queen-Elizabeth.jpeg", alt: "Lodge exterior" },
       { url: "/images/hippo.jpg", alt: "Local culture" }
+    ],
+    pricingTiers: [
+      { min: 1, max: 1, price: 14020000, label: "1 person" },
+      { min: 2, max: 4, price: 11400000, label: "2-4 people" },
+      { min: 5, max: 999, price: 10260000, label: "5-10+ people" }
     ],
     mapImage: "/images/murchison-falls-view.jpg",
     highlights: [

@@ -123,7 +123,7 @@ const ToursPage = () => {
                       <span className="text-sm">{tour.duration} days</span>
                     </div>
                     <div className="text-safari-green font-semibold">
-                      ${tour.price.toLocaleString()}
+                      UGx {tour.price.toLocaleString()}
                     </div>
                   </div>
                 </div>

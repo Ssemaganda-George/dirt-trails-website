@@ -152,7 +152,7 @@ const TourDetailPage = () => {
               <div className="text-center mb-4">
                 <div className="text-muted-foreground mb-2">Starting from</div>
                 <div className="text-3xl font-bold text-safari-green">
-                  UGx {Math.min(...getPricingTiers().map(tier => tier.price)).toLocaleString()}
+                  UGx {tour.price.toLocaleString()}
                 </div>
                 <div className="text-sm text-muted-foreground">per person</div>
               </div>
