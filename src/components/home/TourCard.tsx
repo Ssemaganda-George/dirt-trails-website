@@ -44,7 +44,7 @@ const TourCard = ({ tour }: TourCardProps) => {
           </div>
         </div>
         <div className="mt-2 text-safari-green font-semibold">
-          ${tour.price.toLocaleString()}
+          UGx {tour.price.toLocaleString()}
         </div> 
       </div>
     </Link>

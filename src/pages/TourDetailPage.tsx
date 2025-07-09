@@ -152,7 +152,7 @@ const TourDetailPage = () => {
               <div className="text-center mb-4">
                 <div className="text-muted-foreground mb-2">Starting from</div>
                 <div className="text-3xl font-bold text-safari-green">
-                  ${Math.min(...getPricingTiers().map(tier => tier.price)).toLocaleString()}
+                  UGx {Math.min(...getPricingTiers().map(tier => tier.price)).toLocaleString()}
                 </div>
                 <div className="text-sm text-muted-foreground">per person</div>
               </div>
@@ -240,7 +240,7 @@ const TourDetailPage = () => {
                       >
                         <span>{tier.label}</span>
                         <span className="font-semibold">
-                          ${tier.price.toLocaleString()}
+                          UGx {tier.price.toLocaleString()}
                         </span>
                       </Button>
                     ))}
@@ -248,7 +248,7 @@ const TourDetailPage = () => {
                   
                   <div className="text-center mt-3">
                     <span className="text-sm text-muted-foreground">
-                      Current rate: ${getPricePerPerson().toLocaleString()} per person
+                      Current rate: UGx {getPricePerPerson().toLocaleString()} per person
                     </span>
                   </div>
                 </div>
@@ -285,7 +285,7 @@ const TourDetailPage = () => {
                 <div className="border-t border-border pt-4 mb-6">
                   <div className="flex justify-between mb-2">
                     <span>Base price ({getCurrentTierLabel()}):</span>
-                    <span>${getBasePriceForTier().toLocaleString()}</span>
+                    <span>UGx {getBasePriceForTier().toLocaleString()}</span>
                   </div>
                   
                   {Object.entries(selectedOptions).map(([category, option]) => {
@@ -294,7 +294,7 @@ const TourDetailPage = () => {
                     return (
                       <div key={category} className="flex justify-between mb-2">
                         <span>{option.name} ({numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}):</span>
-                        <span>${totalAdjustment.toLocaleString()}</span>
+                        <span>UGx {totalAdjustment.toLocaleString()}</span>
                       </div>
                     );
                   })}
@@ -302,13 +302,13 @@ const TourDetailPage = () => {
                   {tour.discount && (
                     <div className="flex justify-between mb-2 text-safari-orange">
                       <span>Discount ({tour.discount}%):</span>
-                      <span>-${(calculateTotalPrice() * tour.discount / (100 - tour.discount)).toFixed(2)}</span>
+                      <span>-UGx {(calculateTotalPrice() * tour.discount / (100 - tour.discount)).toFixed(2)}</span>
                     </div>
                   )}
                   
                   <div className="flex justify-between font-bold text-lg mt-4 pt-2 border-t">
                     <span>Total:</span>
-                    <span className="text-safari-green">${calculateTotalPrice().toLocaleString()}</span>
+                    <span className="text-safari-green">UGx {calculateTotalPrice().toLocaleString()}</span>
                   </div>
                 </div>
                 
@@ -490,7 +490,7 @@ const TourDetailPage = () => {
                       <span className="ml-1 text-sm">{relatedTour.rating}</span>
                     </div>
                     <div className="text-safari-green font-medium">
-                      From ${relatedTour.pricingTiers ? 
+                      From UGx {relatedTour.pricingTiers ? 
                         Math.min(...relatedTour.pricingTiers.map(tier => tier.price)).toLocaleString() : 
                         relatedTour.price.toLocaleString()}
                     </div>
