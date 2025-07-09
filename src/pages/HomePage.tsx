@@ -4,6 +4,7 @@ import WhyChooseUs from '@/components/home/WhyChooseUs';
 import Conservation from '@/components/home/Conservation';
 import Testimonials from '@/components/home/Testimonials';
 import CallToAction from '@/components/home/CallToAction';
+import ChatBot from '@/components/ChatBot';
 
 const HomePage = () => {
   return (
@@ -14,6 +15,7 @@ const HomePage = () => {
       <Conservation />
       <Testimonials />
       <CallToAction />
+      <ChatBot />
     </div>
   );
 };

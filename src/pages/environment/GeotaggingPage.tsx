@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { MapPin, Search, TreePine, Camera, Smartphone, QrCode } from "lucide-react";
 import { useState } from "react";
+import ChatBot from "@/components/ChatBot";
 
 const GeotaggingPage = () => {
   const [trackingId, setTrackingId] = useState('');
@@ -207,6 +208,7 @@ const GeotaggingPage = () => {
           </Card>
         </div>
       </div>
+      <ChatBot />
     </div>
   );
 };

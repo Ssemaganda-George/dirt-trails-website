@@ -1,27 +1,28 @@
-
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
-  MapPin, Calendar, Users, Star, Check, AlertCircle, ChevronDown, ChevronUp
+  MapPin, Calendar, Users, Star, Check, AlertCircle, ChevronDown, ChevronUp, Minus, Plus
 } from 'lucide-react';
 import { tours } from '@/data/tours';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import type { CustomizationOption } from '@/data/tours';
+import ChatBot from '@/components/ChatBot';
 
 const TourDetailPage = () => {
   const { tourSlug } = useParams<{ tourSlug: string }>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [numberOfPeople, setNumberOfPeople] = useState(1);
   const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: CustomizationOption | null }>({
     accommodation: null,
     activities: null,
     transportation: null,
     duration: null
   });
-  const [environmentalFee, setEnvironmentalFee] = useState(false);
   
   // Find the tour by slug
   const tour = tours.find(t => t.slug === tourSlug);
@@ -38,28 +39,46 @@ const TourDetailPage = () => {
     );
   }
 
-  // Calculate total price including customizations and environmental fee
-  const calculateTotalPrice = () => {
-    let total = tour.price;
+  // Dynamic pricing structure - this should come from tour data
+  const getPricingTiers = () => {
+   
+    if (tour.pricingTiers) {
+      return tour.pricingTiers;
+    }
     
-    // Add customization prices
+    // Default pricing structure (fallback)
+    return [
+      { min: 1, max: 1, price: tour.price, label: "1 person" },
+      { min: 2, max: 4, price: tour.price * 0.975, label: "2-4 people" },
+      { min: 5, max: 999, price: tour.price * 0.75, label: "5+ people" }
+    ];
+  };
+
+  const getPricePerPerson = () => {
+    const pricingTiers = getPricingTiers();
+    const tier = pricingTiers.find(tier => 
+      numberOfPeople >= tier.min && numberOfPeople <= tier.max
+    );
+    return tier ? tier.price : tour.price;
+  };
+
+  // Calculate total price including customizations
+  const calculateTotalPrice = () => {
+    let pricePerPerson = getPricePerPerson();
+    
+    // Add customization prices per person
     Object.values(selectedOptions).forEach(option => {
       if (option) {
-        total += option.priceAdjustment;
+        pricePerPerson += option.priceAdjustment;
       }
     });
     
     // Apply discount if available
     if (tour.discount) {
-      total = total * (1 - tour.discount / 100);
+      pricePerPerson = pricePerPerson * (1 - tour.discount / 100);
     }
     
-    // Add environmental fee
-    if (environmentalFee) {
-      total += 50;
-    }
-    
-    return total;
+    return pricePerPerson * numberOfPeople;
   };
   
   // Handle customization selection
@@ -68,6 +87,41 @@ const TourDetailPage = () => {
       ...prev,
       [category]: option
     }));
+  };
+
+  // Handle number of people change with increment/decrement
+  const incrementPeople = () => {
+    setNumberOfPeople(prev => prev + 1);
+  };
+
+  const decrementPeople = () => {
+    setNumberOfPeople(prev => Math.max(1, prev - 1));
+  };
+
+  // Get group size options based on pricing tiers
+  const getGroupSizeOptions = () => {
+    const pricingTiers = getPricingTiers();
+    return pricingTiers.map(tier => ({
+      value: tier.min.toString(),
+      label: tier.label,
+      price: tier.price,
+      min: tier.min,
+      max: tier.max
+    }));
+  };
+
+  // Get current pricing tier label
+  const getCurrentTierLabel = () => {
+    const pricingTiers = getPricingTiers();
+    const tier = pricingTiers.find(tier => 
+      numberOfPeople >= tier.min && numberOfPeople <= tier.max
+    );
+    return tier ? tier.label : "Custom";
+  };
+
+  // Get base price for the current tier
+  const getBasePriceForTier = () => {
+    return getPricePerPerson() * numberOfPeople;
   };
 
   return (
@@ -94,17 +148,17 @@ const TourDetailPage = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-md lg:text-right">
-              <div className="flex items-center justify-between gap-4">
-                <div className="text-muted-foreground">Starting from</div>
-                <div className="text-2xl font-bold text-safari-green">
-                  ${tour.price.toLocaleString()}
-                  <span className="text-sm font-normal text-muted-foreground ml-1">per person</span>
+            <div className="bg-white p-4 rounded-lg shadow-md">
+              <div className="text-center mb-4">
+                <div className="text-muted-foreground mb-2">Starting from</div>
+                <div className="text-3xl font-bold text-safari-green">
+                  ${Math.min(...getPricingTiers().map(tier => tier.price)).toLocaleString()}
                 </div>
+                <div className="text-sm text-muted-foreground">per person</div>
               </div>
               
               {tour.discount && (
-                <div className="inline-block bg-safari-orange text-white px-2 py-1 rounded text-sm font-semibold mt-2">
+                <div className="inline-block bg-safari-orange text-white px-2 py-1 rounded text-sm font-semibold">
                   {tour.discount}% OFF
                 </div>
               )}
@@ -148,6 +202,57 @@ const TourDetailPage = () => {
               <div className="bg-white rounded-lg shadow-lg p-6 sticky top-24">
                 <h3 className="text-xl font-semibold mb-4">Customize Your Tour</h3>
                 
+                {/* Group Size Selector */}
+                <div className="mb-6">
+                  <Label className="text-lg font-medium mb-3 block">Number of People</Label>
+                  <div className="flex items-center justify-center space-x-4 mb-4">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={decrementPeople}
+                      disabled={numberOfPeople <= 1}
+                      className="h-10 w-10 p-0"
+                    >
+                      <Minus size={16} />
+                    </Button>
+                    <div className="flex items-center justify-center min-w-[60px]">
+                      <span className="text-xl font-semibold">{numberOfPeople}</span>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={incrementPeople}
+                      className="h-10 w-10 p-0"
+                    >
+                      <Plus size={16} />
+                    </Button>
+                  </div>
+                  
+                  {/* Quick select buttons for pricing tiers */}
+                  <div className="space-y-2">
+                    {getPricingTiers().map((tier, index) => (
+                      <Button
+                        key={index}
+                        variant={numberOfPeople >= tier.min && numberOfPeople <= tier.max ? "default" : "outline"}
+                        size="sm"
+                        className="w-full justify-between"
+                        onClick={() => setNumberOfPeople(tier.min)}
+                      >
+                        <span>{tier.label}</span>
+                        <span className="font-semibold">
+                          ${tier.price.toLocaleString()}
+                        </span>
+                      </Button>
+                    ))}
+                  </div>
+                  
+                  <div className="text-center mt-3">
+                    <span className="text-sm text-muted-foreground">
+                      Current rate: ${getPricePerPerson().toLocaleString()} per person
+                    </span>
+                  </div>
+                </div>
+                
                 {/* Customization Options */}
                 <Accordion type="single" collapsible className="mb-6">
                   <CustomizationSection 
@@ -176,50 +281,23 @@ const TourDetailPage = () => {
                   />
                 </Accordion>
                 
-                {/* Environmental Fee */}
-                <div className="border border-border rounded-lg p-4 mb-6">
-                  <div className="flex items-start mb-3">
-                    <input
-                      type="checkbox"
-                      id="environmental-fee"
-                      checked={environmentalFee}
-                      onChange={() => setEnvironmentalFee(!environmentalFee)}
-                      className="mr-3 mt-1"
-                    />
-                    <div>
-                      <label htmlFor="environmental-fee" className="font-medium cursor-pointer">
-                        Add Environmental Conservation Fee ($50)
-                      </label>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        Plant trees and support local conservation efforts. You'll receive a certificate and tracking link via email.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
                 {/* Price Summary */}
                 <div className="border-t border-border pt-4 mb-6">
                   <div className="flex justify-between mb-2">
-                    <span>Base price:</span>
-                    <span>${tour.price.toLocaleString()}</span>
+                    <span>Base price ({getCurrentTierLabel()}):</span>
+                    <span>${getBasePriceForTier().toLocaleString()}</span>
                   </div>
                   
                   {Object.entries(selectedOptions).map(([category, option]) => {
                     if (!option) return null;
+                    const totalAdjustment = option.priceAdjustment * numberOfPeople;
                     return (
                       <div key={category} className="flex justify-between mb-2">
-                        <span>{option.name}:</span>
-                        <span>${option.priceAdjustment.toLocaleString()}</span>
+                        <span>{option.name} ({numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}):</span>
+                        <span>${totalAdjustment.toLocaleString()}</span>
                       </div>
                     );
                   })}
-                  
-                  {environmentalFee && (
-                    <div className="flex justify-between mb-2">
-                      <span>Environmental fee:</span>
-                      <span>$50</span>
-                    </div>
-                  )}
                   
                   {tour.discount && (
                     <div className="flex justify-between mb-2 text-safari-orange">
@@ -228,9 +306,9 @@ const TourDetailPage = () => {
                     </div>
                   )}
                   
-                  <div className="flex justify-between font-bold text-lg mt-4">
+                  <div className="flex justify-between font-bold text-lg mt-4 pt-2 border-t">
                     <span>Total:</span>
-                    <span>${calculateTotalPrice().toLocaleString()}</span>
+                    <span className="text-safari-green">${calculateTotalPrice().toLocaleString()}</span>
                   </div>
                 </div>
                 
@@ -412,7 +490,9 @@ const TourDetailPage = () => {
                       <span className="ml-1 text-sm">{relatedTour.rating}</span>
                     </div>
                     <div className="text-safari-green font-medium">
-                      ${relatedTour.price.toLocaleString()}
+                      From ${relatedTour.pricingTiers ? 
+                        Math.min(...relatedTour.pricingTiers.map(tier => tier.price)).toLocaleString() : 
+                        relatedTour.price.toLocaleString()}
                     </div>
                   </div>
                 </div>
@@ -421,6 +501,7 @@ const TourDetailPage = () => {
           </div>
         </div>
       </section>
+      <ChatBot />
     </div>
   );
 };

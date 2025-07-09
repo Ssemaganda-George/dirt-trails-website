@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Heart, Users, Globe, TreePine } from 'lucide-react';
+import ChatBot from '@/components/ChatBot';
 
 const AboutPage = () => {
   return (
@@ -160,6 +161,7 @@ const AboutPage = () => {
           </div>
         </div>
       </section>
+      <ChatBot />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import ChatBot from '@/components/ChatBot';
 
 const ContactPage = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -160,6 +161,7 @@ const ContactPage = () => {
           </div>
         </div>
       </section>
+      <ChatBot />
     </div>
   );
 };
