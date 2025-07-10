@@ -76,7 +76,7 @@ export const tours: Tour[] = [
     tagline: "Trek through misty forests to encounter endangered mountain gorillas",
     description: "This trip gives you an opportunity to experience and explore the medley of wonders in this most visited wildlife safari park in Uganda, start the day the way nature intended at the crack of dawn to see the wild residents emerge for a drink from the bushy waterholes as the sun begins to rise over the iconic bush veld scenery. This trip engages all your senses when you combine it with Ultimate Gorilla Tracking experience in Bwindi as a Highlight for the Best of Uganda Ultimate Primate safari.",
     duration: 5,
-    price: 9120000,
+    price: 3800,
     location: "Queen Elizabeth & Bwindi Forest National Park",
     country: "Uganda",
     coverImage: "/images/gorilla-uganda-primate-trekking-eating.jpeg",
@@ -313,7 +313,7 @@ export const tours: Tour[] = [
     tagline: "Discover Uganda's most diverse national park",
     description: "You are welcome to this adventure that takes you to Queen Elizabeth national park, Uganda's second largest national park that covers an area of 1978 square km. This trip to the medley of wonders will offer you an opportunity to experience and encounter the most outstanding moment, as you will be able to see a number of flora and fauna.During your game drive, you will be able to see animals like Lions, Elephants, Leopards, Buffaloes and many others. And the boat cruise that will be done along Kazinga channel will offer you a chance to see hippos, crocodiles, water birds and others.",
     duration: 3,
-    price: 490000,  
+    price: 1899,  
     location: "Queen Elizabeth National Park",
     country: "Uganda",
     coverImage: "/images/queen-Elizabeth.jpeg",
@@ -532,11 +532,11 @@ export const tours: Tour[] = [
     },
     // Ugandan pricing tiers in UGX
     pricingTiers: [
-      { min: 1, max: 1, price: 490000, label: "1 person" },
-      { min: 2, max: 2, price: 380000, label: "2 people" },
-      { min: 3, max: 4, price: 320000, label: "3-4 people" },
-      { min: 5, max: 6, price: 280000, label: "5-6 people" },
-      { min: 7, max: 999, price: 250000, label: "7+ people (group discount)" }
+      { min: 1, max: 1, price: 1899, label: "1 person" },
+      { min: 2, max: 2, price: 1899, label: "2 people" },
+      { min: 3, max: 4, price: 1899, label: "3-4 people" },
+      { min: 5, max: 6, price: 1899, label: "5-6 people" },
+      { min: 7, max: 999, price: 1899, label: "7+ people (group discount)" }
     ],
     featured: true
 },
@@ -547,7 +547,7 @@ export const tours: Tour[] = [
     tagline: "Witness the world's most powerful waterfall",
     description: "The park is located in west Nile and have a number of activities that reward you with the great connection to the nature.  You will enjoy the great and stunning view of the falls standing on the top. The park is home for a number of wildlife including the lions, elephants, buffaloes, giraffes, warthogs, leopards, hippos, and many others.While on your boat cruise, you will be able to encounter the number of animals, like hippos, crocodiles, elephants, and others. The boat cruise starts from the lower side of the river Nile, and cruise as you head towards the bottom of the falls. This will be very interesting and engaging moment than ever before.",
     duration: 3,
-    price: 580000,
+    price: 1499,
     location: "Murchison Falls",
     country: "Uganda",
     coverImage: "/images/murchison-falls-view.jpg",
@@ -767,14 +767,14 @@ export const tours: Tour[] = [
     tagline: "Track gorillas in the primate capital of the world",
     description: "This trip gives you an opportunity to experience and explore the medley of wonders in this most visited wildlife safari park in Uganda, start the day the way nature intended at the crack of dawn to see the wild residents emerge for a drink from the bushy waterholes as the sun begins to rise over the iconic bush veld scenery. This trip engages all your senses when you combine it with Ultimate Gorilla Tracking experience in Bwindi as a Highlight for the Best of Uganda Ultimate Primate safari.",
     duration: 5,
-    price: 7600000,
+    price: 2000,
     location: "Queen Elizabeth & Bwindi Forest National Park",
     country: "Uganda",
     coverImage: "/images/silverback-gorilla-3.jpg",
     pricingTiers: [
-      { min: 1, max: 1, price: 7600000, label: "1 person" },
-      { min: 2, max: 4, price: 7410000, label: "2-4 people" },
-      { min: 5, max: 999, price: 5700000, label: "5-10+ people" }
+      { min: 1, max: 1, price: 2000, label: "1 person" },
+      { min: 2, max: 4, price: 2000, label: "2-4 people" },
+      { min: 5, max: 999, price: 2000, label: "5-10+ people" }
     ],
     images: [
       { url: "/images/silverback-gorilla-4.jpg", alt: "Gorilla tracking" },
@@ -1234,7 +1234,7 @@ export const tours: Tour[] = [
     tagline: "Track gorillas in the primate capital of the world",
     description: "This trip takes you to 3 of Uganda’s 10 national parks, which are one of the most loved and visited by tourists. While on this trip, you will encounter and explore the ultimate gorilla experience, in Bwindi, the medley of wonders in queen Elizabeth national as you will be engaged in game drive, and boat cruise, as well as the tree climbing lions of  Ishasha. While in Kibale national Park, you will experience the great moments with the chimpanzees, our closest cousins. This adventure, make the best of it, as it engages your minds, and uplifts your soul connecting you to the most outstanding and rewarding, wildlife encounter.Begin every day the way nature has intended.",
     duration: 8,
-    price: 14020000,
+    price: 1699,
     location: "Bwindi Forest,Queen Elizabeth National Park & Kibale Forest",
     country: "Uganda",
     coverImage: "/images/chimp1.jpg",
@@ -1245,9 +1245,9 @@ export const tours: Tour[] = [
       { url: "/images/hippo.jpg", alt: "Local culture" }
     ],
     pricingTiers: [
-      { min: 1, max: 1, price: 14020000, label: "1 person" },
-      { min: 2, max: 4, price: 11400000, label: "2-4 people" },
-      { min: 5, max: 999, price: 10260000, label: "5-10+ people" }
+      { min: 1, max: 1, price: 1699, label: "1 person" },
+      { min: 2, max: 4, price: 1699, label: "2-4 people" },
+      { min: 5, max: 999, price: 1699, label: "5-10+ people" }
     ],
     mapImage: "/images/murchison-falls-view.jpg",
     highlights: [
