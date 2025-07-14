@@ -16,9 +16,9 @@ const Footer = () => {
               Embark on the adventure of a lifetime with our customized East African safari experiences, designed to showcase the region's incredible wildlife, landscapes, and cultures.
             </p>
             <div className="flex space-x-4">
-              <SocialLink href="#" icon={<Facebook size={18} />} label="Facebook" />
-              <SocialLink href="#" icon={<Twitter size={18} />} label="Twitter" />
-              <SocialLink href="#" icon={<Instagram size={18} />} label="Instagram" />
+              <SocialLink href="https://www.facebook.com/people/DirtTrails-Safaris/100081666093047/" icon={<Facebook size={18} />} label="Facebook" />
+              <SocialLink href="https://x.com/DirtTrails_Ug" icon={<Twitter size={18} />} label="Twitter" />
+              <SocialLink href="https://www.instagram.com/dirttrailssafaris/" icon={<Instagram size={18} />} label="Instagram" />
               <SocialLink href="#" icon={<Youtube size={18} />} label="YouTube" />
             </div>
           </div>
