@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,9 +11,7 @@ const ContactPage = () => {
   
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // In a real application, this would send the form data to a server
     setFormSubmitted(true);
-    // Reset form fields if needed
   };
 
   return (
@@ -34,56 +31,57 @@ const ContactPage = () => {
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div>
-              <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
-              {formSubmitted ? (
-                <div className="bg-green-50 border border-green-200 text-green-700 p-6 rounded-lg">
-                  <h3 className="text-xl font-medium mb-2">Thank You!</h3>
-                  <p>Your message has been submitted. We'll get back to you as soon as possible.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="firstName" className="block mb-2 font-medium">First Name</label>
-                      <Input id="firstName" name="firstName" required />
-                    </div>
-                    <div>
-                      <label htmlFor="lastName" className="block mb-2 font-medium">Last Name</label>
-                      <Input id="lastName" name="lastName" required />
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block mb-2 font-medium">Email Address</label>
-                    <Input id="email" name="email" type="email" required />
-                  </div>
-                  <div>
-                    <label htmlFor="phone" className="block mb-2 font-medium">Phone Number</label>
-                    <Input id="phone" name="phone" />
-                  </div>
-                  <div>
-                    <label htmlFor="interest" className="block mb-2 font-medium">I'm Interested In</label>
-                    <Select name="interest">
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select an option" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="safari">Safari Tours</SelectItem>
-                        <SelectItem value="gorilla">Gorilla Trekking</SelectItem>
-                        <SelectItem value="beach">Beach Extensions</SelectItem>
-                        <SelectItem value="custom">Custom Itinerary</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block mb-2 font-medium">Your Message</label>
-                    <Textarea id="message" name="message" rows={5} required />
-                  </div>
-                  <Button type="submit" size="lg" className="w-full">Send Message</Button>
-                </form>
-              )}
-            </div>
+            {/* Contact Form */}
+<div>
+  <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
+  {formSubmitted ? (
+    <div className="bg-green-50 border border-green-200 text-green-700 p-6 rounded-lg">
+      <h3 className="text-xl font-medium mb-2">Thank You!</h3>
+      <p>Your message has been submitted. We'll get back to you as soon as possible.</p>
+    </div>
+  ) : (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="firstName" className="block mb-2 font-medium">First Name</label>
+          <Input id="firstName" name="firstName" required />
+        </div>
+        <div>
+          <label htmlFor="lastName" className="block mb-2 font-medium">Last Name</label>
+          <Input id="lastName" name="lastName" required />
+        </div>
+      </div>
+      <div>
+        <label htmlFor="email" className="block mb-2 font-medium">Email Address</label>
+        <Input id="email" name="email" type="email" required />
+      </div>
+      <div>
+        <label htmlFor="phone" className="block mb-2 font-medium">Phone Number</label>
+        <Input id="phone" name="phone" />
+      </div>
+      <div>
+        <label htmlFor="interest" className="block mb-2 font-medium">I'm Interested In</label>
+        <Select name="interest">
+          <SelectTrigger>
+            <SelectValue placeholder="Select an option" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="safari">Safari Tours</SelectItem>
+            <SelectItem value="gorilla">Gorilla Trekking</SelectItem>
+            <SelectItem value="beach">Beach Extensions</SelectItem>
+            <SelectItem value="custom">Custom Itinerary</SelectItem>
+            <SelectItem value="other">Other</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div>
+        <label htmlFor="message" className="block mb-2 font-medium">Your Message</label>
+        <Textarea id="message" name="message" rows={5} required />
+      </div>
+      <Button type="submit" size="lg" className="w-full">Send Message</Button>
+    </form>
+  )}
+</div>
             
             {/* Contact Information */}
             <div>
@@ -131,6 +129,50 @@ const ContactPage = () => {
                   For urgent matters outside of office hours, please contact our 24-hour emergency line:
                 </p>
                 <div className="font-medium text-lg">+256 759 918649</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Map Section */}
+      <section className="py-16 bg-white">
+        <div className="container">
+          <h2 className="text-3xl font-semibold mb-8 text-center">Find Our Office</h2>
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="aspect-video">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3989.751207514449!2d32.5678668!3d0.3323261!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177dbb91e1a6c939%3A0x38793a83feb972e9!2sMakerere%20Innovation%20and%20Incubation%20Center!5e0!3m2!1sen!2sug!"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="MIICHub, Makerere University Location"
+                />
+              </div>
+              <div className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Visit Our Office</h3>
+                    <p className="text-muted-foreground">
+                      MIICHub, Makerere University, Kampala, Uganda
+                    </p>
+                  </div>
+                  <div>
+                    <a 
+                      href="https://maps.app.goo.gl/9HwmBKsXjgLv9AKo7"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 bg-safari-orange text-white rounded-md hover:bg-safari-orange/90 transition-colors"
+                    >
+                      <MapPin className="h-4 w-4 mr-2" />
+                      Open in Maps
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
