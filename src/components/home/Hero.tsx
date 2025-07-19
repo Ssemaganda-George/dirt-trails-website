@@ -2,12 +2,15 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { tours } from '@/data/tours';
+import { useLanguage } from '@/context/LanguageContext';
 
 const Hero = () => {
   const [destination, setDestination] = useState('Uganda');
   const [days, setDays] = useState('Five');
   const [guests, setGuests] = useState('4 adults');
   const [tripType, setTripType] = useState('Average');
+  
+  const { isGoogleTranslateLoaded } = useLanguage();
   
   const countries = [...new Set(tours.map(tour => tour.country))];
 
@@ -28,19 +31,19 @@ const Hero = () => {
         }}
       ></div>
       
-      <div className="container relative z-20 text-white flex-grow flex flex-col justify-center py-20">
+      <div className="container relative z-20 text-white flex-grow flex-col justify-center py-20">
         <div className="max-w-2xl">
-          {/* Main heading */}
+          {/* Main heading - Google Translate will handle this */}
           <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-          Explore. Connect. Sustain.
+            Explore. Connect. Sustain.
           </h1>
           
-          {/* Supporting text */}
+          {/* Supporting text - Google Translate will handle this */}
           <p className="text-xl mb-8">
-          With Dirt Trails Safaris, your journey goes beyond sightseeing—enjoy meaningful travel that connects you to nature, empowers communities, and leaves a positive impact.
+            With Dirt Trails Safaris, your journey goes beyond sightseeing—enjoy meaningful travel that connects you to nature, empowers communities, and leaves a positive impact.
           </p>
           
-          {/* Call to action buttons */}
+          {/* Call to action buttons - Google Translate will handle the text */}
           <div className="flex flex-wrap gap-4">
             <Button 
               size="lg" 
@@ -71,11 +74,13 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Filter section */}
+      {/* Filter section - Google Translate will handle the labels and options */}
       <div className="relative z-20 container -mt-10 mb-6">
         <div className="bg-white rounded-lg shadow-lg p-3 flex flex-col md:flex-row items-center ml-0 mr-auto max-w-5xl">
           <div className="flex-1 w-full md:w-auto mb-3 md:mb-0">
-            <label className="block text-xs font-medium text-gray-500 mb-1" id="destination-label">Destination</label>
+            <label className="block text-xs font-medium text-gray-500 mb-1" id="destination-label">
+              Destination
+            </label>
             <select 
               value={destination} 
               onChange={(e) => setDestination(e.target.value)}
@@ -89,7 +94,9 @@ const Hero = () => {
           </div>
           
           <div className="flex-1 w-full md:w-auto mb-3 md:mb-0 md:border-l border-gray-200 md:px-4">
-            <label className="block text-xs font-medium text-gray-500 mb-1" id="days-label">Days</label>
+            <label className="block text-xs font-medium text-gray-500 mb-1" id="days-label">
+              Days
+            </label>
             <select 
               value={days} 
               onChange={(e) => setDays(e.target.value)}
@@ -104,7 +111,9 @@ const Hero = () => {
           </div>
           
           <div className="flex-1 w-full md:w-auto mb-3 md:mb-0 md:border-l border-gray-200 md:px-4">
-            <label className="block text-xs font-medium text-gray-500 mb-1" id="trip-type-label">Trip Type</label>
+            <label className="block text-xs font-medium text-gray-500 mb-1" id="trip-type-label">
+              Trip Type
+            </label>
             <select 
               value={tripType} 
               onChange={(e) => setTripType(e.target.value)}
@@ -118,7 +127,9 @@ const Hero = () => {
           </div>
           
           <div className="flex-1 w-full md:w-auto mb-3 md:mb-0 md:border-l border-gray-200 md:px-4">
-            <label className="block text-xs font-medium text-gray-500 mb-1" id="guests-label">Guests</label>
+            <label className="block text-xs font-medium text-gray-500 mb-1" id="guests-label">
+              Guests
+            </label>
             <select 
               value={guests} 
               onChange={(e) => setGuests(e.target.value)}

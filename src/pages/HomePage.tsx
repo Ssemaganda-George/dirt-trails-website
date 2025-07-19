@@ -11,7 +11,7 @@ const HomePage = () => {
     <div className="min-h-screen">
       <Hero />
       <ToursSection />
-      <WhyChooseUs />
+      <WhyChooseUs /> 
       <Conservation />
       <Testimonials />
       <CallToAction />
