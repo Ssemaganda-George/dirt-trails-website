@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown, Leaf } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/context/LanguageContext';
+import LanguageSelector from '../LanguageSelector';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEnvMenuOpen, setIsEnvMenuOpen] = useState(false);
+  const { isGoogleTranslateLoaded } = useLanguage();
   
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => {
@@ -34,11 +37,10 @@ const Header = () => {
               className="flex items-center text-foreground hover:text-primary transition-colors"
               onClick={toggleEnvMenu}
             >
-              {/* <Leaf className="mr-1 h-4 w-4" /> */}
               Environment
               <ChevronDown className="ml-1 h-4 w-4" />
             </button>
-            <div className={`absolute top-full left-0 bg-white shadow-md rounded-md p-2 w-56 ${isEnvMenuOpen ? 'block' : 'hidden'} group-hover:block`}>
+            <div className={`absolute top-full left-0 bg-white shadow-md rounded-md p-2 w-56 z-50 border border-border ${isEnvMenuOpen ? 'block' : 'hidden'} group-hover:block`}>
               <Link 
                 to="/environment/carbon-offset" 
                 className="block px-4 py-2 hover:bg-muted rounded-md"
@@ -62,6 +64,7 @@ const Header = () => {
               </Link>
             </div>
           </div>
+          {/* <LanguageSelector /> */}
           <Button asChild variant="default">
             <Link to="/contact">Book Now</Link>
           </Button>
@@ -109,6 +112,9 @@ const Header = () => {
                 Geotagging & Monitoring
               </Link>
             </div>
+            <div className="px-4">
+              {/* <LanguageSelector /> */}
+            </div>
             <Button asChild variant="default" onClick={closeMenu}>
               <Link to="/contact">Book Now</Link>
             </Button>
@@ -119,37 +125,39 @@ const Header = () => {
   );
 };
 
-const NavLinks = ({ closeMenu }: { closeMenu: () => void }) => (
-  <>
-    <Link 
-      to="/" 
-      className="text-foreground hover:text-primary transition-colors"
-      onClick={closeMenu}
-    >
-      Home
-    </Link>
-    <Link 
-      to="/tours" 
-      className="text-foreground hover:text-primary transition-colors"
-      onClick={closeMenu}
-    >
-      Tours
-    </Link>
-    <Link 
-      to="/destinations" 
-      className="text-foreground hover:text-primary transition-colors"
-      onClick={closeMenu}
-    >
-      Destinations
-    </Link>
-    <Link 
-      to="/about" 
-      className="text-foreground hover:text-primary transition-colors"
-      onClick={closeMenu}
-    >
-      About
-    </Link>
-  </>
-);
+const NavLinks = ({ closeMenu }: { closeMenu: () => void }) => {
+  return (
+    <>
+      <Link 
+        to="/" 
+        className="text-foreground hover:text-primary transition-colors"
+        onClick={closeMenu}
+      >
+        Home
+      </Link>
+      <Link 
+        to="/tours" 
+        className="text-foreground hover:text-primary transition-colors"
+        onClick={closeMenu}
+      >
+        Tours
+      </Link>
+      <Link 
+        to="/destinations" 
+        className="text-foreground hover:text-primary transition-colors"
+        onClick={closeMenu}
+      >
+        Destinations
+      </Link>
+      <Link 
+        to="/about" 
+        className="text-foreground hover:text-primary transition-colors"
+        onClick={closeMenu}
+      >
+        About
+      </Link>
+    </>
+  );
+};
 
 export default Header;

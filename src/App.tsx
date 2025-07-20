@@ -1,10 +1,11 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
+import { LanguageProvider } from "@/context/LanguageContext";
+import GoogleTranslateWidget from "@/components/GoogleTranslateWidget";
 import Layout from "@/components/layout/Layout";
 import HomePage from "./pages/HomePage";
 import ToursPage from "./pages/ToursPage";
@@ -25,28 +26,31 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route path="tours" element={<ToursPage />} />
-            <Route path="tours/:tourSlug" element={<TourDetailPage />} />
-            <Route path="destinations" element={<DestinationsPage />} />
-            <Route path="destinations/:destinationSlug" element={<DestinationDetailPage />} />
-            <Route path="about" element={<AboutPage />} />
-            <Route path="contact" element={<ContactPage />} />
-            <Route path="checkout/:tourSlug" element={<CheckoutPage />} />
-            <Route path="booking-confirmation" element={<BookingConfirmationPage />} />
-            <Route path="environment/carbon-offset" element={<CarbonOffsetPage />} />
-            <Route path="environment/tree-planting" element={<TreePlantingPage />} />
-            <Route path="environment/geotagging" element={<GeotaggingPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <LanguageProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<HomePage />} />
+              <Route path="tours" element={<ToursPage />} />
+              <Route path="tours/:tourSlug" element={<TourDetailPage />} />
+              <Route path="destinations" element={<DestinationsPage />} />
+              <Route path="destinations/:destinationSlug" element={<DestinationDetailPage />} />
+              <Route path="about" element={<AboutPage />} />
+              <Route path="contact" element={<ContactPage />} />
+              <Route path="checkout/:tourSlug" element={<CheckoutPage />} />
+              <Route path="booking-confirmation" element={<BookingConfirmationPage />} />
+              <Route path="environment/carbon-offset" element={<CarbonOffsetPage />} />
+              <Route path="environment/tree-planting" element={<TreePlantingPage />} />
+              <Route path="environment/geotagging" element={<GeotaggingPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+          <GoogleTranslateWidget />
+        </BrowserRouter>
+      </LanguageProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
