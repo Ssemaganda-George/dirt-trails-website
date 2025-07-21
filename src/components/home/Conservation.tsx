@@ -135,7 +135,7 @@ const Conservation = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl transform rotate-3 group-hover:rotate-6 transition-transform duration-500"></div>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl transform group-hover:scale-105 transition-transform duration-500">
                 <img 
-                  src="/images/environmental-protection.jpg" 
+                  src="/images/crested.jpg" 
                   alt="Conservation efforts - wildlife protection and reforestation in East Africa"
                   className="w-full h-80 object-cover"
                 />

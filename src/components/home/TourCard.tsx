@@ -7,40 +7,15 @@ interface TourCardProps {
 }
 
 const TourCard = ({ tour }: TourCardProps) => {
-  // Country-specific color themes matching ToursSection
-  const countryThemes = {
-    'Uganda': { 
-      gradient: 'from-green-600 to-emerald-600', 
-      lightGradient: 'from-green-500 to-emerald-500',
-      accent: 'text-green-600',
-      bg: 'bg-green-50',
-      border: 'border-green-200'
-    },
-    'Kenya': { 
-      gradient: 'from-orange-600 to-amber-600', 
-      lightGradient: 'from-orange-500 to-amber-500',
-      accent: 'text-orange-600',
-      bg: 'bg-orange-50',
-      border: 'border-orange-200'
-    },
-    'Tanzania': { 
-      gradient: 'from-blue-600 to-teal-600', 
-      lightGradient: 'from-blue-500 to-teal-500',
-      accent: 'text-blue-600',
-      bg: 'bg-blue-50',
-      border: 'border-blue-200'
-    },
-    'Rwanda': { 
-      gradient: 'from-purple-600 to-pink-600', 
-      lightGradient: 'from-purple-500 to-pink-500',
-      accent: 'text-purple-600',
-      bg: 'bg-purple-50',
-      border: 'border-purple-200'
-    }
+  // Simplified theme using only white, green, and minimal brown
+  const theme = {
+    gradient: 'from-green-600 to-green-700', 
+    lightGradient: 'from-green-400 to-green-500',
+    accent: 'text-green-600',
+    bg: 'bg-green-50',
+    border: 'border-green-200',
+    hoverAccent: 'hover:text-green-700'
   };
-
-  // Get theme based on tour country, default to Uganda theme
-  const theme = countryThemes[tour.country] || countryThemes['Uganda'];
 
   return (
     <Link 
@@ -82,14 +57,14 @@ const TourCard = ({ tour }: TourCardProps) => {
         {/* Content Container */}
         <div className="p-5 relative">
           {/* Location */}
-          <div className="flex items-center text-gray-500 mb-3">
+          <div className="flex items-center text-stone-600 mb-3">
             <MapPin size={16} className="mr-2 flex-shrink-0" />
             <span className="text-sm font-medium truncate">{tour.location}</span>
           </div>
 
           {/* Title */}
           <h3 
-            className={`text-lg font-bold mb-3 ${theme.accent} group-hover:text-gray-800 transition-colors leading-tight min-h-[3.5rem] relative`}
+            className={`text-lg font-bold mb-3 ${theme.accent} ${theme.hoverAccent} transition-colors leading-tight min-h-[3.5rem] relative`}
             title={tour.name} // Shows full title on hover
           >
             <span className="line-clamp-2">
@@ -100,24 +75,23 @@ const TourCard = ({ tour }: TourCardProps) => {
           {/* Stats Row */}
           <div className="flex items-center justify-between mb-4 text-sm">
             <div className="flex items-center gap-1">
-              <Star size={16} className="fill-amber-400 text-amber-400" />
-              <span className="font-semibold text-gray-700">{tour.rating}</span>
+              <Star size={16} className="fill-green-400 text-green-400" />
+              <span className="font-semibold text-stone-700">{tour.rating}</span>
             </div>
             
-            <div className="flex items-center text-gray-500">
+            <div className="flex items-center text-stone-600">
               <Calendar size={16} className="mr-1" />
               <span className="font-medium">{tour.duration} days</span>
             </div>
           </div>
 
-
           {/* Price Section */}
           <div className="flex items-end justify-between pt-3 border-t border-gray-100">
             <div>
-              <div className="text-xs text-gray-500 mb-1">Starting from</div>
+              <div className="text-xs text-stone-500 mb-1">Starting from</div>
               <div className={`text-xl font-bold ${theme.accent}`}>
                 ${tour.price.toLocaleString()}
-                <span className="text-sm text-gray-500 font-normal ml-1">per person</span>
+                <span className="text-sm text-stone-500 font-normal ml-1">per person</span>
               </div>
             </div>
             
