@@ -1,5 +1,5 @@
-import { useState, FormEvent } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useState, FormEvent, useEffect } from 'react';
+import { useParams, useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { 
   CreditCard, Check, AlertCircle, ArrowLeft, 
   MessageCircle, Smartphone, Building2, Calendar,
@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
+import type { CustomizationOption } from '@/data/tours';
 
 interface FormData {
   firstName: string;
@@ -26,6 +27,7 @@ interface FormData {
 
 const CheckoutPage = () => {
   const { tourSlug } = useParams<{ tourSlug: string }>();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [inquirySubmitted, setInquirySubmitted] = useState(false);
@@ -33,6 +35,20 @@ const CheckoutPage = () => {
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({});
   const [bookingMode, setBookingMode] = useState<'book' | 'inquiry'>('book');
   const [paymentMethod, setPaymentMethod] = useState('card');
+  
+  // Get booking parameters from URL - but allow for dynamic updates
+  const urlNumberOfPeople = parseInt(searchParams.get('people') || '1');
+  const urlPricePerPerson = parseFloat(searchParams.get('pricePerPerson') || '0');
+  const urlTotalPrice = parseFloat(searchParams.get('totalPrice') || '0');
+  const customizationsParam = searchParams.get('customizations');
+  
+  // State for dynamic number of people (can be different from URL)
+  const [numberOfPeople, setNumberOfPeople] = useState(urlNumberOfPeople);
+  
+  // Parse customizations from URL
+  const selectedCustomizations = customizationsParam 
+    ? JSON.parse(customizationsParam) 
+    : {};
   
   // Find the tour by slug using the same data source as tour detail page
   const tour = tours.find(t => t.slug === tourSlug);
@@ -48,6 +64,62 @@ const CheckoutPage = () => {
       </div>
     );
   }
+
+  // Dynamic pricing structure - same as tour detail page
+  const getPricingTiers = () => {
+    if (tour.pricingTiers) {
+      return tour.pricingTiers;
+    }
+    
+    // Default pricing structure (fallback)
+    return [
+      { min: 1, max: 1, price: tour.price, label: "1 person" },
+      { min: 2, max: 4, price: tour.price * 0.975, label: "2-4 people" },
+      { min: 5, max: 999, price: tour.price * 0.75, label: "5+ people" }
+    ];
+  };
+
+  const getCurrentPricePerPerson = () => {
+    // Always calculate based on current numberOfPeople state
+    const pricingTiers = getPricingTiers();
+    const tier = pricingTiers.find(tier => 
+      numberOfPeople >= tier.min && numberOfPeople <= tier.max
+    );
+    return tier ? tier.price : tour.price;
+  };
+
+  const getCurrentTierLabel = () => {
+    const pricingTiers = getPricingTiers();
+    const tier = pricingTiers.find(tier => 
+      numberOfPeople >= tier.min && numberOfPeople <= tier.max
+    );
+    return tier ? tier.label : "Custom";
+  };
+
+  // Calculate total price including customizations - now uses current numberOfPeople
+  const calculateTotalPrice = () => {
+    let pricePerPersonCalc = getCurrentPricePerPerson();
+    
+    // Add customization prices per person
+    Object.values(selectedCustomizations).forEach((option: any) => {
+      if (option) {
+        pricePerPersonCalc += option.priceAdjustment;
+      }
+    });
+    
+    // Apply discount if available
+    if (tour.discount) {
+      pricePerPersonCalc = pricePerPersonCalc * (1 - tour.discount / 100);
+    }
+    
+    return pricePerPersonCalc * numberOfPeople;
+  };
+
+  // Handle travelers change
+  const handleTravelersChange = (value: string) => {
+    const newNumberOfPeople = parseInt(value);
+    setNumberOfPeople(newNumberOfPeople);
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -94,53 +166,36 @@ const CheckoutPage = () => {
     
     setIsProcessing(true);
     
-    // Calculate total price
-    let totalPrice = tour.price;
-    if (tour.discount) {
-      totalPrice = totalPrice * (1 - tour.discount / 100);
-    }
-    
     // Simulate processing
     setTimeout(() => {
       setIsProcessing(false);
+      
+      const bookingData = {
+        userData,
+        tour,
+        numberOfPeople, // Use current state value
+        pricePerPerson: getCurrentPricePerPerson(),
+        totalPrice: calculateTotalPrice(),
+        selectedCustomizations,
+        paymentMethod: bookingMode === 'book' ? paymentMethod : undefined
+      };
       
       if (bookingMode === 'inquiry') {
         setInquirySubmitted(true);
         setTimeout(() => {
           navigate('/inquiry-confirmation', {
-            state: {
-              userData,
-              tour,
-              totalPrice
-            }
+            state: bookingData
           });
         }, 2000);
       } else {
         setFormSubmitted(true);
         setTimeout(() => {
-          // Pass the actual user data to the booking confirmation page
           navigate('/booking-confirmation', {
-            state: {
-              userData,
-              tour,
-              totalPrice,
-              paymentMethod
-            }
+            state: bookingData
           });
         }, 2000);
       }
     }, 2000);
-  };
-
-  // Calculate total price
-  const calculateTotalPrice = () => {
-    let total = tour.price;
-    
-    if (tour.discount) {
-      total = total * (1 - tour.discount / 100);
-    }
-    
-    return total;
   };
 
   const renderPaymentMethodFields = () => {
@@ -283,7 +338,7 @@ const CheckoutPage = () => {
           
           <p className="text-muted-foreground">
             {bookingMode === 'book' 
-              ? `Complete your booking for ${tour.name}`
+              ? `Complete your booking for ${tour.name} (${numberOfPeople} ${numberOfPeople === 1 ? 'person' : 'people'})`
               : `Get a custom quote or ask questions about ${tour.name}`
             }
           </p>
@@ -342,7 +397,11 @@ const CheckoutPage = () => {
                         <Users size={18} />
                         Number of Travelers
                       </label>
-                      <Select name="travelers" defaultValue="2">
+                      <Select 
+                        name="travelers" 
+                        value={numberOfPeople.toString()} 
+                        onValueChange={handleTravelersChange}
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Select number" />
                         </SelectTrigger>
@@ -352,9 +411,26 @@ const CheckoutPage = () => {
                           <SelectItem value="3">3 People</SelectItem>
                           <SelectItem value="4">4 People</SelectItem>
                           <SelectItem value="5">5 People</SelectItem>
-                          <SelectItem value="6">6+ People</SelectItem>
+                          <SelectItem value="6">6 People</SelectItem>
+                          <SelectItem value="7">7 People</SelectItem>
+                          <SelectItem value="8">8 People</SelectItem>
+                          <SelectItem value="9">9 People</SelectItem>
+                          <SelectItem value="10">10+ People</SelectItem>
                         </SelectContent>
                       </Select>
+                      
+                      {/* Show selected number prominently with updated pricing */}
+                      <div className="mt-2 p-3 bg-green-50 rounded-lg border border-green-200">
+                        <p className="text-sm font-medium text-green-800">
+                          Selected: {numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}
+                        </p>
+                        <p className="text-xs text-green-600">
+                          Rate: ${getCurrentPricePerPerson().toLocaleString()} per person ({getCurrentTierLabel()})
+                        </p>
+                        <p className="text-xs font-semibold text-green-700 mt-1">
+                          Subtotal: ${(getCurrentPricePerPerson() * numberOfPeople).toLocaleString()}
+                        </p>
+                      </div>
                     </div>
                     <div>
                       <label htmlFor="travelDate" className="flex items-center gap-2 mb-2 font-medium">
@@ -501,7 +577,7 @@ const CheckoutPage = () => {
             )}
           </div>
           
-          {/* Order Summary */}
+          {/* Order Summary - Updated to use current state */}
           <div>
             <div className="bg-white p-6 rounded-lg shadow-md sticky top-24">
               <h2 className="text-xl font-semibold mb-4">
@@ -519,6 +595,9 @@ const CheckoutPage = () => {
                 <div>
                   <h3 className="font-medium">{tour.name}</h3>
                   <p className="text-sm text-muted-foreground">{tour.duration} days</p>
+                  <p className="text-sm text-green-600 font-medium">
+                    {numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}
+                  </p>
                 </div>
               </div>
               
@@ -526,14 +605,30 @@ const CheckoutPage = () => {
                 <>
                   <div className="py-4 border-b border-border">
                     <div className="flex justify-between mb-2">
-                      <span>Base price:</span>
-                      <span>${tour.price.toLocaleString()}</span>
+                      <span>Base price ({getCurrentTierLabel()}):</span>
+                      <span>${(getCurrentPricePerPerson() * numberOfPeople).toLocaleString()}</span>
                     </div>
+                    
+                    <div className="text-sm text-muted-foreground mb-2">
+                      ${getCurrentPricePerPerson().toLocaleString()} × {numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}
+                    </div>
+                    
+                    {/* Show customizations if any */}
+                    {Object.entries(selectedCustomizations).map(([category, option]: [string, any]) => {
+                      if (!option) return null;
+                      const totalAdjustment = option.priceAdjustment * numberOfPeople;
+                      return (
+                        <div key={category} className="flex justify-between mb-2 text-sm">
+                          <span>{option.name} ({numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}):</span>
+                          <span className="text-orange-600">+${totalAdjustment.toLocaleString()}</span>
+                        </div>
+                      );
+                    })}
                     
                     {tour.discount && (
                       <div className="flex justify-between mb-2 text-orange-600">
                         <span>Discount ({tour.discount}%):</span>
-                        <span>-${(tour.price * tour.discount / 100).toLocaleString()}</span>
+                        <span>-${((getCurrentPricePerPerson() * numberOfPeople) * tour.discount / 100).toLocaleString()}</span>
                       </div>
                     )}
                   </div>
@@ -550,6 +645,12 @@ const CheckoutPage = () => {
                   <div className="flex justify-between mb-2">
                     <span>Starting from:</span>
                     <span className="font-semibold">${tour.price.toLocaleString()}</span>
+                  </div>
+                  <div className="text-sm text-muted-foreground mb-2">
+                    For {numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}
+                  </div>
+                  <div className="text-sm font-medium text-green-600 mb-2">
+                    Estimated total: ${calculateTotalPrice().toLocaleString()}
                   </div>
                   <p className="text-sm text-muted-foreground">
                     Final price will be provided based on your specific requirements and travel dates.
@@ -573,14 +674,29 @@ const CheckoutPage = () => {
                   <>
                     <div className="flex items-start mb-2">
                       <MessageCircle size={16} className="mr-2 shrink-0 mt-0.5" />
-                      <span>Our travel experts will respond within 24 hours.</span>
+                      <span>Get a personalized quote within 24 hours.</span>
                     </div>
                     <div className="flex items-start">
-                      <Check size={16} className="mr-2 shrink-0 mt-0.5" />
-                      <span>No obligation - completely free consultation.</span>
+                      <Clock size={16} className="mr-2 shrink-0 mt-0.5" />
+                      <span>No payment required for inquiries.</span>
                     </div>
                   </>
                 )}
+              </div>
+              
+              {/* Contact Information */}
+              <div className="mt-6 pt-4 border-t border-border">
+                <h4 className="font-medium mb-2">Need Help?</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center">
+                    <MessageCircle size={16} className="mr-2" />
+                    <span>WhatsApp: +256 700 000 000</span>
+                  </div>
+                  <div className="flex items-center">
+                    <MapPin size={16} className="mr-2" />
+                    <span>Kampala, Uganda</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
