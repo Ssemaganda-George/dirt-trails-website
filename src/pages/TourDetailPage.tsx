@@ -125,6 +125,18 @@ const TourDetailPage = () => {
     return getPricePerPerson() * numberOfPeople;
   };
 
+  // Generate booking URL with parameters
+  const getBookingUrl = () => {
+    const params = new URLSearchParams({
+      people: numberOfPeople.toString(),
+      pricePerPerson: getPricePerPerson().toString(),
+      totalPrice: calculateTotalPrice().toString(),
+      customizations: JSON.stringify(selectedOptions)
+    });
+    
+    return `/checkout/${tour.slug}?${params.toString()}`;
+  };
+
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white">
       {/* Tour Header - Enhanced with gradient and animations */}
@@ -178,7 +190,7 @@ const TourDetailPage = () => {
                 size="lg"
                 asChild
               >
-                <Link to={`/checkout/${tour.slug}`}>
+                <Link to={getBookingUrl()}>
                   Book Now
                 </Link>
               </Button>
@@ -346,13 +358,13 @@ const TourDetailPage = () => {
                   </div>
                 </div>
                 
-                {/* Book Now Button - Enhanced */}
+                {/* Book Now Button - Enhanced with booking URL */}
                 <Button 
                   className="w-full bg-gradient-to-r from-safari-orange to-safari-green hover:from-safari-green hover:to-safari-orange transition-all duration-500 shadow-lg hover:shadow-xl hover:scale-105 transform h-14 text-lg" 
                   size="lg" 
                   asChild
                 >
-                  <Link to={`/checkout/${tour.slug}`}>
+                  <Link to={getBookingUrl()}>
                     Book Now - Secure Your Spot
                   </Link>
                 </Button>
