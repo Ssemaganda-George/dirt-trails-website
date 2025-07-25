@@ -5,6 +5,7 @@ import Conservation from '@/components/home/Conservation';
 import Testimonials from '@/components/home/Testimonials';
 import CallToAction from '@/components/home/CallToAction';
 import ChatBot from '@/components/ChatBot';
+import Partners from '@/components/home/Partners';
 
 const HomePage = () => {
   return (
@@ -12,6 +13,7 @@ const HomePage = () => {
       <Hero />
       <ToursSection />
       <WhyChooseUs /> 
+      <Partners />
       <Conservation />
       <Testimonials />
       <CallToAction />
