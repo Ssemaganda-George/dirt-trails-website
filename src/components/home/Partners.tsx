@@ -53,16 +53,11 @@ const PartnerCard = ({ name, logo, description, delay = 0 }) => {
 
 const Partners = () => {
   const partners = [
-    {
-      name: "Agrimate Farm",
-      logo: "/api/placeholder/180/80",
-      description: "Leading agricultural innovation partner supporting sustainable farming practices",
-      delay: 0
-    },
+    
     {
       name: "MIICHub, Makerere University",
-      logo: "/api/placeholder/180/80", 
-      description: "Innovation hub driving technology solutions for conservation and tourism",
+      logo: "/images/OFFICIAL-MIIC-LOGO.jpg", 
+      description: "We offer tailored Incubation and innovation programs that offer, Structured Business Development support and clear deliverables at every phase of startup development.",
       delay: 200
     },
     {
@@ -110,11 +105,13 @@ const Partners = () => {
           
         </div>
         
-        {/* Partner cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 max-w-4xl mx-auto">
-          {partners.map((partner, index) => (
-            <PartnerCard key={index} {...partner} />
-          ))}
+        {/* Partner cards grid - centered for 2 items */}
+        <div className="flex justify-center mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl">
+            {partners.map((partner, index) => (
+              <PartnerCard key={index} {...partner} />
+            ))}
+          </div>
         </div>
         
         

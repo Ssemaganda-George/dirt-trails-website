@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Calendar, Star, ArrowRight } from 'lucide-react';
 import { tours } from '@/data/tours';
-import ChatBot from '@/components/ChatBot';
+import ChatBot from '@/components/ChatBot'; // Your enhanced ChatBot
 
 const ToursPage = () => {
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState<string>('default');
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [sortBy, setSortBy] = useState('default');
   
   // Matching theme from TourCard
   const theme = {
@@ -30,12 +30,29 @@ const ToursPage = () => {
     if (sortBy === 'duration-short') return a.duration - b.duration;
     if (sortBy === 'duration-long') return b.duration - a.duration;
     if (sortBy === 'rating') return b.rating - a.rating;
-    // Default: no specific sorting
     return 0;
   });
 
   // Get unique countries for filter
   const countries = Array.from(new Set(tours.map(tour => tour.country)));
+
+  // Prepare context for chatbot
+  const chatBotContext = {
+    selectedCountry,
+    sortBy,
+    filteredCount: filteredTours.length,
+    totalCount: tours.length,
+    countries,
+    priceRange: {
+      min: Math.min(...tours.map(t => t.price)),
+      max: Math.max(...tours.map(t => t.price)),
+      avg: Math.round(tours.reduce((sum, t) => sum + t.price, 0) / tours.length)
+    },
+    durationRange: {
+      min: Math.min(...tours.map(t => t.duration)),
+      max: Math.max(...tours.map(t => t.duration))
+    }
+  };
 
   return (
     <div>
@@ -229,7 +246,18 @@ const ToursPage = () => {
           )}
         </div>
       </section>
-      <ChatBot />
+      
+      {/* Enhanced ChatBot with full context */}
+      <ChatBot 
+        tours={tours}
+        selectedCountry={selectedCountry}
+        currentFilters={{
+          country: selectedCountry,
+          sortBy: sortBy,
+          filteredTours: sortedTours,
+          ...chatBotContext
+        }}
+      />
     </div>
   );
 };
