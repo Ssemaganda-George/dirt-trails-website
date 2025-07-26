@@ -48,314 +48,11 @@ const BookingConfirmationPage = () => {
     } else {
       // Fallback - if no data available, redirect back to home or show error
       console.warn('No booking data found in navigation state');
-      // You might want to redirect to home page or show an error
-      // navigate('/');
     }
     
     // Scroll to top on page load
     window.scrollTo(0, 0);
   }, [location.state, navigate]);
-
-  // Download confirmation as PDF-like content
-  const handleDownloadConfirmation = () => {
-    if (!bookingData) return;
-
-    const { userData, tour, totalPrice } = bookingData;
-    const depositAmount = totalPrice * 0.2;
-    const remainingBalance = totalPrice - depositAmount;
-
-    // Create the content
-    const content = `
-DIRT TRAILS - BOOKING CONFIRMATION
-==========================================
-
-Booking Reference: ${bookingReference}
-Status: CONFIRMED
-Date Booked: ${new Date().toLocaleDateString()}
-
-TOUR INFORMATION
-----------------
-Tour Name: ${tour.name}
-Location: ${tour.location || 'East Africa'}
-Duration: ${tour.duration} days
-Travel Dates: ${formatDate(userData.travelDate)} - ${getEndDate(userData.travelDate, tour.duration)}
-Number of Travelers: ${userData.travelers} ${userData.travelers === '1' ? 'person' : 'people'}
-
-CONTACT INFORMATION
--------------------
-Name: ${userData.firstName} ${userData.lastName}
-Email: ${userData.email}
-Phone: ${userData.phone}
-${userData.specialRequests ? `Special Requests: ${userData.specialRequests}` : ''}
-
-PAYMENT SUMMARY
----------------
-Tour Price: $${tour.price.toLocaleString()}
-Total Amount: $${totalPrice.toLocaleString()}
-Deposit Paid: $${depositAmount.toLocaleString()}
-Remaining Balance: $${remainingBalance.toLocaleString()}
-
-IMPORTANT INFORMATION
----------------------
-• Passport must be valid for at least 6 months from travel date
-• Visa may be required depending on nationality
-• Travel insurance highly recommended
-• Final balance due 30 days before departure
-• Free cancellation up to 30 days before trip
-
-NEXT STEPS
-----------
-1. Confirmation email will arrive within 15 minutes
-2. Our team will contact you within 48 hours for travel documents
-3. Pre-trip briefing 7 days before departure
-
-CONTACT SUPPORT
----------------
-Email: support@dirrttrails.com
-Phone: +256 567-8900
-
-Thank you for choosing DIRT TRAILS!
-Generated on: ${new Date().toLocaleString()}
-    `;
-
-    // Create and download the file
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `Booking-Confirmation-${bookingReference}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
-
-    // Show success message (you could use a toast notification here)
-    alert('Booking confirmation downloaded successfully!');
-  };
-
-  // Print booking details
-  const handlePrintDetails = () => {
-    if (!bookingData) return;
-
-    const { userData, tour, totalPrice } = bookingData;
-    const depositAmount = totalPrice * 0.2;
-    const remainingBalance = totalPrice - depositAmount;
-
-    // Create a new window with printable content
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) {
-      alert('Please allow popups to print your booking details.');
-      return;
-    }
-
-    const printContent = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>Booking Confirmation - ${bookingReference}</title>
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          line-height: 1.6;
-          color: #333;
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 20px;
-        }
-        .header {
-          text-align: center;
-          border-bottom: 2px solid #16a34a;
-          padding-bottom: 20px;
-          margin-bottom: 30px;
-        }
-        .header h1 {
-          color: #16a34a;
-          margin-bottom: 10px;
-        }
-        .section {
-          margin-bottom: 25px;
-          padding: 15px;
-          border: 1px solid #e5e7eb;
-          border-radius: 8px;
-        }
-        .section h3 {
-          color: #ea580c;
-          margin-top: 0;
-          border-bottom: 1px solid #e5e7eb;
-          padding-bottom: 8px;
-        }
-        .info-row {
-          display: flex;
-          margin-bottom: 8px;
-        }
-        .info-label {
-          font-weight: bold;
-          min-width: 150px;
-        }
-        .payment-summary {
-          background-color: #f9fafb;
-        }
-        .deposit-info {
-          background-color: #ecfdf5;
-          padding: 10px;
-          border-radius: 5px;
-          margin-top: 10px;
-        }
-        .important-info {
-          background-color: #fef3c7;
-          border-left: 4px solid #f59e0b;
-        }
-        .important-info ul {
-          margin: 10px 0;
-          padding-left: 20px;
-        }
-        @media print {
-          body { margin: 0; }
-          .no-print { display: none; }
-        }
-      </style>
-    </head>
-    <body>
-      <div class="header">
-        <h1>DIRT TRAILS</h1>
-        <h2>Booking Confirmation</h2>
-        <p><strong>Booking Reference:</strong> ${bookingReference}</p>
-        <p><strong>Status:</strong> CONFIRMED</p>
-      </div>
-
-      <div class="section">
-        <h3>Tour Information</h3>
-        <div class="info-row">
-          <span class="info-label">Tour Name:</span>
-          <span>${tour.name}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Location:</span>
-          <span>${tour.location || 'East Africa'}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Duration:</span>
-          <span>${tour.duration} days</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Travel Dates:</span>
-          <span>${formatDate(userData.travelDate)} - ${getEndDate(userData.travelDate, tour.duration)}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Travelers:</span>
-          <span>${userData.travelers} ${userData.travelers === '1' ? 'person' : 'people'}</span>
-        </div>
-      </div>
-
-      <div class="section">
-        <h3>Contact Information</h3>
-        <div class="info-row">
-          <span class="info-label">Name:</span>
-          <span>${userData.firstName} ${userData.lastName}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Email:</span>
-          <span>${userData.email}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Phone:</span>
-          <span>${userData.phone}</span>
-        </div>
-        ${userData.specialRequests ? `
-        <div class="info-row">
-          <span class="info-label">Special Requests:</span>
-          <span>${userData.specialRequests}</span>
-        </div>
-        ` : ''}
-      </div>
-
-      <div class="section payment-summary">
-        <h3>Payment Summary</h3>
-        <div class="info-row">
-          <span class="info-label">Tour Price:</span>
-          <span>$${tour.price.toLocaleString()}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label"><strong>Total Amount:</strong></span>
-          <span><strong>$${totalPrice.toLocaleString()}</strong></span>
-        </div>
-        <div class="deposit-info">
-          <div class="info-row">
-            <span class="info-label">Deposit Paid:</span>
-            <span><strong>$${depositAmount.toLocaleString()}</strong></span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Remaining Balance:</span>
-            <span>$${remainingBalance.toLocaleString()}</span>
-          </div>
-          <p><small>Remaining balance is due 30 days before your departure date.</small></p>
-        </div>
-      </div>
-
-      <div class="section important-info">
-        <h3>Important Information</h3>
-        <ul>
-          <li>Please ensure your passport is valid for at least 6 months from your travel date</li>
-          <li>A visa may be required depending on your nationality - we'll help you with this process</li>
-          <li>Travel insurance is highly recommended and can be arranged through our partners</li>
-          <li>Final balance payment is due 30 days before departure</li>
-          <li>Free cancellation available up to 30 days before your trip</li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h3>Contact Support</h3>
-        <div class="info-row">
-          <span class="info-label">Email:</span>
-          <span>support@dirttrails.com</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Phone:</span>
-          <span>+1 (234) 567-8900</span>
-        </div>
-      </div>
-
-      <div style="text-align: center; margin-top: 30px; color: #666;">
-        <p>Thank you for choosing DIRT TRAILS!</p>
-        <p><small>Generated on: ${new Date().toLocaleString()}</small></p>
-      </div>
-
-      <script>
-        window.onload = function() {
-          window.print();
-          setTimeout(function() {
-            window.close();
-          }, 1000);
-        };
-      </script>
-    </body>
-    </html>
-    `;
-
-    printWindow.document.write(printContent);
-    printWindow.document.close();
-  };
-
-  if (!bookingData) {
-    return (
-      <div className="py-12 text-center">
-        <div className="container max-w-2xl mx-auto">
-          <AlertTriangle className="mx-auto mb-4 text-orange-500" size={48} />
-          <h1 className="text-2xl font-bold mb-4">Booking Data Not Found</h1>
-          <p className="text-gray-600 mb-6">
-            We couldn't find your booking information. This might happen if you navigated directly to this page.
-          </p>
-          <Button asChild>
-            <Link to="/">Return to Home</Link>
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
-  const { userData, tour, totalPrice } = bookingData;
-  const depositAmount = totalPrice * 0.2;
-  const remainingBalance = totalPrice - depositAmount;
 
   // Format date for display
   const formatDate = (dateString: string) => {
@@ -378,6 +75,246 @@ Generated on: ${new Date().toLocaleString()}
       day: 'numeric' 
     });
   };
+
+  // Download confirmation as PDF
+  const handleDownloadConfirmation = async () => {
+    if (!bookingData) return;
+
+    try {
+      // Dynamically import jsPDF
+      const { jsPDF } = await import('jspdf');
+      
+      const { userData, tour, totalPrice } = bookingData;
+      const depositAmount = totalPrice * 0.2;
+      const remainingBalance = totalPrice - depositAmount;
+
+      const doc = new jsPDF();
+      
+      // Set up colors and fonts
+      const primaryColor = [22, 163, 74] as [number, number, number]; // Green
+      const secondaryColor = [234, 88, 12] as [number, number, number]; // Orange
+      const textColor = [51, 51, 51] as [number, number, number]; // Dark gray
+      
+      let yPosition = 20;
+      const pageWidth = doc.internal.pageSize.width;
+      const margin = 20;
+      const contentWidth = pageWidth - (margin * 2);
+
+      // Header
+      doc.setFontSize(24);
+      doc.setTextColor(...primaryColor);
+      doc.text('DIRT TRAILS', pageWidth / 2, yPosition, { align: 'center' });
+      
+      yPosition += 10;
+      doc.setFontSize(18);
+      doc.text('Booking Confirmation', pageWidth / 2, yPosition, { align: 'center' });
+      
+      yPosition += 15;
+      doc.setFontSize(12);
+      doc.setTextColor(...textColor);
+      doc.text(`Booking Reference: ${bookingReference}`, pageWidth / 2, yPosition, { align: 'center' });
+      
+      yPosition += 8;
+      doc.text('Status: CONFIRMED', pageWidth / 2, yPosition, { align: 'center' });
+      
+      yPosition += 8;
+      doc.text(`Date Booked: ${new Date().toLocaleDateString()}`, pageWidth / 2, yPosition, { align: 'center' });
+
+      // Add line separator
+      yPosition += 15;
+      doc.setDrawColor(...primaryColor);
+      doc.line(margin, yPosition, pageWidth - margin, yPosition);
+      yPosition += 15;
+
+      // Tour Information Section
+      doc.setFontSize(14);
+      doc.setTextColor(...secondaryColor);
+      doc.text('TOUR INFORMATION', margin, yPosition);
+      yPosition += 10;
+
+      doc.setFontSize(10);
+      doc.setTextColor(...textColor);
+      const tourInfo = [
+        `Tour Name: ${tour.name}`,
+        `Location: ${tour.location || 'East Africa'}`,
+        `Duration: ${tour.duration} days`,
+        `Travel Dates: ${formatDate(userData.travelDate)} - ${getEndDate(userData.travelDate, tour.duration)}`,
+        `Number of Travelers: ${userData.travelers} ${userData.travelers === '1' ? 'person' : 'people'}`
+      ];
+
+      tourInfo.forEach(info => {
+        doc.text(info, margin, yPosition);
+        yPosition += 6;
+      });
+
+      yPosition += 10;
+
+      // Contact Information Section
+      doc.setFontSize(14);
+      doc.setTextColor(...secondaryColor);
+      doc.text('CONTACT INFORMATION', margin, yPosition);
+      yPosition += 10;
+
+      doc.setFontSize(10);
+      doc.setTextColor(...textColor);
+      const contactInfo = [
+        `Name: ${userData.firstName} ${userData.lastName}`,
+        `Email: ${userData.email}`,
+        `Phone: ${userData.phone}`
+      ];
+
+      if (userData.specialRequests) {
+        contactInfo.push(`Special Requests: ${userData.specialRequests}`);
+      }
+
+      contactInfo.forEach(info => {
+        // Handle long text wrapping
+        const lines = doc.splitTextToSize(info, contentWidth);
+        lines.forEach((line: string) => {
+          doc.text(line, margin, yPosition);
+          yPosition += 6;
+        });
+      });
+
+      yPosition += 10;
+
+      // Payment Summary Section
+      doc.setFontSize(14);
+      doc.setTextColor(...secondaryColor);
+      doc.text('PAYMENT SUMMARY', margin, yPosition);
+      yPosition += 10;
+
+      doc.setFontSize(10);
+      doc.setTextColor(...textColor);
+      
+      // Payment details with right alignment for amounts
+      const paymentDetails = [
+        { label: 'Tour Price:', amount: `$${tour.price.toLocaleString()}` },
+        { label: 'Total Amount:', amount: `$${totalPrice.toLocaleString()}`, bold: true },
+        { label: 'Deposit Paid:', amount: `$${depositAmount.toLocaleString()}`, bold: true },
+        { label: 'Remaining Balance:', amount: `$${remainingBalance.toLocaleString()}` }
+      ];
+
+      paymentDetails.forEach(detail => {
+        if (detail.bold) {
+          doc.setFont(undefined, 'bold');
+        }
+        doc.text(detail.label, margin, yPosition);
+        doc.text(detail.amount, pageWidth - margin, yPosition, { align: 'right' });
+        if (detail.bold) {
+          doc.setFont(undefined, 'normal');
+        }
+        yPosition += 6;
+      });
+
+      yPosition += 5;
+      doc.setFontSize(8);
+      doc.text('Remaining balance is due 30 days before departure date.', margin, yPosition);
+      yPosition += 15;
+
+      // Important Information Section
+      doc.setFontSize(14);
+      doc.setTextColor(...secondaryColor);
+      doc.text('IMPORTANT INFORMATION', margin, yPosition);
+      yPosition += 10;
+
+      doc.setFontSize(9);
+      doc.setTextColor(...textColor);
+      const importantInfo = [
+        '• Passport must be valid for at least 6 months from travel date',
+        '• Visa may be required depending on nationality',
+        '• Travel insurance highly recommended',
+        '• Final balance due 30 days before departure',
+        '• Free cancellation up to 30 days before trip'
+      ];
+
+      importantInfo.forEach(info => {
+        const lines = doc.splitTextToSize(info, contentWidth);
+        lines.forEach((line: string) => {
+          doc.text(line, margin, yPosition);
+          yPosition += 5;
+        });
+      });
+
+      yPosition += 10;
+
+      // Next Steps Section
+      doc.setFontSize(14);
+      doc.setTextColor(...secondaryColor);
+      doc.text('NEXT STEPS', margin, yPosition);
+      yPosition += 10;
+
+      doc.setFontSize(9);
+      doc.setTextColor(...textColor);
+      const nextSteps = [
+        '1. Confirmation email will arrive within 15 minutes',
+        '2. Our team will contact you within 48 hours for travel documents',
+        '3. Pre-trip briefing 7 days before departure'
+      ];
+
+      nextSteps.forEach(step => {
+        doc.text(step, margin, yPosition);
+        yPosition += 6;
+      });
+
+      yPosition += 10;
+
+      // Contact Support Section
+      doc.setFontSize(14);
+      doc.setTextColor(...secondaryColor);
+      doc.text('CONTACT SUPPORT', margin, yPosition);
+      yPosition += 10;
+
+      doc.setFontSize(10);
+      doc.setTextColor(...textColor);
+      doc.text('Email: support@dirttrails.com', margin, yPosition);
+      yPosition += 6;
+      doc.text('Phone: +256 567-8900', margin, yPosition);
+
+      // Footer
+      yPosition = doc.internal.pageSize.height - 30;
+      doc.setFontSize(12);
+      doc.setTextColor(...primaryColor);
+      doc.text('Thank you for choosing DIRT TRAILS!', pageWidth / 2, yPosition, { align: 'center' });
+      
+      yPosition += 8;
+      doc.setFontSize(8);
+      doc.setTextColor(...textColor);
+      doc.text(`Generated on: ${new Date().toLocaleString()}`, pageWidth / 2, yPosition, { align: 'center' });
+
+      // Save the PDF
+      doc.save(`Booking-Confirmation-${bookingReference}.pdf`);
+
+      // Show success message
+      alert('Booking confirmation PDF downloaded successfully!');
+      
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      alert('There was an error generating the PDF. Please try again or contact support.');
+    }
+  };
+
+
+  if (!bookingData) {
+    return (
+      <div className="py-12 text-center">
+        <div className="container max-w-2xl mx-auto">
+          <AlertTriangle className="mx-auto mb-4 text-orange-500" size={48} />
+          <h1 className="text-2xl font-bold mb-4">Booking Data Not Found</h1>
+          <p className="text-gray-600 mb-6">
+            We couldn't find your booking information. This might happen if you navigated directly to this page.
+          </p>
+          <Button asChild>
+            <Link to="/">Return to Home</Link>
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  const { userData, tour, totalPrice } = bookingData;
+  const depositAmount = totalPrice * 0.2;
+  const remainingBalance = totalPrice - depositAmount;
 
   return (
     <div className="py-12">
@@ -493,7 +430,7 @@ Generated on: ${new Date().toLocaleString()}
           <div className="p-6">
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span>Tour Price:</span>
+                <span>Tour Price per person:</span>
                 <span>${tour.price.toLocaleString()}</span>
               </div>
               
@@ -579,17 +516,17 @@ Generated on: ${new Date().toLocaleString()}
             onClick={handleDownloadConfirmation}
           >
             <Download size={18} />
-            Download Confirmation
+            Download PDF
           </Button>
           
-          <Button 
+          {/* <Button 
             variant="outline" 
             className="flex items-center gap-2"
             onClick={handlePrintDetails}
           >
             <Printer size={18} />
             Print Details
-          </Button>
+          </Button> */}
           
           <Button variant="outline" className="flex items-center gap-2">
             <Share2 size={18} />
@@ -611,7 +548,7 @@ Generated on: ${new Date().toLocaleString()}
             <a href="mailto:support@dirttrails.com" className="text-green-600 hover:underline">
               Email: support@dirttrails.com
             </a>
-            <a href="tel:+1234567890" className="text-green-600 hover:underline">
+            <a href="tel:+25656789000" className="text-green-600 hover:underline">
               Phone: +256 567-8900
             </a>
           </div>
