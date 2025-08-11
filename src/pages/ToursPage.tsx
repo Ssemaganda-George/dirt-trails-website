@@ -1,14 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { MapPin, Calendar, Star, ArrowRight } from 'lucide-react';
 import { tours } from '@/data/tours';
-import ChatBot from '@/components/ChatBot'; // Your enhanced ChatBot
 
 const ToursPage = () => {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [sortBy, setSortBy] = useState('default');
   
-  // Matching theme from TourCard
   const theme = {
     gradient: 'from-green-600 to-green-700', 
     lightGradient: 'from-green-400 to-green-500',
@@ -33,33 +30,18 @@ const ToursPage = () => {
     return 0;
   });
 
-  // Get unique countries for filter
-  const countries = Array.from(new Set(tours.map(tour => tour.country)));
+  const countries = Array.from(new Set(tours.map(tour => tour.country))).sort();
 
-  // Prepare context for chatbot
-  const chatBotContext = {
-    selectedCountry,
-    sortBy,
-    filteredCount: filteredTours.length,
-    totalCount: tours.length,
-    countries,
-    priceRange: {
-      min: Math.min(...tours.map(t => t.price)),
-      max: Math.max(...tours.map(t => t.price)),
-      avg: Math.round(tours.reduce((sum, t) => sum + t.price, 0) / tours.length)
-    },
-    durationRange: {
-      min: Math.min(...tours.map(t => t.duration)),
-      max: Math.max(...tours.map(t => t.duration))
-    }
-  };
+  console.log('Current filters:', { selectedCountry, sortBy });
+  console.log('Filtered tours count:', filteredTours.length);
+  console.log('Sorted tours count:', sortedTours.length);
 
   return (
     <div>
-      {/* Hero Section - Enhanced with gradient and modern styling */}
+      {/* Hero Section */}
       <section className={`relative py-20 bg-gradient-to-r ${theme.lightGradient} text-white overflow-hidden`}>
         <div className="absolute inset-0 bg-black/20"></div>
-        <div className="container relative z-10">
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
               Explore Our 
@@ -79,8 +61,8 @@ const ToursPage = () => {
 
       {/* Tours List Section */}
       <section className="py-12 bg-gray-50">
-        <div className="container">
-          {/* Filter and Sort Controls - Enhanced styling */}
+        <div className="container mx-auto px-4">
+          {/* Filter and Sort Controls */}
           <div className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-100">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
               <div className="flex flex-wrap items-center gap-3">
@@ -93,21 +75,24 @@ const ToursPage = () => {
                   }`}
                   onClick={() => setSelectedCountry(null)}
                 >
-                  All Countries
+                  All Countries ({tours.length})
                 </button>
-                {countries.map(country => (
-                  <button 
-                    key={country}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 transform hover:scale-105 ${
-                      selectedCountry === country 
-                        ? `bg-gradient-to-r ${theme.gradient} text-white shadow-lg` 
-                        : `${theme.bg} ${theme.accent} hover:shadow-md border ${theme.border}`
-                    }`}
-                    onClick={() => setSelectedCountry(country)}
-                  >
-                    {country}
-                  </button>
-                ))}
+                {countries.map(country => {
+                  const countryCount = tours.filter(tour => tour.country === country).length;
+                  return (
+                    <button 
+                      key={country}
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 transform hover:scale-105 ${
+                        selectedCountry === country 
+                          ? `bg-gradient-to-r ${theme.gradient} text-white shadow-lg` 
+                          : `${theme.bg} ${theme.accent} hover:shadow-md border ${theme.border}`
+                      }`}
+                      onClick={() => setSelectedCountry(country)}
+                    >
+                      {country} ({countryCount})
+                    </button>
+                  );
+                })}
               </div>
               
               <div className="flex items-center gap-3">
@@ -123,19 +108,21 @@ const ToursPage = () => {
                   <option value="price-high">Price: High to Low</option>
                   <option value="duration-short">Duration: Shortest First</option>
                   <option value="duration-long">Duration: Longest First</option>
-                  <option value="rating">Rating</option>
+                  <option value="rating">Rating: Highest First</option>
                 </select>
               </div>
             </div>
+            
+           
           </div>
 
-          {/* Tours Grid - Matching TourCard design */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Tours Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {sortedTours.map((tour) => (
-              <Link 
+              <div 
                 key={tour.id} 
-                to={`/tours/${tour.slug}`}
-                className="group block"
+                className="group block cursor-pointer"
+                onClick={() => console.log(`Navigate to tour: ${tour.slug}`)}
               >
                 <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] border border-gray-100 relative h-full flex flex-col">
                   {/* Image Container */}
@@ -144,6 +131,7 @@ const ToursPage = () => {
                       src={tour.coverImage} 
                       alt={tour.name}
                       className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
+                      loading="lazy"
                     />
                     
                     {/* Gradient overlay */}
@@ -221,18 +209,16 @@ const ToursPage = () => {
                       </div>
                     </div>
 
-                    {/* Decorative corner accent */}
                     <div className={`absolute top-0 right-0 w-16 h-16 bg-gradient-to-br ${theme.lightGradient} opacity-5 rounded-bl-full transform scale-0 group-hover:scale-100 transition-transform duration-500`}></div>
                   </div>
 
-                  {/* Card Border Glow Effect */}
                   <div className={`absolute inset-0 bg-gradient-to-r ${theme.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-2xl pointer-events-none`}></div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
 
-          {/* No results message - Enhanced styling */}
+          {/* No results message */}
           {sortedTours.length === 0 && (
             <div className="text-center py-16">
               <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md mx-auto border border-gray-100">
@@ -240,24 +226,24 @@ const ToursPage = () => {
                   <MapPin size={24} className={theme.accent} />
                 </div>
                 <h3 className="text-xl font-bold text-stone-700 mb-2">No Tours Found</h3>
-                <p className="text-stone-600">No tours found matching your filters. Please try different criteria.</p>
+                <p className="text-stone-600">
+                  No tours found{selectedCountry ? ` in ${selectedCountry}` : ''} matching your filters. 
+                  Please try different criteria.
+                </p>
+                <button 
+                  className={`mt-4 px-6 py-2 bg-gradient-to-r ${theme.gradient} text-white rounded-lg font-semibold hover:shadow-lg transition-all duration-300`}
+                  onClick={() => {
+                    setSelectedCountry(null);
+                    setSortBy('default');
+                  }}
+                >
+                  Clear All Filters
+                </button>
               </div>
             </div>
           )}
         </div>
       </section>
-      
-      {/* Enhanced ChatBot with full context */}
-      <ChatBot 
-        tours={tours}
-        selectedCountry={selectedCountry}
-        currentFilters={{
-          country: selectedCountry,
-          sortBy: sortBy,
-          filteredTours: sortedTours,
-          ...chatBotContext
-        }}
-      />
     </div>
   );
 };

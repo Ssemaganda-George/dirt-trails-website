@@ -39,7 +39,6 @@ const DestinationsPage = () => {
     popupAnchor: [0, -34]
   });
 
-  // Set isClient to true after component mounts to avoid SSR issues with Leaflet
   useEffect(() => {
     setIsClient(true);
   }, []);
