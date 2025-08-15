@@ -221,7 +221,7 @@ const TreePlantingPage = () => {
           </Link>
         </Button>
         <p className="text-sm text-muted-foreground mt-4">
-          You can add the tree planting option ($50) during the checkout process for any tour
+          {/* You can add the tree planting option ($50) during the checkout process for any tour */}
         </p>
       </div>
       <ChatBot />

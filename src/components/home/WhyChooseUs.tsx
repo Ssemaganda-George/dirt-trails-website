@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Users, Settings, Heart, Award, Compass, TreePine, Camera, Globe, Star, CheckCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const FeatureCard = ({ icon: Icon, title, description, stats, delay = 0 }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -145,9 +146,12 @@ const WhyChooseUs = () => {
             Let's plan your perfect safari adventure today.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <button className="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300">
-              View Our Tours
-            </button>
+            <Link to="/tours">
+  <button className="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300">
+    View Our Tours
+  </button>
+</Link>
+
           </div>
         </div>
       </div>
