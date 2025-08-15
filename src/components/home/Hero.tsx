@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Search, MapPin, Calendar, Users, Compass, Eye, Camera, Trees } from 'lucide-react';
+import { Search, MapPin, Calendar, Users, Compass, Eye, Trees } from 'lucide-react';
 
 const Hero = () => {
   const [destination, setDestination] = useState('Uganda');
   const [days, setDays] = useState('Five');
   const [guests, setGuests] = useState('4 adults');
-  const [tripType, setTripType] = useState('Average');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   // Safari background images slideshow
@@ -16,7 +15,6 @@ const Hero = () => {
     '/images/crossroad-car-safari-scene.jpg'
   ];
 
-  // Auto-rotate background images
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % safariImages.length);
@@ -27,11 +25,16 @@ const Hero = () => {
   const countries = ['Uganda', 'Kenya', 'Tanzania', 'Rwanda'];
 
   const handleSearch = () => {
-    console.log({ destination, days, guests, tripType });
+    console.log({ destination, days, guests });
   };
 
   const handleLinkClick = (section) => {
-    console.log(`Navigate to ${section}`);
+    if (section === 'conservation') {
+      window.location.href = '/environment/tree-planting';
+    } 
+     else if (section === 'tours') {
+      window.location.href = '/tours';
+    }
   };
 
   return (
@@ -79,22 +82,6 @@ const Hero = () => {
             From the Big Five to mountain gorillas, create memories while supporting conservation and local communities.
           </p>
           
-          {/* Safari statistics - reduced spacing */}
-          {/* <div className="flex flex-wrap gap-6 mb-6 text-sm">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-green-200">5000+ Wildlife Encounters</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
-              <span className="text-amber-200">15+ Years Experience</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
-              <span className="text-orange-200">Eco-Certified Tours</span>
-            </div>
-          </div> */}
-          
           {/* Enhanced call to action buttons - reduced size */}
           <div className="flex flex-wrap gap-4">
             <button 
@@ -103,14 +90,6 @@ const Hero = () => {
             >
               <Eye size={18} />
               Start Your Safari
-            </button>
-            
-            <button 
-              onClick={() => handleLinkClick('contact')}
-              className="border-2 border-white/80 bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-gray-900 px-6 py-2 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center gap-2"
-            >
-              <MapPin size={18} />
-              Plan Custom Trip
             </button>
             
             <button 
@@ -124,7 +103,6 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Enhanced search filter with safari styling - reduced padding */}
       <div className="relative z-20 container pb-4 px-4">
         <div className="bg-gradient-to-r from-amber-50/95 to-orange-50/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-amber-200/30 p-4 max-w-6xl mx-auto">
           <div className="flex items-center gap-3 mb-3">
@@ -134,7 +112,7 @@ const Hero = () => {
             <h3 className="text-lg font-bold text-gray-800">Find Your Perfect Safari Adventure</h3>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
             <div className="space-y-1">
               <label className="flex items-center gap-2 text-sm font-semibold text-gray-600">
                 <MapPin size={14} className="text-green-600" />
@@ -165,22 +143,6 @@ const Hero = () => {
                 <option value="Five">5 Days</option>
                 <option value="Seven">7 Days</option>
                 <option value="Ten">10+ Days</option>
-              </select>
-            </div>
-            
-            <div className="space-y-1">
-              <label className="flex items-center gap-2 text-sm font-semibold text-gray-600">
-                <Compass size={14} className="text-purple-600" />
-                Safari Style
-              </label>
-              <select 
-                value={tripType} 
-                onChange={(e) => setTripType(e.target.value)}
-                className="w-full py-2 px-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800 font-medium shadow-sm text-sm"
-              >
-                <option value="Budget">Budget Explorer</option>
-                <option value="Average">Classic Safari</option>
-                <option value="Luxury">Luxury Experience</option>
               </select>
             </div>
             

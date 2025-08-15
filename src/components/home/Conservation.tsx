@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { TreePine, Heart, Leaf, Award, Globe, CheckCircle, ArrowRight, Users, Target } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const StatCard = ({ icon: Icon, number, label, gradient }) => (
   <div className="text-center group">
@@ -187,9 +188,13 @@ const Conservation = () => {
             Join us in protecting East Africa's incredible wildlife and supporting local communities. 
             Every safari booking directly contributes to conservation efforts.
           </p>
-          <button className="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-6 py-3 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300">
-            Book Your Conservation Safari
-          </button>
+          <Link to="/contact">
+  <button className="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300">
+    Book Your Conservation Safari
+  </button>
+</Link>
+
+
         </div>
       </div>
     </section>
