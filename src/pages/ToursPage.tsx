@@ -214,7 +214,7 @@ const ToursPage = () => {
 
                   <div className={`absolute inset-0 bg-gradient-to-r ${theme.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-2xl pointer-events-none`}></div>
                 </div>
-              </div>
+              </div> 
             ))}
           </div>
 
