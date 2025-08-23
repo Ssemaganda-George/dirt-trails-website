@@ -6,7 +6,7 @@ import {
   MapContainer, 
   TileLayer, 
   Marker, 
-  Popup,
+  Popup, 
   ZoomControl 
 } from 'react-leaflet';
 import L from 'leaflet';
@@ -31,6 +31,16 @@ const DestinationsPage = () => {
   const navigate = useNavigate();
   const [isClient, setIsClient] = useState(false);
   
+  // Consistent theme with tours page
+  const theme = {
+    gradient: 'from-green-600 to-green-700', 
+    lightGradient: 'from-green-400 to-green-500',
+    accent: 'text-green-600',
+    bg: 'bg-green-50',
+    border: 'border-green-200',
+    hoverAccent: 'hover:text-green-700'
+  };
+  
   // Custom Safari icon
   const customIcon = L.icon({
     iconUrl: '/images/map-marker.svg',
@@ -44,7 +54,7 @@ const DestinationsPage = () => {
   }, []);
 
   // Filter map points by country
-  const [selectedCountry, setSelectedCountry] = useState<string>('all');
+  const [selectedCountry, setSelectedCountry] = useState('all');
   
   const filteredMapPoints = selectedCountry === 'all' 
     ? mapPoints 
@@ -52,27 +62,38 @@ const DestinationsPage = () => {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="relative py-20 bg-safari-brown/10">
-        <div className="container">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Discover East Africa</h1>
-          <p className="text-lg text-muted-foreground max-w-3xl">
-            Explore the diverse destinations of East Africa, from vast savannas teeming with wildlife to pristine beaches and misty forests.
-          </p>
+      {/* Hero Section - Updated to match tours page */}
+      <section className={`relative py-20 bg-gradient-to-r ${theme.lightGradient} text-white overflow-hidden`}>
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+              Discover 
+              <span className="block bg-gradient-to-r from-white to-green-100 bg-clip-text text-transparent">
+                East Africa
+              </span>
+            </h1>
+            <p className="text-lg md:text-xl text-green-50 max-w-3xl leading-relaxed">
+              Explore the diverse destinations of East Africa, from vast savannas teeming with wildlife to pristine beaches and misty forests.
+            </p>
+          </div>
         </div>
+        {/* Decorative elements */}
+        <div className="absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+        <div className="absolute bottom-10 left-10 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-12">
-        <div className="container">
-          <div className="bg-white rounded-lg shadow-md p-6 mb-12">
-            <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-              <h2 className="text-2xl font-semibold">East Africa Interactive Map</h2>
+      {/* Map Section - Updated styling */}
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="bg-white rounded-2xl shadow-lg p-6 mb-12 border border-gray-100">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+              <h2 className="text-2xl font-bold text-stone-700">East Africa Interactive Map</h2>
               <div className="mt-4 md:mt-0">
-                <div className="flex items-center space-x-4">
-                  <span className="text-sm text-gray-600">Filter by country:</span>
+                <div className="flex items-center gap-3">
+                  <span className="font-semibold text-stone-700">Filter by country:</span>
                   <select 
-                    className="border rounded-md py-1 px-3 text-sm"
+                    className={`border ${theme.border} rounded-xl px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 font-medium ${theme.accent}`}
                     value={selectedCountry}
                     onChange={(e) => setSelectedCountry(e.target.value)}
                     aria-label="Filter destinations by country"
@@ -86,7 +107,7 @@ const DestinationsPage = () => {
               </div>
             </div>
 
-            <div className="relative aspect-[16/9] rounded-lg overflow-hidden border border-safari-brown/20">
+            <div className={`relative aspect-[16/9] rounded-2xl overflow-hidden border ${theme.border} shadow-inner`}>
               {isClient ? (
                 <MapContainer 
                   center={[0.3136, 32.5811]} // Center on Uganda
@@ -113,13 +134,13 @@ const DestinationsPage = () => {
                     >
                       <Popup>
                         <div className="text-center">
-                          <h3 className="font-semibold">{point.name}</h3>
-                          <p className="text-xs text-muted-foreground mb-2">{point.country}</p>
+                          <h3 className="font-semibold text-stone-700">{point.name}</h3>
+                          <p className="text-xs text-stone-500 mb-2">{point.country}</p>
                           <Link 
                             to={`/destinations/${point.slug}`}
-                            className="text-xs text-safari-green font-medium hover:underline"
+                            className={`text-xs font-medium ${theme.accent} ${theme.hoverAccent} transition-colors`}
                           >
-                            View Details
+                            View Details →
                           </Link>
                         </div>
                       </Popup>
@@ -127,43 +148,83 @@ const DestinationsPage = () => {
                   ))}
                 </MapContainer>
               ) : (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <MapPin size={64} className="text-safari-green opacity-30" />
-                  <p className="absolute mt-20 text-muted-foreground">Loading interactive map...</p>
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100">
+                  <div className="text-center">
+                    <div className={`w-16 h-16 bg-gradient-to-r ${theme.lightGradient} opacity-20 rounded-full mx-auto mb-4 flex items-center justify-center`}>
+                      <MapPin size={32} className={theme.accent} />
+                    </div>
+                    <p className="text-stone-600 font-medium">Loading interactive map...</p>
+                  </div>
                 </div>
               )}
             </div>
-            <p className="mt-3 text-sm text-gray-500 text-center">Click on a destination marker to view details about safari options in that location</p>
+            <p className="mt-4 text-sm text-stone-500 text-center">Click on a destination marker to view details about safari options in that location</p>
           </div>
 
-          {/* Destinations Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Destinations Grid - Updated styling */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {destinations.map((destination) => (
               <Link 
                 key={destination.id} 
                 to={`/destinations/${destination.slug}`}
-                className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow"
+                className="group block"
               >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img 
-                    src={destination.image} 
-                    alt={destination.name}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center text-safari-orange mb-2">
-                    <span className="text-sm font-medium">{destination.country}</span>
+                <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] border border-gray-100 relative h-full flex flex-col">
+                  {/* Image Container */}
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src={destination.image} 
+                      alt={destination.name}
+                      className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
+                      loading="lazy"
+                    />
+                    
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    {/* Country Badge */}
+                    <div className={`absolute top-4 left-4 ${theme.bg} ${theme.accent} px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm border ${theme.border} shadow-md`}>
+                      {destination.country}
+                    </div>
+
+                    {/* Hover Explore Icon */}
+                    <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                      <div className={`w-10 h-10 bg-gradient-to-r ${theme.gradient} rounded-full flex items-center justify-center shadow-lg`}>
+                        <MapPin className="text-white" size={18} />
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold mb-2 group-hover:text-safari-orange transition-colors">
-                    {destination.name}
-                  </h3>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                    {destination.shortDescription}
-                  </p>
-                  <span className="text-safari-green text-sm font-medium group-hover:underline">
-                    Learn more →
-                  </span>
+
+                  {/* Content Container */}
+                  <div className="p-6 relative flex-grow flex flex-col">
+                    {/* Title */}
+                    <h3 className={`text-xl font-bold mb-3 ${theme.accent} ${theme.hoverAccent} transition-colors leading-tight`}>
+                      {destination.name}
+                    </h3>
+                    
+                    {/* Description */}
+                    <p className="text-stone-600 text-sm leading-relaxed flex-grow mb-4 line-clamp-3">
+                      {destination.shortDescription}
+                    </p>
+                    
+                    {/* Learn More Link */}
+                    <div className="flex items-center justify-between pt-3 border-t border-gray-100 mt-auto">
+                      <span className={`text-sm font-semibold ${theme.accent} ${theme.hoverAccent} transition-colors`}>
+                        Learn more →
+                      </span>
+                      
+                      {/* View Details Button */}
+                      <div className={`opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 bg-gradient-to-r ${theme.gradient} text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-md`}>
+                        Explore
+                      </div>
+                    </div>
+
+                    {/* Decorative element */}
+                    <div className={`absolute top-0 right-0 w-16 h-16 bg-gradient-to-br ${theme.lightGradient} opacity-5 rounded-bl-full transform scale-0 group-hover:scale-100 transition-transform duration-500`}></div>
+                  </div>
+
+                  {/* Hover overlay */}
+                  <div className={`absolute inset-0 bg-gradient-to-r ${theme.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-2xl pointer-events-none`}></div>
                 </div>
               </Link>
             ))}
@@ -171,12 +232,17 @@ const DestinationsPage = () => {
         </div>
       </section>
 
-      {/* Why Visit East Africa */}
-      <section className="py-12 bg-safari-brown/10">
-        <div className="container">
+      {/* Why Visit East Africa - Updated styling */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Why Visit East Africa</h2>
-            <p className="text-muted-foreground max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-stone-700">
+              Why Visit 
+              <span className={`bg-gradient-to-r ${theme.gradient} bg-clip-text text-transparent`}>
+                East Africa
+              </span>
+            </h2>
+            <p className="text-stone-600 max-w-3xl mx-auto leading-relaxed">
               East Africa offers an unparalleled diversity of experiences, from thrilling wildlife encounters to immersive cultural interactions.
             </p>
           </div>
@@ -185,14 +251,17 @@ const DestinationsPage = () => {
             <FeatureCard 
               title="Incredible Wildlife" 
               description="Home to the Big Five and the Great Migration, East Africa offers some of the world's most spectacular wildlife viewing opportunities."
+              theme={theme}
             />
             <FeatureCard 
               title="Diverse Landscapes" 
               description="From the vast plains of the Serengeti to the white-sand beaches of Zanzibar and the misty forests of Uganda, discover stunning natural diversity."
+              theme={theme}
             />
             <FeatureCard 
               title="Rich Culture" 
               description="Experience the vibrant cultures of East Africa, with over 120 distinct tribes including the iconic Maasai warriors."
+              theme={theme}
             />
           </div>
         </div>
@@ -202,12 +271,24 @@ const DestinationsPage = () => {
   );
 };
 
-// Feature Card Component
-const FeatureCard = ({ title, description }: { title: string; description: string }) => {
+// Feature Card Component - Updated with theme
+const FeatureCard = ({ title, description, theme }) => {
   return (
-    <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-      <h3 className="text-xl font-semibold mb-3">{title}</h3>
-      <p className="text-muted-foreground">{description}</p>
+    <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 border border-gray-100 relative overflow-hidden">
+      {/* Icon background */}
+      <div className={`w-12 h-12 bg-gradient-to-r ${theme.lightGradient} opacity-20 rounded-full mb-4 flex items-center justify-center group-hover:opacity-30 transition-opacity duration-300`}>
+        <MapPin size={24} className={theme.accent} />
+      </div>
+      
+      <h3 className={`text-xl font-bold mb-3 ${theme.accent} ${theme.hoverAccent} transition-colors`}>
+        {title}
+      </h3>
+      <p className="text-stone-600 leading-relaxed">
+        {description}
+      </p>
+      
+      {/* Hover overlay */}
+      <div className={`absolute inset-0 bg-gradient-to-r ${theme.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl pointer-events-none`}></div>
     </div>
   );
 };
