@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { CheckCircle, Calendar, User, MapPin, Mail, Phone, Clock, Download, Share2, Printer, AlertTriangle } from 'lucide-react';
+import { CheckCircle, Calendar, User, MapPin, Mail, Phone, Clock, Download, Share2, Printer, AlertTriangle, CreditCard, DollarSign } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-interface UserData {
+interface UserData { 
   firstName: string;
   lastName: string;
   email: string;
@@ -27,6 +27,9 @@ const BookingConfirmationPage = () => {
     userData: UserData;
     tour: Tour;
     totalPrice: number;
+    paidAmount: number;
+    paymentType: 'deposit' | 'full';
+    remainingBalance: number;
     paymentMethod: string;
   } | null>(null);
 
@@ -38,11 +41,30 @@ const BookingConfirmationPage = () => {
     const stateData = location.state;
     
     if (stateData && stateData.userData && stateData.tour) {
-      // Use the actual data passed from checkout
+      // Calculate proper values based on payment type
+      const totalPrice = stateData.totalPrice || stateData.tour.price;
+      const paymentType = stateData.paymentType || 'deposit';
+      
+      // Fix the remaining balance calculation
+      let paidAmount: number;
+      let remainingBalance: number;
+      
+      if (paymentType === 'full') {
+        paidAmount = totalPrice;
+        remainingBalance = 0;
+      } else {
+        // For deposit payments, calculate 20% of total price
+        paidAmount = stateData.paidAmount || Math.round(totalPrice * 0.2);
+        remainingBalance = totalPrice - paidAmount;
+      }
+      
       setBookingData({
         userData: stateData.userData,
         tour: stateData.tour,
-        totalPrice: stateData.totalPrice || stateData.tour.price,
+        totalPrice: totalPrice,
+        paidAmount: paidAmount,
+        paymentType: paymentType,
+        remainingBalance: remainingBalance,
         paymentMethod: stateData.paymentMethod || 'card'
       });
     } else {
@@ -84,9 +106,7 @@ const BookingConfirmationPage = () => {
       // Dynamically import jsPDF
       const { jsPDF } = await import('jspdf');
       
-      const { userData, tour, totalPrice } = bookingData;
-      const depositAmount = totalPrice * 0.2;
-      const remainingBalance = totalPrice - depositAmount;
+      const { userData, tour, totalPrice, paidAmount, paymentType, remainingBalance } = bookingData;
 
       const doc = new jsPDF();
       
@@ -189,10 +209,16 @@ const BookingConfirmationPage = () => {
       
       // Payment details with right alignment for amounts
       const paymentDetails = [
-        { label: 'Tour Price:', amount: `$${tour.price.toLocaleString()}` },
-        { label: 'Total Amount:', amount: `$${totalPrice.toLocaleString()}`, bold: true },
-        { label: 'Deposit Paid:', amount: `$${depositAmount.toLocaleString()}`, bold: true },
-        { label: 'Remaining Balance:', amount: `$${remainingBalance.toLocaleString()}` }
+        { label: 'Total Trip Cost:', amount: `$${totalPrice.toLocaleString()}` },
+        { 
+          label: paymentType === 'full' ? 'Full Payment:' : 'Deposit Paid:', 
+          amount: `$${paidAmount.toLocaleString()}`, 
+          bold: true 
+        },
+        ...(paymentType === 'deposit' ? [{ 
+          label: 'Remaining Balance:', 
+          amount: `$${remainingBalance.toLocaleString()}` 
+        }] : [])
       ];
 
       paymentDetails.forEach(detail => {
@@ -207,9 +233,15 @@ const BookingConfirmationPage = () => {
         yPosition += 6;
       });
 
-      yPosition += 5;
-      doc.setFontSize(8);
-      doc.text('Remaining balance is due 30 days before departure date.', margin, yPosition);
+      if (paymentType === 'deposit') {
+        yPosition += 5;
+        doc.setFontSize(8);
+        doc.text('Remaining balance is due 30 days before departure date.', margin, yPosition);
+      } else {
+        yPosition += 5;
+        doc.setFontSize(8);
+        doc.text('Full payment completed - no additional charges required.', margin, yPosition);
+      }
       yPosition += 15;
 
       // Important Information Section
@@ -224,7 +256,7 @@ const BookingConfirmationPage = () => {
         '• Passport must be valid for at least 6 months from travel date',
         '• Visa may be required depending on nationality',
         '• Travel insurance highly recommended',
-        '• Final balance due 30 days before departure',
+        ...(paymentType === 'deposit' ? ['• Final balance due 30 days before departure'] : []),
         '• Free cancellation up to 30 days before trip'
       ];
 
@@ -249,7 +281,8 @@ const BookingConfirmationPage = () => {
       const nextSteps = [
         '1. Confirmation email will arrive within 15 minutes',
         '2. Our team will contact you within 48 hours for travel documents',
-        '3. Pre-trip briefing 7 days before departure'
+        ...(paymentType === 'deposit' ? ['3. Payment reminder 35 days before departure'] : []),
+        `${paymentType === 'deposit' ? '4' : '3'}. Pre-trip briefing 7 days before departure`
       ];
 
       nextSteps.forEach(step => {
@@ -294,7 +327,6 @@ const BookingConfirmationPage = () => {
     }
   };
 
-
   if (!bookingData) {
     return (
       <div className="py-12 text-center">
@@ -312,9 +344,7 @@ const BookingConfirmationPage = () => {
     );
   }
 
-  const { userData, tour, totalPrice } = bookingData;
-  const depositAmount = totalPrice * 0.2;
-  const remainingBalance = totalPrice - depositAmount;
+  const { userData, tour, totalPrice, paidAmount, paymentType, remainingBalance } = bookingData;
 
   return (
     <div className="py-12">
@@ -324,10 +354,66 @@ const BookingConfirmationPage = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
             <CheckCircle size={32} className="text-green-600" />
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">Booking Confirmed!</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">
+            {paymentType === 'full' ? 'Booking Confirmed!' : 'Booking Secured!'}
+          </h1>
           <p className="text-lg text-gray-600">
-            Your East African safari adventure is booked and confirmed.
+            {paymentType === 'full' 
+              ? 'Your East African safari adventure is fully paid and confirmed.'
+              : 'Your East African safari adventure is secured with deposit payment.'
+            }
           </p>
+        </div>
+        
+        {/* Payment Status Banner */}
+        <div className={`rounded-lg p-6 mb-8 ${
+          paymentType === 'full' 
+            ? 'bg-green-50 border border-green-200' 
+            : 'bg-blue-50 border border-blue-200'
+        }`}>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              {paymentType === 'full' ? (
+                <CheckCircle className="text-green-600" size={24} />
+              ) : (
+                <CreditCard className="text-blue-600" size={24} />
+              )}
+              <div>
+                <h3 className={`font-semibold ${
+                  paymentType === 'full' ? 'text-green-800' : 'text-blue-800'
+                }`}>
+                  {paymentType === 'full' ? 'Payment Complete' : 'Deposit Paid'}
+                </h3>
+                <p className={`text-sm ${
+                  paymentType === 'full' ? 'text-green-600' : 'text-blue-600'
+                }`}>
+                  {paymentType === 'full' 
+                    ? 'No additional payments required'
+                    : `Remaining balance: $${remainingBalance.toLocaleString()}`
+                  }
+                </p>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-2xl font-bold">
+                ${paidAmount.toLocaleString()}
+              </p>
+              <p className="text-sm text-gray-600">
+                {paymentType === 'full' ? 'Total Paid' : 'Deposit Paid'}
+              </p>
+            </div>
+          </div>
+          
+          {paymentType === 'deposit' && (
+            <div className="mt-4 pt-4 border-t border-blue-200">
+              <div className="flex items-center gap-2">
+                <Clock className="text-blue-600" size={16} />
+                <span className="text-sm text-blue-700">
+                  Remaining balance of ${remainingBalance.toLocaleString()} due 30 days before departure
+                </span>
+              </div>
+            </div>
+          )}
         </div>
         
         {/* Booking Details */}
@@ -428,29 +514,52 @@ const BookingConfirmationPage = () => {
             <h3 className="text-lg font-semibold">Payment Summary</h3>
           </div>
           <div className="p-6">
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span>Tour Price per person:</span>
-                <span>${tour.price.toLocaleString()}</span>
+            <div className="space-y-4">
+              <div className="flex justify-between text-lg">
+                <span className="font-medium">Total Trip Cost:</span>
+                <span className="font-bold">${totalPrice.toLocaleString()}</span>
               </div>
               
-              <div className="flex justify-between font-semibold text-lg border-t pt-3">
-                <span>Total Amount:</span>
-                <span>${totalPrice.toLocaleString()}</span>
-              </div>
-              
-              <div className="bg-green-50 p-4 rounded-md mt-4">
-                <div className="flex justify-between mb-2">
-                  <span className="font-medium">Deposit Paid:</span>
-                  <span className="font-bold text-green-600">${depositAmount.toLocaleString()}</span>
+              <div className={`p-4 rounded-lg ${
+                paymentType === 'full' 
+                  ? 'bg-green-50 border border-green-200' 
+                  : 'bg-blue-50 border border-blue-200'
+              }`}>
+                <div className="flex justify-between items-center mb-2">
+                  <div className="flex items-center gap-2">
+                    {paymentType === 'full' ? (
+                      <CheckCircle className="text-green-600" size={20} />
+                    ) : (
+                      <DollarSign className="text-blue-600" size={20} />
+                    )}
+                    <span className="font-semibold">
+                      {paymentType === 'full' ? 'Full Payment:' : 'Deposit Paid:'}
+                    </span>
+                  </div>
+                  <span className={`font-bold text-xl ${
+                    paymentType === 'full' ? 'text-green-600' : 'text-blue-600'
+                  }`}>
+                    ${paidAmount.toLocaleString()}
+                  </span>
                 </div>
-                <div className="flex justify-between">
-                  <span>Remaining Balance:</span>
-                  <span>${remainingBalance.toLocaleString()}</span>
-                </div>
-                <p className="text-sm text-gray-600 mt-2">
-                  Remaining balance is due 30 days before your departure date.
-                </p>
+                
+                {paymentType === 'deposit' && (
+                  <>
+                    <div className="flex justify-between items-center mt-3 pt-3 border-t border-blue-200">
+                      <span className="font-medium">Remaining Balance:</span>
+                      <span className="font-bold text-lg">${remainingBalance.toLocaleString()}</span>
+                    </div>
+                    <p className="text-sm text-blue-700 mt-2">
+                      Due 30 days before departure date. We'll send payment reminders.
+                    </p>
+                  </>
+                )}
+                
+                {paymentType === 'full' && (
+                  <p className="text-sm text-green-700 mt-2">
+                    ✓ Payment complete - no additional charges required
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -483,9 +592,21 @@ const BookingConfirmationPage = () => {
                 </div>
               </div>
               
+              {paymentType === 'deposit' && (
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-sm font-bold text-blue-600">3</span>
+                  </div>
+                  <div>
+                    <p className="font-medium">Payment Reminder</p>
+                    <p className="text-sm text-gray-600">35 days before departure, you'll receive payment instructions for the remaining balance of ${remainingBalance.toLocaleString()}.</p>
+                  </div>
+                </div>
+              )}
+              
               <div className="flex items-start">
                 <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                  <span className="text-sm font-bold text-blue-600">3</span>
+                  <span className="text-sm font-bold text-blue-600">{paymentType === 'deposit' ? '4' : '3'}</span>
                 </div>
                 <div>
                   <p className="font-medium">Pre-Trip Briefing</p>
@@ -497,13 +618,23 @@ const BookingConfirmationPage = () => {
         </div>
         
         {/* Important Information */}
-        <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-8">
-          <h3 className="font-semibold text-amber-800 mb-3">Important Information</h3>
-          <ul className="space-y-2 text-sm text-amber-700">
+        <div className={`border rounded-lg p-6 mb-8 ${
+          paymentType === 'deposit' ? 'bg-amber-50 border-amber-200' : 'bg-green-50 border-green-200'
+        }`}>
+          <h3 className={`font-semibold mb-3 ${
+            paymentType === 'deposit' ? 'text-amber-800' : 'text-green-800'
+          }`}>
+            Important Information
+          </h3>
+          <ul className={`space-y-2 text-sm ${
+            paymentType === 'deposit' ? 'text-amber-700' : 'text-green-700'
+          }`}>
             <li>• Please ensure your passport is valid for at least 6 months from your travel date</li>
             <li>• A visa may be required depending on your nationality - we'll help you with this process</li>
             <li>• Travel insurance is highly recommended and can be arranged through our partners</li>
-            <li>• Final balance payment is due 30 days before departure</li>
+            {paymentType === 'deposit' && (
+              <li>• Final balance payment of ${remainingBalance.toLocaleString()} is due 30 days before departure</li>
+            )}
             <li>• Free cancellation available up to 30 days before your trip</li>
           </ul>
         </div>
@@ -518,15 +649,6 @@ const BookingConfirmationPage = () => {
             <Download size={18} />
             Download PDF
           </Button>
-          
-          {/* <Button 
-            variant="outline" 
-            className="flex items-center gap-2"
-            onClick={handlePrintDetails}
-          >
-            <Printer size={18} />
-            Print Details
-          </Button> */}
           
           <Button variant="outline" className="flex items-center gap-2">
             <Share2 size={18} />
