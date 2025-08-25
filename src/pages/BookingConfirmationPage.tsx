@@ -68,7 +68,6 @@ const BookingConfirmationPage = () => {
         paymentMethod: stateData.paymentMethod || 'card'
       });
     } else {
-      // Fallback - if no data available, redirect back to home or show error
       console.warn('No booking data found in navigation state');
     }
     
@@ -209,15 +208,15 @@ const BookingConfirmationPage = () => {
       
       // Payment details with right alignment for amounts
       const paymentDetails = [
-        { label: 'Total Trip Cost:', amount: `$${totalPrice.toLocaleString()}` },
+        { label: 'Total Trip Cost:', amount: `UGx ${totalPrice.toLocaleString()}` },
         { 
           label: paymentType === 'full' ? 'Full Payment:' : 'Deposit Paid:', 
-          amount: `$${paidAmount.toLocaleString()}`, 
+          amount: `UGx ${paidAmount.toLocaleString()}`, 
           bold: true 
         },
         ...(paymentType === 'deposit' ? [{ 
           label: 'Remaining Balance:', 
-          amount: `$${remainingBalance.toLocaleString()}` 
+          amount: `UGx ${remainingBalance.toLocaleString()}` 
         }] : [])
       ];
 
@@ -389,14 +388,14 @@ const BookingConfirmationPage = () => {
                 }`}>
                   {paymentType === 'full' 
                     ? 'No additional payments required'
-                    : `Remaining balance: $${remainingBalance.toLocaleString()}`
+                    : `Remaining balance: UGx ${remainingBalance.toLocaleString()}`
                   }
                 </p>
               </div>
             </div>
             <div className="text-right">
               <p className="text-2xl font-bold">
-                ${paidAmount.toLocaleString()}
+                UGx {paidAmount.toLocaleString()}
               </p>
               <p className="text-sm text-gray-600">
                 {paymentType === 'full' ? 'Total Paid' : 'Deposit Paid'}
@@ -409,7 +408,7 @@ const BookingConfirmationPage = () => {
               <div className="flex items-center gap-2">
                 <Clock className="text-blue-600" size={16} />
                 <span className="text-sm text-blue-700">
-                  Remaining balance of ${remainingBalance.toLocaleString()} due 30 days before departure
+                  Remaining balance of UGx {remainingBalance.toLocaleString()} due 30 days before departure
                 </span>
               </div>
             </div>
@@ -517,7 +516,7 @@ const BookingConfirmationPage = () => {
             <div className="space-y-4">
               <div className="flex justify-between text-lg">
                 <span className="font-medium">Total Trip Cost:</span>
-                <span className="font-bold">${totalPrice.toLocaleString()}</span>
+                <span className="font-bold">UGx {totalPrice.toLocaleString()}</span>
               </div>
               
               <div className={`p-4 rounded-lg ${
@@ -539,7 +538,7 @@ const BookingConfirmationPage = () => {
                   <span className={`font-bold text-xl ${
                     paymentType === 'full' ? 'text-green-600' : 'text-blue-600'
                   }`}>
-                    ${paidAmount.toLocaleString()}
+                    UGx {paidAmount.toLocaleString()}
                   </span>
                 </div>
                 
@@ -547,7 +546,7 @@ const BookingConfirmationPage = () => {
                   <>
                     <div className="flex justify-between items-center mt-3 pt-3 border-t border-blue-200">
                       <span className="font-medium">Remaining Balance:</span>
-                      <span className="font-bold text-lg">${remainingBalance.toLocaleString()}</span>
+                      <span className="font-bold text-lg">UGx {remainingBalance.toLocaleString()}</span>
                     </div>
                     <p className="text-sm text-blue-700 mt-2">
                       Due 30 days before departure date. We'll send payment reminders.
@@ -599,7 +598,7 @@ const BookingConfirmationPage = () => {
                   </div>
                   <div>
                     <p className="font-medium">Payment Reminder</p>
-                    <p className="text-sm text-gray-600">35 days before departure, you'll receive payment instructions for the remaining balance of ${remainingBalance.toLocaleString()}.</p>
+                    <p className="text-sm text-gray-600">35 days before departure, you'll receive payment instructions for the remaining balance of UGx {remainingBalance.toLocaleString()}.</p>
                   </div>
                 </div>
               )}
@@ -633,7 +632,7 @@ const BookingConfirmationPage = () => {
             <li>• A visa may be required depending on your nationality - we'll help you with this process</li>
             <li>• Travel insurance is highly recommended and can be arranged through our partners</li>
             {paymentType === 'deposit' && (
-              <li>• Final balance payment of ${remainingBalance.toLocaleString()} is due 30 days before departure</li>
+              <li>• Final balance payment of UGx {remainingBalance.toLocaleString()} is due 30 days before departure</li>
             )}
             <li>• Free cancellation available up to 30 days before your trip</li>
           </ul>
