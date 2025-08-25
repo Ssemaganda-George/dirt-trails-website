@@ -4,7 +4,8 @@ import {
   CreditCard, Check, AlertCircle, ArrowLeft, 
   MessageCircle, Smartphone, Building2, Calendar,
   DollarSign, Bitcoin, Globe, Users, HelpCircle,
-  Clock, MapPin
+  Clock, MapPin, Copy, ExternalLink, Wallet,
+  QrCode, RefreshCw
 } from 'lucide-react';
 import { tours } from '@/data/tours'; 
 import { Button } from '@/components/ui/button';
@@ -65,7 +66,6 @@ const CheckoutPage = () => {
       </div>
     );
   }
-
   // Dynamic pricing structure - same as tour detail page
   const getPricingTiers = () => {
     if (tour.pricingTiers) {
@@ -78,6 +78,80 @@ const CheckoutPage = () => {
       { min: 2, max: 4, price: tour.price * 0.975, label: "2-4 people" },
       { min: 5, max: 999, price: tour.price * 0.75, label: "5+ people" }
     ];
+  };
+  const [blueWalletConnected, setBlueWalletConnected] = useState(false);
+  const [blueWalletAddress, setBlueWalletAddress] = useState('');
+  const [cryptoPaymentAddress, setCryptoPaymentAddress] = useState('');
+  const [cryptoAmount, setCryptoAmount] = useState('');
+  const [selectedCrypto, setSelectedCrypto] = useState('bitcoin');
+  const [paymentQRCode, setPaymentQRCode] = useState('');
+  const [isConnectingWallet, setIsConnectingWallet] = useState(false);
+  const [cryptoExchangeRates, setCryptoExchangeRates] = useState({
+    bitcoin: 0.000023, // Example rate: 1 UGX = 0.000023 BTC
+    ethereum: 0.00035, // Example rate: 1 UGX = 0.00035 ETH
+    lightning: 0.000023 // Lightning Network BTC
+  });
+
+  // Mock Blue Wallet API integration
+  const connectBlueWallet = async () => {
+    setIsConnectingWallet(true);
+    
+    try {
+      // In real implementation, this would connect to Blue Wallet API
+      // For demo, we'll simulate the connection
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Mock wallet connection response
+      const mockWalletAddress = selectedCrypto === 'bitcoin' 
+        ? 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh'
+        : selectedCrypto === 'ethereum'
+        ? '0x742d35Cc6230252C4eF1D9E5F1a0c6eE4F2Bcd5A'
+        : 'lnbc1500000n1pjg7mqzpp5w8hnvr0xqckg3k5j7j4xetwzq3y4g9w8r7x6c5v4b2n1m9s8z7qsp5x2q3';
+      
+      setBlueWalletAddress(mockWalletAddress);
+      setBlueWalletConnected(true);
+      
+      // Generate payment details
+      const amount = paymentType === 'deposit' 
+        ? calculatePaymentAmounts().depositAmount 
+        : calculatePaymentAmounts().totalPrice;
+        
+      const cryptoAmount = (amount * cryptoExchangeRates[selectedCrypto as keyof typeof cryptoExchangeRates]).toFixed(8);
+      setCryptoAmount(cryptoAmount);
+      setCryptoPaymentAddress(mockWalletAddress);
+      
+      // Generate QR code URL (in real app, use actual QR code library)
+      const qrData = selectedCrypto === 'lightning' 
+        ? mockWalletAddress 
+        : `${selectedCrypto}:${mockWalletAddress}?amount=${cryptoAmount}`;
+      setPaymentQRCode(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`);
+      
+    } catch (error) {
+      console.error('Failed to connect Blue Wallet:', error);
+    } finally {
+      setIsConnectingWallet(false);
+    }
+  };
+
+  const disconnectWallet = () => {
+    setBlueWalletConnected(false);
+    setBlueWalletAddress('');
+    setCryptoPaymentAddress('');
+    setCryptoAmount('');
+    setPaymentQRCode('');
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    // You might want to show a toast notification here
+  };
+
+  const openInBlueWallet = () => {
+    const blueWalletUrl = selectedCrypto === 'lightning'
+      ? `bluewallet:lightning:${cryptoPaymentAddress}`
+      : `bluewallet:${selectedCrypto}:${cryptoPaymentAddress}?amount=${cryptoAmount}`;
+    
+    window.open(blueWalletUrl, '_blank');
   };
 
   const getCurrentPricePerPerson = () => {
@@ -188,7 +262,6 @@ const CheckoutPage = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     
-    // Get form data
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     
@@ -202,7 +275,6 @@ const CheckoutPage = () => {
       specialRequests: formData.get('specialRequests') as string || ''
     };
     
-    // Validation logic
     const errors: {[key: string]: string} = {};
     
     if (bookingMode === 'book' && paymentMethod === 'card') {
@@ -223,6 +295,11 @@ const CheckoutPage = () => {
       }
     }
     
+    // Crypto payment validation
+    if (bookingMode === 'book' && paymentMethod === 'crypto' && !blueWalletConnected) {
+      errors.crypto = "Please connect your Blue Wallet to proceed with crypto payment";
+    }
+    
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
       return;
@@ -230,14 +307,13 @@ const CheckoutPage = () => {
     
     setIsProcessing(true);
     
-    // Simulate processing
     setTimeout(() => {
       setIsProcessing(false);
       
       const bookingData = {
         userData,
         tour,
-        numberOfPeople, // Use current state value
+        numberOfPeople,
         pricePerPerson: getCurrentPricePerPerson(),
         totalPrice: calculateTotalPrice(),
         selectedCustomizations,
@@ -245,7 +321,13 @@ const CheckoutPage = () => {
         paymentType: bookingMode === 'book' ? paymentType : undefined,
         paymentAmount: bookingMode === 'book' ? 
           (paymentType === 'deposit' ? calculatePaymentAmounts().depositAmount : calculatePaymentAmounts().totalPrice) 
-          : undefined
+          : undefined,
+        cryptoDetails: paymentMethod === 'crypto' ? {
+          currency: selectedCrypto,
+          amount: cryptoAmount,
+          address: cryptoPaymentAddress,
+          walletType: 'BlueWallet'
+        } : undefined
       };
       
       if (bookingMode === 'inquiry') {
@@ -321,6 +403,165 @@ const CheckoutPage = () => {
           </div>
         );
       
+      case 'crypto':
+        return (
+          <div className="space-y-6">
+            {/* Cryptocurrency Selection */}
+            <div>
+              <label className="block mb-2 font-medium">Select Cryptocurrency</label>
+              <Select value={selectedCrypto} onValueChange={setSelectedCrypto}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choose cryptocurrency" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="bitcoin">Bitcoin (BTC)</SelectItem>
+                  <SelectItem value="ethereum">Ethereum (ETH)</SelectItem>
+                  <SelectItem value="lightning">Lightning Network (BTC)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Blue Wallet Connection */}
+            <div className="border rounded-lg p-4 bg-gradient-to-r from-blue-50 to-indigo-50">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <Wallet className="text-blue-600" size={20} />
+                  <span className="font-medium">Blue Wallet Integration</span>
+                </div>
+                {blueWalletConnected && (
+                  <span className="flex items-center gap-1 text-green-600 text-sm">
+                    <Check size={16} />
+                    Connected
+                  </span>
+                )}
+              </div>
+
+              {!blueWalletConnected ? (
+                <div className="space-y-3">
+                  <p className="text-sm text-muted-foreground">
+                    Connect your Blue Wallet to make secure cryptocurrency payments
+                  </p>
+                  <Button 
+                    type="button"
+                    onClick={connectBlueWallet}
+                    disabled={isConnectingWallet}
+                    className="w-full bg-blue-600 hover:bg-blue-700"
+                  >
+                    {isConnectingWallet ? (
+                      <RefreshCw size={16} className="mr-2 animate-spin" />
+                    ) : (
+                      <Wallet size={16} className="mr-2" />
+                    )}
+                    {isConnectingWallet ? 'Connecting...' : 'Connect Blue Wallet'}
+                  </Button>
+                  
+                  <div className="text-xs text-muted-foreground">
+                    <p className="mb-1">• Secure connection via Blue Wallet API</p>
+                    <p className="mb-1">• Support for Bitcoin, Lightning & Ethereum</p>
+                    <p>• No private keys shared</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {/* Payment Details */}
+                  <div className="bg-white p-4 rounded-lg border">
+                    <h4 className="font-medium mb-3 flex items-center gap-2">
+                      <QrCode size={16} />
+                      Payment Details
+                    </h4>
+                    
+                    <div className="space-y-3">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        {/* Payment Info */}
+                        <div className="space-y-2">
+                          <div className="text-sm">
+                            <span className="font-medium">Amount:</span>
+                            <p className="font-mono text-lg">{cryptoAmount} {selectedCrypto.toUpperCase()}</p>
+                          </div>
+                          
+                          <div className="text-sm">
+                            <span className="font-medium">Address:</span>
+                            <div className="flex items-center gap-2 mt-1">
+                              <code className="bg-gray-100 px-2 py-1 rounded text-xs break-all">
+                                {cryptoPaymentAddress}
+                              </code>
+                              <Button
+                                type="button"
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => copyToClipboard(cryptoPaymentAddress)}
+                                className="p-1 h-auto"
+                              >
+                                <Copy size={14} />
+                              </Button>
+                            </div>
+                          </div>
+                          
+                          <div className="text-xs text-muted-foreground">
+                            UGX {paymentType === 'deposit' 
+                              ? calculatePaymentAmounts().depositAmount.toLocaleString() 
+                              : calculatePaymentAmounts().totalPrice.toLocaleString()
+                            } ≈ {cryptoAmount} {selectedCrypto.toUpperCase()}
+                          </div>
+                        </div>
+                        
+                        {/* QR Code */}
+                        <div className="flex flex-col items-center">
+                          <img 
+                            src={paymentQRCode} 
+                            alt="Payment QR Code" 
+                            className="w-32 h-32 border rounded-lg"
+                          />
+                          <p className="text-xs text-center text-muted-foreground mt-2">
+                            Scan with Blue Wallet
+                          </p>
+                        </div>
+                      </div>
+                      
+                      {/* Action Buttons */}
+                      <div className="flex gap-2 pt-2">
+                        <Button
+                          type="button"
+                          onClick={openInBlueWallet}
+                          className="flex-1 bg-blue-600 hover:bg-blue-700"
+                          size="sm"
+                        >
+                          <ExternalLink size={14} className="mr-1" />
+                          Open in Blue Wallet
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={disconnectWallet}
+                          size="sm"
+                        >
+                          Disconnect
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Payment Instructions */}
+                  <div className="bg-amber-50 p-3 rounded-lg border border-amber-200">
+                    <h5 className="font-medium text-amber-800 mb-2">Payment Instructions:</h5>
+                    <ol className="text-sm text-amber-700 space-y-1 list-decimal list-inside">
+                      <li>Click "Open in Blue Wallet" or scan the QR code</li>
+                      <li>Verify the amount and address in Blue Wallet</li>
+                      <li>Confirm the transaction</li>
+                      <li>Wait for blockchain confirmation</li>
+                      <li>You'll receive booking confirmation via email</li>
+                    </ol>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {formErrors.crypto && (
+              <p className="text-red-500 text-sm">{formErrors.crypto}</p>
+            )}
+          </div>
+        );
+      
       case 'paypal':
         return (
           <div className="bg-blue-50 p-4 rounded-md text-center">
@@ -373,7 +614,7 @@ const CheckoutPage = () => {
 
   return (
     <div className="py-12">
-      <div className="container">
+      <div className="container mx-auto px-4">
         <Link to={`/tours/${tour.slug}`} className="flex items-center text-green-600 mb-8 hover:underline">
           <ArrowLeft size={18} className="mr-2" />
           Back to Tour Details
@@ -420,6 +661,13 @@ const CheckoutPage = () => {
                 <Check size={48} className="mx-auto mb-4" />
                 <h2 className="text-2xl font-semibold mb-3">Payment Successful!</h2>
                 <p className="mb-2">Your booking for {tour.name} has been confirmed.</p>
+                {paymentMethod === 'crypto' && (
+                  <div className="mt-4 p-3 bg-blue-100 rounded-lg">
+                    <p className="text-sm text-blue-800">
+                      Cryptocurrency payment received: {cryptoAmount} {selectedCrypto.toUpperCase()}
+                    </p>
+                  </div>
+                )}
                 <p>Redirecting to your booking confirmation...</p>
               </div>
             ) : inquirySubmitted ? (
@@ -533,7 +781,7 @@ const CheckoutPage = () => {
                           id="specialRequests" 
                           name="specialRequests" 
                           rows={6} 
-                          className="w-full border-border rounded-md p-3"
+                          className="w-full border-border rounded-md p-3 border"
                           placeholder="We'd love to customize this experience for you! Please share your travel preferences, questions, or any specific requirements..."
                         ></textarea>
                       </div>
@@ -553,7 +801,7 @@ const CheckoutPage = () => {
                           id="specialRequests" 
                           name="specialRequests" 
                           rows={4} 
-                          className="w-full border-border rounded-md p-3"
+                          className="w-full border-border rounded-md p-3 border"
                           placeholder="Share any special requests, dietary needs, accessibility requirements, or preferences to help us personalize your experience..."
                         ></textarea>
                       </div>
@@ -605,11 +853,14 @@ const CheckoutPage = () => {
                           </Label>
                         </div>
                         
-                        <div className="flex items-center space-x-2 p-3 border rounded-lg">
+                        <div className="flex items-center space-x-2 p-3 border rounded-lg bg-gradient-to-r from-orange-50 to-blue-50">
                           <RadioGroupItem value="crypto" id="crypto" />
                           <Label htmlFor="crypto" className="flex items-center gap-2 cursor-pointer">
                             <Bitcoin size={20} />
-                            Cryptocurrency
+                            <div className="flex flex-col">
+                              <span>Cryptocurrency</span>
+                              <span className="text-xs text-blue-600">via Blue Wallet</span>
+                            </div>
                           </Label>
                         </div>
                       </div>
@@ -643,9 +894,11 @@ const CheckoutPage = () => {
                     ? "Processing..." 
                     : bookingMode === 'inquiry' 
                       ? "Submit Inquiry" 
-                      : paymentType === 'deposit'
-                        ? `Pay Deposit UGx ${calculatePaymentAmounts().depositAmount.toLocaleString()}`
-                        : `Pay Full Amount UGx ${calculatePaymentAmounts().totalPrice.toLocaleString()}`
+                      : paymentMethod === 'crypto'
+                        ? `Pay ${paymentType === 'deposit' ? 'Deposit' : 'Full Amount'} with Crypto`
+                        : paymentType === 'deposit'
+                          ? `Pay Deposit UGx ${calculatePaymentAmounts().depositAmount.toLocaleString()}`
+                          : `Pay Full Amount UGx ${calculatePaymentAmounts().totalPrice.toLocaleString()}`
                   }
                 </Button>
               </form>
@@ -734,10 +987,25 @@ const CheckoutPage = () => {
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
                           <span>Due Today (Full Payment):</span>
-                          <span className="font-bold text-green-700">UGx{calculatePaymentAmounts().totalPrice.toLocaleString()}</span>
+                          <span className="font-bold text-green-700">UGx {calculatePaymentAmounts().totalPrice.toLocaleString()}</span>
                         </div>
                         <div className="text-xs text-green-600 mt-2">
                           Complete payment - booking fully confirmed
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Show crypto conversion if crypto payment selected */}
+                    {paymentMethod === 'crypto' && cryptoAmount && (
+                      <div className="mt-3 pt-3 border-t border-blue-200">
+                        <div className="flex justify-between text-sm">
+                          <span>Crypto Amount:</span>
+                          <span className="font-mono text-blue-700">
+                            {cryptoAmount} {selectedCrypto.toUpperCase()}
+                          </span>
+                        </div>
+                        <div className="text-xs text-muted-foreground mt-1">
+                          Rate updated in real-time via Blue Wallet
                         </div>
                       </div>
                     )}
@@ -767,7 +1035,6 @@ const CheckoutPage = () => {
                 {bookingMode === 'book' ? (
                   <>
                     <div className="flex items-start mb-2">
-                      {/* <DollarSign size={16} className="mr-2 shrink-0 mt-0.5" /> */}
                       <span>
                         {paymentType === 'deposit' 
                           ? 'Pay 20% deposit now, balance due 30 days before departure'
@@ -775,10 +1042,16 @@ const CheckoutPage = () => {
                         }
                       </span>
                     </div>
-                    <div className="flex items-start">
+                    <div className="flex items-start mb-2">
                       <Check size={16} className="mr-2 shrink-0 mt-0.5" />
                       <span>Free cancellation up to 30 days before your trip.</span>
                     </div>
+                    {paymentMethod === 'crypto' && (
+                      <div className="flex items-start">
+                        <Bitcoin size={16} className="mr-2 shrink-0 mt-0.5" />
+                        <span>Cryptocurrency payments via Blue Wallet are secure and instant.</span>
+                      </div>
+                    )}
                   </>
                 ) : (
                   <>
@@ -806,6 +1079,12 @@ const CheckoutPage = () => {
                     <MapPin size={16} className="mr-2" />
                     <span>Kampala, Uganda</span>
                   </div>
+                  {paymentMethod === 'crypto' && (
+                    <div className="flex items-center">
+                      <Wallet size={16} className="mr-2" />
+                      <span>Crypto support available 24/7</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
