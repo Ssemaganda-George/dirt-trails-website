@@ -6,7 +6,7 @@ import {
   DollarSign, Bitcoin, Globe, Users, HelpCircle,
   Clock, MapPin
 } from 'lucide-react';
-import { tours } from '@/data/tours'; // Import the same data source
+import { tours } from '@/data/tours'; 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -35,13 +35,14 @@ const CheckoutPage = () => {
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({});
   const [bookingMode, setBookingMode] = useState<'book' | 'inquiry'>('book');
   const [paymentMethod, setPaymentMethod] = useState('card');
+  const [paymentType, setPaymentType] = useState<'deposit' | 'full'>('deposit');
   
   // Get booking parameters from URL - but allow for dynamic updates
   const urlNumberOfPeople = parseInt(searchParams.get('people') || '1');
   const urlPricePerPerson = parseFloat(searchParams.get('pricePerPerson') || '0');
   const urlTotalPrice = parseFloat(searchParams.get('totalPrice') || '0');
   const customizationsParam = searchParams.get('customizations');
-  
+
   // State for dynamic number of people (can be different from URL)
   const [numberOfPeople, setNumberOfPeople] = useState(urlNumberOfPeople);
   
@@ -115,6 +116,69 @@ const CheckoutPage = () => {
     return pricePerPersonCalc * numberOfPeople;
   };
 
+  const calculatePaymentAmounts = () => {
+    const totalPrice = calculateTotalPrice();
+    const depositAmount = totalPrice * 0.2;
+    const remainingBalance = totalPrice - depositAmount;
+    
+    return {
+      totalPrice,
+      depositAmount,
+      remainingBalance
+    };
+  };
+
+  const PaymentTypeSelector = () => (
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h2 className="text-xl font-semibold mb-4">Payment Options</h2>
+      
+      <RadioGroup 
+        value={paymentType} 
+        onValueChange={(value: 'deposit' | 'full') => setPaymentType(value)}
+        className="space-y-4"
+      >
+        <div className="flex items-center space-x-2 p-4 border rounded-lg hover:border-green-300 cursor-pointer">
+          <RadioGroupItem value="deposit" id="deposit" />
+          <Label htmlFor="deposit" className="flex flex-col cursor-pointer w-full">
+            <span className="font-semibold">Pay 20% Deposit Now</span>
+            <span className="text-sm text-muted-foreground">
+              Secure your booking with UGx {calculatePaymentAmounts().depositAmount.toLocaleString()} deposit
+            </span>
+            <span className="text-xs text-blue-600 mt-1">
+              Remaining UGx {calculatePaymentAmounts().remainingBalance.toLocaleString()} due 30 days before departure
+            </span>
+          </Label>
+        </div>
+        
+        <div className="flex items-center space-x-2 p-4 border rounded-lg hover:border-green-300 cursor-pointer">
+          <RadioGroupItem value="full" id="full" />
+          <Label htmlFor="full" className="flex flex-col cursor-pointer w-full">
+            <span className="font-semibold">Pay in Full Now</span>
+            <span className="text-sm text-muted-foreground">
+              Complete payment of UGx {calculatePaymentAmounts().totalPrice.toLocaleString()} today
+            </span>
+            
+          </Label>
+        </div>
+      </RadioGroup>
+      
+      <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+        <div className="flex items-start">
+          <AlertCircle size={18} className="text-amber-600 mr-2 mt-0.5 shrink-0" />
+          <div className="text-sm">
+            <p className="font-medium text-amber-800">Important:</p>
+            <p className="text-amber-700">
+              {paymentType === 'deposit' 
+                ? `Your booking will be confirmed once the UGx ${calculatePaymentAmounts().depositAmount.toLocaleString()} deposit is received.`
+                : 'Your booking will be fully confirmed upon complete payment.'
+              }
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   // Handle travelers change
   const handleTravelersChange = (value: string) => {
     const newNumberOfPeople = parseInt(value);
@@ -177,7 +241,11 @@ const CheckoutPage = () => {
         pricePerPerson: getCurrentPricePerPerson(),
         totalPrice: calculateTotalPrice(),
         selectedCustomizations,
-        paymentMethod: bookingMode === 'book' ? paymentMethod : undefined
+        paymentMethod: bookingMode === 'book' ? paymentMethod : undefined,
+        paymentType: bookingMode === 'book' ? paymentType : undefined,
+        paymentAmount: bookingMode === 'book' ? 
+          (paymentType === 'deposit' ? calculatePaymentAmounts().depositAmount : calculatePaymentAmounts().totalPrice) 
+          : undefined
       };
       
       if (bookingMode === 'inquiry') {
@@ -425,10 +493,10 @@ const CheckoutPage = () => {
                           Selected: {numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}
                         </p>
                         <p className="text-xs text-green-600">
-                          Rate: ${getCurrentPricePerPerson().toLocaleString()} per person ({getCurrentTierLabel()})
+                          Rate: UGx {getCurrentPricePerPerson().toLocaleString()} per person ({getCurrentTierLabel()})
                         </p>
                         <p className="text-xs font-semibold text-green-700 mt-1">
-                          Subtotal: ${(getCurrentPricePerPerson() * numberOfPeople).toLocaleString()}
+                          Subtotal: UGx {(getCurrentPricePerPerson() * numberOfPeople).toLocaleString()}
                         </p>
                       </div>
                     </div>
@@ -492,6 +560,11 @@ const CheckoutPage = () => {
                     )}
                   </div>
                 </div>
+                
+                {/* Payment Type Selection - Only show for booking */}
+                {bookingMode === 'book' && (
+                  <PaymentTypeSelector />
+                )}
                 
                 {/* Payment Methods - Only show for booking */}
                 {bookingMode === 'book' && (
@@ -570,14 +643,16 @@ const CheckoutPage = () => {
                     ? "Processing..." 
                     : bookingMode === 'inquiry' 
                       ? "Submit Inquiry" 
-                      : "Confirm Booking"
+                      : paymentType === 'deposit'
+                        ? `Pay Deposit UGx ${calculatePaymentAmounts().depositAmount.toLocaleString()}`
+                        : `Pay Full Amount UGx ${calculatePaymentAmounts().totalPrice.toLocaleString()}`
                   }
                 </Button>
               </form>
             )}
           </div>
           
-          {/* Order Summary - Updated to use current state */}
+          {/* Order Summary - Updated to show payment amounts */}
           <div>
             <div className="bg-white p-6 rounded-lg shadow-md sticky top-24">
               <h2 className="text-xl font-semibold mb-4">
@@ -606,11 +681,11 @@ const CheckoutPage = () => {
                   <div className="py-4 border-b border-border">
                     <div className="flex justify-between mb-2">
                       <span>Base price ({getCurrentTierLabel()}):</span>
-                      <span>${(getCurrentPricePerPerson() * numberOfPeople).toLocaleString()}</span>
+                      <span>UGx {(getCurrentPricePerPerson() * numberOfPeople).toLocaleString()}</span>
                     </div>
                     
                     <div className="text-sm text-muted-foreground mb-2">
-                      ${getCurrentPricePerPerson().toLocaleString()} × {numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}
+                      UGx {getCurrentPricePerPerson().toLocaleString()} × {numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}
                     </div>
                     
                     {/* Show customizations if any */}
@@ -620,7 +695,7 @@ const CheckoutPage = () => {
                       return (
                         <div key={category} className="flex justify-between mb-2 text-sm">
                           <span>{option.name} ({numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}):</span>
-                          <span className="text-orange-600">+${totalAdjustment.toLocaleString()}</span>
+                          <span className="text-orange-600">+UGx {totalAdjustment.toLocaleString()}</span>
                         </div>
                       );
                     })}
@@ -628,14 +703,44 @@ const CheckoutPage = () => {
                     {tour.discount && (
                       <div className="flex justify-between mb-2 text-orange-600">
                         <span>Discount ({tour.discount}%):</span>
-                        <span>-${((getCurrentPricePerPerson() * numberOfPeople) * tour.discount / 100).toLocaleString()}</span>
+                        <span>-UGx {((getCurrentPricePerPerson() * numberOfPeople) * tour.discount / 100).toLocaleString()}</span>
                       </div>
                     )}
                   </div>
                   
-                  <div className="flex justify-between font-bold text-lg pt-4">
+                  <div className="flex justify-between font-bold text-lg pt-4 mb-4">
                     <span>Total:</span>
-                    <span>${calculateTotalPrice().toLocaleString()}</span>
+                    <span>UGx {calculateTotalPrice().toLocaleString()}</span>
+                  </div>
+                  
+                  {/* Payment Amount Summary */}
+                  <div className="bg-gradient-to-r from-green-50 to-blue-50 p-4 rounded-lg border">
+                    <h4 className="font-semibold text-sm mb-3">Payment Summary</h4>
+                    {paymentType === 'deposit' ? (
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>Due Today (20% Deposit):</span>
+                          <span className="font-bold text-green-700">UGx {calculatePaymentAmounts().depositAmount.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between text-sm text-muted-foreground">
+                          <span>Balance Due Later:</span>
+                          <span>UGx {calculatePaymentAmounts().remainingBalance.toLocaleString()}</span>
+                        </div>
+                        <div className="text-xs text-blue-600 mt-2">
+                          Remaining balance due 30 days before departure
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>Due Today (Full Payment):</span>
+                          <span className="font-bold text-green-700">UGx{calculatePaymentAmounts().totalPrice.toLocaleString()}</span>
+                        </div>
+                        <div className="text-xs text-green-600 mt-2">
+                          Complete payment - booking fully confirmed
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </>
               )}
@@ -644,13 +749,13 @@ const CheckoutPage = () => {
                 <div className="py-4">
                   <div className="flex justify-between mb-2">
                     <span>Starting from:</span>
-                    <span className="font-semibold">${tour.price.toLocaleString()}</span>
+                    <span className="font-semibold">UGx {tour.price.toLocaleString()}</span>
                   </div>
                   <div className="text-sm text-muted-foreground mb-2">
                     For {numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}
                   </div>
                   <div className="text-sm font-medium text-green-600 mb-2">
-                    Estimated total: ${calculateTotalPrice().toLocaleString()}
+                    Estimated total: UGx {calculateTotalPrice().toLocaleString()}
                   </div>
                   <p className="text-sm text-muted-foreground">
                     Final price will be provided based on your specific requirements and travel dates.
@@ -662,8 +767,13 @@ const CheckoutPage = () => {
                 {bookingMode === 'book' ? (
                   <>
                     <div className="flex items-start mb-2">
-                      <AlertCircle size={16} className="mr-2 shrink-0 mt-0.5" />
-                      <span>A deposit of 20% is required to secure your booking.</span>
+                      {/* <DollarSign size={16} className="mr-2 shrink-0 mt-0.5" /> */}
+                      <span>
+                        {paymentType === 'deposit' 
+                          ? 'Pay 20% deposit now, balance due 30 days before departure'
+                          : 'Full payment secures your booking immediately'
+                        }
+                      </span>
                     </div>
                     <div className="flex items-start">
                       <Check size={16} className="mr-2 shrink-0 mt-0.5" />
