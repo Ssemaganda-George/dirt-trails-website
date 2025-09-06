@@ -37,7 +37,7 @@ const Header = () => {
               className="flex items-center text-foreground hover:text-primary transition-colors"
               onClick={toggleEnvMenu}
             >
-              Environment
+              Conservation
               <ChevronDown className="ml-1 h-4 w-4" />
             </button>
             <div className={`absolute top-full left-0 bg-white shadow-md rounded-md p-2 w-56 z-50 border border-border ${isEnvMenuOpen ? 'block' : 'hidden'} group-hover:block`}>
@@ -66,7 +66,7 @@ const Header = () => {
           </div>
           {/* <LanguageSelector /> */}
           <Button asChild variant="default">
-            <Link to="/contact">Book Now</Link>
+            <Link to="/contact">Contact Us</Link>
           </Button>
         </nav>
 
@@ -142,19 +142,19 @@ const NavLinks = ({ closeMenu }: { closeMenu: () => void }) => {
       >
         Safaris & Destinations
       </Link>
-      <Link 
+      {/* <Link 
         to="/destinations" 
         className="text-foreground hover:text-primary transition-colors"
         onClick={closeMenu}
       >
-        Blogs
+        Destinations
       </Link>
       <Link 
         to="/about" 
         className="text-foreground hover:text-primary transition-colors"
         onClick={closeMenu}
       >
-        About
+        About us
       </Link>
     </>
   );
