@@ -53,6 +53,50 @@ const Hero = () => {
       {/* Responsive gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/40 sm:from-black/60 sm:via-black/40 sm:to-black/30 z-10"></div>
       
+      <div className="container relative z-20 text-white flex-grow flex items-center py-8 px-4">
+        <div className="max-w-4xl">
+          {/* Safari badge */}
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 backdrop-blur-sm border border-amber-300/30 rounded-full px-3 py-1 mb-4">
+            <Compass className="text-amber-300" size={16} />
+            <span className="text-amber-100 font-medium text-xs tracking-wide">SAFE, COMFORTABLE, & EXPERT-GUIDED JOURNEYS</span>
+          </div>
+          
+          {/* Main heading with safari styling - reduced size */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+            <span className="block bg-gradient-to-r from-amber-200 via-orange-300 to-yellow-200 bg-clip-text text-transparent">
+              Explore.
+            </span>
+            <span className="block bg-gradient-to-r from-green-300 via-emerald-300 to-teal-300 bg-clip-text text-transparent">
+              Connect.
+            </span>
+            <span className="block bg-gradient-to-r from-amber-200 via-orange-300 to-yellow-200 bg-clip-text text-transparent">
+              Sustain.
+            </span>
+          </h1>
+          
+          {/* Enhanced supporting text - reduced size */}
+          <p className="text-lg md:text-xl mb-4 text-gray-200 leading-relaxed max-w-3xl">
+            Embark on extraordinary safari adventures that connect you to Africa's wild heart. 
+            From the Big Five to mountain gorillas, create memories while supporting conservation and local communities.
+          </p>
+          
+          {/* Enhanced call to action buttons - reduced size */}
+          <div className="flex flex-wrap gap-4">
+            <button 
+              onClick={() => handleLinkClick('tours')}
+              className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-6 py-2 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 border-0 flex items-center gap-2"
+            >
+              <Eye size={18} />
+              Plan My Safari
+            </button>
+            
+            <button 
+              onClick={() => handleLinkClick('conservation')}
+              className="border-2 border-green-400/80 bg-green-500/20 backdrop-blur-sm text-green-200 hover:bg-green-500 hover:text-white px-6 py-2 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center gap-2"
+            >
+              <Trees size={18} />
+              Explore Conservation
+            </button>
       <div className="container relative z-20 text-white flex-grow flex items-center py-4 sm:py-6 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center w-full gap-6 xl:gap-8">
           {/* Main content section - responsive sizing */}
