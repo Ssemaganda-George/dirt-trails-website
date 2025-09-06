@@ -140,14 +140,14 @@ const NavLinks = ({ closeMenu }: { closeMenu: () => void }) => {
         className="text-foreground hover:text-primary transition-colors"
         onClick={closeMenu}
       >
-        Tours
+        Safaris & Destinations
       </Link>
       <Link 
         to="/destinations" 
         className="text-foreground hover:text-primary transition-colors"
         onClick={closeMenu}
       >
-        Destinations
+        Blogs
       </Link>
       <Link 
         to="/about" 
