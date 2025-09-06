@@ -60,7 +60,7 @@ const Hero = () => {
           {/* Safari badge */}
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 backdrop-blur-sm border border-amber-300/30 rounded-full px-3 py-1 mb-4">
             <Compass className="text-amber-300" size={16} />
-            <span className="text-amber-100 font-medium text-xs tracking-wide">SAFE, COMFORT, & EXPERT-GUIDED JOURNEYS</span>
+            <span className="text-amber-100 font-medium text-xs tracking-wide">SAFE, COMFORTABLE, & EXPERT-GUIDED JOURNEYS</span>
           </div>
           
           {/* Main heading with safari styling - reduced size */}
