@@ -643,6 +643,7 @@ const CheckoutPage = () => {
               <MessageCircle size={18} />
               Make Inquiry
             </Button>
+
           </div>
           
           <p className="text-muted-foreground">

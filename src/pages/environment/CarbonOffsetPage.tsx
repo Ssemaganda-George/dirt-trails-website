@@ -173,7 +173,7 @@ const CarbonOffsetCalculator = () => {
             <CardHeader className="bg-green-50 rounded-t-lg">
               <CardTitle className="flex items-center">
                 <Calculator className="mr-2 h-5 w-5 text-green-600" />
-                Travel Emissions Calculator
+                Calculate My Travel Emissions
               </CardTitle>
               <CardDescription>
                 Enter your travel details for accurate carbon footprint calculation

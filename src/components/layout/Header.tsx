@@ -53,7 +53,7 @@ const Header = () => {
                 className="block px-4 py-2 hover:bg-muted rounded-md"
                 onClick={closeMenu}
               >
-                Tree Planting Initiative
+                Tree Planting Initiatives
               </Link>
               <Link 
                 to="/environment/geotagging" 
