@@ -3,15 +3,43 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Loader2 } from 'lucide-react';
 import ChatBot from '@/components/ChatBot';
 
 const ContactPage = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
   
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError(null);
+    
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const response = await fetch('https://formspree.io/f/xpwjoknq', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setFormSubmitted(true);
+        e.currentTarget.reset(); // Reset form after successful submission
+      } else {
+        throw new Error('Failed to send message');
+      }
+
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setSubmitError('Failed to send message. Please try again or contact us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -31,57 +59,126 @@ const ContactPage = () => {
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Contact Form */}
-            {/* Contact Form */}
-<div>
-  <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
-  {formSubmitted ? (
-    <div className="bg-green-50 border border-green-200 text-green-700 p-6 rounded-lg">
-      <h3 className="text-xl font-medium mb-2">Thank You!</h3>
-      <p>Your message has been submitted. We'll get back to you as soon as possible.</p>
-    </div>
-  ) : (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="firstName" className="block mb-2 font-medium">First Name</label>
-          <Input id="firstName" name="firstName" required />
-        </div>
-        <div>
-          <label htmlFor="lastName" className="block mb-2 font-medium">Last Name</label>
-          <Input id="lastName" name="lastName" required />
-        </div>
-      </div>
-      <div>
-        <label htmlFor="email" className="block mb-2 font-medium">Email Address</label>
-        <Input id="email" name="email" type="email" required />
-      </div>
-      <div>
-        <label htmlFor="phone" className="block mb-2 font-medium">Phone Number</label>
-        <Input id="phone" name="phone" />
-      </div>
-      <div>
-        <label htmlFor="interest" className="block mb-2 font-medium">I'm Interested In</label>
-        <Select name="interest">
-          <SelectTrigger>
-            <SelectValue placeholder="Select an option" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="safari">Safari Tours</SelectItem>
-            <SelectItem value="gorilla">Gorilla Trekking</SelectItem>
-            <SelectItem value="beach">Beach Extensions</SelectItem>
-            <SelectItem value="custom">Custom Itinerary</SelectItem>
-            <SelectItem value="other">Other</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div>
-        <label htmlFor="message" className="block mb-2 font-medium">Your Message</label>
-        <Textarea id="message" name="message" rows={5} required />
-      </div>
-      <Button type="submit" size="lg" className="w-full">Send Message</Button>
-    </form>
-  )}
-</div>
+            <div>
+              <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
+              {formSubmitted ? (
+                <div className="bg-green-50 border border-green-200 text-green-700 p-6 rounded-lg">
+                  <h3 className="text-xl font-medium mb-2">Thank You!</h3>
+                  <p>Your message has been sent successfully. We'll get back to you within 24 hours.</p>
+                  <Button 
+                    onClick={() => {
+                      setFormSubmitted(false);
+                      setSubmitError(null);
+                    }}
+                    variant="outline"
+                    className="mt-4"
+                  >
+                    Send Another Message
+                  </Button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {submitError && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg">
+                      <p>{submitError}</p>
+                    </div>
+                  )}
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="firstName" className="block mb-2 font-medium">First Name *</label>
+                      <Input 
+                        id="firstName" 
+                        name="firstName" 
+                        required 
+                        disabled={isSubmitting} 
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="lastName" className="block mb-2 font-medium">Last Name *</label>
+                      <Input 
+                        id="lastName" 
+                        name="lastName" 
+                        required 
+                        disabled={isSubmitting} 
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="email" className="block mb-2 font-medium">Email Address *</label>
+                    <Input 
+                      id="email" 
+                      name="_replyto" 
+                      type="email" 
+                      required 
+                      disabled={isSubmitting} 
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="phone" className="block mb-2 font-medium">Phone Number</label>
+                    <Input 
+                      id="phone" 
+                      name="phone" 
+                      type="tel" 
+                      disabled={isSubmitting} 
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="interest" className="block mb-2 font-medium">I'm Interested In</label>
+                    <select 
+                      name="interest" 
+                      disabled={isSubmitting}
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      <option value="">Select an option</option>
+                      <option value="safari">Safari Tours</option>
+                      <option value="gorilla">Gorilla Trekking</option>
+                      <option value="beach">Beach Extensions</option>
+                      <option value="custom">Custom Itinerary</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="message" className="block mb-2 font-medium">Your Message *</label>
+                    <Textarea 
+                      id="message" 
+                      name="message" 
+                      rows={5} 
+                      required 
+                      disabled={isSubmitting}
+                      placeholder="Tell us about your dream safari, preferred dates, group size, or any specific requirements..."
+                    />
+                  </div>
+
+                  {/* Hidden field for subject line */}
+                  <input 
+                    type="hidden" 
+                    name="_subject" 
+                    value="New Safari Inquiry from Website"
+                  />
+                  
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    className="w-full" 
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Sending Message...
+                      </>
+                    ) : (
+                      'Send Message'
+                    )}
+                  </Button>
+                </form>
+              )}
+            </div>
             
             {/* Contact Information */}
             <div>
