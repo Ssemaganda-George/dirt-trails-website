@@ -1016,7 +1016,7 @@ const CheckoutPage = () => {
               {bookingMode === 'inquiry' && (
                 <div className="py-4">
                   <div className="flex justify-between mb-2">
-                    <span>Starting from:</span>
+                    <span>All-Inclusive from:</span>
                     <span className="font-semibold">UGx {tour.price.toLocaleString()}</span>
                   </div>
                   <div className="text-sm text-muted-foreground mb-2">
@@ -1073,7 +1073,7 @@ const CheckoutPage = () => {
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center">
                     <MessageCircle size={16} className="mr-2" />
-                    <span>WhatsApp: +256 700 000 000</span>
+                    <span>WhatsApp: +256 759 918 649</span>
                   </div>
                   <div className="flex items-center">
                     <MapPin size={16} className="mr-2" />
