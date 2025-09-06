@@ -81,8 +81,7 @@ const Hero = () => {
 
       {/* Supporting text */}
       <p className="text-lg md:text-xl mb-4 text-gray-200 leading-relaxed max-w-3xl">
-        Embark on extraordinary safari adventures that connect you to Africa's wild heart. 
-        From the Big Five to mountain gorillas, create memories while supporting conservation and local communities.
+        Because the best journeys start from where the pavement ends . . .
       </p>
 
       {/* Call to action buttons */}
