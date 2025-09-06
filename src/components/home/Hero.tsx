@@ -60,7 +60,7 @@ const Hero = () => {
           {/* Safari badge */}
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 backdrop-blur-sm border border-amber-300/30 rounded-full px-3 py-1 mb-4">
             <Compass className="text-amber-300" size={16} />
-            <span className="text-amber-100 font-medium text-xs tracking-wide">AUTHENTIC EAST AFRICAN SAFARI EXPERIENCE</span>
+            <span className="text-amber-100 font-medium text-xs tracking-wide">SAFE, COMFORT, & EXPERT-GUIDED JOURNEYS</span>
           </div>
           
           {/* Main heading with safari styling - reduced size */}
@@ -89,7 +89,7 @@ const Hero = () => {
               className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-6 py-2 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 border-0 flex items-center gap-2"
             >
               <Eye size={18} />
-              Start Your Safari
+              Plan My Safari
             </button>
             
             <button 
@@ -97,7 +97,7 @@ const Hero = () => {
               className="border-2 border-green-400/80 bg-green-500/20 backdrop-blur-sm text-green-200 hover:bg-green-500 hover:text-white px-6 py-2 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center gap-2"
             >
               <Trees size={18} />
-              Conservation Impact
+              Explore Conservation
             </button>
           </div>
         </div>

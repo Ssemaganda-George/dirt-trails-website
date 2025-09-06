@@ -12,7 +12,7 @@ const AboutPage = () => {
         <div className="container">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">About Dirt Trails Safaris</h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
-            We're passionate about showcasing East Africa's incredible wildlife, landscapes, and cultures while promoting sustainable tourism.
+            We're passionate about showcasing East Africa's incredible wildlife, landscapes, and cultures while promoting sustainable and responsible tourism.
           </p>
         </div>
       </section>
@@ -24,10 +24,10 @@ const AboutPage = () => {
             <div>
               <h2 className="text-3xl font-bold mb-6">Our Story</h2>
               <p className="mb-4">
-                Dirt Trails Safaris was founded in 2022 by a team of passionate local guides with over 8 years of combined experience. What began as a small operation has grown into a leading tour provider, but our core values remain unchanged.
+                Dirt Trails Safaris was founded in 2022 by a team of a passionate local guide and a computer scientist with over 4 years of combined experience. What began as a small operation has grown into a leading tour provider, but our core values remain unchanged.
               </p>
               <p className="mb-4">
-                We believe that travel should be transformative, educational, and responsible. Our intimate knowledge of East Africa's wildlife patterns, hidden gems, and local communities allows us to create authentic experiences that go beyond the typical tourist trail.
+                We believe that travel should be transformative, educational, and responsible. Our intimate knowledge of East Africa's wildlife patterns, hidden gems, and local communities allows us to create authentic experiences that go beyond the typical tourist destinations.
               </p>
               <p>
                 As a locally owned and operated company, we're committed to ensuring that tourism benefits the people, wildlife, and ecosystems of East Africa. We work closely with conservation organizations and community projects to ensure your visit has a positive impact.
