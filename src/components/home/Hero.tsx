@@ -86,7 +86,7 @@ const Hero = () => {
 
       {/* Supporting text */}
       <p className="text-lg md:text-xl mb-4 text-gray-200 leading-relaxed max-w-3xl">
-        Because the best journey starts from where the pavement ends . . .
+        Because the best journey begins from where the pavement ends . . .
       </p>
 
       {/* Call to action buttons */}
@@ -204,5 +204,7 @@ const Hero = () => {
 
   );
 };
+
+
 
 export default Hero;

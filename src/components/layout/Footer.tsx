@@ -26,7 +26,7 @@ const Footer = () => {
               <h3 className="font-bold text-xl text-green-800">Dirt Trails Safaris</h3>
             </div>
             <p className="text-green-700 mb-6 leading-relaxed">
-              Embark on the adventure of a lifetime with our customized East African safari experiences, designed to showcase the region's incredible wildlife, landscapes, and cultures.
+              Travel deeper into East Africa, customise your experience, celebrate nature and culture, while restoring the ecosystems and uplifting communities with every booking.
             </p>
             <div className="flex space-x-3">
               <SocialLink href="https://www.facebook.com/people/DirtTrails-Safaris/100081666093047/" icon={<Facebook size={18} />} label="Facebook" />
