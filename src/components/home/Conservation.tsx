@@ -190,7 +190,7 @@ const Conservation = () => {
           </p>
           <Link to="/contact">
   <button className="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300">
-    Book Your Conservation Safari
+    Plan Your Conservation Safari
   </button>
 </Link>
 
