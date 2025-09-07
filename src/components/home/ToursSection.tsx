@@ -51,7 +51,7 @@ const ToursSection = () => {
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="bg-gradient-to-r from-green-600 via-green-700 to-green-800 bg-clip-text text-transparent">
-              Explore Our
+              Explore All Our
             </span>
             <br />
             <span className="bg-gradient-to-r from-green-500 via-green-600 to-green-700 bg-clip-text text-transparent">
