@@ -142,7 +142,7 @@ const WhyChooseUs = () => {
             Ready to Go Wild? 
           </h3>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Join thousands of satisfied travelers who have experienced the magic of East Africa with us. 
+            Join thousands of satisfied travelers globally who have experienced the magic of the Wild with us. 
             Let's plan your perfect safari adventure today.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
