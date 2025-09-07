@@ -53,7 +53,7 @@ const Header = () => {
                 className="block px-4 py-2 hover:bg-muted rounded-md"
                 onClick={closeMenu}
               >
-                Tree Planting Initiative
+                Tree Planting Initiatives
               </Link>
               <Link 
                 to="/environment/geotagging" 
@@ -140,15 +140,15 @@ const NavLinks = ({ closeMenu }: { closeMenu: () => void }) => {
         className="text-foreground hover:text-primary transition-colors"
         onClick={closeMenu}
       >
-        Tours
+        Safaris & Tours
       </Link>
-      {/* <Link 
+      <Link 
         to="/destinations" 
         className="text-foreground hover:text-primary transition-colors"
         onClick={closeMenu}
       >
-        Destinations
-      </Link> */}
+        Blogs
+      </Link>
       <Link 
         to="/about" 
         className="text-foreground hover:text-primary transition-colors"

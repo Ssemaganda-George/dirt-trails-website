@@ -21,7 +21,7 @@ const ImpactSummary = () => {
           
           <div className="flex items-center">
             <Award className="h-5 w-5 mr-2 text-yellow-500" />
-            <span className="text-sm">TripAdvisor Excellence Award</span>
+            <span className="text-sm">Conservation Award</span>
           </div>
           
           <div className="flex items-center">

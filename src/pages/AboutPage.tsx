@@ -96,7 +96,7 @@ const AboutPage = () => {
                 We believe that tourism can be a powerful force for conservation. That's why we've established our Environmental Conservation Program, which directs a portion of every booking to support vital conservation initiatives across East Africa.
               </p>
               <p className="mb-4">
-                Through our Tree Planting Initiative, travelers can contribute an additional $50 to plant indigenous trees in areas affected by deforestation. With each contribution, you'll receive a certificate and tracking link that allows you to monitor the growth and impact of your trees for years to come.
+                Through our Tree Planting Initiative, travelers can openly contribute  to indigenous tree planting in areas affected by deforestation. With each contribution, you'll receive a certificate and tracking link that allows you to monitor the growth and impact of your trees for years to come.
               </p>
               <p className="mb-6">
                 We also partner with wildlife conservation organizations focused on protecting endangered species like elephants, rhinos, and mountain gorillas, ensuring that these magnificent creatures will be around for future generations to appreciate.

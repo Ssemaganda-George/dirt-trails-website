@@ -88,7 +88,7 @@ const TourCard = ({ tour }: TourCardProps) => {
           {/* Price Section */}
           <div className="flex items-end justify-between pt-3 border-t border-gray-100">
             <div>
-              <div className="text-xs text-stone-500 mb-1">Starting from</div>
+              <div className="text-xs text-stone-500 mb-1">All-Inclusive from</div>
               <div className={`text-xl font-bold ${theme.accent}`}>
                 ${tour.price.toLocaleString()}
                 <span className="text-sm text-stone-500 font-normal ml-1">per person</span>
