@@ -14,7 +14,6 @@ const Hero = () => {
     '/images/dt6.jpg',
     '/images/dt2.JPG',
     '/images/crossroad-car-safari-scene.jpg',
-    '/images/dt4.jpg',
     '/images/dt5.jpg'
   
   ];
