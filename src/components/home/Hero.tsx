@@ -9,10 +9,12 @@ const Hero = () => {
   
   // Safari background images slideshow
   const safariImages = [
-    '/images/maasai-mara-national-reserve-safari.jpg',
+    '/images/dt3.jpg',
     '/images/field-covered-greenery-surrounded-by-zebras-sunlight-blue-sky.jpg',
+    '/images/dt2.JPG',
     '/images/crossroad-car-safari-scene.jpg',
-    '/images/crossroad-car-safari-scene.jpg'
+    '/images/dt4.jpg'
+    
   ];
 
   useEffect(() => {
@@ -67,7 +69,20 @@ const Hero = () => {
       </div>
 
       {/* Main heading */}
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+      {/* <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+        <span className="block bg-gradient-to-r from-amber-200 via-orange-300 to-yellow-200 bg-clip-text text-transparent">
+          Explore.
+        </span>
+        <span className="block bg-gradient-to-r from-green-300 via-emerald-300 to-teal-300 bg-clip-text text-transparent">
+          Connect.
+        </span>
+        <span className="block bg-gradient-to-r from-amber-200 via-orange-300 to-yellow-200 bg-clip-text text-transparent">
+          Sustain.
+        </span>
+      </h1> */}
+
+
+      <h1 className="text-[1.94rem] md:text-[2.43rem] lg:text-[3.75rem] font-bold mb-4 leading-tight">
         <span className="block bg-gradient-to-r from-amber-200 via-orange-300 to-yellow-200 bg-clip-text text-transparent">
           Explore.
         </span>
@@ -78,6 +93,7 @@ const Hero = () => {
           Sustain.
         </span>
       </h1>
+
 
       {/* Supporting text */}
       <p className="text-lg md:text-xl mb-4 text-gray-200 leading-relaxed max-w-3xl">
