@@ -11,10 +11,12 @@ const Hero = () => {
   const safariImages = [
     '/images/dt3.jpg',
     '/images/field-covered-greenery-surrounded-by-zebras-sunlight-blue-sky.jpg',
+    '/images/dt6.jpg',
     '/images/dt2.JPG',
     '/images/crossroad-car-safari-scene.jpg',
-    '/images/dt4.jpg'
-    
+    '/images/dt4.jpg',
+    '/images/dt5.jpg'
+  
   ];
 
   useEffect(() => {
@@ -69,18 +71,6 @@ const Hero = () => {
       </div>
 
       {/* Main heading */}
-      {/* <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
-        <span className="block bg-gradient-to-r from-amber-200 via-orange-300 to-yellow-200 bg-clip-text text-transparent">
-          Explore.
-        </span>
-        <span className="block bg-gradient-to-r from-green-300 via-emerald-300 to-teal-300 bg-clip-text text-transparent">
-          Connect.
-        </span>
-        <span className="block bg-gradient-to-r from-amber-200 via-orange-300 to-yellow-200 bg-clip-text text-transparent">
-          Sustain.
-        </span>
-      </h1> */}
-
 
       <h1 className="text-[1.94rem] md:text-[2.43rem] lg:text-[3.75rem] font-bold mb-4 leading-tight">
         <span className="block bg-gradient-to-r from-amber-200 via-orange-300 to-yellow-200 bg-clip-text text-transparent">
