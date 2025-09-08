@@ -9,10 +9,13 @@ const Hero = () => {
   
   // Safari background images slideshow
   const safariImages = [
-    '/images/maasai-mara-national-reserve-safari.jpg',
+    '/images/dt3.jpg',
     '/images/field-covered-greenery-surrounded-by-zebras-sunlight-blue-sky.jpg',
+    '/images/dt6.jpg',
+    '/images/dt2.JPG',
     '/images/crossroad-car-safari-scene.jpg',
-    '/images/crossroad-car-safari-scene.jpg'
+    '/images/dt5.jpg'
+  
   ];
 
   useEffect(() => {
@@ -70,7 +73,7 @@ const Hero = () => {
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 backdrop-blur-sm border border-amber-300/30 rounded-full px-4 py-2 mb-4">
               <Compass className="text-amber-300" size={14} />
               <span className="text-amber-100 font-medium text-sm tracking-wide">
-                <span className="hidden sm:inline">EXPERT-GUIDED SAFARIS</span>
+                <span className="hidden sm:inline">SAFE & EXPERT-GUIDED JOURNEYS</span>
                 <span className="sm:hidden">EXPERT SAFARIS</span>
               </span>
             </div>
@@ -91,7 +94,7 @@ const Hero = () => {
             {/* Supporting text - larger and more spaced */}
             <p className="text-sm sm:text-lg md:text-xl xl:text-lg mb-8 text-gray-200 leading-relaxed max-w-full xl:max-w-2xl">
               <span className="hidden sm:inline">
-                Extraordinary safari adventures that connect you to Africa's wildlife while supporting conservation and local communities.
+                Because the best journey begins from where the pavement ends . .
               </span>
               <span className="sm:hidden">
                 Amazing safaris supporting conservation and communities.
@@ -105,7 +108,7 @@ const Hero = () => {
                 className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-8 py-4 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 border-0 flex items-center gap-3 text-base sm:text-lg"
               >
                 <Eye size={20} />
-                Plan Safari
+                Plan My Safari
               </button>
               
               <button 
@@ -113,7 +116,7 @@ const Hero = () => {
                 className="border-2 border-green-400/80 bg-green-500/20 backdrop-blur-sm text-green-200 hover:bg-green-500 hover:text-white px-8 py-4 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center gap-3 text-base sm:text-lg"
               >
                 <Trees size={20} />
-                Conservation
+                Explore Conservation
               </button>
             </div>
           </div>
