@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, MapPin, Calendar, Users, Compass, Eye, Trees, ChevronDown } from 'lucide-react';
+import { Search, MapPin, Calendar, Users, Compass, Eye, Trees } from 'lucide-react';
 
 const Hero = () => {
   const [destination, setDestination] = useState('Uganda');
@@ -40,256 +40,171 @@ const Hero = () => {
     }
   };
 
-  const scrollToNext = () => {
-    window.scrollTo({
-      top: window.innerHeight * 0.3,
-      behavior: 'smooth'
-    });
-  };
-
   return (
-    <section className="relative h-[80vh] min-h-[600px] flex flex-col overflow-hidden">
-      {/* Animated background slideshow */}
-      <div className="absolute inset-0">
-        {safariImages.map((image, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 bg-center bg-cover transition-opacity duration-2000 ${
-              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{ backgroundImage: `url('${image}')` }}
-          />
-        ))}
-      </div>
-      
-      {/* Responsive gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/40 sm:from-black/60 sm:via-black/40 sm:to-black/30 z-10"></div>
-      
-      <div className="container relative z-20 text-white flex-grow flex items-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center w-full gap-6 xl:gap-8">
-          {/* Main content section - increased spacing */}
-          <div className="flex-1 max-w-full xl:max-w-3xl">
-            {/* Safari badge - slightly larger */}
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 backdrop-blur-sm border border-amber-300/30 rounded-full px-4 py-2 mb-4">
-              <Compass className="text-amber-300" size={14} />
-              <span className="text-amber-100 font-medium text-sm tracking-wide">
-                <span className="hidden sm:inline">SAFE & EXPERT-GUIDED JOURNEYS</span>
-                <span className="sm:hidden">EXPERT SAFARIS</span>
-              </span>
-            </div>
-            
-            {/* Main heading - larger text */}
-            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl font-bold mb-6 leading-tight">
-              <span className="block bg-gradient-to-r from-amber-200 via-orange-300 to-yellow-200 bg-clip-text text-transparent">
-                Explore.
-              </span>
-              <span className="block bg-gradient-to-r from-green-300 via-emerald-300 to-teal-300 bg-clip-text text-transparent">
-                Connect.
-              </span>
-              <span className="block bg-gradient-to-r from-amber-200 via-orange-300 to-yellow-200 bg-clip-text text-transparent">
-                Sustain.
-              </span>
-            </h1>
-            
-            {/* Supporting text - larger and more spaced */}
-            <p className="text-sm sm:text-lg md:text-xl xl:text-lg mb-8 text-gray-200 leading-relaxed max-w-full xl:max-w-2xl">
-              <span className="hidden sm:inline">
-                Because the best journey begins from where the pavement ends . .
-              </span>
-              <span className="sm:hidden">
-                Amazing safaris supporting conservation and communities.
-              </span>
-            </p>
-            
-            {/* Call to action buttons - larger */}
-            <div className="flex flex-wrap gap-4">
-              <button 
-                onClick={() => handleLinkClick('tours')}
-                className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-8 py-4 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 border-0 flex items-center gap-3 text-base sm:text-lg"
-              >
-                <Eye size={20} />
-                Plan My Safari
-              </button>
-              
-              <button 
-                onClick={() => handleLinkClick('conservation')}
-                className="border-2 border-green-400/80 bg-green-500/20 backdrop-blur-sm text-green-200 hover:bg-green-500 hover:text-white px-8 py-4 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center gap-3 text-base sm:text-lg"
-              >
-                <Trees size={20} />
-                Explore Conservation
-              </button>
-            </div>
-          </div>
-          
-          {/* Desktop search box - slightly larger */}
-          <div className="hidden xl:block flex-shrink-0">
-            <div className="w-80 bg-gradient-to-br from-amber-50/95 to-orange-50/95 backdrop-blur-lg rounded-xl shadow-xl border border-amber-200/30 p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
-                  <Search className="text-white" size={16} />
-                </div>
-                <h3 className="text-base font-bold text-gray-800">Find Your Safari</h3>
-              </div>
-              
-              <div className="flex flex-col gap-4">
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-semibold text-gray-600">
-                    <MapPin size={14} className="text-green-600" />
-                    Destination
-                  </label>
-                  <select 
-                    value={destination} 
-                    onChange={(e) => setDestination(e.target.value)}
-                    className="w-full py-3 px-4 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800 font-medium shadow-sm text-sm"
-                  >
-                    {countries.map((country) => (
-                      <option key={country} value={country}>{country}</option>
-                    ))}
-                  </select>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-600">
-                      <Calendar size={14} className="text-blue-600" />
-                      Duration
-                    </label>
-                    <select 
-                      value={days} 
-                      onChange={(e) => setDays(e.target.value)}
-                      className="w-full py-3 px-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800 font-medium shadow-sm text-sm"
-                    >
-                      <option value="Three">3 Days</option>
-                      <option value="Five">5 Days</option>
-                      <option value="Seven">7 Days</option>
-                      <option value="Ten">10+ Days</option>
-                    </select>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-600">
-                      <Users size={14} className="text-orange-600" />
-                      Group
-                    </label>
-                    <select 
-                      value={guests} 
-                      onChange={(e) => setGuests(e.target.value)}
-                      className="w-full py-3 px-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800 font-medium shadow-sm text-sm"
-                    >
-                      <option value="2 adults">2 Adults</option>
-                      <option value="4 adults">4 Adults</option>
-                      <option value="6 adults">6 Adults</option>
-                      <option value="2 adults, 2 children">Family</option>
-                    </select>
-                  </div>
-                </div>
-                
-                <button 
-                  onClick={handleSearch} 
-                  className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white py-3 px-6 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 text-base mt-3"
-                >
-                  <Search size={18} />
-                  Discover
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      {/* Mobile/Tablet search box - larger spacing */}
-      <div className="xl:hidden relative z-20 container pb-6 px-4 sm:px-6">
-        <div className="bg-gradient-to-r from-amber-50/95 to-orange-50/95 backdrop-blur-lg rounded-xl shadow-xl border border-amber-200/30 p-4">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-6 h-6 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
-              <Search className="text-white" size={14} />
-            </div>
-            <h3 className="text-sm font-bold text-gray-800">Find Your Safari</h3>
-          </div>
-          
-          {/* Grid layout with better spacing */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            <div className="space-y-2 sm:col-span-2 lg:col-span-1">
-              <label className="flex items-center gap-2 text-sm font-semibold text-gray-600">
-                <MapPin size={12} className="text-green-600" />
-                Destination
-              </label>
-              <select 
-                value={destination} 
-                onChange={(e) => setDestination(e.target.value)}
-                className="w-full py-3 px-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800 font-medium shadow-sm text-sm"
-              >
-                {countries.map((country) => (
-                  <option key={country} value={country}>{country}</option>
-                ))}
-              </select>
-            </div>
-            
-            <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-semibold text-gray-600">
-                <Calendar size={12} className="text-blue-600" />
-                Duration
-              </label>
-              <select 
-                value={days} 
-                onChange={(e) => setDays(e.target.value)}
-                className="w-full py-3 px-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800 font-medium shadow-sm text-sm"
-              >
-                <option value="Three">3 Days</option>
-                <option value="Five">5 Days</option>
-                <option value="Seven">7 Days</option>
-                <option value="Ten">10+ Days</option>
-              </select>
-            </div>
-            
-            <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-semibold text-gray-600">
-                <Users size={12} className="text-orange-600" />
-                Group
-              </label>
-              <select 
-                value={guests} 
-                onChange={(e) => setGuests(e.target.value)}
-                className="w-full py-3 px-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800 font-medium shadow-sm text-sm"
-              >
-                <option value="2 adults">2 Adults</option>
-                <option value="4 adults">4 Adults</option>
-                <option value="6 adults">6 Adults</option>
-                <option value="2 adults, 2 children">Family</option>
-              </select>
-            </div>
-            
-            <div className="flex items-end sm:col-span-2 lg:col-span-1">
-              <button 
-                onClick={handleSearch} 
-                className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white py-3 px-4 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 text-sm"
-              >
-                <Search size={16} />
-                Find
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      {/* Safari ambiance indicators - slightly larger */}
-      <div className="absolute bottom-4 left-4 z-20 flex gap-2">
-        {safariImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentImageIndex(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentImageIndex 
-                ? 'bg-amber-400 scale-125' 
-                : 'bg-white/40 hover:bg-white/60'
-            }`}
-          />
-        ))}
+    <section className="relative h-screen flex flex-col overflow-hidden">
+  {/* Animated background slideshow */}
+  <div className="absolute inset-0">
+    {safariImages.map((image, index) => (
+      <div
+        key={index}
+        className={`absolute inset-0 bg-center bg-cover transition-opacity duration-2000 ${
+          index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+        }`}
+        style={{ backgroundImage: `url('${image}')` }}
+      />
+    ))}
+  </div>
+
+  {/* Gradient overlay for better text readability */}
+  <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/30 z-10"></div>
+
+  {/* Main content container: left text + right search box */}
+  <div className="container relative z-20 flex flex-col lg:flex-row items-center justify-between gap-10 py-8 px-4 text-white flex-grow">
+    
+    {/* Left side: text content */}
+    <div className="max-w-2xl">
+      {/* Safari badge */}
+      <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 backdrop-blur-sm border border-amber-300/30 rounded-full px-3 py-1 mb-4">
+        <Compass className="text-amber-300" size={16} />
+        <span className="text-amber-100 font-medium text-xs tracking-wide">SAFE & EXPERT-GUIDED JOURNEYS</span>
       </div>
 
-     
-    </section>
+      {/* Main heading */}
+
+      <h1 className="text-[1.94rem] md:text-[2.43rem] lg:text-[3.75rem] font-bold mb-4 leading-tight">
+        <span className="block bg-gradient-to-r from-amber-200 via-orange-300 to-yellow-200 bg-clip-text text-transparent">
+          Explore.
+        </span>
+        <span className="block bg-gradient-to-r from-green-300 via-emerald-300 to-teal-300 bg-clip-text text-transparent">
+          Connect.
+        </span>
+        <span className="block bg-gradient-to-r from-amber-200 via-orange-300 to-yellow-200 bg-clip-text text-transparent">
+          Sustain.
+        </span>
+      </h1>
+
+
+      {/* Supporting text */}
+      <p className="text-lg md:text-xl mb-4 text-gray-200 leading-relaxed max-w-3xl">
+        Because the best journey begins from where the pavement ends . . .
+      </p>
+
+      {/* Call to action buttons */}
+      <div className="flex flex-wrap gap-4">
+        <button 
+          onClick={() => handleLinkClick('tours')}
+          className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-6 py-2 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 border-0 flex items-center gap-2"
+        >
+          <Eye size={18} />
+          Plan My Safari
+        </button>
+        
+        <button 
+          onClick={() => handleLinkClick('conservation')}
+          className="border-2 border-green-400/80 bg-green-500/20 backdrop-blur-sm text-green-200 hover:bg-green-500 hover:text-white px-6 py-2 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center gap-2"
+        >
+          <Trees size={18} />
+          Explore Conservation
+        </button>
+      </div>
+    </div>
+
+    {/* Right side: search container (vertical layout) */}
+    <div className="bg-gradient-to-r from-amber-50/95 to-orange-50/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-amber-200/30 p-6 max-w-lg w-full text-gray-800 flex flex-col justify-between">
+      <div>
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
+            <Search className="text-white" size={16} />
+          </div>
+          <h3 className="text-lg font-bold text-gray-800">Find Your Perfect Safari Adventure</h3>
+        </div>
+
+        {/* Vertical inputs */}
+        <div className="space-y-4">
+          <div className="space-y-1">
+            <label className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+              <MapPin size={14} className="text-green-600" />
+              Destination
+            </label>
+            <select 
+              value={destination} 
+              onChange={(e) => setDestination(e.target.value)}
+              className="w-full py-2 px-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800 font-medium shadow-sm text-sm"
+            >
+              {countries.map((country) => (
+                <option key={country} value={country}>{country}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="space-y-1">
+            <label className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+              <Calendar size={14} className="text-blue-600" />
+              Duration
+            </label>
+            <select 
+              value={days} 
+              onChange={(e) => setDays(e.target.value)}
+              className="w-full py-2 px-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800 font-medium shadow-sm text-sm"
+            >
+              <option value="Three">3 Days</option>
+              <option value="Five">5 Days</option>
+              <option value="Seven">7 Days</option>
+              <option value="Ten">10+ Days</option>
+            </select>
+          </div>
+
+          <div className="space-y-1">
+            <label className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+              <Users size={14} className="text-orange-600" />
+              Group Size
+            </label>
+            <select 
+              value={guests} 
+              onChange={(e) => setGuests(e.target.value)}
+              className="w-full py-2 px-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800 font-medium shadow-sm text-sm"
+            >
+              <option value="2 adults">2 Adults</option>
+              <option value="4 adults">4 Adults</option>
+              <option value="6 adults">6 Adults</option>
+              <option value="2 adults, 2 children">Family (2+2)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {/* Button at the bottom */}
+      <div className="mt-6">
+        <button 
+          onClick={handleSearch} 
+          className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white py-3 px-4 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 text-sm"
+        >
+          <Search size={16} />
+          Discover Safari
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {/* Safari ambiance indicators */}
+  <div className="absolute bottom-4 left-4 z-20 flex gap-2">
+    {safariImages.map((_, index) => (
+      <button
+        key={index}
+        onClick={() => setCurrentImageIndex(index)}
+        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+          index === currentImageIndex 
+            ? 'bg-amber-400 scale-125' 
+            : 'bg-white/40 hover:bg-white/60'
+        }`}
+      />
+    ))}
+  </div>
+</section>
+
   );
 };
+
+
 
 export default Hero;
