@@ -132,7 +132,7 @@ const AboutPage = () => {
             />
             <TeamMemberCard 
               name="Nantongo Joselyne" 
-              title="Operations Manager"
+              title="Operations & Logistics Manager"
               imageSrc="/images/Joselyne.jpg"
             />
             <TeamMemberCard 
