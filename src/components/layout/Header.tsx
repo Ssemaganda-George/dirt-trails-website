@@ -142,13 +142,13 @@ const NavLinks = ({ closeMenu }: { closeMenu: () => void }) => {
       >
         Safaris & Tours
       </Link>
-      <Link 
+      {/* <Link 
         to="/destinations" 
         className="text-foreground hover:text-primary transition-colors"
         onClick={closeMenu}
       >
         Blogs
-      </Link>
+      </Link> */}
       <Link 
         to="/about" 
         className="text-foreground hover:text-primary transition-colors"
