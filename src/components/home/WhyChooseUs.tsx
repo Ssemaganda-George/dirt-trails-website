@@ -102,7 +102,7 @@ const WhyChooseUs = () => {
               Your Gateway to
             </span>
             <span className="block bg-gradient-to-r from-green-500 via-green-600 to-green-700 bg-clip-text text-transparent">
-              Authentic Africa
+              Adventure, Without the Stress.
             </span>
           </h2>
           
@@ -139,16 +139,16 @@ const WhyChooseUs = () => {
         {/* Call to action section */}
         <div className="text-center bg-gradient-to-r from-green-600/10 to-green-500/10 backdrop-blur-sm rounded-2xl p-8 border border-green-200/30">
           <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">
-            Ready for Your Safari Adventure?
+            Ready to Go Wild? 
           </h3>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Join thousands of satisfied travelers who have experienced the magic of East Africa with us. 
+            Join thousands of satisfied travelers globally who have experienced the magic of the Wild with us. 
             Let's plan your perfect safari adventure today.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link to="/tours">
   <button className="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300">
-    View Our Tours
+    View Our Tours and Let's Chat
   </button>
 </Link>
 

@@ -27,13 +27,13 @@ const ImpactSummary = () => {
           <div className="flex items-center">
             <Star className="h-5 w-5 mr-1 text-yellow-500 fill-yellow-500" />
             <span className="text-sm">
-              <strong className="font-bold">4.8/5</strong> from 1,200+ Reviews
+              <strong className="font-bold">4.8/5</strong> from 100+ Reviews
             </span>
           </div>
           
           <div className="flex items-center">
             <span className="inline-flex items-center justify-center h-5 w-5 mr-2 bg-green-600 rounded-full text-xs font-bold text-white">E</span>
-            <span className="text-sm">Eco-Certified Operator</span>
+            <span className="text-sm">Eco-Tourism Operator</span>
           </div>
         </div>
       </div>

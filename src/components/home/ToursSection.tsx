@@ -46,12 +46,12 @@ const ToursSection = () => {
           {/* Safari badge */}
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500/20 to-green-600/20 backdrop-blur-sm border border-green-300/30 rounded-full px-4 py-2 mb-6">
             <Compass className="text-green-600" size={18} />
-            <span className="text-green-800 font-semibold text-sm tracking-wide">CURATED SAFARI EXPERIENCES</span>
+            <span className="text-green-800 font-semibold text-sm tracking-wide">SMALL GROUPS OR PRIVATE OPTIONS? </span>
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="bg-gradient-to-r from-green-600 via-green-700 to-green-800 bg-clip-text text-transparent">
-              Explore Our
+              Explore All Our
             </span>
             <br />
             <span className="bg-gradient-to-r from-green-500 via-green-600 to-green-700 bg-clip-text text-transparent">
