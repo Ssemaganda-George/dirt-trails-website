@@ -21,7 +21,6 @@ const ToursSection = () => {
     return a.localeCompare(b);
   });
 
-  // Simplified theme using only white, green, and minimal brown
   const theme = {
     gradient: 'from-green-600 to-green-700', 
     lightGradient: 'from-green-500 to-green-600',
@@ -32,24 +31,24 @@ const ToursSection = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-green-50/30 relative overflow-hidden">
+    <section className="py-15 bg-gradient-to-br from-gray-50 via-white to-green-50/30 relative overflow-hidden">
       {/* Simplified decorative background elements */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-green-500 rounded-full blur-3xl"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 bg-green-400 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-1/4 w-28 h-28 bg-green-300 rounded-full blur-3xl"></div>
+        <div className="absolute top-15 left-8 w-24 h-24 bg-green-500 rounded-full blur-3xl"></div>
+        <div className="absolute top-30 right-15 w-18 h-18 bg-green-400 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-15 left-1/4 w-21 h-21 bg-green-300 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container relative z-10">
         {/* Enhanced Header Section */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           {/* Safari badge */}
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500/20 to-green-600/20 backdrop-blur-sm border border-green-300/30 rounded-full px-4 py-2 mb-6">
-            <Compass className="text-green-600" size={18} />
-            <span className="text-green-800 font-semibold text-sm tracking-wide">SMALL GROUPS OR PRIVATE OPTIONS? </span>
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500/20 to-green-600/20 backdrop-blur-sm border border-green-300/30 rounded-full px-3 py-1.5 mt-4 mb-4">
+            <Compass className="text-green-600" size={16} />
+            <span className="text-green-800 font-semibold text-xs tracking-wide">SMALL GROUPS OR PRIVATE OPTIONS?</span>
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
             <span className="bg-gradient-to-r from-green-600 via-green-700 to-green-800 bg-clip-text text-transparent">
               Explore All Our
             </span>
@@ -59,23 +58,23 @@ const ToursSection = () => {
             </span>
           </h2>
           
-          <p className="text-lg text-stone-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base text-stone-600 max-w-2xl mx-auto leading-relaxed">
             Discover our diverse range of authentic safari experiences across East Africa's most spectacular destinations. 
             From intimate wildlife encounters to breathtaking landscapes.
           </p>
 
           {/* Safari statistics */}
-          <div className="flex flex-wrap justify-center gap-8 mt-8 text-sm">
+          <div className="flex flex-wrap justify-center gap-6 mt-6 text-sm">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+              <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"></div>
               <span className="text-stone-600 font-medium">4 Countries</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+              <div className="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse"></div>
               <span className="text-stone-600 font-medium">Premium Experiences</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-600 rounded-full animate-pulse"></div>
+              <div className="w-2.5 h-2.5 bg-green-600 rounded-full animate-pulse"></div>
               <span className="text-stone-600 font-medium">Eco-Certified</span>
             </div>
           </div>
@@ -86,16 +85,16 @@ const ToursSection = () => {
           const IconComponent = theme.icon;
           
           return (
-            <div key={country} className="mb-20">
+            <div key={country} className="mb-15">
               {/* Country Header with Theme */}
-              <div className={`bg-gradient-to-r ${theme.bgGradient} border ${theme.borderColor} rounded-2xl p-6 mb-8 shadow-lg`}>
-                <div className="flex items-center justify-between flex-wrap gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className={`w-12 h-12 bg-gradient-to-r ${theme.gradient} rounded-xl flex items-center justify-center shadow-lg`}>
-                      <IconComponent className="text-white" size={24} />
+              <div className={`bg-gradient-to-r ${theme.bgGradient} border ${theme.borderColor} rounded-xl p-4 mb-6 shadow-lg`}>
+                <div className="flex items-center justify-between flex-wrap gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-9 h-9 bg-gradient-to-r ${theme.gradient} rounded-lg flex items-center justify-center shadow-lg`}>
+                      <IconComponent className="text-white" size={20} />
                     </div>
                     <div>
-                      <h3 className="text-2xl md:text-3xl font-bold text-stone-800 flex items-center gap-3">
+                      <h3 className="text-xl md:text-2xl font-bold text-stone-800 flex items-center gap-2">
                         Safari Adventures in {country}
                       </h3>
                     </div>
@@ -103,7 +102,7 @@ const ToursSection = () => {
                   
                   {/* Country highlight badge */}
                   {countryIndex === 0 && (
-                    <div className="bg-gradient-to-r from-green-500 to-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+                    <div className="bg-gradient-to-r from-green-500 to-green-600 text-white px-2.5 py-0.5 rounded-full text-xs font-semibold shadow-lg">
                       FEATURED DESTINATION
                     </div>
                   )}
@@ -111,23 +110,22 @@ const ToursSection = () => {
               </div>
             
               {/* Tours Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 {toursByCountry[country].map((tour) => (
                   <TourCard key={tour.id} tour={tour} />
                 ))}
               </div>
             
-              {/* Enhanced View All Button */}
               <div className="text-center">
                 <Button 
                   variant="outline" 
                   asChild 
-                  className={`bg-gradient-to-r ${theme.bgGradient} border-2 ${theme.borderColor} hover:bg-gradient-to-r hover:${theme.lightGradient} hover:text-white font-semibold px-6 py-3 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300`}
+                  className={`bg-gradient-to-r ${theme.bgGradient} border-2 ${theme.borderColor} hover:bg-gradient-to-r hover:${theme.lightGradient} hover:text-white font-semibold px-4 py-2 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300`}
                 >
                   <Link to={`/tours?country=${encodeURIComponent(country)}`} className="flex items-center gap-2">
-                    <MapPin size={18} />
+                    <MapPin size={16} />
                     Explore All {country} Safaris 
-                    <ChevronRight size={18} className="ml-1" />
+                    <ChevronRight size={16} className="ml-1" />
                   </Link>
                 </Button>
               </div>
@@ -136,33 +134,32 @@ const ToursSection = () => {
         })}
         
         {/* Call to Action Section */}
-        <div className="text-center mt-20">
-          <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-3xl p-8 md:p-12 text-white shadow-2xl relative overflow-hidden">
+        <div className="text-center mt-15">
+          <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-2xl p-6 md:p-8 text-white shadow-2xl relative overflow-hidden">
             {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
+            <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-12 translate-x-12"></div>
+            <div className="absolute bottom-0 left-0 w-18 h-18 bg-white/10 rounded-full translate-y-9 -translate-x-9"></div>
             
             <div className="relative z-10">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">
+              <h3 className="text-xl md:text-2xl font-bold mb-3">
                 Can't Find Your Perfect Safari?
               </h3>
-              <p className="text-green-100 mb-6 max-w-2xl mx-auto">
+              <p className="text-green-100 mb-4 max-w-xl mx-auto">
                 Our safari experts will craft a personalized adventure tailored to your dreams, 
                 budget, and schedule across all East African destinations.
               </p>
               
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className="flex flex-wrap justify-center gap-3">
                 <Button 
                   variant="secondary" 
-                  className="bg-white text-green-700 hover:bg-green-50 font-semibold px-8 py-3 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+                  className="bg-white text-green-700 hover:bg-green-50 font-semibold px-6 py-2 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300"
                 >
-                  <Link to="/contact" className="flex items-center gap-3">
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                </svg>
-                Talk to a Safari Expert
-              </Link> 
-                  
+                  <Link to="/contact" className="flex items-center gap-2">
+                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                    Talk to a Safari Expert
+                  </Link> 
                 </Button>
               </div>
             </div>
