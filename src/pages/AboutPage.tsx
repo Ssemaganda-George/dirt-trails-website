@@ -120,25 +120,25 @@ const AboutPage = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <TeamMemberCard 
-              name="Ssemaganda George" 
-              title="Co-Founder & Lead Guide"
-              imageSrc="/images/George.jpg"
+             <TeamMemberCard 
+              name="Mariam Wambui" 
+              title="Software Engineer & CMO"
+              imageSrc="/images/Mariam.jpg"
             />
             <TeamMemberCard 
               name="Ariho Gerald" 
-              title="Co-Founder and conservation Lead"
+              title="Co-Founder & Conservation Lead"
               imageSrc="/images/Gerald.jpg"
-            />
-            <TeamMemberCard 
-              name="Mariam Wambui" 
-              title="Chief Marketing Officer"
-              imageSrc="/images/Mariam.jpg"
             />
             <TeamMemberCard 
               name="Nantongo Joselyne" 
               title="Operations Manager"
               imageSrc="/images/Joselyne.jpg"
+            />
+            <TeamMemberCard 
+              name="Ssemaganda George" 
+              title="Co-Founder & CTO"
+              imageSrc="/images/George.jpg"
             />
           </div>
         </div>
