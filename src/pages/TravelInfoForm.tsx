@@ -52,7 +52,7 @@ export const TravelInfoForm = ({
           rows={4}
           className="w-full p-2 border rounded-md"
           placeholder="Any dietary restrictions, accessibility needs, or special requests..."
-        />
+        ></textarea>
       </div>
     </div>
   );
