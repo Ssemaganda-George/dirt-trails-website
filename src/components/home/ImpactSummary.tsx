@@ -15,7 +15,7 @@ const ImpactSummary = () => {
           <div className="flex items-center">
             <Recycle className="h-5 w-5 mr-2 text-safari-green" />
             <span className="text-sm">
-              <strong className="font-bold text-safari-green">283</strong> tonnes of carbon offset
+              <strong className="font-bold text-safari-green">200+</strong> tonnes of carbon offset
             </span>
           </div>
           
