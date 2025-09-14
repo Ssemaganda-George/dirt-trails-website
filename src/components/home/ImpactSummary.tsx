@@ -27,7 +27,7 @@ const ImpactSummary = () => {
           <div className="flex items-center">
             <Star className="h-5 w-5 mr-1 text-yellow-500 fill-yellow-500" />
             <span className="text-sm">
-              <strong className="font-bold">4.8/5</strong> from 100+ Reviews
+              <strong className="font-bold">4.8/5</strong> from 50+ Reviews
             </span>
           </div>
           
