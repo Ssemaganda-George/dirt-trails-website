@@ -12,7 +12,7 @@ const AboutPage = () => {
         <div className="container">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">About Dirt Trails Safaris</h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
-            We're passionate about showcasing East Africa's incredible wildlife, landscapes, and cultures while promoting sustainable and responsible tourism.
+            We're passionate about showcasing Africa's incredible wildlife, landscapes, and cultures while promoting sustainable and responsible tourism.
           </p>
         </div>
       </section>
