@@ -50,7 +50,7 @@ const ToursPage = () => {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-green-50 max-w-3xl leading-relaxed">
-              Discover our expertly crafted East African safari experiences, each designed to showcase the region's incredible wildlife, landscapes, and cultures.
+              Discover our safe and expertly crafted East African safari experiences, each designed to showcase the region's incredible wildlife, landscapes, and cultures.
             </p>
           </div>
         </div>
