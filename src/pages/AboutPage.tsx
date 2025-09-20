@@ -57,23 +57,23 @@ const AboutPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <ValueCard 
               icon={<Users className="h-10 w-10 text-safari-orange" />}
-              title="Local Expertise" 
-              description="Our guides are all local experts with intimate knowledge of the terrain, wildlife, and culture."
+              title="Innovation with Purpose" 
+              description="Through our digital platform, we make planning, booking, and enjoying safaris seamless and impactful."
             />
             <ValueCard 
               icon={<Heart className="h-10 w-10 text-safari-orange" />}
-              title="Exceptional Service" 
-              description="We pride ourselves on personalized service and attention to detail for unforgettable experiences."
+              title="Safety & Comfort" 
+              description="We guarantee safe, reliable, and comfortable travel experiences so guests can explore with peace of mind."
             />
             <ValueCard 
               icon={<TreePine className="h-10 w-10 text-safari-orange" />}
-              title="Sustainability" 
-              description="Responsible tourism that respects wildlife, environments, and local communities."
+              title="Sustainability First" 
+              description="We prioritize eco-friendly practices, ensuring every safari contributes to conservation and climate resilience."
             />
             <ValueCard 
               icon={<Globe className="h-10 w-10 text-safari-orange" />}
-              title="Community Impact" 
-              description="Supporting local communities through employment and development initiatives."
+              title="Community Empowerment" 
+              description="We partner with local guides and communities, creating jobs and opportunities while celebrating cultural heritage."
             />
           </div>
         </div>
