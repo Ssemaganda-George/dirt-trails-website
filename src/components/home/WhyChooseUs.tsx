@@ -58,14 +58,14 @@ const WhyChooseUs = () => {
     {
       icon: Settings,
       title: "Customizable Journeys", 
-      description: "Every traveler is unique. Choose from curated safari packages or design your own adventure — from gorilla trekking to cultural immersions or camping under the stars.",
+      description: "Every traveler is unique. Choose from curated safari packages or design your own adventure from gorilla trekking to cultural immersions or camping under the stars.",
       stats: "100% Tailored Safaris",
       delay: 200
     },
     {
       icon: Globe,
       title: "Sustainable Impact",
-      description: "Your travels give back. Each booking supports tree planting, empowers local communities, and promotes conservation — ensuring safaris protect what makes Africa special.",
+      description: "Your travels give back. Each booking supports tree planting, empowers local communities, and promotes conservation ensuring safaris protect what makes Africa special.",
       stats: "1 Tree Planted Per Safari",
       delay: 400
     },
@@ -73,7 +73,7 @@ const WhyChooseUs = () => {
       icon: Shield,
       title: "Safety & Comfort",
       description: "Travel with peace of mind. From secure transport to handpicked eco-lodges, we prioritize your comfort and safety while keeping adventures exciting and authentic.",
-      stats: "Trusted by 100+ Travelers",
+      stats: "Trusted by 30+ Travelers",
       delay: 600
     }
   ];
