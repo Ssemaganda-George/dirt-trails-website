@@ -8,14 +8,14 @@ const ImpactSummary = () => {
           <div className="flex items-center">
             <Leaf className="h-5 w-5 mr-2 text-safari-green" />
             <span className="text-sm">
-              <strong className="font-bold text-safari-green">765</strong> trees planted
+              <strong className="font-bold text-safari-green">60+</strong> trees planted
             </span>
           </div>
           
           <div className="flex items-center">
             <Recycle className="h-5 w-5 mr-2 text-safari-green" />
             <span className="text-sm">
-              <strong className="font-bold text-safari-green">283</strong> tonnes of carbon offset
+              <strong className="font-bold text-safari-green">200+</strong> tonnes of carbon offset
             </span>
           </div>
           
@@ -27,7 +27,7 @@ const ImpactSummary = () => {
           <div className="flex items-center">
             <Star className="h-5 w-5 mr-1 text-yellow-500 fill-yellow-500" />
             <span className="text-sm">
-              <strong className="font-bold">4.8/5</strong> from 100+ Reviews
+              <strong className="font-bold">4.6/5</strong> from 50+ Reviews
             </span>
           </div>
           

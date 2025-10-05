@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Users, Settings, Heart, Award, Compass, TreePine, Camera, Globe, Star, CheckCircle } from 'lucide-react';
+import { Users, Settings, Heart, Award, Compass, TreePine, Camera, Globe, Star, CheckCircle, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const FeatureCard = ({ icon: Icon, title, description, stats, delay = 0 }) => {
@@ -51,29 +51,29 @@ const WhyChooseUs = () => {
     {
       icon: Users,
       title: "Expert Local Guides",
-      description: "Our experienced guides have intimate knowledge of East Africa's wildlife, culture and hidden gems. They bring stories to life and ensure unforgettable encounters.",
-      stats: "15+ Years Experience",
+      description: "Journey with passionate local guides who know East Africa’s wildlife, cultures, and hidden trails. They turn safaris into meaningful, story-filled adventures.",
+      stats: "3+ Years Combined Experience",
       delay: 0
     },
     {
       icon: Settings,
-      title: "Customizable Experiences", 
-      description: "Tailor your safari adventure to match your interests, preferences, and travel style. From luxury lodges to authentic camping under the stars.",
-      stats: "100% Personalized",
+      title: "Customizable Journeys", 
+      description: "Every traveler is unique. Choose from curated safari packages or design your own adventure from gorilla trekking to cultural immersions or camping under the stars.",
+      stats: "100% Tailored Safaris",
       delay: 200
     },
     {
       icon: Globe,
-      title: "Responsible Tourism",
-      description: "We practice ethical tourism that respects local cultures, supports communities, and minimizes environmental impact while maximizing your experience.",
-      stats: "Certified Eco-Tourism",
+      title: "Sustainable Impact",
+      description: "Your travels give back. Each booking supports tree planting, empowers local communities, and promotes conservation ensuring safaris protect what makes Africa special.",
+      stats: "1 Tree Planted Per Safari",
       delay: 400
     },
     {
-      icon: Camera,
-      title: "Unforgettable Moments",
-      description: "From witnessing the Great Migration to tracking mountain gorillas, we create once-in-a-lifetime experiences that will stay with you forever.",
-      stats: "5000+ Wildlife Encounters",
+      icon: Shield,
+      title: "Safety & Comfort",
+      description: "Travel with peace of mind. From secure transport to handpicked eco-lodges, we prioritize your comfort and safety while keeping adventures exciting and authentic.",
+      stats: "Trusted by 30+ Travelers",
       delay: 600
     }
   ];

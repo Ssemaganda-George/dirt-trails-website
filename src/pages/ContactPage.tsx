@@ -47,7 +47,7 @@ const ContactPage = () => {
       {/* Hero Section */}
       <section className="relative py-20 bg-safari-brown/10">
         <div className="container">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Leave a Message</h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
             Have questions about our tours or need help planning your East African adventure? We're here to help.
           </p>

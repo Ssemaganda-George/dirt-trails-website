@@ -12,7 +12,7 @@ const AboutPage = () => {
         <div className="container">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">About Dirt Trails Safaris</h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
-            We're passionate about showcasing East Africa's incredible wildlife, landscapes, and cultures while promoting sustainable and responsible tourism.
+            We're passionate about showcasing Africa's incredible wildlife, landscapes, and cultures while promoting sustainable and responsible tourism.
           </p>
         </div>
       </section>
@@ -56,24 +56,24 @@ const AboutPage = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <ValueCard 
-              icon={<Users className="h-10 w-10 text-safari-orange" />}
-              title="Local Expertise" 
-              description="Our guides are all local experts with intimate knowledge of the terrain, wildlife, and culture."
-            />
-            <ValueCard 
-              icon={<Heart className="h-10 w-10 text-safari-orange" />}
-              title="Exceptional Service" 
-              description="We pride ourselves on personalized service and attention to detail for unforgettable experiences."
-            />
-            <ValueCard 
               icon={<TreePine className="h-10 w-10 text-safari-orange" />}
-              title="Sustainability" 
-              description="Responsible tourism that respects wildlife, environments, and local communities."
+              title="Sustainability First" 
+              description="We prioritize eco-friendly practices, ensuring every safari contributes to conservation and climate resilience."
             />
             <ValueCard 
               icon={<Globe className="h-10 w-10 text-safari-orange" />}
-              title="Community Impact" 
-              description="Supporting local communities through employment and development initiatives."
+              title="Community Empowerment" 
+              description="We partner with local guides and communities, creating jobs and opportunities while celebrating cultural heritage."
+            />
+            <ValueCard 
+              icon={<Heart className="h-10 w-10 text-safari-orange" />}
+              title="Safety & Comfort" 
+              description="We guarantee safe, reliable, and comfortable travel experiences so guests can explore with peace of mind."
+            />
+            <ValueCard 
+              icon={<Users className="h-10 w-10 text-safari-orange" />}
+              title="Innovation with Purpose" 
+              description="Through our digital platform, we make planning, booking, and enjoying safaris seamless and impactful."
             />
           </div>
         </div>
@@ -120,25 +120,25 @@ const AboutPage = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <TeamMemberCard 
-              name="Ssemaganda George" 
-              title="Co-Founder & Lead Guide"
-              imageSrc="/images/George.jpg"
-            />
-            <TeamMemberCard 
-              name="Ariho Gerald" 
-              title="Co-Founder and conservation Lead"
-              imageSrc="/images/Gerald.jpg"
-            />
-            <TeamMemberCard 
+             <TeamMemberCard 
               name="Mariam Wambui" 
-              title="Chief Marketing Officer"
+              title="Software Engineer & CMO"
               imageSrc="/images/Mariam.jpg"
             />
             <TeamMemberCard 
+              name="Ariho Gerald" 
+              title="Co-Founder & Conservation Lead"
+              imageSrc="/images/Gerald.jpg"
+            />
+            <TeamMemberCard 
               name="Nantongo Joselyne" 
-              title="Operations Manager"
+              title="Operations & Logistics Manager"
               imageSrc="/images/Joselyne.jpg"
+            />
+            <TeamMemberCard 
+              name="Ssemaganda George" 
+              title="Co-Founder & CTO"
+              imageSrc="/images/George.jpg"
             />
           </div>
         </div>
