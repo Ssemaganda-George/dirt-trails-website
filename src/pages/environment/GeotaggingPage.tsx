@@ -249,7 +249,7 @@ const GeotaggingPage = () => {
           scrollWheelZoom={true}
           className="w-full h-full"
           style={{ borderRadius: "1rem", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}
-          whenReady={e => { mapRef.current = e.target; }}
+          ref={mapRef}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
