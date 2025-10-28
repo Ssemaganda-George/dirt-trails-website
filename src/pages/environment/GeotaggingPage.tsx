@@ -314,6 +314,31 @@ const GeotaggingPage = () => {
         </CardContent>
       </Card>
 
+      {/* Tourist Gallery Section */}
+      <div className="w-full py-8">
+        <h2 className="text-xl font-semibold mb-4 px-4">Tourists Planting Trees</h2>
+        <div className="flex overflow-x-auto space-x-6 px-4 pb-2">
+          {/* Example gallery images, replace src with your actual images */}
+          <div className="flex-shrink-0 w-64">
+            <img src="/images/Sharon1.png" alt="Tourist 1 planting" className="rounded-lg w-full h-40 object-cover shadow" />
+            <div className="mt-2 text-center text-sm font-medium">Sharon planting Markhamia lutea</div>
+          </div>
+          <div className="flex-shrink-0 w-64">
+            <img src="/images/angel.png" alt="Tourist 2 planting" className="rounded-lg w-full h-40 object-cover shadow" />
+            <div className="mt-2 text-center text-sm font-medium">George & Angel with Ashoka</div>
+          </div>
+          <div className="flex-shrink-0 w-64">
+            <img src="/images/Sharon.png" alt="Tourist 3 planting" className="rounded-lg w-full h-40 object-cover shadow" />
+            <div className="mt-2 text-center text-sm font-medium">MIICHub team with Ficus natalensis</div>
+          </div>
+          <div className="flex-shrink-0 w-64">
+            <img src="/images/uwa.png" alt="Tourist 4 planting" className="rounded-lg w-full h-40 object-cover shadow" />
+            <div className="mt-2 text-center text-sm font-medium">Uganda Wildlife Authority - Prunus africana</div>
+          </div>
+          {/* Add more images as needed */}
+        </div>
+      </div>
+
       {/* Search results */}
       {showDemo && treeData && (
         <div className="space-y-8 animate-fade-in">
@@ -448,7 +473,7 @@ const GeotaggingPage = () => {
         </div>
       )}
     
-      Modal for full tree details
+      {/* Modal for full tree details */}
       {selectedTree && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-2xl w-11/12 md:w-2/3 lg:w-1/2 p-6 relative">
