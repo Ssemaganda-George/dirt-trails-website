@@ -78,12 +78,12 @@ const DonatePage = () => {
         toast({
           title: 'Thank You',
           description: 'Thank you for your interest in donating to conservation. Use the details below to complete your donation, and we will send you a notification upon receiving the donation.',
-          duration: 30000, // .5 minutes
+          duration: 20000, // .5 minutes
         });
         setTimeout(() => {
           setIsFetching(false);
           setShowDetails(true);
-        }, 2000); // 2-second delay to simulate fetching
+        }, 1000); // 2-second delay to simulate fetching
       } else {
         throw new Error('Failed to send request');
       }
