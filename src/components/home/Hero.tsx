@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Search, MapPin, Calendar, Users, Compass, Eye, Trees, ChevronDown } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 const CustomDropdown = ({ label, icon, value, options, onChange, placeholder }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,15 +70,68 @@ const CustomDropdown = ({ label, icon, value, options, onChange, placeholder }) 
   );
 };
 
+const treeIcon = L.icon({
+  iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const treeDataList = [
+  {
+    id: "TREE-004",
+    species: 'Markhamia lutea',
+    latitude: 0.34760,
+    longitude: 32.58250,
+    planted_by: 'DirtTrails Community',
+    planted_on: '2025-09-25',
+  },
+  {
+    id: "TREE-003",
+    species: 'Markhamia lutea',
+    latitude: 0.34760,
+    longitude: 32.58250,
+    planted_by: 'DirtTrails Community',
+    planted_on: '2025-09-25',
+  },
+  {
+    id: "TREE-002",
+    species: 'Ficus natalensis',
+    latitude: 0.55800,
+    longitude: 32.45970,
+    planted_by: 'MIICHub',
+    planted_on: '2025-09-25',
+  },
+  {
+    id: "TREE-001",
+    species: 'Prunus africana',
+    latitude: 1.37330,
+    longitude: 32.29030,
+    planted_by: 'Uganda Wildlife Authority',
+    planted_on: '2025-09-25',
+  },
+  {
+    id: "TREE-000",
+    species: 'Ashoka',
+    latitude: 0.32032,
+    longitude: 32.47574,
+    planted_by: 'George, Angel, Sharon, Twine',
+    planted_on: '2025-09-25',
+  }
+];
+
 const Hero = () => {
   const [destination, setDestination] = useState('Uganda');
   const [days, setDays] = useState('Five');
   const [guests, setGuests] = useState('4 adults');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
-  // Safari background images slideshow
+
+  // Place the map as the second slide
   const safariImages = [
     '/images/dt3.jpg',
+    'TREE_MAP_SLIDE', // map is now the second slide
     '/images/field-covered-greenery-surrounded-by-zebras-sunlight-blue-sky.jpg',
     '/images/dt6.jpg',
     '/images/dt2.JPG',
@@ -88,7 +144,7 @@ const Hero = () => {
       setCurrentImageIndex((prev) => (prev + 1) % safariImages.length);
     }, 8000);
     return () => clearInterval(interval);
-  }, []);
+  }, [safariImages.length]);
 
   const countries = [
     { label: 'Uganda - Pearl of Africa', value: 'Uganda' },
@@ -129,13 +185,55 @@ const Hero = () => {
       {/* Animated background slideshow */}
       <div className="absolute inset-0" role="img" aria-label="Safari background slideshow featuring African wildlife and landscapes">
         {safariImages.map((image, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 bg-center bg-cover transition-opacity duration-2000 ${
-              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{ backgroundImage: `url('${image}')` }}
-          />
+          image === 'TREE_MAP_SLIDE' ? (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-[1800ms] ease-in-out ${
+                index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              }`}
+            >
+              <MapContainer
+                center={[0.34760, 32.58250]}
+                zoom={7}
+                scrollWheelZoom={true}
+                dragging={true}
+                doubleClickZoom={true}
+                zoomControl={true}
+                attributionControl={true}
+                className="w-full h-full"
+                style={{ width: "100%", height: "100%", borderRadius: 0 }}
+              >
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {treeDataList.map(tree => (
+                  <Marker key={tree.id} position={[tree.latitude, tree.longitude]} icon={treeIcon}>
+                    <Popup>
+                      <div>
+                        <div className="font-semibold text-green-700">{tree.species}</div>
+                        <div className="text-xs">Planted By: {tree.planted_by}</div>
+                        <div className="text-xs">Date: {tree.planted_on}</div>
+                        <div className="text-xs">ID: {tree.id}</div>
+                      </div>
+                    </Popup>
+                  </Marker>
+                ))}
+              </MapContainer>
+              {/* Overlay for readability */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/30 z-10 pointer-events-none"></div>
+              <div className="absolute bottom-4 left-4 z-20 text-white text-lg font-bold bg-green-700/70 px-4 py-2 rounded-lg shadow">
+                Our Tree Planting Map
+              </div>
+            </div>
+          ) : (
+            <div
+              key={index}
+              className={`absolute inset-0 bg-center bg-cover transition-opacity duration-[1800ms] ease-in-out ${
+                index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              }`}
+              style={{ backgroundImage: `url('${image}')` }}
+            />
+          )
         ))}
       </div>
 
