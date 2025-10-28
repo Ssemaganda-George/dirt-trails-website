@@ -150,7 +150,7 @@ export const tours: Tour[] = [
       },
       {
         id: "review-002",
-        name: "John Doe",
+        name: "John Serugo",
         rating: 4,
         comment: "The Kazinga Channel boat cruise was a highlight. Saw so many hippos and birds! The lodge was comfortable.",
         date: "2023-08-15"

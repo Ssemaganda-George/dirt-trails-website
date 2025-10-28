@@ -1,6 +1,6 @@
 import { useState, FormEvent, useEffect } from 'react';
 import { useParams, useNavigate, Link, useSearchParams } from 'react-router-dom';
-import { Check, AlertCircle, ArrowLeft, MessageCircle, CreditCard, Copy, ExternalLink, QrCode, RefreshCw, Wallet, Loader2 } from 'lucide-react';
+import { Check, AlertCircle, ArrowLeft, MessageCircle, CreditCard, Copy, ExternalLink, QrCode, RefreshCw, Wallet, Loader2, ChevronRight } from 'lucide-react';
 import { tours } from '@/data/tours'; 
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@radix-ui/react-radio-group';
@@ -45,6 +45,7 @@ const CheckoutPage = () => {
   const [bookingMode, setBookingMode] = useState<'book' | 'inquiry'>('book');
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [paymentType, setPaymentType] = useState<'deposit' | 'full'>('deposit');
+  const [currentStep, setCurrentStep] = useState(1);
   
   const urlNumberOfPeople = parseInt(searchParams.get('people') || '1');
   const urlPricePerPerson = parseFloat(searchParams.get('pricePerPerson') || '0');
@@ -63,15 +64,27 @@ const CheckoutPage = () => {
   
   if (!tour) {
     return (
-      <div className="container py-20 text-center">
-        <h1 className="text-3xl font-bold mb-4">Tour Not Found</h1>
-        <p className="mb-8">Sorry, the tour you're looking for doesn't exist.</p>
-        <Button asChild>
-          <Link to="/tours">Browse All Tours</Link>
-        </Button>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold mb-4 text-gray-900">Tour Not Found</h1>
+          <p className="mb-8 text-gray-600">Sorry, the tour you're looking for doesn't exist.</p>
+          <Button asChild className="bg-safari-green hover:bg-safari-green/90">
+            <Link to="/tours">Browse All Tours</Link>
+          </Button>
+        </div>
       </div>
     );
   }
+
+  // Validate and sync data from URL with tour data
+  useEffect(() => {
+    // Recalculate to ensure consistency
+    const calculatedTotal = calculateTotalPrice();
+    if (Math.abs(calculatedTotal - urlTotalPrice) > 0.01) {
+      console.warn('Price mismatch detected, using calculated values');
+    }
+  }, [numberOfPeople, selectedCustomizations]);
+
   const getPricingTiers = () => {
     if (tour.pricingTiers) {
       return tour.pricingTiers;
@@ -159,7 +172,6 @@ const CheckoutPage = () => {
   };
 
   const getCurrentPricePerPerson = () => {
-    // Always calculate based on current numberOfPeople state
     const pricingTiers = getPricingTiers();
     const tier = pricingTiers.find(tier => 
       numberOfPeople >= tier.min && numberOfPeople <= tier.max
@@ -262,10 +274,10 @@ const CheckoutPage = () => {
         <Label htmlFor="deposit" className="flex flex-col cursor-pointer w-full">
           <span className="font-semibold">Pay 20% Deposit Now</span>
           <span className="text-sm text-muted-foreground">
-            Secure your booking with UGx {calculatePaymentAmounts().depositAmount.toLocaleString()} deposit
+            Secure your booking with ${calculatePaymentAmounts().depositAmount.toLocaleString()} deposit
           </span>
           <span className="text-xs text-blue-600 mt-1">
-            Remaining UGx {calculatePaymentAmounts().remainingBalance.toLocaleString()} due 30 days before departure
+            Remaining ${calculatePaymentAmounts().remainingBalance.toLocaleString()} due 30 days before departure
           </span>
         </Label>
       </div>
@@ -275,7 +287,7 @@ const CheckoutPage = () => {
         <Label htmlFor="full" className="flex flex-col cursor-pointer w-full">
           <span className="font-semibold">Pay in Full Now</span>
           <span className="text-sm text-muted-foreground">
-            Complete payment of UGx {calculatePaymentAmounts().totalPrice.toLocaleString()} today
+            Complete payment of ${calculatePaymentAmounts().totalPrice.toLocaleString()} today
           </span>
         </Label>
       </div>
@@ -288,7 +300,7 @@ const CheckoutPage = () => {
           <p className="font-medium text-amber-800">Important:</p>
           <p className="text-amber-700">
             {paymentType === 'deposit' 
-              ? `Your booking will be confirmed once the UGx ${calculatePaymentAmounts().depositAmount.toLocaleString()} deposit is received.`
+              ? `Your booking will be confirmed once the $${calculatePaymentAmounts().depositAmount.toLocaleString()} deposit is received.`
               : 'Your booking will be fully confirmed upon complete payment.'
             }
           </p>
@@ -297,6 +309,21 @@ const CheckoutPage = () => {
     </div>
   </div>
 );
+
+  const steps = bookingMode === 'book' 
+    ? [
+        { id: 1, name: 'Contact Info', completed: false },
+        { id: 2, name: 'Travel Details', completed: false },
+        { id: 3, name: 'Payment', completed: false }
+      ]
+    : [
+        { id: 1, name: 'Contact Info', completed: false },
+        { id: 2, name: 'Inquiry Details', completed: false }
+      ];
+
+  const handleStepChange = (step: number) => {
+    setCurrentStep(step);
+  };
 
   // Handle travelers change
   const handleTravelersChange = (value: string) => {
@@ -307,42 +334,49 @@ const CheckoutPage = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
-    
-    const userData: FormData = {
-      firstName: formData.get('firstName') as string,
-      lastName: formData.get('lastName') as string,
-      email: formData.get('email') as string,
-      phone: formData.get('phone') as string,
-      travelers: formData.get('travelers') as string,
-      travelDate: formData.get('travelDate') as string,
-      specialRequests: formData.get('specialRequests') as string || ''
-    };
-    
+    // Validation
     const errors: {[key: string]: string} = {};
     
-    if (bookingMode === 'book' && paymentMethod === 'card') {
-      const cardNumber = formData.get('cardNumber') as string || '';
-      const expiry = formData.get('expiry') as string || '';
-      const cvv = formData.get('cvv') as string || '';
-      
-      if (cardNumber.length < 16) {
-        errors.cardNumber = "Please enter a valid card number";
-      }
-      
-      if (!expiry.match(/^\d{2}\/\d{2}$/)) {
-        errors.expiry = "Please enter a valid expiry date (MM/YY)";
-      }
-      
-      if (cvv.length < 3) {
-        errors.cvv = "Please enter a valid CVV";
-      }
-    }
+    // Common validation for both modes
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const firstName = formData.get('firstName') as string || '';
+    const lastName = formData.get('lastName') as string || '';
+    const email = formData.get('email') as string || '';
+    const phone = formData.get('phone') as string || '';
     
-    // Crypto payment validation
-    if (bookingMode === 'book' && paymentMethod === 'crypto' && !blueWalletConnected) {
-      errors.crypto = "Please connect your Blue Wallet to proceed with crypto payment";
+    if (!firstName.trim()) errors.firstName = "First name is required";
+    if (!lastName.trim()) errors.lastName = "Last name is required";
+    if (!email.trim() || !email.includes('@')) errors.email = "Valid email is required";
+    if (!phone.trim()) errors.phone = "Phone number is required";
+    
+    if (bookingMode === 'book') {
+      // Additional validation for booking
+      if (paymentMethod === 'card') {
+        const cardNumber = formData.get('cardNumber') as string || '';
+        const expiry = formData.get('expiry') as string || '';
+        const cvv = formData.get('cvv') as string || '';
+        
+        if (cardNumber.length < 16) {
+          errors.cardNumber = "Please enter a valid card number";
+        }
+        
+        if (!expiry.match(/^\d{2}\/\d{2}$/)) {
+          errors.expiry = "Please enter a valid expiry date (MM/YY)";
+        }
+        
+        if (cvv.length < 3) {
+          errors.cvv = "Please enter a valid CVV";
+        }
+      }
+      
+      if (paymentMethod === 'crypto' && !blueWalletConnected) {
+        errors.crypto = "Please connect your Blue Wallet to proceed with crypto payment";
+      }
+    } else {
+      // Validation for inquiry
+      const travelDate = formData.get('travelDate') as string || '';
+      if (!travelDate) errors.travelDate = "Preferred travel date is required";
     }
     
     if (Object.keys(errors).length > 0) {
@@ -353,8 +387,17 @@ const CheckoutPage = () => {
     setIsProcessing(true);
     
     try {
+      const userData: FormData = {
+        firstName,
+        lastName,
+        email,
+        phone,
+        travelers: formData.get('travelers') as string,
+        travelDate: formData.get('travelDate') as string,
+        specialRequests: formData.get('specialRequests') as string || ''
+      };
+      
       if (bookingMode === 'inquiry') {
-        // Send inquiry via Formspree
         await sendInquiry(userData);
         setInquirySubmitted(true);
         
@@ -406,178 +449,304 @@ const CheckoutPage = () => {
     }
   };
 
-  
-  
-
   return (
-    <div className="py-12">
-      <div className="container mx-auto px-4">
-        <Link to={`/tours/${tour.slug}`} className="flex items-center text-green-600 mb-8 hover:underline">
-          <ArrowLeft size={18} className="mr-2" />
-          Back to Tour Details
-        </Link>
-        
-        {/* Booking Mode Toggle */}
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <Link to={`/tours/${tour.slug}`} className="flex items-center text-safari-green hover:text-safari-green/80 transition-colors">
+              <ArrowLeft size={20} className="mr-2" />
+              Back to Tour Details
+            </Link>
+            <div className="text-center">
+              <h1 className="text-xl font-semibold text-gray-900">{tour.name}</h1>
+              <p className="text-sm text-gray-600">{tour.duration} days • {tour.location}</p>
+            </div>
+            <div className="w-24"></div> {/* Spacer */}
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-8">
+        {/* Progress Steps */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-4">
-            {bookingMode === 'book' ? 'Checkout' : 'Make an Inquiry'}
-          </h1>
-          
-          <div className="flex gap-4 mb-6">
+          <div className="flex items-center justify-center space-x-4">
+            {steps.map((step, index) => (
+              <div key={step.id} className="flex items-center">
+                <div className={`flex items-center justify-center w-8 h-8 rounded-full border-2 ${
+                  currentStep >= step.id 
+                    ? 'bg-safari-green border-safari-green text-white' 
+                    : 'border-gray-300 text-gray-400'
+                }`}>
+                  {step.id}
+                </div>
+                <span className={`ml-2 text-sm font-medium ${
+                  currentStep >= step.id ? 'text-safari-green' : 'text-gray-400'
+                }`}>
+                  {step.name}
+                </span>
+                {index < steps.length - 1 && (
+                  <ChevronRight size={16} className="ml-4 text-gray-300" />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Booking Mode Toggle */}
+        <div className="mb-8 text-center">
+          <div className="inline-flex bg-gray-100 rounded-lg p-1">
             <Button
-              variant={bookingMode === 'book' ? 'default' : 'outline'}
-              onClick={() => setBookingMode('book')}
-              className="flex items-center gap-2"
+              variant={bookingMode === 'book' ? 'default' : 'ghost'}
+              onClick={() => {
+                setBookingMode('book');
+                setCurrentStep(1);
+              }}
+              className={`px-6 py-2 rounded-md transition-all ${
+                bookingMode === 'book' 
+                  ? 'bg-safari-green text-white shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
             >
-              <CreditCard size={18} />
+              <CreditCard size={18} className="mr-2" />
               Book Now
             </Button>
             <Button
-              variant={bookingMode === 'inquiry' ? 'default' : 'outline'}
-              onClick={() => setBookingMode('inquiry')}
-              className="flex items-center gap-2"
+              variant={bookingMode === 'inquiry' ? 'default' : 'ghost'}
+              onClick={() => {
+                setBookingMode('inquiry');
+                setCurrentStep(1);
+              }}
+              className={`px-6 py-2 rounded-md transition-all ${
+                bookingMode === 'inquiry' 
+                  ? 'bg-safari-green text-white shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
             >
-              <MessageCircle size={18} />
+              <MessageCircle size={18} className="mr-2" />
               Make Inquiry
             </Button>
           </div>
-          
-          <p className="text-muted-foreground">
+          <p className="mt-2 text-sm text-gray-600">
             {bookingMode === 'book' 
-              ? `Complete your booking for ${tour.name} (${numberOfPeople} ${numberOfPeople === 1 ? 'person' : 'people'})`
+              ? `Complete your booking for ${numberOfPeople} ${numberOfPeople === 1 ? 'person' : 'people'}`
               : `Get a custom quote or ask questions about ${tour.name}`
             }
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Form */}
           <div className="lg:col-span-2">
             {formSubmitted ? (
-              <div className="bg-green-50 border border-green-200 text-green-700 p-8 rounded-lg text-center">
-                <Check size={48} className="mx-auto mb-4" />
-                <h2 className="text-2xl font-semibold mb-3">Payment Successful!</h2>
-                <p className="mb-2">Your booking for {tour.name} has been confirmed.</p>
+              <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Check size={32} className="text-green-600" />
+                </div>
+                <h2 className="text-2xl font-semibold mb-3 text-green-800">Payment Successful!</h2>
+                <p className="mb-2 text-green-700">Your booking for {tour.name} has been confirmed.</p>
                 {paymentMethod === 'crypto' && (
-                  <div className="mt-4 p-3 bg-blue-100 rounded-lg">
+                  <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
                     <p className="text-sm text-blue-800">
                       Cryptocurrency payment received: {cryptoAmount} {selectedCrypto.toUpperCase()}
                     </p>
                   </div>
                 )}
-                <p>Redirecting to your booking confirmation...</p>
+                <p className="mt-4 text-sm text-gray-600">Redirecting to your booking confirmation...</p>
               </div>
             ) : inquirySubmitted ? (
-              <div className="bg-blue-50 border border-blue-200 text-blue-700 p-8 rounded-lg text-center">
-                <MessageCircle size={48} className="mx-auto mb-4" />
-                <h2 className="text-2xl font-semibold mb-3">Inquiry Submitted!</h2>
-                <p className="mb-2">Thank you for your interest in {tour.name}.</p>
-                <p className="mb-2">Your inquiry has been sent to our team at safaris.dirttrails@gmail.com</p>
-                <p>We'll respond within 24 hours with a personalized quote and detailed information.</p>
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-8 text-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MessageCircle size={32} className="text-blue-600" />
+                </div>
+                <h2 className="text-2xl font-semibold mb-3 text-blue-800">Inquiry Submitted!</h2>
+                <p className="mb-2 text-blue-700">Thank you for your interest in {tour.name}.</p>
+                <p className="mb-2 text-blue-700">Your inquiry has been sent to our team at safaris.dirttrails@gmail.com</p>
+                <p className="text-sm text-gray-600">We'll respond within 24 hours with a personalized quote and detailed information.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-8">
-                {/* Show any submission errors */}
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Error Display */}
                 {formErrors.submit && (
-                  <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg">
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                     <div className="flex items-center">
-                      <AlertCircle size={18} className="mr-2" />
-                      <span>{formErrors.submit}</span>
+                      <AlertCircle size={18} className="text-red-600 mr-2" />
+                      <span className="text-red-800">{formErrors.submit}</span>
                     </div>
                   </div>
                 )}
 
-                <ContactInfoForm />
-                
-                {bookingMode === 'inquiry' ? (
-                  <InquiryForm />
-                ) : (
-                  <TravelInfoForm 
-                    numberOfPeople={numberOfPeople}
-                    handleTravelersChange={handleTravelersChange}
-                    getCurrentPricePerPerson={getCurrentPricePerPerson}
-                    getCurrentTierLabel={getCurrentTierLabel}
-                    selectedCustomizations={selectedCustomizations}
-                  />
-                )}
-                
-                {/* Payment Type Selection - Only show for booking */}
-                {bookingMode === 'book' && (
-                  <PaymentTypeSelector 
-                    paymentType={paymentType}
-                    setPaymentType={setPaymentType}
-                    calculatePaymentAmounts={calculatePaymentAmounts}
-                  />
-                )}
-                
-                {/* Payment Methods - Only show for booking */}
-                {bookingMode === 'book' && (
-                  <PaymentMethods 
-                    paymentMethod={paymentMethod}
-                    setPaymentMethod={setPaymentMethod}
-                    formErrors={formErrors}
-                    blueWalletConnected={blueWalletConnected}
-                    isConnectingWallet={isConnectingWallet}
-                    connectBlueWallet={connectBlueWallet}
-                    selectedCrypto={selectedCrypto}
-                    setSelectedCrypto={setSelectedCrypto}
-                    cryptoAmount={cryptoAmount}
-                    cryptoPaymentAddress={cryptoPaymentAddress}
-                    paymentQRCode={paymentQRCode}
-                    disconnectWallet={disconnectWallet}
-                    copyToClipboard={copyToClipboard}
-                    openInBlueWallet={openInBlueWallet}
-                    paymentType={paymentType}
-                    calculatePaymentAmounts={calculatePaymentAmounts}
-                  />
-                )}
-                
-                {/* Terms and Conditions */}
-                <div className="flex items-start mb-6">
-                  <div className="flex items-center h-5">
-                    <Checkbox id="terms" required />
+                {/* Step 1: Contact Info */}
+                {currentStep === 1 && (
+                  <div className="bg-white rounded-xl shadow-sm border p-6">
+                    <h2 className="text-xl font-semibold mb-4 text-gray-900">Contact Information</h2>
+                    <ContactInfoForm />
+                    <div className="mt-6 flex justify-end">
+                      <Button 
+                        type="button" 
+                        onClick={() => setCurrentStep(2)}
+                        className="bg-safari-green hover:bg-safari-green/90"
+                      >
+                        Next: {bookingMode === 'book' ? 'Travel Details' : 'Inquiry Details'}
+                      </Button>
+                    </div>
                   </div>
-                  <div className="ml-3">
-                    <label htmlFor="terms" className="font-medium">
-                      I agree to the <Link to="/terms" className="text-green-600 hover:underline">Terms and Conditions</Link> and <Link to="/privacy" className="text-green-600 hover:underline">Privacy Policy</Link>
-                    </label>
+                )}
+
+                {/* Step 2: Travel Details or Inquiry Details */}
+                {currentStep === 2 && (
+                  <div className="bg-white rounded-xl shadow-sm border p-6">
+                    <h2 className="text-xl font-semibold mb-4 text-gray-900">
+                      {bookingMode === 'book' ? 'Travel Details' : 'Inquiry Details'}
+                    </h2>
+                    {bookingMode === 'inquiry' ? (
+                      <InquiryForm />
+                    ) : (
+                      <TravelInfoForm 
+                        numberOfPeople={numberOfPeople}
+                        handleTravelersChange={handleTravelersChange}
+                        getCurrentPricePerPerson={getCurrentPricePerPerson}
+                        getCurrentTierLabel={getCurrentTierLabel}
+                        selectedCustomizations={selectedCustomizations}
+                      />
+                    )}
+                    <div className="mt-6 flex justify-between">
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        onClick={() => setCurrentStep(1)}
+                      >
+                        Back
+                      </Button>
+                      {bookingMode === 'book' ? (
+                        <Button 
+                          type="button" 
+                          onClick={() => setCurrentStep(3)}
+                          className="bg-safari-green hover:bg-safari-green/90"
+                        >
+                          Next: Payment
+                        </Button>
+                      ) : (
+                        <Button 
+                          type="submit" 
+                          size="lg" 
+                          className="bg-safari-green hover:bg-safari-green/90 flex items-center gap-2" 
+                          disabled={isProcessing}
+                        >
+                          {isProcessing ? (
+                            <>
+                              <Loader2 className="w-5 h-5 animate-spin" />
+                              Processing...
+                            </>
+                          ) : "Submit Travel Proposal"}
+                        </Button>
+                      )}
+                    </div>
                   </div>
-                </div>
-                
-                <Button type="submit" size="lg" className="w-full flex items-center justify-center gap-2" disabled={isProcessing}>
-                  {isProcessing ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Processing...
-                    </>
-                  ) : bookingMode === 'inquiry' 
-                    ? "Submit Travel Proposal" 
-                    : paymentMethod === 'crypto'
-                      ? `Pay ${paymentType === 'deposit' ? 'Deposit' : 'Full Amount'} with Crypto`
-                      : paymentType === 'deposit'
-                        ? `Pay Deposit UGx ${calculatePaymentAmounts().depositAmount.toLocaleString()}`
-                        : `Pay Full Amount UGx ${calculatePaymentAmounts().totalPrice.toLocaleString()}`
-                  }
-                </Button>
+                )}
+
+                {/* Step 3: Payment - Only for booking */}
+                {currentStep === 3 && bookingMode === 'book' && (
+                  <div className="space-y-6">
+                    {/* Payment Type Selection */}
+                    <div className="bg-white rounded-xl shadow-sm border p-6">
+                      <h2 className="text-xl font-semibold mb-4 text-gray-900">Payment Options</h2>
+                      <PaymentTypeSelector 
+                        paymentType={paymentType}
+                        setPaymentType={setPaymentType}
+                        calculatePaymentAmounts={calculatePaymentAmounts}
+                      />
+                    </div>
+                    
+                    {/* Payment Methods */}
+                    <div className="bg-white rounded-xl shadow-sm border p-6">
+                      <h2 className="text-xl font-semibold mb-4 text-gray-900">Payment Method</h2>
+                      <PaymentMethods 
+                        paymentMethod={paymentMethod}
+                        setPaymentMethod={setPaymentMethod}
+                        formErrors={formErrors}
+                        blueWalletConnected={blueWalletConnected}
+                        isConnectingWallet={isConnectingWallet}
+                        connectBlueWallet={connectBlueWallet}
+                        selectedCrypto={selectedCrypto}
+                        setSelectedCrypto={setSelectedCrypto}
+                        cryptoAmount={cryptoAmount}
+                        cryptoPaymentAddress={cryptoPaymentAddress}
+                        paymentQRCode={paymentQRCode}
+                        disconnectWallet={disconnectWallet}
+                        copyToClipboard={copyToClipboard}
+                        openInBlueWallet={openInBlueWallet}
+                        paymentType={paymentType}
+                        calculatePaymentAmounts={calculatePaymentAmounts}
+                      />
+                    </div>
+                    
+                    {/* Terms and Conditions */}
+                    <div className="bg-white rounded-xl shadow-sm border p-6">
+                      <div className="flex items-start">
+                        <Checkbox id="terms" required className="mt-1" />
+                        <div className="ml-3">
+                          <label htmlFor="terms" className="text-sm font-medium text-gray-700">
+                            I agree to the <Link to="/terms" className="text-safari-green hover:underline">Terms and Conditions</Link> and <Link to="/privacy" className="text-safari-green hover:underline">Privacy Policy</Link>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex justify-between">
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        onClick={() => setCurrentStep(2)}
+                      >
+                        Back
+                      </Button>
+                      <Button 
+                        type="submit" 
+                        size="lg" 
+                        className="bg-safari-green hover:bg-safari-green/90 flex items-center gap-2" 
+                        disabled={isProcessing}
+                      >
+                        {isProcessing ? (
+                          <>
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                            Processing...
+                          </>
+                        ) : paymentMethod === 'crypto'
+                          ? `Pay ${paymentType === 'deposit' ? 'Deposit' : 'Full Amount'} with Crypto`
+                          : paymentType === 'deposit'
+                            ? `Pay Deposit $${calculatePaymentAmounts().depositAmount.toLocaleString()}`
+                            : `Pay Full Amount $${calculatePaymentAmounts().totalPrice.toLocaleString()}`
+                        }
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </form>
             )}
           </div>
           
-          <BookingSummary 
-            bookingMode={bookingMode}
-            tour={tour}
-            numberOfPeople={numberOfPeople}
-            getCurrentPricePerPerson={getCurrentPricePerPerson}
-            getCurrentTierLabel={getCurrentTierLabel}
-            selectedCustomizations={selectedCustomizations}
-            tourDiscount={tour.discount}
-            calculateTotalPrice={calculateTotalPrice}
-            paymentType={paymentType}
-            calculatePaymentAmounts={calculatePaymentAmounts}
-            paymentMethod={paymentMethod}
-            cryptoAmount={cryptoAmount}
-            selectedCrypto={selectedCrypto}
-          />
+          {/* Booking Summary - Always visible */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-4">
+              <BookingSummary 
+                bookingMode={bookingMode}
+                tour={tour}
+                numberOfPeople={numberOfPeople}
+                getCurrentPricePerPerson={getCurrentPricePerPerson}
+                getCurrentTierLabel={getCurrentTierLabel}
+                selectedCustomizations={selectedCustomizations}
+                tourDiscount={tour.discount}
+                calculateTotalPrice={calculateTotalPrice}
+                paymentType={paymentType}
+                calculatePaymentAmounts={calculatePaymentAmounts}
+                paymentMethod={paymentMethod}
+                cryptoAmount={cryptoAmount}
+                selectedCrypto={selectedCrypto}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -585,3 +754,4 @@ const CheckoutPage = () => {
 };
 
 export default CheckoutPage;
+
