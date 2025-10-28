@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { MapPin, Search, TreePine, Camera, Smartphone, QrCode, AlertCircle } from "lucide-react";
-import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { useState, useEffect, useRef } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -21,7 +21,7 @@ const treeIcon = L.icon({
 // Tree data from user (add Ashoka entry)
 const treeDataList = [
   {
-    id: 1,
+    id: "TREE-001",
     species: 'Markhamia lutea',
     latitude: 0.34760,
     longitude: 32.58250,
@@ -31,7 +31,7 @@ const treeDataList = [
     notes: ''
   },
   {
-    id: 2,
+    id: "TREE-002",
     species: 'Markhamia lutea',
     latitude: 0.34760,
     longitude: 32.58250,
@@ -41,7 +41,7 @@ const treeDataList = [
     notes: ''
   },
   {
-    id: 3,
+    id: "TREE-003",
     species: 'Ficus natalensis',
     latitude: 0.55800,
     longitude: 32.45970,
@@ -51,7 +51,7 @@ const treeDataList = [
     notes: ''
   },
   {
-    id: 4,
+    id: "TREE-004",
     species: 'Prunus africana',
     latitude: 1.37330,
     longitude: 32.29030,
@@ -61,7 +61,7 @@ const treeDataList = [
     notes: ''
   },
   {
-    id: 5,
+    id: "TREE-005",
     species: 'Ashoka',
     latitude: 0.32032,
     longitude: 32.47574,
@@ -78,8 +78,10 @@ const GeotaggingPage = () => {
   const [allTrees, setAllTrees] = useState(treeDataList);
   const [selectedTree, setSelectedTree] = useState(null);
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
-  const [mapCenter, setMapCenter] = useState<[number, number]>([-0.0236, 37.9062]); // Default Kenya center
+  const [mapCenter, setMapCenter] = useState<[number, number]>([-0.0236, 37.9062]);
   const [mapZoom, setMapZoom] = useState(7);
+  const hasCenteredOnUser = useRef(false);
+  const mapRef = useRef<any>(null);
 
   const trackingDatabase = {
     'EAT-2023-12345': {
@@ -151,6 +153,34 @@ const GeotaggingPage = () => {
     }
   }, []);
 
+  // Search by Tree ID and center map on that tree
+  const handleTreeIdSearch = () => {
+    const id = trackingId.trim();
+    if (!id) return;
+    const foundTree = allTrees.find(tree => tree.id.toLowerCase() === id.toLowerCase());
+    if (foundTree && mapRef.current) {
+      setSelectedTree(foundTree);
+      setMapCenter([foundTree.latitude, foundTree.longitude]);
+      setMapZoom(15);
+      // Center map using Leaflet API
+      mapRef.current.setView([foundTree.latitude, foundTree.longitude], 15, { animate: true });
+    } else {
+      setSelectedTree(null);
+    }
+  };
+
+  // Helper component to center map on user location when available
+  function CenterMapOnUser({ userLocation }: { userLocation: [number, number] | null }) {
+    const map = useMap();
+    if (userLocation && !hasCenteredOnUser.current) {
+      map.setView(userLocation, 12, { animate: true });
+      hasCenteredOnUser.current = true;
+    }
+    // Attach map ref for search
+    if (!mapRef.current) mapRef.current = map;
+    return null;
+  }
+
   const handleSearch = () => {
     if (trackingId.trim()) {
       const data = trackingDatabase[trackingId.trim()];
@@ -219,12 +249,13 @@ const GeotaggingPage = () => {
           scrollWheelZoom={true}
           className="w-full h-full"
           style={{ borderRadius: "1rem", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}
+          whenReady={e => { mapRef.current = e.target; }}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {/* User location marker */}
+          <CenterMapOnUser userLocation={userLocation} />
           {userLocation && (
             <Marker position={userLocation}>
               <Popup>You are here 📍</Popup>
@@ -234,16 +265,13 @@ const GeotaggingPage = () => {
             <Marker key={tree.id} position={[tree.latitude, tree.longitude]} icon={treeIcon}>
               <Popup>
                 <div className="space-y-1">
-                  <p
-                    className="font-semibold text-green-700 cursor-pointer hover:underline"
-                    onClick={() => setSelectedTree(tree)}
-                  >
-                    {tree.species}
-                  </p>
+                  <p className="font-semibold text-green-700">{tree.species}</p>
+                  <p><strong>ID:</strong> {tree.id}</p>
                   <p><strong>Planted By:</strong> {tree.planted_by || "Unknown"}</p>
                   <p><strong>Planted On:</strong> {new Date(tree.planted_on).toLocaleDateString()}</p>
                   <p><strong>Count:</strong> {tree.count}</p>
                   <p><strong>Location:</strong> {tree.latitude.toFixed(5)}, {tree.longitude.toFixed(5)}</p>
+                  {tree.notes && <p><strong>Notes:</strong> {tree.notes}</p>}
                 </div>
               </Popup>
             </Marker>
@@ -251,41 +279,41 @@ const GeotaggingPage = () => {
         </MapContainer>
       </div>
 
-      {/* Search section */}
+      {/* Track Your Trees section */}
       <Card className="mb-8">
         <CardHeader className="bg-green-500/10 rounded-t-lg">
           <CardTitle className="flex items-center">
             <Search className="mr-2 h-5 w-5" />
-            Track Your Trees
+            Track Your Trees by ID
           </CardTitle>
           <CardDescription>
-            Enter your tracking ID from your certificate to see your trees
+            Enter your Tree ID (e.g., TREE-001) to find and zoom to your tree on the map.
           </CardDescription>
         </CardHeader>
         <CardContent className="pt-6">
           <div>
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="tracking-id">Tracking ID</Label>
+                <Label htmlFor="tracking-id">Tree ID</Label>
                 <Input 
                   id="tracking-id" 
-                  placeholder="Enter your tracking ID (e.g., EAT-2023-12345)" 
+                  placeholder="Enter your Tree ID (e.g., TREE-001)" 
                   value={trackingId}
                   onChange={(e) => setTrackingId(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                  onKeyPress={(e) => e.key === 'Enter' && handleTreeIdSearch()}
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  Try: EAT-2023-12345, EAT-2023-67890, or EAT-2024-11111
+                  Example IDs: TREE-001, TREE-002, TREE-003, TREE-004, TREE-005
                 </p>
               </div>
             </div>
-            <Button onClick={handleSearch} className="mt-4 w-full bg-green-600 hover:bg-green-700">
-              Find My Trees
+            <Button onClick={handleTreeIdSearch} className="mt-4 w-full bg-green-600 hover:bg-green-700">
+              Find My Tree
             </Button>
           </div>
         </CardContent>
       </Card>
-      
+
       {/* Search results */}
       {showDemo && treeData && (
         <div className="space-y-8 animate-fade-in">
@@ -431,6 +459,7 @@ const GeotaggingPage = () => {
               ✕
             </button>
             <h2 className="text-2xl font-bold mb-4">{selectedTree.species}</h2>
+            <p><strong>ID:</strong> {selectedTree.id}</p>
             <p><strong>Planted By:</strong> {selectedTree.planted_by || "Unknown"}</p>
             <p><strong>Planted On:</strong> {new Date(selectedTree.planted_on).toLocaleDateString()}</p>
             <p><strong>Count:</strong> {selectedTree.count}</p>
