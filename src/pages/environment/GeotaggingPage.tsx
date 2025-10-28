@@ -21,17 +21,7 @@ const treeIcon = L.icon({
 // Tree data from user (add Ashoka entry)
 const treeDataList = [
   {
-    id: "TREE-001",
-    species: 'Markhamia lutea',
-    latitude: 0.34760,
-    longitude: 32.58250,
-    planted_by: 'DirtTrails Community',
-    planted_on: '2025-09-25',
-    count: 1,
-    notes: ''
-  },
-  {
-    id: "TREE-002",
+    id: "TREE-004",
     species: 'Markhamia lutea',
     latitude: 0.34760,
     longitude: 32.58250,
@@ -42,6 +32,16 @@ const treeDataList = [
   },
   {
     id: "TREE-003",
+    species: 'Markhamia lutea',
+    latitude: 0.34760,
+    longitude: 32.58250,
+    planted_by: 'DirtTrails Community',
+    planted_on: '2025-09-25',
+    count: 1,
+    notes: ''
+  },
+  {
+    id: "TREE-002",
     species: 'Ficus natalensis',
     latitude: 0.55800,
     longitude: 32.45970,
@@ -51,7 +51,7 @@ const treeDataList = [
     notes: ''
   },
   {
-    id: "TREE-004",
+    id: "TREE-001",
     species: 'Prunus africana',
     latitude: 1.37330,
     longitude: 32.29030,
@@ -61,7 +61,7 @@ const treeDataList = [
     notes: ''
   },
   {
-    id: "TREE-005",
+    id: "TREE-000",
     species: 'Ashoka',
     latitude: 0.32032,
     longitude: 32.47574,
@@ -448,7 +448,7 @@ const GeotaggingPage = () => {
         </div>
       )}
     
-      {/* Modal for full tree details */}
+      Modal for full tree details
       {selectedTree && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-2xl w-11/12 md:w-2/3 lg:w-1/2 p-6 relative">
