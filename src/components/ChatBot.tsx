@@ -1,13 +1,25 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Send, MessageCircle, X, Bot, User, Leaf, MapPin, Calendar, Star, DollarSign } from 'lucide-react';
+import { tours as siteTours } from '@/data/tours';
+import { destinations as siteDestinations } from '@/data/destinations';
 
+/**
+ * ChatBot
+ * - Automatically indexes local site data (tours, destinations, key pages)
+ * - Returns contextual answers and actionable buttons that navigate the SPA
+ * - Keeps a simple local "search" across known site content
+ */
 const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) => {
+  const navigate = useNavigate();
+  // fall back to embedded data if parent doesn't pass tours
+  const allTours = (tours && tours.length > 0) ? tours : siteTours;
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { 
-      text: "Hey there, explorer! 🦁 I'm your Safari AI guide. I have information about all our amazing tours and can help you find the perfect adventure. What would you like to know?", 
-      sender: 'bot', 
-      timestamp: new Date() 
+    {
+      text: "Hey there, explorer! 🦁 I'm your Safari AI guide. I have information about our tours, destinations and services — ask me anything or try a quick question below.",
+      sender: 'bot',
+      timestamp: new Date(),
     }
   ]);
   const [input, setInput] = useState('');
@@ -22,153 +34,137 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
     scrollToBottom();
   }, [messages]);
 
-  const generateContextualResponse = (userMessage) => {
-    const message = userMessage.toLowerCase();
-    
-    const relevantTours = selectedCountry 
-      ? tours.filter(tour => tour.country === selectedCountry)
-      : tours;
+  // small site index for quick lookups (kept simple and local)
+  const siteIndex = [
+    { title: 'Home', path: '/' , snippet: 'Browse featured tours, conservation, and quick search.' },
+    { title: 'Tours', path: '/tours', snippet: 'All safaris & tour packages.' },
+    { title: 'About', path: '/about', snippet: 'Who we are and our mission.' },
+    { title: 'Contact', path: '/contact', snippet: 'Contact form and office details.' },
+    { title: 'Carbon Offset', path: '/environment/carbon-offset', snippet: 'Calculate and offset your trip carbon footprint.' },
+    { title: 'Tree Planting', path: '/environment/tree-planting', snippet: 'Support tree planting initiatives.' },
+    { title: 'Geotagging', path: '/environment/geotagging', snippet: 'Geotagging and monitoring projects.' },
+  ];
 
-    // Country-specific responses
-    if (message.includes('kenya') || message.includes('uganda') || message.includes('tanzania') || message.includes('rwanda')) {
-      const countryMentioned = message.includes('kenya') ? 'Kenya' : 
-                             message.includes('uganda') ? 'Uganda' :
-                             message.includes('tanzania') ? 'Tanzania' : 'Rwanda';
-      
-      const countryTours = tours.filter(tour => tour.country === countryMentioned);
-      
-      if (countryTours.length > 0) {
-        const tourList = countryTours.slice(0, 3).map(tour => 
-          `• ${tour.name} (${tour.duration} days, $${tour.price.toLocaleString()})`
-        ).join('\n');
-        
-        return `Great choice! 🌍 ${countryMentioned} offers incredible safari experiences. Here are some of our top ${countryMentioned} tours:\n\n${tourList}\n\nWould you like more details about any of these adventures?`;
-      }
+  const generateContextualResponse = (userMessage: string) => {
+    const q = (userMessage || '').toLowerCase();
+    const relevantTours = selectedCountry ? allTours.filter(t => t.country === selectedCountry) : allTours;
+
+    // Basic site metadata
+    const companyName = 'Dirt Trails Safaris';
+    const companyTagline = 'Professional, sustainable and unforgettable safari experiences';
+
+    // Handle direct company identity / about questions first
+    if (/\b(what('?| i)s the name|what('?| i)s this company|company name|who are you|what('?| i)s your name)\b/.test(q)) {
+      return {
+        text: `${companyName} — ${companyTagline}. You can read more about our story and mission on the About page. Would you like me to open it for you?`,
+        actions: [ { label: 'About Dirt Trails', path: '/about' }, { label: 'Contact Us', path: '/contact' } ]
+      };
     }
 
-    if (message.includes('price') || message.includes('cost') || message.includes('budget') || message.includes('cheap') || message.includes('expensive')) {
-      if (relevantTours.length > 0) {
-        const prices = relevantTours.map(t => t.price).sort((a, b) => a - b);
-        const minPrice = prices[0];
-        const maxPrice = prices[prices.length - 1];
-        const avgPrice = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length);
-        
-        const budgetTours = relevantTours.filter(t => t.price <= avgPrice).slice(0, 2);
-        const budgetList = budgetTours.map(tour => 
-          `• ${tour.name} - $${tour.price.toLocaleString()} (${tour.duration} days)`
-        ).join('\n');
-        
-        return `💰 Our tour prices range from $${minPrice.toLocaleString()} to $${maxPrice.toLocaleString()}, with an average of $${avgPrice.toLocaleString()}.\n\nHere are some great value options:\n${budgetList}\n\nPrices include accommodation, meals, and game drives. What's your budget range?`;
-      }
-    }
-
-    if (message.includes('duration') || message.includes('days') || message.includes('long') || message.includes('short')) {
-      if (relevantTours.length > 0) {
-        const durations = relevantTours.map(t => t.duration).sort((a, b) => a - b);
-        const shortTours = relevantTours.filter(t => t.duration <= 5).slice(0, 2);
-        const longTours = relevantTours.filter(t => t.duration >= 7).slice(0, 2);
-        
-        let response = `⏰ Our tours range from ${durations[0]} to ${durations[durations.length - 1]} days.\n\n`;
-        
-        if (shortTours.length > 0) {
-          response += `Quick adventures (≤5 days):\n${shortTours.map(t => `• ${t.name} (${t.duration} days)`).join('\n')}\n\n`;
+    // country queries
+    if (/(kenya|uganda|tanzania|rwanda)/.test(q)) {
+      const match = q.match(/kenya|uganda|tanzania|rwanda/)?.[0];
+      if (match) {
+        const countryName = match.charAt(0).toUpperCase() + match.slice(1);
+        const countryTours = allTours.filter(t => t.country.toLowerCase() === countryName.toLowerCase());
+        if (countryTours.length) {
+          const tourList = countryTours.slice(0,3).map(t => `• ${t.name} (${t.duration} days, $${t.price.toLocaleString()})`).join('\n');
+          return {
+            text: `Great choice! 🌍 ${countryName} offers incredible safari experiences. Here are some top ${countryName} tours:\n\n${tourList}`,
+            actions: countryTours.slice(0,3).map(t => ({ label: `View ${t.name}`, path: `/tours/${t.slug}` }))
+          };
         }
-        
-        if (longTours.length > 0) {
-          response += `Extended expeditions (≥7 days):\n${longTours.map(t => `• ${t.name} (${t.duration} days)`).join('\n')}\n\n`;
-        }
-        
-        return response + "How many days were you thinking of spending on safari?";
       }
     }
 
-    if (message.includes('wildlife') || message.includes('animals') || message.includes('lion') || message.includes('elephant') || message.includes('big five')) {
-      const wildlifeTours = relevantTours.filter(tour => 
-        tour.tagline?.toLowerCase().includes('wildlife') ||
-        tour.name.toLowerCase().includes('wildlife') ||
-        tour.name.toLowerCase().includes('safari')
-      ).slice(0, 3);
-      
-      if (wildlifeTours.length > 0) {
-        const tourList = wildlifeTours.map(tour => 
-          `• ${tour.name} - ${tour.location} (${tour.rating}⭐)`
-        ).join('\n');
-        
-        return `🦁 East Africa is home to the Big Five and incredible wildlife! Here are our top wildlife experiences:\n\n${tourList}\n\nThese tours offer excellent game viewing opportunities. Which animals are you most excited to see?`;
-      }
+    // price/budget
+    if (/(price|cost|budget|cheap|expensive)/.test(q) && relevantTours.length) {
+      const prices = relevantTours.map(t => t.price).sort((a,b)=>a-b);
+      const min = prices[0], max = prices[prices.length-1];
+      const avg = Math.round(prices.reduce((a,b)=>a+b,0)/prices.length);
+      const budgetTours = relevantTours.filter(t => t.price <= avg).slice(0,3);
+      return {
+        text: `💰 Prices typically range from $${min.toLocaleString()} to $${max.toLocaleString()}, average $${avg.toLocaleString()}. Here are some value options: \n${budgetTours.map(t=>`• ${t.name} - $${t.price.toLocaleString()}`).join('\n')}`,
+        actions: budgetTours.map(t => ({ label: t.name, path: `/tours/${t.slug}`}))
+      };
     }
 
-    // Rating/reviews queries
-    if (message.includes('best') || message.includes('top rated') || message.includes('reviews') || message.includes('rating')) {
-      const topRatedTours = relevantTours
-        .sort((a, b) => b.rating - a.rating)
-        .slice(0, 3);
-      
-      if (topRatedTours.length > 0) {
-        const tourList = topRatedTours.map(tour => 
-          `• ${tour.name} - ${tour.rating}⭐ (${tour.country})`
-        ).join('\n');
-        
-        return `⭐ Here are our highest-rated safari experiences:\n\n${tourList}\n\nThese tours have received excellent reviews from our adventurers. What makes a perfect safari for you?`;
-      }
+    // duration
+    if (/(duration|days|long|short)/.test(q) && relevantTours.length) {
+      const durations = relevantTours.map(t=>t.duration).sort((a,b)=>a-b);
+      return {
+        text: `⏰ Tours range from ${durations[0]} to ${durations[durations.length-1]} days. I can filter by duration for you.`,
+        actions: [ { label: 'Short trips (≤5 days)', path: '/tours?duration=short' }, { label: 'Long trips (≥7 days)', path: '/tours?duration=long' } ]
+      };
     }
 
-    // Specific tour recommendations
-    if (message.includes('recommend') || message.includes('suggest') || message.includes('help me choose')) {
-      if (relevantTours.length > 0) {
-        const sortedByPrice = [...relevantTours].sort((a, b) => a.price - b.price);
-        const recommendations = [
-          sortedByPrice[0], 
-          sortedByPrice[Math.floor(sortedByPrice.length / 2)], 
-          sortedByPrice[sortedByPrice.length - 1] // Premium
-        ].filter((tour, index, arr) => arr.findIndex(t => t.id === tour.id) === index).slice(0, 3);
-        
-        const recList = recommendations.map(tour => 
-          `• ${tour.name}\n  📍 ${tour.location}\n  💰 $${tour.price.toLocaleString()} | ⏰ ${tour.duration} days | ⭐ ${tour.rating}`
-        ).join('\n\n');
-        
-        return `🎯 Based on our collection, here are my top recommendations:\n\n${recList}\n\nEach offers a unique perspective on East African wildlife. What type of experience interests you most?`;
-      }
+    // wildlife
+    if (/(wildlife|animals|lion|elephant|big five)/.test(q) && relevantTours.length) {
+      const matches = relevantTours.filter(t => (t.tagline||'').toLowerCase().includes('wildlife') || t.name.toLowerCase().includes('safari')).slice(0,3);
+      return {
+        text: `🦁 Top wildlife experiences:\n\n${matches.map(m=>`• ${m.name} - ${m.location} (${m.rating}⭐)`).join('\n')}`,
+        actions: matches.map(m=>({ label: m.name, path: `/tours/${m.slug}`}))
+      };
     }
 
-    // Location-specific queries
-    if (message.includes('serengeti') || message.includes('masai mara') || message.includes('ngorongoro') || message.includes('amboseli')) {
-      const locationTours = relevantTours.filter(tour => 
-        tour.location.toLowerCase().includes(message.match(/(serengeti|masai mara|ngorongoro|amboseli)/)?.[0] || '')
-      );
-      
-      if (locationTours.length > 0) {
-        const tourList = locationTours.map(tour => 
-          `• ${tour.name} - $${tour.price.toLocaleString()} (${tour.duration} days)`
-        ).join('\n');
-        
-        return `🌍 Great choice of destination! Here are our tours featuring that area:\n\n${tourList}\n\nThese locations offer some of the best wildlife viewing in Africa. Want to know more about any specific tour?`;
-      }
+    // top rated
+    if (/(best|top rated|reviews|rating)/.test(q) && relevantTours.length) {
+      const top = [...relevantTours].sort((a,b)=>b.rating-a.rating).slice(0,3);
+      return { text: `⭐ Top rated tours:\n\n${top.map(t=>`• ${t.name} - ${t.rating}⭐`).join('\n')}`, actions: top.map(t=>({ label: t.name, path: `/tours/${t.slug}`})) };
     }
 
-    // Default contextual responses
-    const contextualResponses = [
-      `I'd love to help you plan your safari adventure! 🌿 We currently have ${tours.length} amazing tours across East Africa. What kind of experience are you looking for?`,
-      `As your safari guide, I have detailed information about all our tours! 🦒 Are you interested in a specific country, budget range, or type of wildlife experience?`,
-      `Great question, fellow explorer! 🌅 I can help you with tour details, pricing, locations, and recommendations. What would you like to discover?`,
-      `Thanks for that, adventurer! 🐘 With tours ranging from ${Math.min(...tours.map(t => t.duration))} to ${Math.max(...tours.map(t => t.duration))} days across multiple countries, there's something for every explorer. How can I help you choose?`,
-      `Fascinating! 🦓 I'm here to help you navigate through our safari options. Whether you're looking for budget-friendly adventures or luxury experiences, I've got you covered. What interests you most?`
-    ];
-    
-    return contextualResponses[Math.floor(Math.random() * contextualResponses.length)];
+    // recommendations
+    if (/(recommend|suggest|help me choose)/.test(q) && relevantTours.length) {
+      const sorted = [...relevantTours].sort((a,b)=>a.price-b.price);
+      const picks = [sorted[0], sorted[Math.floor(sorted.length/2)], sorted[sorted.length-1]].filter(Boolean).slice(0,3);
+      return { text: `🎯 Recommendations:\n\n${picks.map(p=>`• ${p.name} — $${p.price.toLocaleString()} | ${p.duration} days`).join('\n')}`, actions: picks.map(p=>({ label: p.name, path: `/tours/${p.slug}`})) };
+    }
+
+    // location-specific
+    if (/(serengeti|masai mara|ngorongoro|amboseli)/.test(q)) {
+      const loc = q.match(/serengeti|masai mara|ngorongoro|amboseli/)?.[0] || '';
+      const locMatches = relevantTours.filter(t => (t.location||'').toLowerCase().includes(loc)).slice(0,4);
+      if (locMatches.length) return { text: `Here are tours in that area: \n${locMatches.map(t=>`• ${t.name} - $${t.price.toLocaleString()}`).join('\n')}`, actions: locMatches.map(t=>({ label: t.name, path: `/tours/${t.slug}`})) };
+    }
+
+    // site search: pages and destinations
+    if (/(where|page|how do i|find|show)/.test(q)) {
+      const qclean = q.replace(/where|how do i|page|can i|show|find/gi,'').trim();
+      const pageMatches = siteIndex.filter(p => p.title.toLowerCase().includes(qclean) || p.snippet.toLowerCase().includes(qclean));
+      const destMatches = siteDestinations.filter(d => d.name.toLowerCase().includes(qclean)).slice(0,3);
+      const actions = pageMatches.map(p=>({ label: p.title, path: p.path }));
+      destMatches.forEach(d => actions.push({ label: d.name, path: `/destinations/${d.slug}`}));
+      if (actions.length) return { text: `I found pages that may help with "${userMessage}":`, actions };
+    }
+
+    // default
+    const defaultText = `I'd love to help you plan your safari adventure! 🌿 We currently have ${allTours.length} tours. What would you like to know?`;
+    return { text: defaultText, actions: [ { label: 'Browse Tours', path: '/tours' }, { label: 'Contact Us', path: '/contact' } ] };
   };
 
-  const simulateBotResponse = (userMessage) => {
+  const simulateBotResponse = (userMessage: string) => {
     setIsTyping(true);
     setTimeout(() => {
-      const response = generateContextualResponse(userMessage);
+      const raw = generateContextualResponse(userMessage);
+      const responseObj = (typeof raw === 'string') ? { text: raw } : raw;
       setMessages(prev => [...prev, { 
-        text: response, 
+        text: responseObj.text, 
+        actions: (responseObj as any).actions || undefined,
         sender: 'bot', 
         timestamp: new Date() 
       }]);
       setIsTyping(false);
-    }, 1500);
+    }, 900);
+  };
+
+  const handleActionClick = (path: string, label?: string) => {
+    if (label) {
+      setMessages(prev => [...prev, { text: `Opening ${label}...`, sender: 'bot', timestamp: new Date() }]);
+    }
+    // navigate to path
+    navigate(path);
+    // close chat if desired or keep open
+    // setOpen(false);
   };
 
   const handleSend = () => {
@@ -251,6 +247,19 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
                     <span className={`text-xs text-green-600 mt-1 font-medium ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
                       {formatTime(msg.timestamp)}
                     </span>
+                    { (msg as any).actions && (msg as any).actions.length > 0 && (
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {(msg as any).actions.map((a: any, i: number) => (
+                          <button
+                            key={i}
+                            onClick={() => handleActionClick(a.path, a.label)}
+                            className="text-xs px-3 py-1 rounded-md bg-green-50 border border-green-200 text-green-700 hover:bg-green-100 transition-colors"
+                          >
+                            {a.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
