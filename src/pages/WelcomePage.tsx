@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -7,6 +7,11 @@ const WelcomePage: React.FC = () => {
   const [fadeOut, setFadeOut] = useState(false);
   const [loading, setLoading] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Focus the card for keyboard/screen-reader users when the page loads
+    containerRef.current?.focus();
+  }, []);
 
   const handleContinue = () => {
     setLoading(true);
@@ -19,29 +24,29 @@ const WelcomePage: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className={`flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-yellow-50 p-6 transition-opacity duration-700 ${fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+      className={`min-h-screen bg-gradient-to-br from-green-100 to-yellow-50 p-4 sm:p-6 transition-opacity duration-700 ${fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
       role="main"
       aria-label="Welcome to Dirt Trails Safaris"
     >
-      <div className="max-w-2xl bg-white rounded-xl shadow-lg p-10 text-center" tabIndex={-1}>
-        <h1 className="text-4xl font-extrabold mb-6 text-green-700 tracking-tight">Welcome to Dirt Trails Safaris</h1>
-        <p className="text-lg mb-6 text-gray-700">
-          <span className="font-semibold text-green-700">Dirt Trails Safaris</span> is an adventure and eco-tourism company committed to delivering sustainable, professional, and safe safari experiences. Our mission is to connect travelers with Africa’s beautful landscapes and vibrant cultures, while upholding the highest standards of service and sustainability.
+      <div className="mx-auto w-full max-w-lg sm:max-w-2xl bg-white rounded-xl shadow-lg p-6 sm:p-10 text-center max-h-[calc(100vh-4rem)] overflow-y-auto" tabIndex={-1} style={{ WebkitOverflowScrolling: 'touch' }}>
+        <h1 className="text-3xl sm:text-4xl font-extrabold mb-4 sm:mb-6 text-green-700 tracking-tight">Welcome to Dirt Trails Safaris</h1>
+        <p className="text-base sm:text-lg mb-4 sm:mb-6 text-gray-700 leading-relaxed">
+          <span className="font-semibold text-green-700">Dirt Trails Safaris</span> is an adventure and eco-tourism company committed to delivering sustainable, professional, and safe safari experiences. Our mission is to connect travelers with Africa’s beautiful landscapes and vibrant cultures, while upholding the highest standards of service and sustainability.
         </p>
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-green-800 mb-2">Our Core Goals</h2>
-          <ul className="text-left text-gray-700 mb-4 list-disc list-inside mx-auto max-w-md">
-            <li className="mb-1">Provide world-class, memorable safari journeys with professionalism and care</li>
-            <li className="mb-1">Promote conservation and support local communities</li>
-            <li className="mb-1">Champion eco-friendly and responsible travel practices</li>
-            <li className="mb-1">Empower guests to experience the true beauty and diversity of Africa</li>
+          <ul className="text-left text-gray-700 mb-4 list-disc list-inside mx-auto max-w-md space-y-1">
+            <li>Provide world-class, memorable safari journeys with professionalism and care</li>
+            <li>Promote conservation and support local communities</li>
+            <li>Champion eco-friendly and responsible travel practices</li>
+            <li>Empower guests to experience the true beauty and diversity of Africa</li>
           </ul>
         </div>
-        <p className="mb-8 text-gray-600">
+        <p className="mb-6 text-gray-600">
           We invite you to begin your journey with us. Click below to access our booking platform and start planning your adventure.
         </p>
         <Button
-          className="mt-2 px-8 py-3 text-lg font-semibold rounded-lg shadow-lg w-full sm:w-auto flex items-center justify-center gap-2 focus-visible:ring-4 focus-visible:ring-green-400 focus-visible:outline-none"
+          className="mt-2 px-6 py-3 text-base sm:text-lg font-semibold rounded-lg shadow-lg w-full sm:w-auto flex items-center justify-center gap-2 focus-visible:ring-4 focus-visible:ring-green-400 focus-visible:outline-none"
           onClick={handleContinue}
           tabIndex={0}
           aria-label="Continue to booking platform"
