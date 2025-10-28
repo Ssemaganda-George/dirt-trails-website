@@ -16,12 +16,12 @@ const WelcomePage: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className={`flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-yellow-50 p-6 transition-opacity duration-600 ${fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+      className={`flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-yellow-50 p-6 transition-opacity duration-700 ${fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
     >
       <div className="max-w-2xl bg-white rounded-xl shadow-lg p-10 text-center">
         <h1 className="text-4xl font-extrabold mb-6 text-green-700 tracking-tight">Welcome to Dirt Trails Safaris</h1>
         <p className="text-lg mb-6 text-gray-700">
-          <span className="font-semibold text-green-700">Dirt Trails Safaris</span> is an adventure and eco-tourism company committed to delivering sustainable, professional, and safe safari experiences. Our mission is to connect travelers with Africa’s beautiful landscapes and vibrant cultures, while upholding the highest standards of service and sustainability.
+          <span className="font-semibold text-green-700">Dirt Trails Safaris</span> is an adventure and eco-tourism company committed to delivering sustainable, professional, and safe safari experiences. Our mission is to connect travelers with Africa’s beautful landscapes and vibrant cultures, while upholding the highest standards of service and sustainability.
         </p>
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-green-800 mb-2">Our Core Goals</h2>
