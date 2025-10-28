@@ -54,7 +54,7 @@ const HomePage = () => {
         </div>
       )}
       <Hero />
-      <ToursSection />
+      {/* <ToursSection /> */}
       <WhyChooseUs /> 
       <Partners />
       <Conservation />
