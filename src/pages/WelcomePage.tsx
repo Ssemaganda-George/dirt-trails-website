@@ -7,6 +7,7 @@ const WelcomePage: React.FC = () => {
   const [fadeOut, setFadeOut] = useState(false);
   const [loading, setLoading] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [showAllGoals, setShowAllGoals] = useState(false);
 
   useEffect(() => {
     // Focus the card for keyboard/screen-reader users when the page loads
@@ -30,16 +31,43 @@ const WelcomePage: React.FC = () => {
     >
       <div className="mx-auto w-full max-w-lg sm:max-w-2xl bg-white rounded-xl shadow-lg p-6 sm:p-10 text-center max-h-[calc(100vh-4rem)] overflow-y-auto" tabIndex={-1} style={{ WebkitOverflowScrolling: 'touch' }}>
         <h1 className="text-3xl sm:text-4xl font-extrabold mb-4 sm:mb-6 text-green-700 tracking-tight">Welcome to Dirt Trails Safaris</h1>
-        <p className="text-base sm:text-lg mb-4 sm:mb-6 text-gray-700 leading-relaxed">
+        {/* Short summary on small screens, full text on larger */}
+        <p className="text-base mb-4 sm:hidden text-gray-700 leading-relaxed">
+          <span className="font-semibold text-green-700">Dirt Trails Safaris</span> — sustainable, professional safari experiences connecting you with Africa’s wildlife and communities.
+        </p>
+        <p className="hidden sm:block text-base sm:text-lg mb-4 sm:mb-6 text-gray-700 leading-relaxed">
           <span className="font-semibold text-green-700">Dirt Trails Safaris</span> is an adventure and eco-tourism company committed to delivering sustainable, professional, and safe safari experiences. Our mission is to connect travelers with Africa’s beautiful landscapes and vibrant cultures, while upholding the highest standards of service and sustainability.
         </p>
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-green-800 mb-2">Our Core Goals</h2>
           <ul className="text-left text-gray-700 mb-4 list-disc list-inside mx-auto max-w-md space-y-1">
-            <li>Provide world-class, memorable safari journeys with professionalism and care</li>
+            {/* on small screens show abbreviated goals with option to expand */}
+            <li>Provide memorable safari journeys with professionalism and care</li>
             <li>Promote conservation and support local communities</li>
-            <li>Champion eco-friendly and responsible travel practices</li>
-            <li>Empower guests to experience the true beauty and diversity of Africa</li>
+            <div className="sm:hidden">
+              {!showAllGoals ? (
+                <>
+                  <li>…and more — sustainable, community-focused travel</li>
+                  <button
+                    onClick={() => setShowAllGoals(true)}
+                    className="mt-2 text-sm text-green-700 font-semibold underline"
+                    aria-expanded={showAllGoals}
+                    aria-controls="full-goals"
+                  >
+                    See all goals
+                  </button>
+                </>
+              ) : (
+                <div id="full-goals" className="space-y-1">
+                  <li>Champion eco-friendly and responsible travel practices</li>
+                  <li>Empower guests to experience the true beauty and diversity of Africa</li>
+                </div>
+              )}
+            </div>
+            <div className="hidden sm:block" id="full-goals">
+              <li>Champion eco-friendly and responsible travel practices</li>
+              <li>Empower guests to experience the true beauty and diversity of Africa</li>
+            </div>
           </ul>
         </div>
         <p className="mb-6 text-gray-600">
