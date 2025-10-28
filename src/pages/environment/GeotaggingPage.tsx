@@ -231,18 +231,93 @@ const GeotaggingPage = () => {
 
   return (
     <div className="container mx-auto px-0 py-0">
+      {/* Gallery at top */}
+      <div className="w-full py-8 relative overflow-hidden">
+        <h2 className="text-xl font-semibold mb-4 px-4">Tourists Planting Trees</h2>
+        <div className="relative" style={{ width: "100%", overflow: "hidden", height: "190px" }}>
+          <div
+            className="flex space-x-6 absolute left-0 top-0"
+            style={{
+              width: "max-content",
+              animation: "gallery-marquee 30s linear infinite"
+            }}
+          >
+            {[...Array(2)].flatMap((_, i) => [
+              <div className="flex-shrink-0 w-64" key={`img1-${i}`}>
+                <img src="/images/Sharon1.png" alt="Tourist 1 planting" className="rounded-lg w-full h-40 object-cover shadow" />
+                <div className="mt-2 text-center text-sm font-medium">Sharon planting Markhamia lutea</div>
+              </div>,
+              <div className="flex-shrink-0 w-64" key={`img2-${i}`}>
+                <img src="/images/angel.png" alt="Tourist 2 planting" className="rounded-lg w-full h-40 object-cover shadow" />
+                <div className="mt-2 text-center text-sm font-medium">George & Angel with Ashoka</div>
+              </div>,
+              <div className="flex-shrink-0 w-64" key={`img3-${i}`}>
+                <img src="/images/Sharon.png" alt="Tourist 3 planting" className="rounded-lg w-full h-40 object-cover shadow" />
+                <div className="mt-2 text-center text-sm font-medium">MIICHub team with Ficus natalensis</div>
+              </div>,
+              <div className="flex-shrink-0 w-64" key={`img4-${i}`}>
+                <img src="/images/uwa.png" alt="Tourist 4 planting" className="rounded-lg w-full h-40 object-cover shadow" />
+                <div className="mt-2 text-center text-sm font-medium">Uganda Wildlife Authority - Prunus africana</div>
+              </div>
+            ])}
+          </div>
+        </div>
+        <style>{`
+          @keyframes gallery-marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .gallery-marquee:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
+      </div>
+
+      {/* Main header */}
       <div className="mb-10 text-center">
         <div className="inline-flex items-center justify-center p-2 bg-green-500/10 rounded-full mb-4">
           <MapPin className="h-6 w-6 text-green-600" />
         </div>
         <h1 className="text-4xl font-bold mb-4">Geotagging & Tree Tracking</h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          Monitor the growth and impact of your planted trees with our advanced geotagging system
+          Monitor, search, and celebrate your tree planting impact.
         </p>
       </div>
 
-      {/* Full-width, tall map */}
-      <div className="w-full" style={{ height: "70vh", minHeight: 400, maxHeight: "90vh" }}>
+      {/* Move Find Your Tree by ID above the map for visibility */}
+      <div className="max-w-xl mx-auto mb-8">
+        <Card>
+          <CardHeader className="bg-green-500/10 rounded-t-lg">
+            <CardTitle className="flex items-center">
+              <Search className="mr-2 h-5 w-5" />
+              Find Your Tree by ID
+            </CardTitle>
+            <CardDescription>
+              Enter your Tree ID (e.g., TREE-001) to zoom to your tree on the map.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="pt-6">
+            <div className="flex gap-2">
+              <Input 
+                id="tracking-id" 
+                placeholder="Tree ID (e.g., TREE-001)" 
+                value={trackingId}
+                onChange={(e) => setTrackingId(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleTreeIdSearch()}
+              />
+              <Button onClick={handleTreeIdSearch} className="bg-green-600 hover:bg-green-700">
+                Find
+              </Button>
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              Example IDs: TREE-001, TREE-002, TREE-003, TREE-004, TREE-005
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Map */}
+      <div className="w-full mb-10" style={{ height: "60vh", minHeight: 350, maxHeight: "80vh" }}>
         <MapContainer
           center={mapCenter}
           zoom={mapZoom}
@@ -267,11 +342,9 @@ const GeotaggingPage = () => {
                 <div className="space-y-1">
                   <p className="font-semibold text-green-700">{tree.species}</p>
                   <p><strong>ID:</strong> {tree.id}</p>
-                  <p><strong>Planted By:</strong> {tree.planted_by || "Unknown"}</p>
+                  <p><strong>Planted By:</strong> {tree.planted_by}</p>
                   <p><strong>Planted On:</strong> {new Date(tree.planted_on).toLocaleDateString()}</p>
-                  <p><strong>Count:</strong> {tree.count}</p>
                   <p><strong>Location:</strong> {tree.latitude.toFixed(5)}, {tree.longitude.toFixed(5)}</p>
-                  {tree.notes && <p><strong>Notes:</strong> {tree.notes}</p>}
                 </div>
               </Popup>
             </Marker>
@@ -279,201 +352,7 @@ const GeotaggingPage = () => {
         </MapContainer>
       </div>
 
-      {/* Track Your Trees section */}
-      <Card className="mb-8">
-        <CardHeader className="bg-green-500/10 rounded-t-lg">
-          <CardTitle className="flex items-center">
-            <Search className="mr-2 h-5 w-5" />
-            Track Your Trees by ID
-          </CardTitle>
-          <CardDescription>
-            Enter your Tree ID (e.g., TREE-001) to find and zoom to your tree on the map.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="pt-6">
-          <div>
-            <div className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="tracking-id">Tree ID</Label>
-                <Input 
-                  id="tracking-id" 
-                  placeholder="Enter your Tree ID (e.g., TREE-001)" 
-                  value={trackingId}
-                  onChange={(e) => setTrackingId(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleTreeIdSearch()}
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  Example IDs: TREE-001, TREE-002, TREE-003, TREE-004, TREE-005
-                </p>
-              </div>
-            </div>
-            <Button onClick={handleTreeIdSearch} className="mt-4 w-full bg-green-600 hover:bg-green-700">
-              Find My Tree
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Tourist Gallery Section */}
-      <div className="w-full py-8">
-        <h2 className="text-xl font-semibold mb-4 px-4">Tourists Planting Trees</h2>
-        <div className="flex overflow-x-auto space-x-6 px-4 pb-2">
-          {/* Example gallery images, replace src with your actual images */}
-          <div className="flex-shrink-0 w-64">
-            <img src="/images/Sharon1.png" alt="Tourist 1 planting" className="rounded-lg w-full h-40 object-cover shadow" />
-            <div className="mt-2 text-center text-sm font-medium">Sharon planting Markhamia lutea</div>
-          </div>
-          <div className="flex-shrink-0 w-64">
-            <img src="/images/angel.png" alt="Tourist 2 planting" className="rounded-lg w-full h-40 object-cover shadow" />
-            <div className="mt-2 text-center text-sm font-medium">George & Angel with Ashoka</div>
-          </div>
-          <div className="flex-shrink-0 w-64">
-            <img src="/images/Sharon.png" alt="Tourist 3 planting" className="rounded-lg w-full h-40 object-cover shadow" />
-            <div className="mt-2 text-center text-sm font-medium">MIICHub team with Ficus natalensis</div>
-          </div>
-          <div className="flex-shrink-0 w-64">
-            <img src="/images/uwa.png" alt="Tourist 4 planting" className="rounded-lg w-full h-40 object-cover shadow" />
-            <div className="mt-2 text-center text-sm font-medium">Uganda Wildlife Authority - Prunus africana</div>
-          </div>
-          {/* Add more images as needed */}
-        </div>
-      </div>
-
-      {/* Search results */}
-      {showDemo && treeData && (
-        <div className="space-y-8 animate-fade-in">
-          <Card className="border-green-500/20">
-            <CardHeader className="bg-green-500/10">
-              <CardTitle>Your Tree Planting Summary</CardTitle>
-              <CardDescription>Tracking ID: {trackingId || 'EAT-2023-12345'}</CardDescription>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-sm text-gray-600">Trees Planted</p>
-                    <p className="text-2xl font-semibold">{treeData.trees}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Planted Date</p>
-                    <p className="text-2xl font-semibold">{treeData.date}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Location</p>
-                    <p className="text-2xl font-semibold">{treeData.location}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Species</p>
-                    <p className="text-2xl font-semibold">{treeData.species}</p>
-                  </div>
-                </div>
-                
-                <div className="bg-green-50 p-4 rounded-lg flex items-center border border-green-200">
-                  <TreePine className="h-5 w-5 text-green-600 mr-2" />
-                  <p className="text-sm">Your trees have absorbed approximately <span className="font-semibold">{treeData.co2Absorbed} kg</span> of CO₂ so far.</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Individual tree map */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <MapPin className="mr-2 h-5 w-5" />
-                Tree Location Map
-              </CardTitle>
-              <CardDescription>
-                Exact GPS coordinates: {treeData.coordinates.lat.toFixed(4)}, {treeData.coordinates.lng.toFixed(4)}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-72 w-full rounded-lg border">
-                <MapContainer
-                  center={[treeData.coordinates.lat, treeData.coordinates.lng]}
-                  zoom={12}
-                  scrollWheelZoom={true}
-                  className="w-full h-full"
-                >
-                  <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
-                  <Marker position={[treeData.coordinates.lat, treeData.coordinates.lng]} icon={treeIcon}>
-                    <Popup>
-                      <div className="space-y-1">
-                        <p className="font-semibold text-green-700">{treeData.species}</p>
-                        <p><strong>Trees:</strong> {treeData.trees}</p>
-                        <p><strong>Planted:</strong> {treeData.date}</p>
-                        <p><strong>Location:</strong> {treeData.location}</p>
-                      </div>
-                    </Popup>
-                  </Marker>
-                </MapContainer>
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Timeline */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Tree Growth Timeline</CardTitle>
-              <CardDescription>Showing growth data over time</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <div className="bg-green-600 text-white p-1 rounded-full mr-3">
-                    <Camera className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <p className="font-medium">{treeData.date}: Planting Day</p>
-                    <p className="text-sm text-gray-600">Saplings planted by local community members</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="bg-green-600 text-white p-1 rounded-full mr-3">
-                    <Camera className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <p className="font-medium">3-Month Growth Update</p>
-                    <p className="text-sm text-gray-600">Trees showing healthy initial growth</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="bg-green-600 text-white p-1 rounded-full mr-3">
-                    <Camera className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <p className="font-medium">9-Month Growth Update</p>
-                    <p className="text-sm text-gray-600">Established root systems and strong growth</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="bg-gray-300 p-1 rounded-full mr-3">
-                    <Camera className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <p className="font-medium">Next update: {new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toLocaleDateString()}</p>
-                    <p className="text-sm text-gray-600">You'll receive an email when new images are added</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
-      
-      {!showDemo && (
-        <div className="rounded-lg overflow-hidden border">
-          <FallbackMap />
-        </div>
-      )}
-    
-      {/* Modal for full tree details */}
+      {/* Modal for tree details */}
       {selectedTree && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-2xl w-11/12 md:w-2/3 lg:w-1/2 p-6 relative">
@@ -485,18 +364,16 @@ const GeotaggingPage = () => {
             </button>
             <h2 className="text-2xl font-bold mb-4">{selectedTree.species}</h2>
             <p><strong>ID:</strong> {selectedTree.id}</p>
-            <p><strong>Planted By:</strong> {selectedTree.planted_by || "Unknown"}</p>
+            <p><strong>Planted By:</strong> {selectedTree.planted_by}</p>
             <p><strong>Planted On:</strong> {new Date(selectedTree.planted_on).toLocaleDateString()}</p>
-            <p><strong>Count:</strong> {selectedTree.count}</p>
-            <p className="mt-2"><strong>Notes:</strong> {selectedTree.notes || "No additional notes"}</p>
-            <p className="mt-2"><strong>Location:</strong> {selectedTree.latitude}, {selectedTree.longitude}</p>
+            <p><strong>Location:</strong> {selectedTree.latitude}, {selectedTree.longitude}</p>
           </div>
         </div>
       )}
-      
-      <div className="max-w-3xl mx-auto">
+
+      {/* How Our Geotagging Works */}
+      <div className="max-w-3xl mx-auto mt-16">
         <h2 className="text-2xl font-semibold text-center mb-8">How Our Geotagging Works</h2>
-        
         <div className="grid md:grid-cols-3 gap-8">
           <Card className="text-center">
             <CardHeader>
@@ -512,7 +389,6 @@ const GeotaggingPage = () => {
               </p>
             </CardContent>
           </Card>
-          
           <Card className="text-center">
             <CardHeader>
               <div className="mx-auto bg-green-500/10 p-3 rounded-full">
@@ -527,7 +403,6 @@ const GeotaggingPage = () => {
               </p>
             </CardContent>
           </Card>
-          
           <Card className="text-center">
             <CardHeader>
               <div className="mx-auto bg-green-500/10 p-3 rounded-full">
