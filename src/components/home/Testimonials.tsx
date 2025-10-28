@@ -55,7 +55,7 @@ const Testimonials = () => {
               <TestimonialCard 
                 name="Sarah Johnson"
                 location="United States"
-                quote="The Masai Mara Safari exceeded all our expectations. Our guide was incredibly knowledgeable, and we saw all of the Big Five!"
+                quote="Our Uganda safari exceeded all our expectations. Our guide was incredibly knowledgeable, and we saw all of the Big Five!"
                 rating={4}
                 imageSrc="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80"
               />
