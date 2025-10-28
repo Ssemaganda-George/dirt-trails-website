@@ -325,7 +325,7 @@ const TourDetailPage = () => {
                 </Accordion>
                 
                 {/* Price Summary - Enhanced with better styling */}
-                <div className="border-t border-gradient-to-r from-safari-orange/20 to-safari-green/20 pt-6 mb-8 bg-gradient-to-br from-gray-50/50 to-white/50 p-6 rounded-xl">
+                <div className="border-t pt-6 mb-8 p-6 rounded-xl bg-white/50 border-safari-orange/20">
                   <h4 className="text-lg font-semibold mb-4 text-safari-brown">Price Summary</h4>
                   <div className="space-y-3">
                     <div className="flex justify-between hover:bg-white/50 p-2 rounded transition-colors duration-200">
