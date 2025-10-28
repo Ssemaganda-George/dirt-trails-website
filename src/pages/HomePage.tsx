@@ -9,7 +9,7 @@ import ChatBot from '@/components/ChatBot';
 import Partners from '@/components/home/Partners';
 
 const HomePage = () => {
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
 
   const handleContinue = () => {

@@ -21,8 +21,8 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
       <div className="container mx-auto px-4 flex justify-between items-center h-20">
-        {/* Logo */}
-        <Link to="/" className="flex items-center" onClick={closeMenu}>
+  {/* Logo */}
+  <Link to="/index" className="flex items-center" onClick={closeMenu}>
           <img 
             src="/images/logo.png" 
             alt="Dirt Trails Safaris Logo" 
@@ -142,8 +142,8 @@ const NavLinks = ({ closeMenu, currentPath }: { closeMenu: () => void; currentPa
   return (
     <>
       <Link
-        to="/"
-        className={linkClass('/')}
+        to="/index"
+        className={linkClass('/index')}
         onClick={closeMenu}
       >
         Home
