@@ -70,243 +70,6 @@ export interface PricingTier {
 
 export const tours: Tour[] = [
   {
-    id: "tour-003",
-    slug: "gorilla-trekking",
-    name: "Mountain Gorilla Expedition",
-    tagline: "Trek through misty forests to encounter endangered mountain gorillas",
-    description: "This trip gives you an opportunity to experience and explore the medley of wonders in this most visited wildlife safari park in Uganda, start the day the way nature intended at the crack of dawn to see the wild residents emerge for a drink from the bushy waterholes as the sun begins to rise over the iconic bush veld scenery. This trip engages all your senses when you combine it with Ultimate Gorilla Tracking experience in Bwindi as a Highlight for the Best of Uganda Ultimate Primate safari.",
-    duration: 5,
-    price: 3800,
-    location: "Queen Elizabeth & Bwindi Forest National Park",
-    country: "Uganda",
-    coverImage: "/images/gorilla-uganda-primate-trekking-eating.jpeg",
-
-    images: [
-      { url: "/images/gorilla-uganda-primate-trekking-eating.jpeg", alt: "Mountain gorilla" },
-      { url: "/images/kibaale.jpeg", alt: "Misty forest" },
-      { url: "/images/queen-Elizabeth.jpeg", alt: "Lodge view" },
-      { url: "/images/murchison-falls-view.jpg", alt: "Local scenery" },
-    ],
-    mapImage: "/images/murchison-falls-view.jpg",
-    highlights: [
-      "Gorilla tracking permit included",
-      "Small group sizes for intimate experience",
-      "Stay at lodges that support conservation",
-      "Visit local communities and cultural experiences",
-      "Opportunity to see golden monkeys (optional)"
-    ],
-    inclusions: [
-      "Meals",
-"Accommodation",
-"Transportation",
-"Soft drinks",
-"Part entrance fees",
-"Gorilla tracking permit",
-"Boat cruise",
-"Game drives",
-"Safari guide"
-    ],
-    exclusions: [
-      "International flights",
-      "Travel insurance",
-      "Optional activities",
-      "Personal expenses",
-      "Tips and gratuities",
-      "Visa fees"
-    ],
-    itinerary: [
-      {
-        day: 1,
-        title: "Transfer from Kampala to Queen Elizabeth NP with stopover at Equator and Igongo Cultural Center For Lunch",
-        description: "Pick up from Kampala or Entebbe international Airport and drive to Queen Elizabeth National park, with stopover at Equator crossing point at kayabwe and then proceed to Igongo cultural center in Mbarara for Lunch later after Lunch drive through Bushenyi and enjoy beautiful view of Tea plantations of south western Uganda to Queen Elizabeth National Park and check in at the Lodge in the evening.",
-        meals: { breakfast: false, lunch: false, dinner: true },
-        accommodation: "Hotel No. 5"
-      },
-      {
-        day: 2,
-        title: "Morning Game Drive and Afternoon Boat Cruise",
-        description: "After early morning Breakfast drive to Kasenyi plains for morning game drive which gives you the best African classic safari experience which engages all your senses with such a beautiful scenery of Rwenzori ranges and crater lakes animals expected to be sighted includes; Buffaloes, elephants, Uganda Kobs, Warthogs, Water bucks, Lions and baboons and varieties of Birds such as grey crown cranes, Southern Red bishop.Drive back to the lodge for warm Lunch, after lunch drive to mweya for the afternoon Boat cruise along the Kazinga channel for best of this un-forgettable and memorable experience while on the boat for two hours cruise to lake Edward where you will see local fishermen, this trip highlights are elephants which come down to the banks to drink and swim, several school of Hippopotamuses, Crocodiles basking at the banks and other animals like Buffaloes, water bucks with varieties of water birds such as, Great cormorant, pied kingfisher, African fish eagle etc.",
-        meals: { breakfast: true, lunch: true, dinner: true },
-        accommodation: "Bwindi Lodge"
-      },
-      {
-        day: 3,
-        title: "Transfer to Bwindi Impenetrable Forest National Park",
-        description: "You will then drive to Bwindi Impenetrable National Park with stop over for lunch en-route at selected Restaurant, Driving on these snake roads of kigezi region it is another great experience and check in at the Lodge in the evening as you relax after this long drive.",
-        meals: { breakfast: true, lunch: true, dinner: true },
-        accommodation: "Bwindi Lodge"
-      },
-      {
-        day: 4,
-        title: "Gorilla Tracking in Bwindi Impenetrable National Park",
-        description: "After Early Morning Breakfast drive to Gorilla tracking Briefing Point along with your packed lunch after briefing set off to meet the Beautiful giants in the forest enjoy the time with these closest giants to human.After tracking drive back to the lodge and have your time and relax as you enjoy the perfect view of Bwindi impenetrable forest, enjoy the balcony view of the forest from your room or on your private patio just outside at the shade besides the restaurant and the Bar.",
-        meals: { breakfast: true, lunch: true, dinner: true },
-        accommodation: "Bwindi Lodge"
-      },
-      {
-        day: 5,
-        title: "Transfer Back to Kampala",
-        description: "After early morning, breakfast Drive, back to Kampala with stop over for lunch at selected Restaurant en-route. ",
-        meals: { breakfast: true, lunch: true, dinner: false },
-        accommodation: "Day room if required"
-      }
-    ],
-    reviews: [
-      {
-        id: "review-001",
-        name: "Jennifer Saunders",
-        rating: 5,
-        comment: "The gorilla experience was profoundly moving - being so close to these gentle giants in their natural habitat is something I'll never forget. Our guides were passionate and knowledgeable, and the lodge was spectacular with views over the forest. Worth every penny.",
-        date: "2023-06-12"
-      },
-      {
-        id: "review-002",
-        name: "Marcus Wellington",
-        rating: 5,
-        comment: "Incredible trip! The trek was challenging but our guides made sure everyone was comfortable. When we found the gorilla family, time stood still - watching a silverback just meters away was humbling. The conservation work being done is impressive and our visit helps support it.",
-        date: "2023-04-28"
-      },
-      {
-        id: "review-003",
-        name: "Laura and Tim Bennett",
-        rating: 4,
-        comment: "Amazing experience tracking gorillas. We had a fairly long trek (about 4 hours) but it was worth it. Lodge was beautiful though we would have preferred one closer to the park entrance. The community visit was educational and a highlight alongside the gorillas.",
-        date: "2023-07-15"
-      }
-    ],
-    rating: 4.8,
-    customizationOptions: {
-      accommodation: [
-      {
-        id: "acc-001",
-        name: "Budget Camping",
-        type: "accommodation",
-        description: "Basic camping at UWA bandas or community campsites near Bwindi. Shared facilities with sleeping bags and basic meals.",
-        priceAdjustment: -200000 
-      },
-      {
-        id: "acc-002",
-        name: "Mid-range Lodge",
-        type: "accommodation",
-        description: "Comfortable lodges like Buhoma Haven Lodge or Engagi Lodge with en-suite rooms and restaurant facilities.",
-        priceAdjustment: 0
-      },
-      {
-        id: "acc-003",
-        name: "Luxury Safari Lodge",
-        type: "accommodation",
-        description: "Premium lodges like Sanctuary Gorilla Forest Camp or Clouds Mountain Gorilla Lodge with luxury amenities.",
-        priceAdjustment: 1500000 
-      },
-      {
-        id: "acc-004",
-        name: "Community Homestay",
-        type: "accommodation",
-        description: "Authentic cultural experience with Batwa or local families. Includes traditional meals and cultural activities.",
-        priceAdjustment: -150000 
-      }
-    ],
-      activities: [
-      {
-        id: "act-001",
-        name: "Gorilla Habituation Experience",
-        type: "activity",
-        description: "Full day gorilla habituation in Rushaga sector. Spend 4+ hours with gorillas and researchers learning about their behavior. Permit included.",
-        priceAdjustment: 4000000 
-      },
-      {
-        id: "act-002",
-        name: "Batwa Cultural Trail",
-        type: "activity",
-        description: "Learn about the indigenous Batwa people's traditional forest lifestyle, hunting techniques, and cultural practices.",
-        priceAdjustment: 100000 
-      },
-      {
-        id: "act-003",
-        name: "Bwindi Forest Bird Watching",
-        type: "activity",
-        description: "Guided bird watching tour in Bwindi Forest with chances to see 23 endemic Albertine Rift species.",
-        priceAdjustment: 80000 
-      },
-      {
-        id: "act-004",
-        name: "Nature Forest Walk",
-        type: "activity",
-        description: "Guided nature walk through Bwindi Forest to see primates, butterflies, and medicinal plants.",
-        priceAdjustment: 60000 
-      },
-      {
-        id: "act-005",
-        name: "Community Village Visit",
-        type: "activity",
-        description: "Visit local communities around Bwindi for traditional crafts, farming practices, and cultural performances.",
-        priceAdjustment: 50000 
-      }
-    ],
-      transportation: [
-      {
-        id: "trans-001",
-        name: "Shared Safari Vehicle",
-        type: "transportation",
-        description: "Shared 4WD vehicle accommodating 6-7 passengers. Budget-friendly option for backpackers.",
-        priceAdjustment: -150000 
-      },
-      {
-        id: "trans-002",
-        name: "Private Safari Vehicle",
-        type: "transportation",
-        description: "Private 4WD vehicle with professional driver-guide. Maximum comfort and flexibility for your group.",
-        priceAdjustment: 0
-      },
-      {
-        id: "trans-003",
-        name: "Luxury Safari Vehicle",
-        type: "transportation",
-        description: "Premium 4WD with air conditioning, mini-fridge, and enhanced comfort features.",
-        priceAdjustment: 250000 
-      },
-      {
-        id: "trans-004",
-        name: "Fly-in Safari",
-        type: "transportation",
-        description: "Chartered flight from Entebbe to Kihihi airstrip, then ground transfer to Bwindi. Saves 8+ hours travel time.",
-        priceAdjustment: 2000000 
-      }
-    ],
-      duration: [
-      {
-        id: "dur-001",
-        name: "2 Days Express Gorilla Trek",
-        type: "duration",
-        description: "Quick 2-day trip focusing on gorilla trekking only. Fly-in recommended due to 8–10-hour drive from Entebbe.",
-        priceAdjustment: -300000 
-      },
-      {
-        id: "dur-002",
-        name: "3 Days Standard Gorilla Safari",
-        type: "duration",
-        description: "Standard 3-day itinerary with gorilla trekking and cultural activities.",
-        priceAdjustment: 0
-      },
-      {
-        id: "dur-003",
-        name: "4 Days Extended Gorilla Experience",
-        type: "duration",
-        description: "Extended safari with gorilla trekking, Batwa cultural trail, and nature walks.",
-        priceAdjustment: 200000 
-      },
-      {
-        id: "dur-004",
-        name: "5 Days Comprehensive Gorilla Adventure",
-        type: "duration",
-        description: "Comprehensive experience with gorilla habituation, cultural visits, and bird watching.",
-        priceAdjustment: 450000 
-      }
-    ]
-    },
-    featured: true
-  },
-  {
     id: "tour-005",
     slug: "queen-elizabeth-safari",
     name: "3 Days Lifetime Wildlife Safari-Queen Elizabeth National Park",
@@ -759,6 +522,243 @@ export const tours: Tour[] = [
     ]
     },
     featured: false
+  },
+  {
+    id: "tour-003",
+    slug: "gorilla-trekking",
+    name: "Mountain Gorilla Expedition",
+    tagline: "Trek through misty forests to encounter endangered mountain gorillas",
+    description: "This trip gives you an opportunity to experience and explore the medley of wonders in this most visited wildlife safari park in Uganda, start the day the way nature intended at the crack of dawn to see the wild residents emerge for a drink from the bushy waterholes as the sun begins to rise over the iconic bush veld scenery. This trip engages all your senses when you combine it with Ultimate Gorilla Tracking experience in Bwindi as a Highlight for the Best of Uganda Ultimate Primate safari.",
+    duration: 5,
+    price: 3800,
+    location: "Queen Elizabeth & Bwindi Forest National Park",
+    country: "Uganda",
+    coverImage: "/images/gorilla-uganda-primate-trekking-eating.jpeg",
+
+    images: [
+      { url: "/images/gorilla-uganda-primate-trekking-eating.jpeg", alt: "Mountain gorilla" },
+      { url: "/images/kibaale.jpeg", alt: "Misty forest" },
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Lodge view" },
+      { url: "/images/murchison-falls-view.jpg", alt: "Local scenery" },
+    ],
+    mapImage: "/images/murchison-falls-view.jpg",
+    highlights: [
+      "Gorilla tracking permit included",
+      "Small group sizes for intimate experience",
+      "Stay at lodges that support conservation",
+      "Visit local communities and cultural experiences",
+      "Opportunity to see golden monkeys (optional)"
+    ],
+    inclusions: [
+      "Meals",
+"Accommodation",
+"Transportation",
+"Soft drinks",
+"Part entrance fees",
+"Gorilla tracking permit",
+"Boat cruise",
+"Game drives",
+"Safari guide"
+    ],
+    exclusions: [
+      "International flights",
+      "Travel insurance",
+      "Optional activities",
+      "Personal expenses",
+      "Tips and gratuities",
+      "Visa fees"
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Transfer from Kampala to Queen Elizabeth NP with stopover at Equator and Igongo Cultural Center For Lunch",
+        description: "Pick up from Kampala or Entebbe international Airport and drive to Queen Elizabeth National park, with stopover at Equator crossing point at kayabwe and then proceed to Igongo cultural center in Mbarara for Lunch later after Lunch drive through Bushenyi and enjoy beautiful view of Tea plantations of south western Uganda to Queen Elizabeth National Park and check in at the Lodge in the evening.",
+        meals: { breakfast: false, lunch: false, dinner: true },
+        accommodation: "Hotel No. 5"
+      },
+      {
+        day: 2,
+        title: "Morning Game Drive and Afternoon Boat Cruise",
+        description: "After early morning Breakfast drive to Kasenyi plains for morning game drive which gives you the best African classic safari experience which engages all your senses with such a beautiful scenery of Rwenzori ranges and crater lakes animals expected to be sighted includes; Buffaloes, elephants, Uganda Kobs, Warthogs, Water bucks, Lions and baboons and varieties of Birds such as grey crown cranes, Southern Red bishop.Drive back to the lodge for warm Lunch, after lunch drive to mweya for the afternoon Boat cruise along the Kazinga channel for best of this un-forgettable and memorable experience while on the boat for two hours cruise to lake Edward where you will see local fishermen, this trip highlights are elephants which come down to the banks to drink and swim, several school of Hippopotamuses, Crocodiles basking at the banks and other animals like Buffaloes, water bucks with varieties of water birds such as, Great cormorant, pied kingfisher, African fish eagle etc.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Bwindi Lodge"
+      },
+      {
+        day: 3,
+        title: "Transfer to Bwindi Impenetrable Forest National Park",
+        description: "You will then drive to Bwindi Impenetrable National Park with stop over for lunch en-route at selected Restaurant, Driving on these snake roads of kigezi region it is another great experience and check in at the Lodge in the evening as you relax after this long drive.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Bwindi Lodge"
+      },
+      {
+        day: 4,
+        title: "Gorilla Tracking in Bwindi Impenetrable National Park",
+        description: "After Early Morning Breakfast drive to Gorilla tracking Briefing Point along with your packed lunch after briefing set off to meet the Beautiful giants in the forest enjoy the time with these closest giants to human.After tracking drive back to the lodge and have your time and relax as you enjoy the perfect view of Bwindi impenetrable forest, enjoy the balcony view of the forest from your room or on your private patio just outside at the shade besides the restaurant and the Bar.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Bwindi Lodge"
+      },
+      {
+        day: 5,
+        title: "Transfer Back to Kampala",
+        description: "After early morning, breakfast Drive, back to Kampala with stop over for lunch at selected Restaurant en-route. ",
+        meals: { breakfast: true, lunch: true, dinner: false },
+        accommodation: "Day room if required"
+      }
+    ],
+    reviews: [
+      {
+        id: "review-001",
+        name: "Jennifer Saunders",
+        rating: 5,
+        comment: "The gorilla experience was profoundly moving - being so close to these gentle giants in their natural habitat is something I'll never forget. Our guides were passionate and knowledgeable, and the lodge was spectacular with views over the forest. Worth every penny.",
+        date: "2023-06-12"
+      },
+      {
+        id: "review-002",
+        name: "Marcus Wellington",
+        rating: 5,
+        comment: "Incredible trip! The trek was challenging but our guides made sure everyone was comfortable. When we found the gorilla family, time stood still - watching a silverback just meters away was humbling. The conservation work being done is impressive and our visit helps support it.",
+        date: "2023-04-28"
+      },
+      {
+        id: "review-003",
+        name: "Laura and Tim Bennett",
+        rating: 4,
+        comment: "Amazing experience tracking gorillas. We had a fairly long trek (about 4 hours) but it was worth it. Lodge was beautiful though we would have preferred one closer to the park entrance. The community visit was educational and a highlight alongside the gorillas.",
+        date: "2023-07-15"
+      }
+    ],
+    rating: 4.8,
+    customizationOptions: {
+      accommodation: [
+      {
+        id: "acc-001",
+        name: "Budget Camping",
+        type: "accommodation",
+        description: "Basic camping at UWA bandas or community campsites near Bwindi. Shared facilities with sleeping bags and basic meals.",
+        priceAdjustment: -200000 
+      },
+      {
+        id: "acc-002",
+        name: "Mid-range Lodge",
+        type: "accommodation",
+        description: "Comfortable lodges like Buhoma Haven Lodge or Engagi Lodge with en-suite rooms and restaurant facilities.",
+        priceAdjustment: 0
+      },
+      {
+        id: "acc-003",
+        name: "Luxury Safari Lodge",
+        type: "accommodation",
+        description: "Premium lodges like Sanctuary Gorilla Forest Camp or Clouds Mountain Gorilla Lodge with luxury amenities.",
+        priceAdjustment: 1500000 
+      },
+      {
+        id: "acc-004",
+        name: "Community Homestay",
+        type: "accommodation",
+        description: "Authentic cultural experience with Batwa or local families. Includes traditional meals and cultural activities.",
+        priceAdjustment: -150000 
+      }
+    ],
+      activities: [
+      {
+        id: "act-001",
+        name: "Gorilla Habituation Experience",
+        type: "activity",
+        description: "Full day gorilla habituation in Rushaga sector. Spend 4+ hours with gorillas and researchers learning about their behavior. Permit included.",
+        priceAdjustment: 4000000 
+      },
+      {
+        id: "act-002",
+        name: "Batwa Cultural Trail",
+        type: "activity",
+        description: "Learn about the indigenous Batwa people's traditional forest lifestyle, hunting techniques, and cultural practices.",
+        priceAdjustment: 100000 
+      },
+      {
+        id: "act-003",
+        name: "Bwindi Forest Bird Watching",
+        type: "activity",
+        description: "Guided bird watching tour in Bwindi Forest with chances to see 23 endemic Albertine Rift species.",
+        priceAdjustment: 80000 
+      },
+      {
+        id: "act-004",
+        name: "Nature Forest Walk",
+        type: "activity",
+        description: "Guided nature walk through Bwindi Forest to see primates, butterflies, and medicinal plants.",
+        priceAdjustment: 60000 
+      },
+      {
+        id: "act-005",
+        name: "Community Village Visit",
+        type: "activity",
+        description: "Visit local communities around Bwindi for traditional crafts, farming practices, and cultural performances.",
+        priceAdjustment: 50000 
+      }
+    ],
+      transportation: [
+      {
+        id: "trans-001",
+        name: "Shared Safari Vehicle",
+        type: "transportation",
+        description: "Shared 4WD vehicle accommodating 6-7 passengers. Budget-friendly option for backpackers.",
+        priceAdjustment: -150000 
+      },
+      {
+        id: "trans-002",
+        name: "Private Safari Vehicle",
+        type: "transportation",
+        description: "Private 4WD vehicle with professional driver-guide. Maximum comfort and flexibility for your group.",
+        priceAdjustment: 0
+      },
+      {
+        id: "trans-003",
+        name: "Luxury Safari Vehicle",
+        type: "transportation",
+        description: "Premium 4WD with air conditioning, mini-fridge, and enhanced comfort features.",
+        priceAdjustment: 250000 
+      },
+      {
+        id: "trans-004",
+        name: "Fly-in Safari",
+        type: "transportation",
+        description: "Chartered flight from Entebbe to Kihihi airstrip, then ground transfer to Bwindi. Saves 8+ hours travel time.",
+        priceAdjustment: 2000000 
+      }
+    ],
+      duration: [
+      {
+        id: "dur-001",
+        name: "2 Days Express Gorilla Trek",
+        type: "duration",
+        description: "Quick 2-day trip focusing on gorilla trekking only. Fly-in recommended due to 8–10-hour drive from Entebbe.",
+        priceAdjustment: -300000 
+      },
+      {
+        id: "dur-002",
+        name: "3 Days Standard Gorilla Safari",
+        type: "duration",
+        description: "Standard 3-day itinerary with gorilla trekking and cultural activities.",
+        priceAdjustment: 0
+      },
+      {
+        id: "dur-003",
+        name: "4 Days Extended Gorilla Experience",
+        type: "duration",
+        description: "Extended safari with gorilla trekking, Batwa cultural trail, and nature walks.",
+        priceAdjustment: 200000 
+      },
+      {
+        id: "dur-004",
+        name: "5 Days Comprehensive Gorilla Adventure",
+        type: "duration",
+        description: "Comprehensive experience with gorilla habituation, cultural visits, and bird watching.",
+        priceAdjustment: 450000 
+      }
+    ]
+    },
+    featured: true
   },
   {
     id: "tour-007",
