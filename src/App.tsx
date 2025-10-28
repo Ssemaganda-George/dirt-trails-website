@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import GoogleTranslateWidget from "@/components/GoogleTranslateWidget";
 import Layout from "@/components/layout/Layout";
 import HomePage from "./pages/HomePage";
+import WelcomePage from "./pages/WelcomePage";
 import ToursPage from "./pages/ToursPage";
 import TourDetailPage from "./pages/TourDetailPage";
 import DestinationsPage from "./pages/DestinationsPage";
@@ -33,7 +34,8 @@ const App = () => (
           <ScrollToTop />
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<HomePage />} />
+              <Route index element={<WelcomePage />} />
+              <Route path="booking" element={<HomePage />} />
               <Route path="tours" element={<ToursPage />} />
               <Route path="tours/:tourSlug" element={<TourDetailPage />} />
               <Route path="destinations" element={<DestinationsPage />} />
