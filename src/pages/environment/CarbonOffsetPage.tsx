@@ -1,12 +1,14 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Leaf, Plane, Car, Ship, Bus, Calculator, Info } from "lucide-react";
+import { Leaf, Plane, Car, Ship, Bus, Calculator, Info, Train } from "lucide-react";
 
 const CarbonOffsetCalculator = () => {
+  const navigate = useNavigate();
   const [transportType, setTransportType] = useState('flight');
   const [flightType, setFlightType] = useState('long-haul');
   const [distance, setDistance] = useState('');
@@ -16,88 +18,120 @@ const CarbonOffsetCalculator = () => {
   const [result, setResult] = useState<number | null>(null);
   const [treesNeeded, setTreesNeeded] = useState<number | null>(null);
   const [detailedResults, setDetailedResults] = useState<any>(null);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isCalculating, setIsCalculating] = useState(false);
+  
+  const validateInputs = () => {
+    const newErrors: { [key: string]: string } = {};
+    const distanceNum = parseFloat(distance);
+    const passengersNum = parseInt(passengers);
+    if (!distance || distanceNum <= 0) newErrors.distance = 'Please enter a valid distance greater than 0.';
+    if (!passengers || passengersNum <= 0) newErrors.passengers = 'Please enter a valid number of passengers greater than 0.';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
   
   const calculateOffset = () => {
-    const distanceNum = parseFloat(distance) || 0;
-    const passengersNum = parseInt(passengers) || 1;
-    const occupancyNum = parseInt(occupancy) || 1;
-    
-    const factors: Record<string, any> = {
-      flight: {
-        'short-haul': 0.246,  // Based on research: 246g CO2e per passenger-km for short flights
-        'medium-haul': 0.178, // Medium-haul flights (1-3 hours)
-        'long-haul': 0.150    // Long-haul flights more efficient per km
-      },
-      car: {
-        'small-petrol': 0.142,
-        'medium-petrol': 0.192,
-        'large-petrol': 0.257,
-        'small-diesel': 0.133,
-        'medium-diesel': 0.171,
-        'large-diesel': 0.209,
-        'hybrid': 0.109,
-        'electric': 0.053     
-      },
-      bus: {
-        'local-bus': 0.089,   
-        'coach': 0.027        
-      },
-      ship: {
-        'ferry': 0.023,      
-        'cruise': 0.250       
-      },
-      train: {
-        'electric': 0.041,    // Electric trains
-        'diesel': 0.081       // Diesel trains
+    if (!validateInputs()) return;
+    setIsCalculating(true);
+    // Simulate brief calculation delay for UX
+    setTimeout(() => {
+      const distanceNum = parseFloat(distance) || 0;
+      const passengersNum = parseInt(passengers) || 1;
+      const occupancyNum = parseInt(occupancy) || 1;
+      
+      const factors: Record<string, any> = {
+        flight: {
+          'short-haul': 0.246,  // Based on research: 246g CO2e per passenger-km for short flights
+          'medium-haul': 0.178, // Medium-haul flights (1-3 hours)
+          'long-haul': 0.150    // Long-haul flights more efficient per km
+        },
+        car: {
+          'small-petrol': 0.142,
+          'medium-petrol': 0.192,
+          'large-petrol': 0.257,
+          'small-diesel': 0.133,
+          'medium-diesel': 0.171,
+          'large-diesel': 0.209,
+          'hybrid': 0.109,
+          'electric': 0.053     
+        },
+        bus: {
+          'local-bus': 0.089,   
+          'coach': 0.027        
+        },
+        ship: {
+          'ferry': 0.023,      
+          'cruise': 0.250       
+        },
+        train: {
+          'electric': 0.041,    // Electric trains
+          'diesel': 0.081       // Diesel trains
+        }
+      };
+      
+      let emissionFactor = 0;
+      let details = '';
+      
+      switch (transportType) {
+        case 'flight':
+          emissionFactor = factors.flight[flightType];
+          details = `${flightType} flight`;
+          break;
+        case 'car':
+          emissionFactor = factors.car[carType] / occupancyNum; 
+          details = `${carType} car with ${occupancyNum} occupant(s)`;
+          break;
+        case 'bus':
+          emissionFactor = factors.bus['coach'];
+          details = 'coach/long-distance bus';
+          break;
+        case 'ship':
+          emissionFactor = factors.ship['ferry'];
+          details = 'ferry';
+          break;
+        case 'train':
+          emissionFactor = factors.train['electric'];
+          details = 'electric train';
+          break;
       }
-    };
-    
-    let emissionFactor = 0;
-    let details = '';
-    
-    switch (transportType) {
-      case 'flight':
-        emissionFactor = factors.flight[flightType];
-        details = `${flightType} flight`;
-        break;
-      case 'car':
-        emissionFactor = factors.car[carType] / occupancyNum; 
-        details = `${carType} car with ${occupancyNum} occupant(s)`;
-        break;
-      case 'bus':
-        emissionFactor = factors.bus['coach'];
-        details = 'coach/long-distance bus';
-        break;
-      case 'ship':
-        emissionFactor = factors.ship['ferry'];
-        details = 'ferry';
-        break;
-      case 'train':
-        emissionFactor = factors.train['electric'];
-        details = 'electric train';
-        break;
-    }
-    
-    const totalEmissions = distanceNum * emissionFactor * passengersNum;
-    
-    const finalEmissions = transportType === 'flight' ? totalEmissions * 2.0 : totalEmissions;
-    
-    setResult(finalEmissions);
-    
-    
+      
+      const totalEmissions = distanceNum * emissionFactor * passengersNum;
+      
+      const finalEmissions = transportType === 'flight' ? totalEmissions * 2.0 : totalEmissions;
+      
+      setResult(finalEmissions);
+      
+      
 
-    // Using conservative estimate: 1 tree absorbs 22kg CO2/year over 20 years
-    const treesPerYear = Math.ceil(finalEmissions / 22);
-    setTreesNeeded(treesPerYear);
-    
-    // Set detailed results
-    setDetailedResults({
-      emissionFactor: emissionFactor,
-      baseEmissions: totalEmissions,
-      radiativeForcingApplied: transportType === 'flight',
-      details: details,
-      perPassengerEmissions: finalEmissions / passengersNum
-    });
+      // Using conservative estimate: 1 tree absorbs 22kg CO2/year over 20 years
+      const treesPerYear = Math.ceil(finalEmissions / 22);
+      setTreesNeeded(treesPerYear);
+      
+      // Set detailed results
+      setDetailedResults({
+        emissionFactor: emissionFactor,
+        baseEmissions: totalEmissions,
+        radiativeForcingApplied: transportType === 'flight',
+        details: details,
+        perPassengerEmissions: finalEmissions / passengersNum
+      });
+      setIsCalculating(false);
+    }, 500); // Brief delay
+  };
+  
+  const resetCalculator = () => {
+    setTransportType('flight');
+    setFlightType('long-haul');
+    setDistance('');
+    setPassengers('1');
+    setCarType('medium-petrol');
+    setOccupancy('1');
+    setResult(null);
+    setTreesNeeded(null);
+    setDetailedResults(null);
+    setErrors({});
+    setIsCalculating(false);
   };
 
   const getTransportSpecificFields = () => {
@@ -158,6 +192,10 @@ const CarbonOffsetCalculator = () => {
     }
   };
 
+  const handleOffsetClick = () => {
+    navigate('/environment/donate');
+  };
+
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-4xl mx-auto">
@@ -214,7 +252,7 @@ const CarbonOffsetCalculator = () => {
                       </SelectItem>
                       <SelectItem value="train">
                         <div className="flex items-center">
-                          <Car className="mr-2 h-4 w-4" />
+                          <Train className="mr-2 h-4 w-4" />
                           Train
                         </div>
                       </SelectItem>
@@ -232,7 +270,9 @@ const CarbonOffsetCalculator = () => {
                     value={distance} 
                     onChange={(e) => setDistance(e.target.value)} 
                     placeholder="Enter distance in kilometers" 
+                    aria-describedby="distance-error"
                   />
+                  {errors.distance && <p id="distance-error" className="text-red-600 text-sm">{errors.distance}</p>}
                 </div>
 
                 <div className="grid gap-2">
@@ -244,12 +284,17 @@ const CarbonOffsetCalculator = () => {
                     onChange={(e) => setPassengers(e.target.value)} 
                     min="1"
                     placeholder="Number of people traveling" 
+                    aria-describedby="passengers-error"
                   />
+                  {errors.passengers && <p id="passengers-error" className="text-red-600 text-sm">{errors.passengers}</p>}
                 </div>
               </div>
             </CardContent>
-            <CardFooter>
-              <Button onClick={calculateOffset} className="w-full">Calculate Carbon Footprint</Button>
+            <CardFooter className="flex gap-2">
+              <Button onClick={calculateOffset} className="flex-1" disabled={isCalculating || !distance || !passengers}>
+                {isCalculating ? 'Calculating...' : 'Calculate Carbon Footprint'}
+              </Button>
+              <Button onClick={resetCalculator} variant="outline">Reset</Button>
             </CardFooter>
           </Card>
           
@@ -300,7 +345,7 @@ const CarbonOffsetCalculator = () => {
                   </div>
                   
                   <div className="flex justify-center pt-4">
-                    <Button className="bg-green-600 hover:bg-green-700">
+                    <Button onClick={handleOffsetClick} className="bg-green-600 hover:bg-green-700" title="Proceed to offset your emissions">
                       Offset Your Carbon Footprint
                     </Button>
                   </div>

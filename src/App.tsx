@@ -22,6 +22,7 @@ import NotFound from "./pages/NotFound";
 import CarbonOffsetPage from "./pages/environment/CarbonOffsetPage";
 import TreePlantingPage from "./pages/environment/TreePlantingPage";
 import GeotaggingPage from "./pages/environment/GeotaggingPage";
+import DonatePage from "./pages/environment/DonatePage";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,7 @@ const App = () => (
               <Route path="environment/carbon-offset" element={<CarbonOffsetPage />} />
               <Route path="environment/tree-planting" element={<TreePlantingPage />} />
               <Route path="environment/geotagging" element={<GeotaggingPage />} />
+              <Route path="environment/donate" element={<DonatePage />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
