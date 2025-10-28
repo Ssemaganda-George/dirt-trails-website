@@ -67,6 +67,8 @@
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.3",
     "zod": "^3.23.8"
+    ,
+    "fuse.js": "^6.6.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

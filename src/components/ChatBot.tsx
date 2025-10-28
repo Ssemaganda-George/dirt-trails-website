@@ -4,6 +4,7 @@ import { Send, MessageCircle, X, Bot, User, Leaf, MapPin, Calendar, Star, Dollar
 import { tours as siteTours } from '@/data/tours';
 import { destinations as siteDestinations } from '@/data/destinations';
 import { siteContent } from '@/data/siteContent';
+import Fuse from 'fuse.js';
 
 /**
  * ChatBot
@@ -128,33 +129,57 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
       if (locMatches.length) return { text: `Here are tours in that area: \n${locMatches.map(t=>`• ${t.name} - $${t.price.toLocaleString()}`).join('\n')}`, actions: locMatches.map(t=>({ label: t.name, path: `/tours/${t.slug}`})) };
     }
 
-    // Site full-text search across small siteContent index + destinations
-    // (developer-managed - pragmatic approach when runtime DOM scraping isn't available)
+    // Fuzzy search using Fuse.js across the small siteContent index and destinations.
+    // Fuse provides better matching and ranking for user queries (typos, partial words).
     if (q && q.length > 2) {
-      const contentMatches = siteContent.filter(p => p.content.toLowerCase().includes(q) || p.title.toLowerCase().includes(q));
-      const destMatches = siteDestinations.filter(d => d.name.toLowerCase().includes(q)).slice(0,3);
-      // If we found content matches, return snippets + navigation actions
-      if (contentMatches.length || destMatches.length) {
-        const matched = contentMatches.slice(0,3);
-        const actions: any[] = [];
-        const snippets = matched.map(m => {
-          // create a short snippet with the query in context
-          const lower = m.content.toLowerCase();
-          const idx = lower.indexOf(q);
-          const start = Math.max(0, idx - 60);
-          const excerpt = idx >= 0
-            ? ( (start > 0 ? '...' : '') + m.content.slice(start, Math.min(start + 200, m.content.length)) + (m.content.length > start + 200 ? '...' : '') )
-            : m.content.slice(0, 200) + (m.content.length > 200 ? '...' : '');
-          actions.push({ label: m.title, path: m.path });
-          return `— ${m.title}: ${excerpt}`;
-        }).join('\n\n');
+      try {
+        const fuse = new Fuse(siteContent, {
+          keys: ['title', 'content'],
+          threshold: 0.35,
+          includeMatches: true,
+          ignoreLocation: true,
+        });
 
-        destMatches.forEach(d => actions.push({ label: d.name, path: `/destinations/${d.slug}` }));
+        const results = fuse.search(q, { limit: 5 });
 
-        const header = contentMatches.length ? `I found these pages that mention "${userMessage}":` : `I found these destinations related to "${userMessage}":`;
-  const body = (snippets || '') + (destMatches.length ? '\n\n' + destMatches.map(d => `• ${d.name} — ${d.shortDescription || ''}`).join('\n') : '');
+        const destFuse = new Fuse(siteDestinations, {
+          keys: ['name', 'shortDescription', 'description'],
+          threshold: 0.35,
+          ignoreLocation: true,
+        });
+        const destResults = destFuse.search(q, { limit: 5 });
 
-        return { text: `${header}\n\n${body}`, actions };
+        if (results.length || destResults.length) {
+          const actions: any[] = [];
+          const snippets = results.slice(0, 3).map(r => {
+            const item = (r as any).item;
+            actions.push({ label: item.title, path: item.path });
+
+            // try to extract a context snippet using Fuse matches if available
+            let excerpt = item.content.slice(0, 200) + (item.content.length > 200 ? '...' : '');
+            const matches = (r as any).matches;
+            if (matches && matches.length) {
+              const match = matches[0];
+              if (match.indices && match.indices.length) {
+                const idx = match.indices[0][0];
+                const start = Math.max(0, idx - 60);
+                excerpt = (start > 0 ? '...' : '') + item.content.slice(start, Math.min(start + 200, item.content.length)) + (item.content.length > start + 200 ? '...' : '');
+              }
+            }
+
+            return `— ${item.title}: ${excerpt}`;
+          }).join('\n\n');
+
+          destResults.forEach(d => actions.push({ label: (d as any).item.name, path: `/destinations/${(d as any).item.slug}` }));
+
+          const header = results.length ? `I found these pages that match "${userMessage}":` : `I found these destinations related to "${userMessage}":`;
+          const body = snippets + (destResults.length ? '\n\n' + destResults.map(d => `• ${(d as any).item.name} — ${(d as any).item.shortDescription || ''}`).join('\n') : '');
+
+          return { text: `${header}\n\n${body}`, actions };
+        }
+      } catch (err) {
+        // fallback to previous behavior if Fuse throws for any reason
+        console.error('ChatBot Fuse search error:', err);
       }
     }
 

@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import ImpactSummary from '../home/ImpactSummary';
+import ChatBot from '../ChatBot';
 
 const Layout = () => {
   return (
@@ -36,6 +37,8 @@ const Layout = () => {
         </div>
       </div>
       <Footer />
+      {/* Global chatbot visible on all pages */}
+      <ChatBot />
     </div>
   );
 };
