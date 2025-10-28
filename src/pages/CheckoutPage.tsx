@@ -1,6 +1,6 @@
 import { useState, FormEvent, useEffect } from 'react';
 import { useParams, useNavigate, Link, useSearchParams } from 'react-router-dom';
-import { Check, AlertCircle, ArrowLeft, MessageCircle, CreditCard, Copy, ExternalLink, QrCode, RefreshCw, Wallet } from 'lucide-react';
+import { Check, AlertCircle, ArrowLeft, MessageCircle, CreditCard, Copy, ExternalLink, QrCode, RefreshCw, Wallet, Loader2 } from 'lucide-react';
 import { tours } from '@/data/tours'; 
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@radix-ui/react-radio-group';
@@ -544,16 +544,19 @@ const CheckoutPage = () => {
                   </div>
                 </div>
                 
-                <Button type="submit" size="lg" className="w-full" disabled={isProcessing}>
-                  {isProcessing 
-                    ? "Processing..." 
-                    : bookingMode === 'inquiry' 
-                      ? "Submit Travel Proposal" 
-                      : paymentMethod === 'crypto'
-                        ? `Pay ${paymentType === 'deposit' ? 'Deposit' : 'Full Amount'} with Crypto`
-                        : paymentType === 'deposit'
-                          ? `Pay Deposit UGx ${calculatePaymentAmounts().depositAmount.toLocaleString()}`
-                          : `Pay Full Amount UGx ${calculatePaymentAmounts().totalPrice.toLocaleString()}`
+                <Button type="submit" size="lg" className="w-full flex items-center justify-center gap-2" disabled={isProcessing}>
+                  {isProcessing ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Processing...
+                    </>
+                  ) : bookingMode === 'inquiry' 
+                    ? "Submit Travel Proposal" 
+                    : paymentMethod === 'crypto'
+                      ? `Pay ${paymentType === 'deposit' ? 'Deposit' : 'Full Amount'} with Crypto`
+                      : paymentType === 'deposit'
+                        ? `Pay Deposit UGx ${calculatePaymentAmounts().depositAmount.toLocaleString()}`
+                        : `Pay Full Amount UGx ${calculatePaymentAmounts().totalPrice.toLocaleString()}`
                   }
                 </Button>
               </form>

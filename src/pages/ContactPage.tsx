@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -29,6 +30,10 @@ const ContactPage = () => {
 
       if (response.ok) {
         setFormSubmitted(true);
+        toast({
+          title: 'Message Sent',
+          description: "Your message has been sent successfully. We'll get back to you within 24 hours.",
+        });
         e.currentTarget.reset(); // Reset form after successful submission
       } else {
         throw new Error('Failed to send message');
@@ -37,6 +42,11 @@ const ContactPage = () => {
     } catch (error) {
       console.error('Error sending message:', error);
       setSubmitError('Failed to send message. Please try again or contact us directly.');
+      toast({
+        title: 'Error',
+        description: 'Failed to send message. Please try again or contact us directly.',
+        variant: 'destructive',
+      });
     } finally {
       setIsSubmitting(false);
     }

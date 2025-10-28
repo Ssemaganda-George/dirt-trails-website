@@ -18,13 +18,16 @@ const CustomDropdown = ({ label, icon, value, options, onChange, placeholder }) 
 
   return (
     <div className="space-y-1" ref={dropdownRef}>
-      <label className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gray-600">
+      <label className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gray-600" id={`label-${label.replace(/\s+/g, '-').toLowerCase()}`}>
         {icon}
         {label}
       </label>
       <div className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
+          aria-labelledby={`label-${label.replace(/\s+/g, '-').toLowerCase()}`}
           className="w-full py-1.5 sm:py-2 px-2 sm:px-3 bg-white border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800 font-medium shadow-sm text-xs sm:text-sm flex items-center justify-between hover:border-green-300 transition-colors duration-200"
         >
           <span className={value ? 'text-gray-800' : 'text-gray-400'}>
@@ -32,12 +35,17 @@ const CustomDropdown = ({ label, icon, value, options, onChange, placeholder }) 
           </span>
           <ChevronDown 
             size={16} 
-            className={`text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
+            className={`text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+            aria-hidden="true"
           />
         </button>
         
         {isOpen && (
-          <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg sm:rounded-xl shadow-xl z-50 max-h-48 overflow-y-auto">
+          <div 
+            className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg sm:rounded-xl shadow-xl z-50 max-h-48 overflow-y-auto"
+            role="listbox"
+            aria-labelledby={`label-${label.replace(/\s+/g, '-').toLowerCase()}`}
+          >
             {options.map((option, index) => (
               <button
                 key={index}
@@ -45,7 +53,9 @@ const CustomDropdown = ({ label, icon, value, options, onChange, placeholder }) 
                   onChange(option.value);
                   setIsOpen(false);
                 }}
-                className="w-full px-2 sm:px-3 py-2 text-left hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 text-xs sm:text-sm text-gray-800 font-medium transition-colors duration-150 first:rounded-t-lg first:sm:rounded-t-xl last:rounded-b-lg last:sm:rounded-b-xl border-b border-gray-100 last:border-b-0"
+                role="option"
+                aria-selected={value === option.value}
+                className="w-full px-2 sm:px-3 py-2 text-left hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 text-xs sm:text-sm text-gray-800 font-medium transition-colors duration-150 first:rounded-t-lg first:sm:rounded-t-xl last:rounded-b-lg last:sm:rounded-b-xl border-b border-gray-100 last:border-b-0 focus:bg-green-100 focus:outline-none"
               >
                 {option.label}
               </button>
@@ -117,7 +127,7 @@ const Hero = () => {
   return (
     <section className="relative h-[90vh] flex flex-col overflow-hidden">
       {/* Animated background slideshow */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" role="img" aria-label="Safari background slideshow featuring African wildlife and landscapes">
         {safariImages.map((image, index) => (
           <div
             key={index}
@@ -163,17 +173,19 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 lg:gap-4 justify-center xl:justify-start">
             <button 
               onClick={() => handleLinkClick('tours')}
-              className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-4 sm:px-5 lg:px-6 py-2 sm:py-2.5 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 border-0 flex items-center justify-center gap-2 text-sm sm:text-base"
+              className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-4 sm:px-5 lg:px-6 py-2 sm:py-2.5 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 border-0 flex items-center justify-center gap-2 text-sm sm:text-base focus:outline-none focus:ring-4 focus:ring-green-400"
+              aria-label="Plan your safari - navigate to tours page"
             >
-              <Eye size={16} />
+              <Eye size={16} aria-hidden="true" />
               Plan My Safari
             </button>
             
             <button 
               onClick={() => handleLinkClick('conservation')}
-              className="border-2 border-green-400/80 bg-green-500/20 backdrop-blur-sm text-green-200 hover:bg-green-500 hover:text-white px-4 sm:px-5 lg:px-6 py-2 sm:py-2.5 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
+              className="border-2 border-green-400/80 bg-green-500/20 backdrop-blur-sm text-green-200 hover:bg-green-500 hover:text-white px-4 sm:px-5 lg:px-6 py-2 sm:py-2.5 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base focus:outline-none focus:ring-4 focus:ring-green-400"
+              aria-label="Explore conservation initiatives - navigate to tree planting page"
             >
-              <Trees size={16} />
+              <Trees size={16} aria-hidden="true" />
               Explore Conservation
             </button>
           </div>
@@ -222,9 +234,10 @@ const Hero = () => {
           <div className="mt-4 sm:mt-5">
             <button 
               onClick={handleSearch} 
-              className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white py-2 sm:py-2.5 lg:py-3 px-3 sm:px-4 rounded-lg sm:rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm"
+              className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white py-2 sm:py-2.5 lg:py-3 px-3 sm:px-4 rounded-lg sm:rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm focus:outline-none focus:ring-4 focus:ring-green-400"
+              aria-label="Search for safaris based on selected destination, duration, and group size"
             >
-              <Search size={14} />
+              <Search size={14} aria-hidden="true" />
               Discover Safari
             </button>
           </div>
