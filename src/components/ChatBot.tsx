@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Send, MessageCircle, X, Bot, User, Leaf, MapPin, Calendar, Star, DollarSign } from 'lucide-react';
 import { tours as siteTours } from '@/data/tours';
 import { destinations as siteDestinations } from '@/data/destinations';
+import { siteContent } from '@/data/siteContent';
 
 /**
  * ChatBot
@@ -127,14 +128,34 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
       if (locMatches.length) return { text: `Here are tours in that area: \n${locMatches.map(t=>`• ${t.name} - $${t.price.toLocaleString()}`).join('\n')}`, actions: locMatches.map(t=>({ label: t.name, path: `/tours/${t.slug}`})) };
     }
 
-    // site search: pages and destinations
-    if (/(where|page|how do i|find|show)/.test(q)) {
-      const qclean = q.replace(/where|how do i|page|can i|show|find/gi,'').trim();
-      const pageMatches = siteIndex.filter(p => p.title.toLowerCase().includes(qclean) || p.snippet.toLowerCase().includes(qclean));
-      const destMatches = siteDestinations.filter(d => d.name.toLowerCase().includes(qclean)).slice(0,3);
-      const actions = pageMatches.map(p=>({ label: p.title, path: p.path }));
-      destMatches.forEach(d => actions.push({ label: d.name, path: `/destinations/${d.slug}`}));
-      if (actions.length) return { text: `I found pages that may help with "${userMessage}":`, actions };
+    // Site full-text search across small siteContent index + destinations
+    // (developer-managed - pragmatic approach when runtime DOM scraping isn't available)
+    if (q && q.length > 2) {
+      const contentMatches = siteContent.filter(p => p.content.toLowerCase().includes(q) || p.title.toLowerCase().includes(q));
+      const destMatches = siteDestinations.filter(d => d.name.toLowerCase().includes(q)).slice(0,3);
+      // If we found content matches, return snippets + navigation actions
+      if (contentMatches.length || destMatches.length) {
+        const matched = contentMatches.slice(0,3);
+        const actions: any[] = [];
+        const snippets = matched.map(m => {
+          // create a short snippet with the query in context
+          const lower = m.content.toLowerCase();
+          const idx = lower.indexOf(q);
+          const start = Math.max(0, idx - 60);
+          const excerpt = idx >= 0
+            ? ( (start > 0 ? '...' : '') + m.content.slice(start, Math.min(start + 200, m.content.length)) + (m.content.length > start + 200 ? '...' : '') )
+            : m.content.slice(0, 200) + (m.content.length > 200 ? '...' : '');
+          actions.push({ label: m.title, path: m.path });
+          return `— ${m.title}: ${excerpt}`;
+        }).join('\n\n');
+
+        destMatches.forEach(d => actions.push({ label: d.name, path: `/destinations/${d.slug}` }));
+
+        const header = contentMatches.length ? `I found these pages that mention "${userMessage}":` : `I found these destinations related to "${userMessage}":`;
+  const body = (snippets || '') + (destMatches.length ? '\n\n' + destMatches.map(d => `• ${d.name} — ${d.shortDescription || ''}`).join('\n') : '');
+
+        return { text: `${header}\n\n${body}`, actions };
+      }
     }
 
     // default
