@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Heart, Users, Globe, TreePine } from 'lucide-react';
+import { Heart, Users, Globe, TreePine, Linkedin, Twitter, Instagram } from 'lucide-react';
 import ChatBot from '@/components/ChatBot';
 
 const AboutPage = () => {
@@ -136,21 +136,29 @@ const AboutPage = () => {
               name="Mariam Wambui" 
               title="Software Engineer & CMO"
               imageSrc="/images/Mariam.jpg"
+              linkedin="https://www.linkedin.com/in/mariam-wambui-942458278/"
+              twitter="#"
             />
             <TeamMemberCard 
               name="Ariho Gerald" 
               title="Co-Founder & Conservation Lead"
               imageSrc="/images/Gerald.jpg"
+              linkedin="https://www.linkedin.com/in/ariho-gerald-1a4714174/"
+              twitter="#"
             />
             <TeamMemberCard 
               name="Nantongo Joselyne" 
               title="Operations & Logistics Manager"
               imageSrc="/images/Joselyne.jpg"
+              linkedin="https://www.linkedin.com/in/nantongo-joselyn-6b395b294/"
+              twitter="#"
             />
             <TeamMemberCard 
               name="Ssemaganda George" 
               title="Co-Founder & CTO"
               imageSrc="/images/George.jpg"
+              linkedin="https://www.linkedin.com/in/ssemaganda-george-03bba8171/"
+              twitter="#"
             />
           </div>
         </div>
@@ -199,7 +207,7 @@ const ValueCard = ({ icon, title, description }: { icon: React.ReactNode; title:
 };
 
 // Team Member Card Component - Professional
-const TeamMemberCard = ({ name, title, imageSrc }: { name: string; title: string; imageSrc: string }) => {
+const TeamMemberCard = ({ name, title, imageSrc, linkedin, twitter, instagram }: { name: string; title: string; imageSrc: string; linkedin?: string; twitter?: string; instagram?: string }) => {
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-safari-brown/10 group animate-fade-in-up">
       <div className="relative h-64 overflow-hidden">
@@ -214,9 +222,26 @@ const TeamMemberCard = ({ name, title, imageSrc }: { name: string; title: string
         <h3 className="text-2xl font-semibold mb-2 text-safari-brown group-hover:text-safari-green transition-colors duration-300">
           {name}
         </h3>
-        <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
+        <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300 mb-4">
           {title}
         </p>
+        <div className="flex justify-center space-x-4">
+          {linkedin && (
+            <a href={linkedin} target="_blank" rel="noopener noreferrer" className="text-safari-green hover:text-safari-orange transition-colors duration-300">
+              <Linkedin size={20} />
+            </a>
+          )}
+          {twitter && (
+            <a href={twitter} target="_blank" rel="noopener noreferrer" className="text-safari-green hover:text-safari-orange transition-colors duration-300">
+              <Twitter size={20} />
+            </a>
+          )}
+          {instagram && (
+            <a href={instagram} target="_blank" rel="noopener noreferrer" className="text-safari-green hover:text-safari-orange transition-colors duration-300">
+              <Instagram size={20} />
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );
