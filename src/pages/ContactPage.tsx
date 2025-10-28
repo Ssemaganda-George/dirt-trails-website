@@ -158,10 +158,10 @@ const ContactPage = () => {
                       className="flex h-12 w-full rounded-md border border-gray-300 bg-background px-4 py-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-safari-green focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       <option value="">Select an option</option>
-                      <option value="Consultancy">Conservation Consultancy</option>
                       <option value="safari">Safari Tours</option>
                       <option value="gorilla">Gorilla Trekking</option>
                       <option value="custom">Custom Itinerary</option> 
+                      <option value="Consultancy">Conservation Consultancy</option>
                       <option value="Collaboration">Collaboration</option>
                       <option value="other">Other</option>
                     </select>
