@@ -5,8 +5,10 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { MapPin, Phone, Mail, Clock, Loader2, ChevronDown, ChevronUp } from 'lucide-react';
 import ChatBot from '@/components/ChatBot';
+import { useLocation, Link } from 'react-router-dom';
 
 const ContactPage = () => {
+  const location = useLocation();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);

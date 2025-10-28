@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { MapPin, Calendar, Star, ArrowRight } from 'lucide-react';
 import { tours } from '@/data/tours';
+import { Button } from "@/components/ui/button";
 
 const ToursPage = () => {
+  const location = useLocation();
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [sortBy, setSortBy] = useState('default');
   
