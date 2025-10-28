@@ -83,7 +83,7 @@ const DonatePage = () => {
         setTimeout(() => {
           setIsFetching(false);
           setShowDetails(true);
-        }, 1000); // 2-second delay to simulate fetching
+        }, 500); // 2-second delay to simulate fetching
       } else {
         throw new Error('Failed to send request');
       }
