@@ -1490,6 +1490,499 @@ export const tours: Tour[] = [
     },
     featured: true
   },
+  {
+    id: "tour-020",
+    slug: "ziwa-rhino-sanctuary-murchison-combo",
+    name: "Rhinos & Rapids Safari",
+    tagline: "Track rhinos on foot and witness the mighty Murchison Falls",
+    description: "Experience a unique combination of endangered rhino tracking at Ziwa Rhino Sanctuary followed by the wildlife and scenic wonders of Murchison Falls National Park. This tour begins with the thrilling experience of approaching white rhinos on foot in the company of trained rangers at Ziwa, the only place to see rhinos in the wild in Uganda. Then continue to Murchison Falls National Park to witness the spectacular waterfall, enjoy game drives teeming with wildlife, and cruise along the Nile River. This safari offers a perfect blend of adventure, wildlife viewing, and natural beauty.",
+    duration: 5,
+    price: 1850,
+    discount: 5,
+    location: "Ziwa Sanctuary & Murchison Falls",
+    country: "Uganda",
+    coverImage: "/images/ziwa-rhino-sanctuary.jpg",
+    images: [
+      { url: "/images/murchison-falls-view.jpg", alt: "Murchison Falls" },
+      { url: "/images/murchison-falls-view.jpg", alt: "White rhino tracking" },
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Game drive" },
+      { url: "/images/kibaale.jpeg", alt: "Safari lodge" }
+    ],
+    mapImage: "/images/murchison-falls-view.jpg",
+    highlights: [
+      "On-foot tracking of white rhinos with expert rangers",
+      "Thundering spectacle of Murchison Falls",
+      "Game drives with diverse wildlife including lions and elephants",
+      "Nile River boat safari to the base of the falls",
+      "Opportunity to spot rare shoebill storks"
+    ],
+    inclusions: [
+      "All accommodations",
+      "Professional safari guide",
+      "All meals as specified",
+      "Rhino tracking fees",
+      "Park entry fees",
+      "Game drives in 4x4 vehicles",
+      "Boat cruise on the Nile",
+      "Airport transfers"
+    ],
+    exclusions: [
+      "International flights",
+      "Travel insurance",
+      "Optional activities",
+      "Personal expenses",
+      "Tips and gratuities",
+      "Visa fees"
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Entebbe to Ziwa Rhino Sanctuary",
+        description: "Morning departure from Entebbe, driving north to Ziwa Rhino Sanctuary (approximately 3 hours). After lunch, enjoy your first rhino tracking experience on foot with trained rangers, approaching these magnificent endangered animals safely in their natural habitat. Evening presentation about rhino conservation efforts in Uganda.",
+        meals: { breakfast: false, lunch: true, dinner: true },
+        accommodation: "Amuka Lodge"
+      },
+      {
+        day: 2,
+        title: "Ziwa to Murchison Falls National Park",
+        description: "Optional early morning rhino tracking before breakfast. Continue your journey to Murchison Falls National Park (approximately 2 hours). After crossing by ferry, check in at your lodge. Afternoon game drive in the northern section of the park, known for its abundant wildlife.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Paraa Safari Lodge"
+      },
+      {
+        day: 3,
+        title: "Murchison Falls Game Drives",
+        description: "Full day of game viewing in Murchison Falls National Park. Early morning game drive when animals are most active, searching for lions, elephants, giraffes, and numerous antelope species. Afternoon game drive in a different sector of the park focusing on buffalo herds and leopard habitat.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Paraa Safari Lodge"
+      },
+      {
+        day: 4,
+        title: "Nile Delta Boat Safari & Falls",
+        description: "Morning boat safari to the Nile Delta where the river enters Lake Albert, a prime area for spotting the rare shoebill stork and numerous water birds. Afternoon boat cruise upstream to the base of Murchison Falls for spectacular views of the world's most powerful waterfall. Optional hike to the top of the falls (moderate difficulty).",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Paraa Safari Lodge"
+      },
+      {
+        day: 5,
+        title: "Murchison Falls to Entebbe",
+        description: "Final morning game drive before breakfast. Depart Murchison Falls, returning to Entebbe with a stop for lunch en route. Arrive in the late afternoon for your onward journey.",
+        meals: { breakfast: true, lunch: true, dinner: false },
+        accommodation: null
+      }
+    ],
+    reviews: [
+      {
+        id: "review-001",
+        name: "Charles Wilson",
+        rating: 5,
+        comment: "Approaching rhinos on foot was an incredible experience - heart-pounding but completely safe with the excellent rangers. Murchison Falls was spectacular and we saw so much wildlife including 3 tree-climbing lions!",
+        date: "2024-08-28"
+      },
+      {
+        id: "review-002",
+        name: "Sophia Lin",
+        rating: 4,
+        comment: "Great combination of unique experiences. The rhino tracking was special and more intimate than we expected. The boat safari was my highlight - we saw countless hippos, crocs, and birds, plus the falls are impressive up close.",
+        date: "2024-12-10"
+      },
+      {
+        id: "review-003",
+        name: "Trevor and Amelia Jackson",
+        rating: 5,
+        comment: "Perfect 5-day safari with good variety. Getting close to rhinos on foot was thrilling but felt completely safe. In Murchison we saw all the big game including elephants crossing the Nile. Highly recommended for those short on time.",
+        date: "2025-01-22"
+      }
+    ],
+    rating: 4.7,
+    customizationOptions: {
+      accommodation: [
+      {
+        id: "acc-001",
+        name: "Budget Camping",
+        type: "accommodation",
+        description: "Basic camping at Ziwa Rhino Sanctuary and budget accommodation in Jinja with shared facilities.",
+        priceAdjustment: -150000 // UGX
+      },
+      {
+        id: "acc-002",
+        name: "Mid-range Lodge",
+        type: "accommodation",
+        description: "Comfortable lodges like Amuka Lodge at Ziwa and mid-range hotels in Jinja with en-suite facilities.",
+        priceAdjustment: 0
+      },
+      {
+        id: "acc-003",
+        name: "Luxury Safari Lodge",
+        type: "accommodation",
+        description: "Premium accommodation at Ziwa Guest House and luxury resorts in Jinja with Nile views.",
+        priceAdjustment: 800000 // UGX
+      },
+      {
+        id: "acc-004",
+        name: "Adventure Camp",
+        type: "accommodation",
+        description: "Specialized adventure camps near Jinja focusing on water sports and outdoor activities.",
+        priceAdjustment: 100000 // UGX
+      }
+    ],
+      activities: [
+      {
+        id: "act-001",
+        name: "Grade 5 White Water Rafting",
+        type: "activity",
+        description: "Full-day extreme white water rafting on the Nile with grade 5 rapids and professional guides.",
+        priceAdjustment: 200000 // UGX
+      },
+      {
+        id: "act-002",
+        name: "Bungee Jumping",
+        type: "activity",
+        description: "Adrenaline-pumping bungee jump from 44 meters above the Nile River at Jinja.",
+        priceAdjustment: 180000 // UGX
+      },
+      {
+        id: "act-003",
+        name: "Kayaking on the Nile",
+        type: "activity",
+        description: "Multi-day kayaking adventure on the Nile River with camping and professional instruction.",
+        priceAdjustment: 250000 // UGX
+      },
+      {
+        id: "act-004",
+        name: "Horseback Rhino Tracking",
+        type: "activity",
+        description: "Unique horseback riding experience while tracking rhinos at Ziwa Rhino Sanctuary.",
+        priceAdjustment: 200000 // UGX
+      },
+      {
+        id: "act-005",
+        name: "Quad Biking Adventure",
+        type: "activity",
+        description: "Quad biking adventure through rural Uganda countryside and along the Nile banks.",
+        priceAdjustment: 120000 // UGX
+      }
+    ],
+      transportation: [
+      {
+        id: "trans-001",
+        name: "Shared Safari Vehicle",
+        type: "transportation",
+        description: "Shared 4WD vehicle for transfers between Ziwa and Jinja. Budget-friendly option.",
+        priceAdjustment: -80000 // UGX
+      },
+      {
+        id: "trans-002",
+        name: "Private Safari Vehicle",
+        type: "transportation",
+        description: "Private 4WD vehicle with professional driver-guide for flexible transfers.",
+        priceAdjustment: 0
+      },
+      {
+        id: "trans-003",
+        name: "Luxury Safari Vehicle",
+        type: "transportation",
+        description: "Premium 4WD with air conditioning and comfort features for smooth transfers.",
+        priceAdjustment: 120000 // UGX
+      },
+      {
+        id: "trans-004",
+        name: "Helicopter Transfer",
+        type: "transportation",
+        description: "Helicopter transfer from Entebbe to Jinja with scenic aerial views of the Nile.",
+        priceAdjustment: 3000000 // UGX
+      }
+    ],
+      duration: [
+      {
+        id: "dur-001",
+        name: "2 Days Express Rhinos & Rapids",
+        type: "duration",
+        description: "Quick 2-day adventure focusing on rhino tracking and one major water activity.",
+        priceAdjustment: -200000 // UGX
+      },
+      {
+        id: "dur-002",
+        name: "3 Days Standard Adventure",
+        type: "duration",
+        description: "Standard 3-day itinerary with rhino tracking, white water rafting, and source of Nile visit.",
+        priceAdjustment: 0
+      },
+      {
+        id: "dur-003",
+        name: "4 Days Extended Adventure",
+        type: "duration",
+        description: "Extended adventure with multiple water activities and extended time at Ziwa.",
+        priceAdjustment: 250000 // UGX
+      },
+      {
+        id: "dur-004",
+        name: "5 Days Comprehensive Adventure",
+        type: "duration",
+        description: "Most comprehensive adventure experience with all activities and cultural visits.",
+        priceAdjustment: 450000 // UGX
+      }
+    ]
+    },
+    featured: true
+  },
+  {
+    id: "tour-021",
+    slug: "rwenzori-mountains-trek",
+    name: "Rwenzori Mountains Trekking Adventure",
+    tagline: "Hike through the legendary Mountains of the Moon with its unique alpine flora",
+    description: "Embark on an extraordinary trekking adventure through the Rwenzori Mountains National Park, a UNESCO World Heritage site known as the legendary 'Mountains of the Moon'. This challenging but rewarding expedition takes you through one of Africa's most beautiful alpine areas with its unique vegetation zones including the otherworldly giant lobelias and groundsels. Trek through montane forest, bamboo, heather and afro-alpine moorland zones as you ascend toward snow-capped peaks. With expert guides, porters and comfortable mountain huts, this trek offers a perfect balance of adventure and support in one of Africa's most spectacular yet least-visited mountain ranges.",
+    duration: 8,
+    price: 2750,
+    location: "Rwenzori Mountains National Park",
+    country: "Uganda",
+    coverImage: "/images/Mountain-Rwenzori-National-Park.jpg",
+    images: [
+      { url: "/images/gorilla-uganda-primate-trekking-eating.jpeg", alt: "Rwenzori Mountains" },
+      { url: "/images/kibaale.jpeg", alt: "Giant lobelias" },
+      { url: "/images/murchison-falls-view.jpg", alt: "Mountain trekking" },
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Mountain hut" }
+    ],
+    mapImage: "/images/murchison-falls-view.jpg",
+    highlights: [
+      "Trek through multiple unique vegetation zones",
+      "Otherworldly landscapes with giant lobelias and groundsels",
+      "Spectacular views of glaciers and snow-capped peaks",
+      "Diverse bird life and occasional wildlife sightings",
+      "Experienced guides and porters from local communities"
+    ],
+    inclusions: [
+      "Park entry and conservation fees",
+      "Professional mountain guide",
+      "Porters for equipment and personal items",
+      "All meals during the trek",
+      "Mountain hut accommodations",
+      "Pre/post trek hotel stays",
+      "Trekking permits",
+      "Safety and evacuation services"
+    ],
+    exclusions: [
+      "International flights",
+      "Personal trekking gear and clothing",
+      "Travel insurance (mandatory)",
+      "Alcoholic beverages",
+      "Personal expenses",
+      "Tips for guides and porters",
+      "Visa fees"
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Arrival in Entebbe/Kampala",
+        description: "Arrive at Entebbe International Airport and transfer to your hotel in Kampala. Attend a detailed briefing about the trek and equipment check with your guide. Rest and prepare for the adventure ahead.",
+        meals: { breakfast: false, lunch: false, dinner: true },
+        accommodation: "Kampala Serena Hotel"
+      },
+      {
+        day: 2,
+        title: "Kampala to Kasese",
+        description: "Morning departure by road to Kasese near the Rwenzori Mountains (approximately 6-7 hours). Check in at your hotel with views of the mountains. Final preparations and briefing for the trek.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Hotel Margherita"
+      },
+      {
+        day: 3,
+        title: "Trek Day 1: Trekking Center to Sine Hut",
+        description: "Transfer to the Rwenzori Mountains National Park headquarters for registration and meeting your team of guides and porters. Begin trekking through montane forest and bamboo zones. Look out for colorful forest birds and occasional monkeys. Reach Sine Hut (2,596m) in the afternoon. Distance: 9km, hiking time: 5-6 hours.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Sine Hut"
+      },
+      {
+        day: 4,
+        title: "Trek Day 2: Sine Hut to Mutinda Camp",
+        description: "Continue ascending through bamboo forest into the heather-rapanea zone with its mossy forests and beautiful valley views. Cross several small streams before reaching Mutinda Camp (3,590m). Optional short climb to Mutinda Lookout for panoramic views. Distance: 7km, hiking time: 6-7 hours.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Mutinda Camp"
+      },
+      {
+        day: 5,
+        title: "Trek Day 3: Mutinda to Bugata Camp",
+        description: "Trek through the Alpine vegetation zone with giant lobelias, everlasting flowers, and interesting flora. Cross the Bugata wetland then climb to Bugata Camp (4,100m). Enjoy stunning views across valleys and surrounding peaks. Distance: 6km, hiking time: 5-6 hours.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Bugata Camp"
+      },
+      {
+        day: 6,
+        title: "Trek Day 4: Bugata to Hunwick's Camp",
+        description: "An acclimatization day with a shorter trek over steep sections to Hunwick's Camp (3,974m). Spectacular views of the Rwenzori peaks, glaciers, and surrounding landscape. In the afternoon, relax at camp or take a short acclimatization walk to prepare for higher elevations. Distance: 5km, hiking time: 4-5 hours.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Hunwick's Camp"
+      },
+      {
+        day: 7,
+        title: "Trek Day 5: Descent to Kiharo Camp",
+        description: "Begin descending through different vegetation zones, with changing flora and increasing oxygen levels. Reach Kiharo Camp (3,460m) in the bamboo forest. Enjoy a celebratory dinner with your trekking team. Distance: 10km, hiking time: 6-7 hours.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Kiharo Camp"
+      },
+      {
+        day: 8,
+        title: "Trek Day 6 & Return to Kampala",
+        description: "Final descent to the park gate through lush forest. Bid farewell to your trekking team and transfer back to Kampala, arriving in the evening. Distance: 12km, hiking time: 5-6 hours.",
+        meals: { breakfast: true, lunch: true, dinner: false },
+        accommodation: null
+      }
+    ],
+    reviews: [
+      {
+        id: "review-001",
+        name: "James Henderson",
+        rating: 5,
+        comment: "One of Africa's hidden treasures. The landscapes are otherworldly - like walking on another planet when you get among the giant lobelias. Our guides were fantastic and the huts more comfortable than expected. Challenging but absolutely worth it!",
+        date: "2024-07-15"
+      },
+      {
+        id: "review-002",
+        name: "Sylvia Walters",
+        rating: 4,
+        comment: "A truly unique trekking experience unlike any other in Africa. The vegetation zones are fascinating and the mountain views spectacular. Be prepared for mud and rain, but the experience is unforgettable. The local guides share wonderful insights about the mountains.",
+        date: "2024-09-22"
+      },
+      {
+        id: "review-003",
+        name: "Michael Trudeau",
+        rating: 5,
+        comment: "For experienced trekkers looking for something different, the Rwenzoris are perfect. Less crowded than Kilimanjaro with equally spectacular scenery. The giant lobelias and groundsels create an almost prehistoric landscape. Physically demanding but well-organized support.",
+        date: "2025-01-05"
+      }
+    ],
+    rating: 4.7,
+    customizationOptions: {
+      accommodation: [
+      {
+        id: "acc-001",
+        name: "Basic Mountain Huts",
+        type: "accommodation",
+        description: "Basic mountain huts along the trekking route with shared facilities and sleeping bags provided.",
+        priceAdjustment: -300000 // UGX
+      },
+      {
+        id: "acc-002",
+        name: "Standard Mountain Lodges",
+        type: "accommodation",
+        description: "Standard mountain lodges with better facilities and meals included throughout the trek.",
+        priceAdjustment: 0
+      },
+      {
+        id: "acc-003",
+        name: "Premium Mountain Lodges",
+        type: "accommodation",
+        description: "Premium mountain lodges with enhanced comfort, better food, and additional services.",
+        priceAdjustment: 800000 // UGX
+      },
+      {
+        id: "acc-004",
+        name: "Camping Experience",
+        type: "accommodation",
+        description: "Camping experience with high-quality tents and camping equipment for adventurous trekkers.",
+        priceAdjustment: -200000 // UGX
+      }
+    ],
+      activities: [
+      {
+        id: "act-001",
+        name: "Margherita Peak Summit",
+        type: "activity",
+        description: "Summit attempt to Margherita Peak (5,109m), the highest peak in the Rwenzori Mountains. Includes specialized gear and guides.",
+        priceAdjustment: 500000 
+      },
+      {
+        id: "act-002",
+        name: "Cultural Community Visit",
+        type: "activity",
+        description: "Visit Bakonzo communities around Rwenzori to learn about mountain culture and traditions.",
+        priceAdjustment: 80000 
+      },
+      {
+        id: "act-003",
+        name: "Nature Photography Workshop",
+        type: "activity",
+        description: "Professional photography workshop focusing on mountain landscapes and endemic flora.",
+        priceAdjustment: 150000 
+      },
+      {
+        id: "act-004",
+        name: "Botanical Tour",
+        type: "activity",
+        description: "Specialized botanical tour focusing on unique Rwenzori flora including giant lobelias.",
+        priceAdjustment: 100000 
+      },
+      {
+        id: "act-005",
+        name: "Rock Climbing Experience",
+        type: "activity",
+        description: "Rock climbing sessions on Rwenzori rock faces with professional climbing guides.",
+        priceAdjustment: 200000 
+      }
+    ],
+      transportation: [
+      {
+        id: "trans-001",
+        name: "Shared Transfer Vehicle",
+        type: "transportation",
+        description: "Shared vehicle transfer from Kampala to Kasese and return. Budget option for trekkers.",
+        priceAdjustment: -100000 
+      },
+      {
+        id: "trans-002",
+        name: "Private Transfer Vehicle",
+        type: "transportation",
+        description: "Private vehicle transfer with professional driver for comfortable journey to trek starting point.",
+        priceAdjustment: 0
+      },
+      {
+        id: "trans-003",
+        name: "Luxury Transfer Vehicle",
+        type: "transportation",
+        description: "Premium vehicle with air conditioning and comfort features for transfers to and from Rwenzori.",
+        priceAdjustment: 150000 
+      },
+      {
+        id: "trans-004",
+        name: "Helicopter Access",
+        type: "transportation",
+        description: "Helicopter transfer to higher camps to reduce trekking time and physical demands.",
+        priceAdjustment: 4000000 
+      }
+    ],
+      duration: [
+      {
+        id: "dur-001",
+        name: "5 Days Central Circuit",
+        type: "duration",
+        description: "5-day central circuit trek to Guy Yeoman Hut without summit attempt.",
+        priceAdjustment: -400000 
+      },
+      {
+        id: "dur-002",
+        name: "7 Days Standard Trek",
+        type: "duration",
+        description: "Standard 7-day trek to Margherita Peak with acclimatization days.",
+        priceAdjustment: 0
+      },
+      {
+        id: "dur-003",
+        name: "9 Days Extended Trek",
+        type: "duration",
+        description: "Extended 9-day trek with multiple peak attempts and comprehensive exploration.",
+        priceAdjustment: 500000 
+      },
+      {
+        id: "dur-004",
+        name: "12 Days Comprehensive Adventure",
+        type: "duration",
+        description: "Most comprehensive Rwenzori experience with all peaks and cultural activities.",
+        priceAdjustment: 800000 
+      }
+    ]
+    },
+    featured: false
+  },
 //   {
 //     id: "tour-001",
 //     slug: "masai-mara-safari",
@@ -3779,499 +4272,6 @@ export const tours: Tour[] = [
   //   },
   //   featured: true
   // },
-  {
-    id: "tour-020",
-    slug: "ziwa-rhino-sanctuary-murchison-combo",
-    name: "Rhinos & Rapids Safari",
-    tagline: "Track rhinos on foot and witness the mighty Murchison Falls",
-    description: "Experience a unique combination of endangered rhino tracking at Ziwa Rhino Sanctuary followed by the wildlife and scenic wonders of Murchison Falls National Park. This tour begins with the thrilling experience of approaching white rhinos on foot in the company of trained rangers at Ziwa, the only place to see rhinos in the wild in Uganda. Then continue to Murchison Falls National Park to witness the spectacular waterfall, enjoy game drives teeming with wildlife, and cruise along the Nile River. This safari offers a perfect blend of adventure, wildlife viewing, and natural beauty.",
-    duration: 5,
-    price: 1850,
-    discount: 5,
-    location: "Ziwa Sanctuary & Murchison Falls",
-    country: "Uganda",
-    coverImage: "/images/ziwa-rhino-sanctuary.jpg",
-    images: [
-      { url: "/images/murchison-falls-view.jpg", alt: "Murchison Falls" },
-      { url: "/images/murchison-falls-view.jpg", alt: "White rhino tracking" },
-      { url: "/images/queen-Elizabeth.jpeg", alt: "Game drive" },
-      { url: "/images/kibaale.jpeg", alt: "Safari lodge" }
-    ],
-    mapImage: "/images/murchison-falls-view.jpg",
-    highlights: [
-      "On-foot tracking of white rhinos with expert rangers",
-      "Thundering spectacle of Murchison Falls",
-      "Game drives with diverse wildlife including lions and elephants",
-      "Nile River boat safari to the base of the falls",
-      "Opportunity to spot rare shoebill storks"
-    ],
-    inclusions: [
-      "All accommodations",
-      "Professional safari guide",
-      "All meals as specified",
-      "Rhino tracking fees",
-      "Park entry fees",
-      "Game drives in 4x4 vehicles",
-      "Boat cruise on the Nile",
-      "Airport transfers"
-    ],
-    exclusions: [
-      "International flights",
-      "Travel insurance",
-      "Optional activities",
-      "Personal expenses",
-      "Tips and gratuities",
-      "Visa fees"
-    ],
-    itinerary: [
-      {
-        day: 1,
-        title: "Entebbe to Ziwa Rhino Sanctuary",
-        description: "Morning departure from Entebbe, driving north to Ziwa Rhino Sanctuary (approximately 3 hours). After lunch, enjoy your first rhino tracking experience on foot with trained rangers, approaching these magnificent endangered animals safely in their natural habitat. Evening presentation about rhino conservation efforts in Uganda.",
-        meals: { breakfast: false, lunch: true, dinner: true },
-        accommodation: "Amuka Lodge"
-      },
-      {
-        day: 2,
-        title: "Ziwa to Murchison Falls National Park",
-        description: "Optional early morning rhino tracking before breakfast. Continue your journey to Murchison Falls National Park (approximately 2 hours). After crossing by ferry, check in at your lodge. Afternoon game drive in the northern section of the park, known for its abundant wildlife.",
-        meals: { breakfast: true, lunch: true, dinner: true },
-        accommodation: "Paraa Safari Lodge"
-      },
-      {
-        day: 3,
-        title: "Murchison Falls Game Drives",
-        description: "Full day of game viewing in Murchison Falls National Park. Early morning game drive when animals are most active, searching for lions, elephants, giraffes, and numerous antelope species. Afternoon game drive in a different sector of the park focusing on buffalo herds and leopard habitat.",
-        meals: { breakfast: true, lunch: true, dinner: true },
-        accommodation: "Paraa Safari Lodge"
-      },
-      {
-        day: 4,
-        title: "Nile Delta Boat Safari & Falls",
-        description: "Morning boat safari to the Nile Delta where the river enters Lake Albert, a prime area for spotting the rare shoebill stork and numerous water birds. Afternoon boat cruise upstream to the base of Murchison Falls for spectacular views of the world's most powerful waterfall. Optional hike to the top of the falls (moderate difficulty).",
-        meals: { breakfast: true, lunch: true, dinner: true },
-        accommodation: "Paraa Safari Lodge"
-      },
-      {
-        day: 5,
-        title: "Murchison Falls to Entebbe",
-        description: "Final morning game drive before breakfast. Depart Murchison Falls, returning to Entebbe with a stop for lunch en route. Arrive in the late afternoon for your onward journey.",
-        meals: { breakfast: true, lunch: true, dinner: false },
-        accommodation: null
-      }
-    ],
-    reviews: [
-      {
-        id: "review-001",
-        name: "Charles Wilson",
-        rating: 5,
-        comment: "Approaching rhinos on foot was an incredible experience - heart-pounding but completely safe with the excellent rangers. Murchison Falls was spectacular and we saw so much wildlife including 3 tree-climbing lions!",
-        date: "2024-08-28"
-      },
-      {
-        id: "review-002",
-        name: "Sophia Lin",
-        rating: 4,
-        comment: "Great combination of unique experiences. The rhino tracking was special and more intimate than we expected. The boat safari was my highlight - we saw countless hippos, crocs, and birds, plus the falls are impressive up close.",
-        date: "2024-12-10"
-      },
-      {
-        id: "review-003",
-        name: "Trevor and Amelia Jackson",
-        rating: 5,
-        comment: "Perfect 5-day safari with good variety. Getting close to rhinos on foot was thrilling but felt completely safe. In Murchison we saw all the big game including elephants crossing the Nile. Highly recommended for those short on time.",
-        date: "2025-01-22"
-      }
-    ],
-    rating: 4.7,
-    customizationOptions: {
-      accommodation: [
-      {
-        id: "acc-001",
-        name: "Budget Camping",
-        type: "accommodation",
-        description: "Basic camping at Ziwa Rhino Sanctuary and budget accommodation in Jinja with shared facilities.",
-        priceAdjustment: -150000 // UGX
-      },
-      {
-        id: "acc-002",
-        name: "Mid-range Lodge",
-        type: "accommodation",
-        description: "Comfortable lodges like Amuka Lodge at Ziwa and mid-range hotels in Jinja with en-suite facilities.",
-        priceAdjustment: 0
-      },
-      {
-        id: "acc-003",
-        name: "Luxury Safari Lodge",
-        type: "accommodation",
-        description: "Premium accommodation at Ziwa Guest House and luxury resorts in Jinja with Nile views.",
-        priceAdjustment: 800000 // UGX
-      },
-      {
-        id: "acc-004",
-        name: "Adventure Camp",
-        type: "accommodation",
-        description: "Specialized adventure camps near Jinja focusing on water sports and outdoor activities.",
-        priceAdjustment: 100000 // UGX
-      }
-    ],
-      activities: [
-      {
-        id: "act-001",
-        name: "Grade 5 White Water Rafting",
-        type: "activity",
-        description: "Full-day extreme white water rafting on the Nile with grade 5 rapids and professional guides.",
-        priceAdjustment: 200000 // UGX
-      },
-      {
-        id: "act-002",
-        name: "Bungee Jumping",
-        type: "activity",
-        description: "Adrenaline-pumping bungee jump from 44 meters above the Nile River at Jinja.",
-        priceAdjustment: 180000 // UGX
-      },
-      {
-        id: "act-003",
-        name: "Kayaking on the Nile",
-        type: "activity",
-        description: "Multi-day kayaking adventure on the Nile River with camping and professional instruction.",
-        priceAdjustment: 250000 // UGX
-      },
-      {
-        id: "act-004",
-        name: "Horseback Rhino Tracking",
-        type: "activity",
-        description: "Unique horseback riding experience while tracking rhinos at Ziwa Rhino Sanctuary.",
-        priceAdjustment: 200000 // UGX
-      },
-      {
-        id: "act-005",
-        name: "Quad Biking Adventure",
-        type: "activity",
-        description: "Quad biking adventure through rural Uganda countryside and along the Nile banks.",
-        priceAdjustment: 120000 // UGX
-      }
-    ],
-      transportation: [
-      {
-        id: "trans-001",
-        name: "Shared Safari Vehicle",
-        type: "transportation",
-        description: "Shared 4WD vehicle for transfers between Ziwa and Jinja. Budget-friendly option.",
-        priceAdjustment: -80000 // UGX
-      },
-      {
-        id: "trans-002",
-        name: "Private Safari Vehicle",
-        type: "transportation",
-        description: "Private 4WD vehicle with professional driver-guide for flexible transfers.",
-        priceAdjustment: 0
-      },
-      {
-        id: "trans-003",
-        name: "Luxury Safari Vehicle",
-        type: "transportation",
-        description: "Premium 4WD with air conditioning and comfort features for smooth transfers.",
-        priceAdjustment: 120000 // UGX
-      },
-      {
-        id: "trans-004",
-        name: "Helicopter Transfer",
-        type: "transportation",
-        description: "Helicopter transfer from Entebbe to Jinja with scenic aerial views of the Nile.",
-        priceAdjustment: 3000000 // UGX
-      }
-    ],
-      duration: [
-      {
-        id: "dur-001",
-        name: "2 Days Express Rhinos & Rapids",
-        type: "duration",
-        description: "Quick 2-day adventure focusing on rhino tracking and one major water activity.",
-        priceAdjustment: -200000 // UGX
-      },
-      {
-        id: "dur-002",
-        name: "3 Days Standard Adventure",
-        type: "duration",
-        description: "Standard 3-day itinerary with rhino tracking, white water rafting, and source of Nile visit.",
-        priceAdjustment: 0
-      },
-      {
-        id: "dur-003",
-        name: "4 Days Extended Adventure",
-        type: "duration",
-        description: "Extended adventure with multiple water activities and extended time at Ziwa.",
-        priceAdjustment: 250000 // UGX
-      },
-      {
-        id: "dur-004",
-        name: "5 Days Comprehensive Adventure",
-        type: "duration",
-        description: "Most comprehensive adventure experience with all activities and cultural visits.",
-        priceAdjustment: 450000 // UGX
-      }
-    ]
-    },
-    featured: true
-  },
-  {
-    id: "tour-021",
-    slug: "rwenzori-mountains-trek",
-    name: "Rwenzori Mountains Trekking Adventure",
-    tagline: "Hike through the legendary Mountains of the Moon with its unique alpine flora",
-    description: "Embark on an extraordinary trekking adventure through the Rwenzori Mountains National Park, a UNESCO World Heritage site known as the legendary 'Mountains of the Moon'. This challenging but rewarding expedition takes you through one of Africa's most beautiful alpine areas with its unique vegetation zones including the otherworldly giant lobelias and groundsels. Trek through montane forest, bamboo, heather and afro-alpine moorland zones as you ascend toward snow-capped peaks. With expert guides, porters and comfortable mountain huts, this trek offers a perfect balance of adventure and support in one of Africa's most spectacular yet least-visited mountain ranges.",
-    duration: 8,
-    price: 2750,
-    location: "Rwenzori Mountains National Park",
-    country: "Uganda",
-    coverImage: "/images/Mountain-Rwenzori-National-Park.jpg",
-    images: [
-      { url: "/images/gorilla-uganda-primate-trekking-eating.jpeg", alt: "Rwenzori Mountains" },
-      { url: "/images/kibaale.jpeg", alt: "Giant lobelias" },
-      { url: "/images/murchison-falls-view.jpg", alt: "Mountain trekking" },
-      { url: "/images/queen-Elizabeth.jpeg", alt: "Mountain hut" }
-    ],
-    mapImage: "/images/murchison-falls-view.jpg",
-    highlights: [
-      "Trek through multiple unique vegetation zones",
-      "Otherworldly landscapes with giant lobelias and groundsels",
-      "Spectacular views of glaciers and snow-capped peaks",
-      "Diverse bird life and occasional wildlife sightings",
-      "Experienced guides and porters from local communities"
-    ],
-    inclusions: [
-      "Park entry and conservation fees",
-      "Professional mountain guide",
-      "Porters for equipment and personal items",
-      "All meals during the trek",
-      "Mountain hut accommodations",
-      "Pre/post trek hotel stays",
-      "Trekking permits",
-      "Safety and evacuation services"
-    ],
-    exclusions: [
-      "International flights",
-      "Personal trekking gear and clothing",
-      "Travel insurance (mandatory)",
-      "Alcoholic beverages",
-      "Personal expenses",
-      "Tips for guides and porters",
-      "Visa fees"
-    ],
-    itinerary: [
-      {
-        day: 1,
-        title: "Arrival in Entebbe/Kampala",
-        description: "Arrive at Entebbe International Airport and transfer to your hotel in Kampala. Attend a detailed briefing about the trek and equipment check with your guide. Rest and prepare for the adventure ahead.",
-        meals: { breakfast: false, lunch: false, dinner: true },
-        accommodation: "Kampala Serena Hotel"
-      },
-      {
-        day: 2,
-        title: "Kampala to Kasese",
-        description: "Morning departure by road to Kasese near the Rwenzori Mountains (approximately 6-7 hours). Check in at your hotel with views of the mountains. Final preparations and briefing for the trek.",
-        meals: { breakfast: true, lunch: true, dinner: true },
-        accommodation: "Hotel Margherita"
-      },
-      {
-        day: 3,
-        title: "Trek Day 1: Trekking Center to Sine Hut",
-        description: "Transfer to the Rwenzori Mountains National Park headquarters for registration and meeting your team of guides and porters. Begin trekking through montane forest and bamboo zones. Look out for colorful forest birds and occasional monkeys. Reach Sine Hut (2,596m) in the afternoon. Distance: 9km, hiking time: 5-6 hours.",
-        meals: { breakfast: true, lunch: true, dinner: true },
-        accommodation: "Sine Hut"
-      },
-      {
-        day: 4,
-        title: "Trek Day 2: Sine Hut to Mutinda Camp",
-        description: "Continue ascending through bamboo forest into the heather-rapanea zone with its mossy forests and beautiful valley views. Cross several small streams before reaching Mutinda Camp (3,590m). Optional short climb to Mutinda Lookout for panoramic views. Distance: 7km, hiking time: 6-7 hours.",
-        meals: { breakfast: true, lunch: true, dinner: true },
-        accommodation: "Mutinda Camp"
-      },
-      {
-        day: 5,
-        title: "Trek Day 3: Mutinda to Bugata Camp",
-        description: "Trek through the Alpine vegetation zone with giant lobelias, everlasting flowers, and interesting flora. Cross the Bugata wetland then climb to Bugata Camp (4,100m). Enjoy stunning views across valleys and surrounding peaks. Distance: 6km, hiking time: 5-6 hours.",
-        meals: { breakfast: true, lunch: true, dinner: true },
-        accommodation: "Bugata Camp"
-      },
-      {
-        day: 6,
-        title: "Trek Day 4: Bugata to Hunwick's Camp",
-        description: "An acclimatization day with a shorter trek over steep sections to Hunwick's Camp (3,974m). Spectacular views of the Rwenzori peaks, glaciers, and surrounding landscape. In the afternoon, relax at camp or take a short acclimatization walk to prepare for higher elevations. Distance: 5km, hiking time: 4-5 hours.",
-        meals: { breakfast: true, lunch: true, dinner: true },
-        accommodation: "Hunwick's Camp"
-      },
-      {
-        day: 7,
-        title: "Trek Day 5: Descent to Kiharo Camp",
-        description: "Begin descending through different vegetation zones, with changing flora and increasing oxygen levels. Reach Kiharo Camp (3,460m) in the bamboo forest. Enjoy a celebratory dinner with your trekking team. Distance: 10km, hiking time: 6-7 hours.",
-        meals: { breakfast: true, lunch: true, dinner: true },
-        accommodation: "Kiharo Camp"
-      },
-      {
-        day: 8,
-        title: "Trek Day 6 & Return to Kampala",
-        description: "Final descent to the park gate through lush forest. Bid farewell to your trekking team and transfer back to Kampala, arriving in the evening. Distance: 12km, hiking time: 5-6 hours.",
-        meals: { breakfast: true, lunch: true, dinner: false },
-        accommodation: null
-      }
-    ],
-    reviews: [
-      {
-        id: "review-001",
-        name: "James Henderson",
-        rating: 5,
-        comment: "One of Africa's hidden treasures. The landscapes are otherworldly - like walking on another planet when you get among the giant lobelias. Our guides were fantastic and the huts more comfortable than expected. Challenging but absolutely worth it!",
-        date: "2024-07-15"
-      },
-      {
-        id: "review-002",
-        name: "Sylvia Walters",
-        rating: 4,
-        comment: "A truly unique trekking experience unlike any other in Africa. The vegetation zones are fascinating and the mountain views spectacular. Be prepared for mud and rain, but the experience is unforgettable. The local guides share wonderful insights about the mountains.",
-        date: "2024-09-22"
-      },
-      {
-        id: "review-003",
-        name: "Michael Trudeau",
-        rating: 5,
-        comment: "For experienced trekkers looking for something different, the Rwenzoris are perfect. Less crowded than Kilimanjaro with equally spectacular scenery. The giant lobelias and groundsels create an almost prehistoric landscape. Physically demanding but well-organized support.",
-        date: "2025-01-05"
-      }
-    ],
-    rating: 4.7,
-    customizationOptions: {
-      accommodation: [
-      {
-        id: "acc-001",
-        name: "Basic Mountain Huts",
-        type: "accommodation",
-        description: "Basic mountain huts along the trekking route with shared facilities and sleeping bags provided.",
-        priceAdjustment: -300000 // UGX
-      },
-      {
-        id: "acc-002",
-        name: "Standard Mountain Lodges",
-        type: "accommodation",
-        description: "Standard mountain lodges with better facilities and meals included throughout the trek.",
-        priceAdjustment: 0
-      },
-      {
-        id: "acc-003",
-        name: "Premium Mountain Lodges",
-        type: "accommodation",
-        description: "Premium mountain lodges with enhanced comfort, better food, and additional services.",
-        priceAdjustment: 800000 // UGX
-      },
-      {
-        id: "acc-004",
-        name: "Camping Experience",
-        type: "accommodation",
-        description: "Camping experience with high-quality tents and camping equipment for adventurous trekkers.",
-        priceAdjustment: -200000 // UGX
-      }
-    ],
-      activities: [
-      {
-        id: "act-001",
-        name: "Margherita Peak Summit",
-        type: "activity",
-        description: "Summit attempt to Margherita Peak (5,109m), the highest peak in the Rwenzori Mountains. Includes specialized gear and guides.",
-        priceAdjustment: 500000 
-      },
-      {
-        id: "act-002",
-        name: "Cultural Community Visit",
-        type: "activity",
-        description: "Visit Bakonzo communities around Rwenzori to learn about mountain culture and traditions.",
-        priceAdjustment: 80000 
-      },
-      {
-        id: "act-003",
-        name: "Nature Photography Workshop",
-        type: "activity",
-        description: "Professional photography workshop focusing on mountain landscapes and endemic flora.",
-        priceAdjustment: 150000 
-      },
-      {
-        id: "act-004",
-        name: "Botanical Tour",
-        type: "activity",
-        description: "Specialized botanical tour focusing on unique Rwenzori flora including giant lobelias.",
-        priceAdjustment: 100000 
-      },
-      {
-        id: "act-005",
-        name: "Rock Climbing Experience",
-        type: "activity",
-        description: "Rock climbing sessions on Rwenzori rock faces with professional climbing guides.",
-        priceAdjustment: 200000 
-      }
-    ],
-      transportation: [
-      {
-        id: "trans-001",
-        name: "Shared Transfer Vehicle",
-        type: "transportation",
-        description: "Shared vehicle transfer from Kampala to Kasese and return. Budget option for trekkers.",
-        priceAdjustment: -100000 
-      },
-      {
-        id: "trans-002",
-        name: "Private Transfer Vehicle",
-        type: "transportation",
-        description: "Private vehicle transfer with professional driver for comfortable journey to trek starting point.",
-        priceAdjustment: 0
-      },
-      {
-        id: "trans-003",
-        name: "Luxury Transfer Vehicle",
-        type: "transportation",
-        description: "Premium vehicle with air conditioning and comfort features for transfers to and from Rwenzori.",
-        priceAdjustment: 150000 
-      },
-      {
-        id: "trans-004",
-        name: "Helicopter Access",
-        type: "transportation",
-        description: "Helicopter transfer to higher camps to reduce trekking time and physical demands.",
-        priceAdjustment: 4000000 
-      }
-    ],
-      duration: [
-      {
-        id: "dur-001",
-        name: "5 Days Central Circuit",
-        type: "duration",
-        description: "5-day central circuit trek to Guy Yeoman Hut without summit attempt.",
-        priceAdjustment: -400000 
-      },
-      {
-        id: "dur-002",
-        name: "7 Days Standard Trek",
-        type: "duration",
-        description: "Standard 7-day trek to Margherita Peak with acclimatization days.",
-        priceAdjustment: 0
-      },
-      {
-        id: "dur-003",
-        name: "9 Days Extended Trek",
-        type: "duration",
-        description: "Extended 9-day trek with multiple peak attempts and comprehensive exploration.",
-        priceAdjustment: 500000 
-      },
-      {
-        id: "dur-004",
-        name: "12 Days Comprehensive Adventure",
-        type: "duration",
-        description: "Most comprehensive Rwenzori experience with all peaks and cultural activities.",
-        priceAdjustment: 800000 
-      }
-    ]
-    },
-    featured: false
-  },
   // {
   //   id: "tour-022",
   //   slug: "lake-mburo-uganda-safari",
