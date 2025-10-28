@@ -152,7 +152,7 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
                 {paymentType === 'deposit' ? (
                   <>
                     <div className="flex justify-between items-center py-2 bg-blue-50 rounded px-3">
-                      <span className="font-medium text-blue-800">Deposit (20%):</span>
+                      <span className="font-medium text-blue-800">Deposit (40%):</span> {/* Changed from 20% */}
                       <span className="font-semibold text-blue-900">${paymentAmounts.depositAmount.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between items-center py-2 text-sm text-gray-600">

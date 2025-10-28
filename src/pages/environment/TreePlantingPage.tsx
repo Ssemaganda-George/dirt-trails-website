@@ -57,7 +57,7 @@ const TreePlantingPage = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-stone-800">Add the Tree Planting Option</h3>
-                  <p className="text-stone-600">During checkout, add the $3+ tree planting option to your booking.</p>
+                  <p className="text-stone-600">During checkout, add the $5+ tree planting option to your booking.</p>
                 </div>
               </div>
               

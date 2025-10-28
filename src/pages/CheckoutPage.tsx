@@ -213,7 +213,7 @@ const CheckoutPage = () => {
 
   const calculatePaymentAmounts = () => {
     const totalPrice = calculateTotalPrice();
-    const depositAmount = totalPrice * 0.2;
+    const depositAmount = totalPrice * 0.4; // Changed from 0.2 to 0.4
     const remainingBalance = totalPrice - depositAmount;
     
     return {
@@ -280,7 +280,7 @@ const CheckoutPage = () => {
       <div className="flex items-center space-x-2 p-4 border rounded-lg hover:border-green-300 cursor-pointer">
         <RadioGroupItem value="deposit" id="deposit" />
         <Label htmlFor="deposit" className="flex flex-col cursor-pointer w-full">
-          <span className="font-semibold">Pay 20% Deposit Now</span>
+          <span className="font-semibold">Pay 40% Deposit Now</span> {/* Changed from 20% */}
           <span className="text-sm text-muted-foreground">
             Secure your booking with ${calculatePaymentAmounts().depositAmount.toLocaleString()} deposit
           </span>
