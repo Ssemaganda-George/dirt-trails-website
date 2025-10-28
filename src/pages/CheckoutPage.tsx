@@ -54,6 +54,8 @@ const CheckoutPage = () => {
 
   const [numberOfPeople, setNumberOfPeople] = useState(urlNumberOfPeople);
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [treePlantingSelected, setTreePlantingSelected] = useState(false);
+  const [treePlantingAmount, setTreePlantingAmount] = useState(5);
   
   // Parse customizations from URL
   const selectedCustomizations = customizationsParam 
@@ -200,7 +202,13 @@ const CheckoutPage = () => {
       pricePerPersonCalc = pricePerPersonCalc * (1 - tour.discount / 100);
     }
     
-    return pricePerPersonCalc * numberOfPeople;
+    let total = pricePerPersonCalc * numberOfPeople;
+    
+    if (treePlantingSelected) {
+      total += treePlantingAmount; // Add custom amount for tree planting
+    }
+    
+    return total;
   };
 
   const calculatePaymentAmounts = () => {
@@ -744,6 +752,10 @@ const CheckoutPage = () => {
                 paymentMethod={paymentMethod}
                 cryptoAmount={cryptoAmount}
                 selectedCrypto={selectedCrypto}
+                treePlantingSelected={treePlantingSelected}
+                treePlantingAmount={treePlantingAmount}
+                onTreePlantingChange={setTreePlantingSelected}
+                onTreePlantingAmountChange={setTreePlantingAmount}
               />
             </div>
           </div>

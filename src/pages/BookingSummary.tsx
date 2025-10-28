@@ -15,6 +15,10 @@ interface BookingSummaryProps {
   paymentMethod?: string;
   cryptoAmount?: string;
   selectedCrypto?: string;
+  treePlantingSelected?: boolean;
+  treePlantingAmount?: number;
+  onTreePlantingChange?: (selected: boolean) => void;
+  onTreePlantingAmountChange?: (amount: number) => void;
 }
 
 export const BookingSummary: React.FC<BookingSummaryProps> = ({
@@ -30,7 +34,11 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
   calculatePaymentAmounts,
   paymentMethod,
   cryptoAmount,
-  selectedCrypto
+  selectedCrypto,
+  treePlantingSelected = false,
+  treePlantingAmount = 5,
+  onTreePlantingChange,
+  onTreePlantingAmountChange
 }) => {
   const totalPrice = calculateTotalPrice();
   const paymentAmounts = calculatePaymentAmounts?.();
@@ -78,6 +86,56 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
             <span className="font-semibold">-{tourDiscount}%</span>
           </div>
         )}
+        
+        {/* Tree Planting Option */}
+        <div className="border-t border-gray-200 pt-4">
+          <div className="flex items-center justify-between py-2">
+            <button
+              type="button"
+              onClick={() => onTreePlantingChange?.(!treePlantingSelected)}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                treePlantingSelected
+                  ? 'bg-green-600 text-white hover:bg-green-700'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              {treePlantingSelected ? 'Remove Conservation' : 'Add Conservation'}
+            </button>
+          </div>
+          {treePlantingSelected && (
+            <div className="mt-2">
+              <label htmlFor="tree-planting-amount" className="text-xs text-gray-500">Donation Amount (min $5):</label>
+              <div className="flex items-center mt-1">
+                <button
+                  type="button"
+                  onClick={() => onTreePlantingAmountChange?.(Math.max(5, treePlantingAmount - 1))}
+                  className="px-3 py-2 bg-gray-200 text-gray-700 rounded-l-md hover:bg-gray-300 focus:outline-none"
+                >
+                  -
+                </button>
+                <input
+                  id="tree-planting-amount"
+                  type="number"
+                  min="5"
+                  value={treePlantingAmount}
+                  onChange={(e) => onTreePlantingAmountChange?.(Math.max(5, parseFloat(e.target.value) || 5))}
+                  className="block w-full px-3 py-2 border-t border-b border-gray-300 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm text-center"
+                  style={{ MozAppearance: 'textfield' }}
+                />
+                <button
+                  type="button"
+                  onClick={() => onTreePlantingAmountChange?.(treePlantingAmount + 1)}
+                  className="px-3 py-2 bg-gray-200 text-gray-700 rounded-r-md hover:bg-gray-300 focus:outline-none"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          )}
+          <p className="text-xs text-gray-500 mt-1">
+            Help reforest East Africa with every booking (minimum $5).
+          </p>
+        </div>
         
         <div className="border-t border-gray-300 pt-4">
           <div className="flex justify-between items-center py-3 bg-gray-50 rounded-lg px-4">
