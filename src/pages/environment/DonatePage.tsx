@@ -20,7 +20,7 @@ const DonatePage = () => {
 
   const projects = [
     { value: 'wildlife-protection', label: 'Wildlife Protection Fund' },
-    { value: 'reforestation', label: 'African Reforestation Initiative' },
+    { value: 'reforestation', label: 'Reforestation Initiatives' },
     { value: 'community-conservation', label: 'Community Conservation Programs' },
     { value: 'anti-poaching', label: 'Anti-Poaching Efforts' },
   ];

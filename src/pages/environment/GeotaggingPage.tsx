@@ -229,6 +229,76 @@ const GeotaggingPage = () => {
     );
   };
 
+  // Combined header and search component with action buttons
+  const HeaderAndSearch = () => (
+    <Card className="mb-10">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 px-6 pt-8 pb-4">
+        <div className="text-center md:text-left flex-1">
+          <div className="inline-flex items-center justify-center p-2 bg-green-500/10 rounded-full mb-4">
+            <MapPin className="h-6 w-6 text-green-600" />
+          </div>
+          <h1 className="text-4xl font-bold mb-2">Geotagging & Tree Tracking</h1>
+          <p className="text-gray-600 max-w-2xl mx-auto md:mx-0 mb-4">
+            Monitor, search, and celebrate your tree planting impact.
+          </p>
+          {/* Action Buttons */}
+          <div className="flex flex-wrap gap-3 justify-center md:justify-start mt-2">
+            <Button
+              className="bg-green-700 hover:bg-green-800 text-white font-semibold"
+              onClick={() => window.location.href = '/tours'}
+            >
+              Book Safari
+            </Button>
+            <Button
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
+              onClick={() => window.location.href = '/environment/tree-planting'}
+            >
+              Plant Trees
+            </Button>
+            <Button
+              className="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold"
+              onClick={() => window.location.href = '/contact'}
+            >
+              Contact Us
+            </Button>
+            <Button
+              className="bg-orange-600 hover:bg-orange-700 text-white font-semibold"
+              onClick={() => window.location.href = '/environment/donate'}
+            >
+              Donate to Conservation
+            </Button>
+          </div>
+        </div>
+        <div className="flex-1 max-w-xl mx-auto md:mx-0">
+          <div>
+            <CardTitle className="flex items-center mb-2 text-lg">
+              <Search className="mr-2 h-5 w-5" />
+              Find Your Tree by ID
+            </CardTitle>
+            <CardDescription className="mb-4">
+              Enter your Tree ID (e.g., TREE-001) to zoom to your tree on the map.
+            </CardDescription>
+            <div className="flex gap-2">
+              <Input 
+                id="tracking-id" 
+                placeholder="Tree ID (e.g., TREE-001)" 
+                value={trackingId}
+                onChange={(e) => setTrackingId(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleTreeIdSearch()}
+              />
+              <Button onClick={handleTreeIdSearch} className="bg-green-600 hover:bg-green-700">
+                Find
+              </Button>
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              Example IDs: TREE-001, TREE-002, TREE-003, TREE-004, TREE-005
+            </p>
+          </div>
+        </div>
+      </div>
+    </Card>
+  );
+
   return (
     <div className="container mx-auto px-0 py-0">
       {/* Gallery at top */}
@@ -273,48 +343,8 @@ const GeotaggingPage = () => {
         `}</style>
       </div>
 
-      {/* Main header */}
-      <div className="mb-10 text-center">
-        <div className="inline-flex items-center justify-center p-2 bg-green-500/10 rounded-full mb-4">
-          <MapPin className="h-6 w-6 text-green-600" />
-        </div>
-        <h1 className="text-4xl font-bold mb-4">Geotagging & Tree Tracking</h1>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          Monitor, search, and celebrate your tree planting impact.
-        </p>
-      </div>
-
-      {/* Move Find Your Tree by ID above the map for visibility */}
-      <div className="max-w-xl mx-auto mb-8">
-        <Card>
-          <CardHeader className="bg-green-500/10 rounded-t-lg">
-            <CardTitle className="flex items-center">
-              <Search className="mr-2 h-5 w-5" />
-              Find Your Tree by ID
-            </CardTitle>
-            <CardDescription>
-              Enter your Tree ID (e.g., TREE-001) to zoom to your tree on the map.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="pt-6">
-            <div className="flex gap-2">
-              <Input 
-                id="tracking-id" 
-                placeholder="Tree ID (e.g., TREE-001)" 
-                value={trackingId}
-                onChange={(e) => setTrackingId(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleTreeIdSearch()}
-              />
-              <Button onClick={handleTreeIdSearch} className="bg-green-600 hover:bg-green-700">
-                Find
-              </Button>
-            </div>
-            <p className="text-xs text-gray-500 mt-2">
-              Example IDs: TREE-001, TREE-002, TREE-003, TREE-004, TREE-005
-            </p>
-          </CardContent>
-        </Card>
-      </div>
+      {/* Combined header and search */}
+      <HeaderAndSearch />
 
       {/* Map */}
       <div className="w-full mb-10" style={{ height: "60vh", minHeight: 350, maxHeight: "80vh" }}>
