@@ -1,19 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom'; // added useLocation
 import { Send, MessageCircle, X, Bot, User, Leaf, MapPin, Calendar, Star, DollarSign } from 'lucide-react';
 import { tours as siteTours } from '@/data/tours';
 import { destinations as siteDestinations } from '@/data/destinations';
 import { siteContent } from '@/data/siteContent';
 import Fuse from 'fuse.js';
 
-/**
- * ChatBot
- * - Automatically indexes local site data (tours, destinations, key pages)
- * - Returns contextual answers and actionable buttons that navigate the SPA
- * - Keeps a simple local "search" across known site content
- */
 const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) => {
   const navigate = useNavigate();
+  const location = useLocation(); // NEW: track route so we can scan page content
   // fall back to embedded data if parent doesn't pass tours
   const allTours = (tours && tours.length > 0) ? tours : siteTours;
   const [open, setOpen] = useState(false);
@@ -46,6 +41,77 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
     { title: 'Tree Planting', path: '/environment/tree-planting', snippet: 'Support tree planting initiatives.' },
     { title: 'Geotagging', path: '/environment/geotagging', snippet: 'Geotagging and monitoring projects.' },
   ];
+
+  // NEW: store a combined dynamic index (site content + destinations + tours + scanned page content)
+  const [combinedIndex, setCombinedIndex] = useState<any[]>([]);
+
+  // NEW: extract visible content from the current page to include in search results
+  const scanPageContent = (): { title: string; path: string; content: string } | null => {
+    try {
+      const path = window.location.pathname + window.location.search;
+      // prefer a page H1, then document.title, then path
+      const title = (document.querySelector('h1')?.textContent || document.title || path).trim();
+      // try a series of containers that usually contain main page text
+      const containerSelectors = ['main', 'article', 'section', '#root', 'body'];
+      let contentText = '';
+      for (const sel of containerSelectors) {
+        const el = document.querySelector(sel);
+        if (el) {
+          // get visible text only
+          const txt = (el as HTMLElement).innerText || el.textContent || '';
+          if (txt && txt.trim().length > 20) {
+            contentText = txt.trim();
+            break;
+          }
+        }
+      }
+      if (!contentText) {
+        contentText = (document.body && (document.body.innerText || document.body.textContent) || '').trim();
+      }
+      if (!contentText) return null;
+      // clamp size to avoid extremely large items
+      const snippet = contentText.replace(/\s+/g, ' ').slice(0, 3000);
+      return { title, path, content: snippet };
+    } catch (err) {
+      console.error('scanPageContent error', err);
+      return null;
+    }
+  };
+
+  // NEW: rebuild combined index when chat opens or route changes
+  useEffect(() => {
+    if (!open) return; // only scan when chat is open (optional)
+    const pageItem = scanPageContent();
+
+    // convert tours & destinations into simple index entries
+    const tourItems = allTours.map(t => ({
+      title: t.name,
+      path: `/tours/${t.slug}`,
+      content: `${t.tagline || ''}\n${t.description || ''}`.trim()
+    }));
+
+    const destItems = siteDestinations.map(d => ({
+      title: d.name,
+      path: `/destinations/${d.slug}`,
+      content: `${d.shortDescription || ''}\n${d.description || ''}`.trim()
+    }));
+
+    // siteContent (pages) already exists — keep as-is
+    const pageItems = siteContent.map(p => ({
+      title: p.title,
+      path: p.path,
+      content: p.content || ''
+    }));
+
+    const merged = [
+      ...pageItems,
+      ...tourItems,
+      ...destItems,
+      // include scanned page content as highest-priority item for the current path
+      ...(pageItem ? [pageItem] : [])
+    ];
+    setCombinedIndex(merged);
+  }, [location.pathname, open]); // regenerate when route changes or chat opens
 
   const generateContextualResponse = (userMessage: string) => {
     const q = (userMessage || '').toLowerCase();
@@ -129,19 +195,20 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
       if (locMatches.length) return { text: `Here are tours in that area: \n${locMatches.map(t=>`• ${t.name} - $${t.price.toLocaleString()}`).join('\n')}`, actions: locMatches.map(t=>({ label: t.name, path: `/tours/${t.slug}`})) };
     }
 
-    // Fuzzy search using Fuse.js across the small siteContent index and destinations.
-    // Fuse provides better matching and ranking for user queries (typos, partial words).
+    // Fuzzy search using Fuse.js across the dynamic combined index (includes scanned page content)
     if (q && q.length > 2) {
       try {
-        const fuse = new Fuse(siteContent, {
+        const searchIndex = combinedIndex.length ? combinedIndex : siteContent; // fallback
+        const fuse = new Fuse(searchIndex, {
           keys: ['title', 'content'],
           threshold: 0.35,
           includeMatches: true,
           ignoreLocation: true,
         });
 
-        const results = fuse.search(q, { limit: 5 });
+        const results = fuse.search(q, { limit: 6 });
 
+        // keep destFuse for the original destinations array to get structured destination items too
         const destFuse = new Fuse(siteDestinations, {
           keys: ['name', 'shortDescription', 'description'],
           threshold: 0.35,
@@ -151,19 +218,19 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
 
         if (results.length || destResults.length) {
           const actions: any[] = [];
-          const snippets = results.slice(0, 3).map(r => {
+          const snippets = results.slice(0, 4).map(r => {
             const item = (r as any).item;
             actions.push({ label: item.title, path: item.path });
 
-            // try to extract a context snippet using Fuse matches if available
-            let excerpt = item.content.slice(0, 200) + (item.content.length > 200 ? '...' : '');
+            // extract snippet via matches when available
+            let excerpt = (item.content || '').slice(0, 200) + ((item.content || '').length > 200 ? '...' : '');
             const matches = (r as any).matches;
             if (matches && matches.length) {
               const match = matches[0];
               if (match.indices && match.indices.length) {
                 const idx = match.indices[0][0];
                 const start = Math.max(0, idx - 60);
-                excerpt = (start > 0 ? '...' : '') + item.content.slice(start, Math.min(start + 200, item.content.length)) + (item.content.length > start + 200 ? '...' : '');
+                excerpt = (start > 0 ? '...' : '') + (item.content || '').slice(start, Math.min(start + 200, (item.content || '').length)) + ((item.content || '').length > start + 200 ? '...' : '');
               }
             }
 
@@ -172,7 +239,7 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
 
           destResults.forEach(d => actions.push({ label: (d as any).item.name, path: `/destinations/${(d as any).item.slug}` }));
 
-          const header = results.length ? `I found these pages that match "${userMessage}":` : `I found these destinations related to "${userMessage}":`;
+          const header = results.length ? `I found these pages and content that match "${userMessage}":` : `I found these destinations related to "${userMessage}":`;
           const body = snippets + (destResults.length ? '\n\n' + destResults.map(d => `• ${(d as any).item.name} — ${(d as any).item.shortDescription || ''}`).join('\n') : '');
 
           return { text: `${header}\n\n${body}`, actions };
