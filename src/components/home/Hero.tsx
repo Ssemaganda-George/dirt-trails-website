@@ -234,9 +234,9 @@ const Hero = () => {
 
   const handleLinkClick = (section) => {
     if (section === 'conservation') {
+      // go to geomapping page
       window.location.href = '/environment/geotagging';
-    } 
-     else if (section === 'tours') {
+    } else if (section === 'tours') {
       window.location.href = '/tours';
     }
   };
