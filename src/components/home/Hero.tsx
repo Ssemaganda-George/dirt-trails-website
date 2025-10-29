@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Search, MapPin, Calendar, Users, Compass, Eye, Trees, ChevronDown } from 'lucide-react';
+import { Link } from 'react-router-dom'; // added
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -347,24 +348,25 @@ const Hero = () => {
 
           {/* Call to action buttons */}
           <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 lg:gap-4 justify-center xl:justify-start">
-            <button 
-              onClick={() => handleLinkClick('tours')}
+            <Link
+              to="/tours"
+              state={{ from: 'hero' }}
               className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-4 sm:px-5 lg:px-6 py-2 sm:py-2.5 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 border-0 flex items-center justify-center gap-2 text-sm sm:text-base focus:outline-none focus:ring-4 focus:ring-green-400"
               aria-label="Plan your safari - navigate to tours page"
             >
               <Eye size={16} aria-hidden="true" />
               Plan My Safari
-              
-            </button>
+            </Link>
             
-            <button 
-              onClick={() => handleLinkClick('conservation')}
+            <Link
+              to="/environment/geotagging"
+              state={{ from: 'hero' }}
               className="border-2 border-green-400/80 bg-green-500/20 backdrop-blur-sm text-green-200 hover:bg-green-500 hover:text-white px-4 sm:px-5 lg:px-6 py-2 sm:py-2.5 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base focus:outline-none focus:ring-4 focus:ring-green-400"
               aria-label="Explore conservation initiatives - navigate to geotagging page"
             >
               <Trees size={16} aria-hidden="true" />
               Explore Conservation
-            </button>
+            </Link>
           </div>
         </div>
 
