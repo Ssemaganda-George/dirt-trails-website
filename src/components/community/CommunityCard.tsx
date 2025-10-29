@@ -17,6 +17,7 @@ const CommunityCard: React.FC<Props> = ({ title, image, description, link, cta =
     <article
       className={styles.card}
       aria-labelledby={`card-${title.replace(/\s+/g, "-").toLowerCase()}`}
+      role="article"
     >
       {image && (
         <div className={styles.cardImage}>
@@ -33,22 +34,24 @@ const CommunityCard: React.FC<Props> = ({ title, image, description, link, cta =
         </h3>
         <p className={styles.cardDesc}>{description}</p>
 
-        {/* CTAs: internal routes use Link, external open in new tab */}
-        {isExternal ? (
-          <a
-            className={styles.button}
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${cta} - opens in a new tab`}
-          >
-            {cta}
-          </a>
-        ) : (
-          <Link className={styles.button} to={link} aria-label={cta}>
-            {cta}
-          </Link>
-        )}
+        {/* CTA placed in footer so it stays at bottom */}
+        <div className={styles.cardFooter}>
+          {isExternal ? (
+            <a
+              className={styles.button}
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${cta} - opens in a new tab`}
+            >
+              {cta}
+            </a>
+          ) : (
+            <Link className={styles.button} to={link} aria-label={cta}>
+              {cta}
+            </Link>
+          )}
+        </div>
       </div>
     </article>
   );

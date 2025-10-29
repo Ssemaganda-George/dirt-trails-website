@@ -25,6 +25,14 @@
   color: rgba(255,255,255,0.9);
 }
 
+/* Hero title */
+.heroTitle {
+  font-size: 2rem;
+  margin: 0;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
 /* page container */
 .container {
   max-width: 1100px;
@@ -117,6 +125,12 @@
   flex-direction: column;
   flex: 1;
 }
+.cardFooter {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
 .cardTitle {
   margin: 0 0 0.5rem 0;
   font-size: 1.05rem;
@@ -128,14 +142,22 @@
   color: #374151;
   font-size: 0.95rem;
 }
+
+/* slightly larger tappable CTA and refined border-radius */
 .button {
   align-self: flex-start;
   background: var(--ct-accent);
   color: #fff;
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+.button:hover,
+.button:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(16,24,40,0.08);
 }
 
 /* footer note */
