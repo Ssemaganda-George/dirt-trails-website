@@ -145,8 +145,8 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
     const relevantTours = selectedCountry ? allTours.filter(t => t.country === selectedCountry) : allTours;
 
     // Basic site metadata
-    const companyName = 'Dirt Trails Safaris';
-    const companyTagline = 'Professional, sustainable and unforgettable safari experiences';
+    const companyName = 'Dirt Trails Virtual guide';
+    const companyTagline = 'Professional, sustainable and unforgettable safari assistant';
 
     // Handle direct company identity / about questions first
     if (/\b(what('?| i)s the name|what('?| i)s this company|company name|who are you|what('?| i)s your name)\b/.test(q)) {
