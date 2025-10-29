@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { tours, Tour } from '../../data/tours'; // <-- new import
+import { useRouter } from 'next/router';
 
 const CustomDropdown = ({ label, icon, value, options, onChange, placeholder }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -124,6 +125,7 @@ const treeDataList = [
 ];
 
 const Hero = () => {
+  const router = typeof window !== 'undefined' ? useRouter() : null;
   const [destination, setDestination] = useState('Uganda');
   const [days, setDays] = useState('Five');
   const [guests, setGuests] = useState('4 adults');
@@ -232,12 +234,26 @@ const Hero = () => {
     setIsSearching(false);
   };
 
-  const handleLinkClick = (section) => {
-    if (section === 'conservation') {
-      // go to geomapping page
-      window.location.href = '/environment/geotagging';
-    } else if (section === 'tours') {
-      window.location.href = '/tours';
+  const handleLinkClick = (section: string) => {
+    // Prefer client-side routing to avoid full reloads (fixes mobile navigation issues).
+    try {
+      if (section === 'conservation') {
+        if (router && typeof router.push === 'function') {
+          router.push('/environment/geotagging');
+        } else {
+          window.location.href = '/environment/geotagging';
+        }
+      } else if (section === 'tours') {
+        if (router && typeof router.push === 'function') {
+          router.push('/tours');
+        } else {
+          window.location.href = '/tours';
+        }
+      }
+    } catch (err) {
+      // fallback to full navigation if router fails
+      if (section === 'conservation') window.location.href = '/environment/geotagging';
+      if (section === 'tours') window.location.href = '/tours';
     }
   };
 
@@ -426,7 +442,20 @@ const Hero = () => {
                     </div>
                     <div className="text-right">
                       <div className="text-xs font-bold text-gray-800">{t.rating}★</div>
-                      <a href={`/tours/${t.slug}`} className="text-xs text-green-700 hover:underline">View</a>
+                      <a
+                        href={`/tours/${t.slug}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (router && typeof router.push === 'function') {
+                            router.push(`/tours/${t.slug}`);
+                          } else {
+                            window.location.href = `/tours/${t.slug}`;
+                          }
+                        }}
+                        className="text-xs text-green-700 hover:underline"
+                      >
+                        View
+                      </a>
                     </div>
                   </li>
                 ))}
@@ -478,7 +507,20 @@ const Hero = () => {
                         </div>
                         <div className="text-right">
                           <div className="text-xs font-bold text-gray-800">{t.rating}★</div>
-                          <a href={`/tours/${t.slug}`} className="text-xs text-green-700 hover:underline">View</a>
+                          <a
+                            href={`/tours/${t.slug}`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              if (router && typeof router.push === 'function') {
+                                router.push(`/tours/${t.slug}`);
+                              } else {
+                                window.location.href = `/tours/${t.slug}`;
+                              }
+                            }}
+                            className="text-xs text-green-700 hover:underline"
+                          >
+                            View
+                          </a>
                         </div>
                       </li>
                     ))}
