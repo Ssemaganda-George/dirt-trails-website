@@ -52,22 +52,10 @@ const DonatePage = () => {
     setIsSending(true);
     setEmailError('');
     
-    if (isAnonymous) {
-      // For anonymous donations, show details immediately without sending
-      toast({
-        title: 'Thank You',
-        description: 'Thank you for your anonymous donation. Use the details below to complete your donation. Note: No email confirmation will be sent.',
-        duration: 20000,
-      });
-      setShowDetails(true);
-      setIsSending(false);
-      return;
-    }
-    
     try {
       const formData = new FormData();
-      formData.append('user_name', name);
-      formData.append('user_email', email);
+      formData.append('user_name', isAnonymous ? 'Anonymous' : name);
+      formData.append('user_email', isAnonymous ? '' : email);
       formData.append('project', projects.find(p => p.value === project)?.label || '');
       formData.append('amount', amount);
       formData.append('_subject', 'Donation Bank Details Request');
@@ -81,11 +69,19 @@ const DonatePage = () => {
       });
 
       if (response.ok) {
-        toast({
-          title: 'Thank You',
-          description: 'Thank you for your interest in donating to conservation. Use the details below to complete your donation, and we will send you a notification upon receiving the donation.',
-          duration: 20000,
-        });
+        if (isAnonymous) {
+          toast({
+            title: 'Thank You',
+            description: 'Thank you for your anonymous donation. Use the details below to complete your donation. Note: No email confirmation will be sent.',
+            duration: 20000,
+          });
+        } else {
+          toast({
+            title: 'Thank You',
+            description: 'Thank you for your interest in donating to conservation. Use the details below to complete your donation, and we will send you a notification upon receiving the donation.',
+            duration: 20000,
+          });
+        }
         setShowDetails(true);
       } else {
         throw new Error('Failed to send request');

@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { MapPin, Search, TreePine, Camera, Smartphone, QrCode, AlertCircle } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom"; // Add this import
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -82,6 +83,7 @@ const GeotaggingPage = () => {
   const [mapZoom, setMapZoom] = useState(7);
   const hasCenteredOnUser = useRef(false);
   const mapRef = useRef<any>(null);
+  const navigate = useNavigate(); // Add this hook
 
   const trackingDatabase = {
     'EAT-2023-12345': {
@@ -245,25 +247,25 @@ const GeotaggingPage = () => {
           <div className="flex flex-wrap gap-3 justify-center md:justify-start mt-2">
             <Button
               className="bg-green-700 hover:bg-green-800 text-white font-semibold"
-              onClick={() => window.location.href = '/tours'}
+              onClick={() => navigate('/tours')} // Update to use navigate
             >
               Book Safari
             </Button>
             <Button
               className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
-              onClick={() => window.location.href = '/environment/tree-planting'}
+              onClick={() => navigate('/environment/tree-planting')} // Update to use navigate
             >
               Plant Trees
             </Button>
             <Button
               className="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold"
-              onClick={() => window.location.href = '/contact'}
+              onClick={() => navigate('/contact')} // Update to use navigate
             >
               Contact Us
             </Button>
             <Button
               className="bg-orange-600 hover:bg-orange-700 text-white font-semibold"
-              onClick={() => window.location.href = '/environment/donate'}
+              onClick={() => navigate('/environment/donate')} // Update to use navigate
             >
               Donate to Conservation
             </Button>
