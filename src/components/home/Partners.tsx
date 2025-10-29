@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Compass, CheckCircle, Star, TreePine, Handshake, Award } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const PartnerCard = ({ name, logo, description, delay = 0 }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -101,8 +102,15 @@ const Partners = () => {
             We collaborate with leading conservation organizations, tourism boards, and industry associations 
             to ensure exceptional experiences while protecting Uganda's natural heritage and supporting local communities.
           </p>
-          
-          
+
+          {/* Quick contact link */}
+          <div className="mt-6">
+            <Link to="/contact">
+              <button className="inline-flex items-center gap-2 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-6 py-2 rounded-lg font-semibold transition-transform transform hover:scale-105">
+                Patner with Us
+              </button>
+            </Link>
+          </div>
         </div>
         
         {/* Partner cards grid - centered for 2 items */}

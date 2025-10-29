@@ -164,7 +164,7 @@ const ContactPage = () => {
                       <option value="gorilla">Gorilla Trekking</option>
                       <option value="custom">Custom Itinerary</option> 
                       <option value="Consultancy">Conservation Consultancy</option>
-                      <option value="Collaboration">Collaboration</option>
+                      <option value="Collaboration">Patnership & Collaboration</option>
                       <option value="other">Other</option>
                     </select>
                   </div>
@@ -230,7 +230,7 @@ const ContactPage = () => {
                     <Phone className="h-8 w-8 text-safari-green mr-6 shrink-0 mt-1" />
                     <div>
                       <h3 className="text-xl font-semibold mb-2 text-gray-900">Phone</h3>
-                      <p className="text-gray-600 text-lg">+256 759 918649</p>
+                      <p className="text-gray-600 text-lg">+256 759 918649 | +256 772 560466</p>
                     </div>
                   </div>
                   <div className="flex items-start hover:bg-gray-50 p-4 rounded-lg transition-colors duration-300">
