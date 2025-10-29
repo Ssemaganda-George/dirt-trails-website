@@ -1,0 +1,3 @@
+# Removed SPA fallback redirect — this site is multi-page so let Netlify serve real files.
+# If you later need an SPA fallback, add:
+# /*    /index.html   200
