@@ -62,6 +62,9 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
   const UGX_PER_USD = 3700; // example rate
   const ugxToUsd = (ugx: number) => Math.round((ugx / UGX_PER_USD) * 100) / 100;
 
+  // guard & typing helper for incoming customizations to avoid `unknown` errors
+  const safeSelectedCustomizations = (selectedCustomizations ?? {}) as Record<string, any>;
+
   // compute per-person discounts based on group size:
   const basePrice = getCurrentPricePerPerson();
   const discountPercent =
@@ -75,9 +78,10 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
   const baseSubtotal = Math.round(adjustedPricePerPerson * Math.max(1, numberOfPeople) * 100) / 100;
 
   // customization totals: priceAdjustment is UGX per person => convert to USD and multiply by people
-  const customizationTotalUgx = Object.values(selectedCustomizations || {}).reduce((sum: number, opt: any) => {
+  const customizationTotalUgx = Object.values(safeSelectedCustomizations).reduce((sum: number, opt: any) => {
     if (!opt) return sum;
-    return sum + (opt.priceAdjustment || 0) * numberOfPeople;
+    const adj = Number((opt as any)?.priceAdjustment ?? 0);
+    return sum + adj * numberOfPeople;
   }, 0);
   const customizationTotalUsd = ugxToUsd(customizationTotalUgx);
 
@@ -98,9 +102,9 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
       : { totalPrice: finalTotal, depositAmount: 0, remainingBalance: 0 }
   );
   
-  // Filter out null/undefined values from selectedCustomizations
-  const validCustomizations = Object.entries(selectedCustomizations).filter(([key, value]) => value != null);
-  
+  // Filter out null/undefined values from selectedCustomizations and cast result for safe use
+  const validCustomizations = Object.entries(safeSelectedCustomizations).filter(([key, value]) => value != null) as [string, any][];
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200 h-fit sticky top-8">
       <div className="flex items-center justify-between mb-6 border-b border-gray-200 pb-3">
@@ -140,12 +144,16 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
           <div className="border-t border-gray-200 pt-4">
             <p className="font-semibold mb-3 text-gray-900">Customizations:</p>
             <div className="space-y-2">
-              {validCustomizations.map(([key, value]: [string, any]) => (
-                <div key={key} className="flex justify-between items-center py-1">
-                  <span className="text-sm text-gray-700">{value.name}:</span>
-                  <span className="text-sm font-medium text-gray-900">+${ugxToUsd(value.priceAdjustment).toFixed(2)} / person</span>
-                </div>
-              ))}
+              {validCustomizations.map(([key, value]: [string, any]) => {
+                const perPersonUgx = Number((value as any)?.priceAdjustment ?? 0);
+                const perPersonUsd = ugxToUsd(perPersonUgx);
+                return (
+                  <div key={key} className="flex justify-between items-center py-1">
+                    <span className="text-sm text-gray-700">{value.name}:</span>
+                    <span className="text-sm font-medium text-gray-900">+${perPersonUsd.toFixed(2)} / person</span>
+                  </div>
+                );
+              })}
              <div className="flex justify-between items-center pt-2 border-t border-gray-100">
                <span className="text-sm text-gray-700 font-medium">Customizations total:</span>
                <span className="text-sm font-semibold text-gray-900">${customizationTotalUsd.toFixed(2)}</span>
