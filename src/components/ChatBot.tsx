@@ -45,6 +45,9 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
   // NEW: store a combined dynamic index (site content + destinations + tours + scanned page content)
   const [combinedIndex, setCombinedIndex] = useState<any[]>([]);
 
+  // NEW: count of tours to display in header (attempt DOM read on /tours, fallback to data)
+  const [tourCount, setTourCount] = useState<number>((tours && tours.length > 0) ? tours.length : allTours.length);
+
   // NEW: extract visible content from the current page to include in search results
   const scanPageContent = (): { title: string; path: string; content: string } | null => {
     try {
@@ -112,6 +115,30 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
     ];
     setCombinedIndex(merged);
   }, [location.pathname, open]); // regenerate when route changes or chat opens
+
+  // NEW: compute tourCount when route, open state or tours data change
+  useEffect(() => {
+    const computeCount = () => {
+      // prefer DOM-based count on the tours page so we reflect what's rendered on that page
+      if (typeof window !== 'undefined' && location.pathname.startsWith('/tours')) {
+        try {
+          const selectors = ['[data-tour-item]', '.tour-card', '.tour-list-item', '.tour'];
+          for (const sel of selectors) {
+            const found = document.querySelectorAll(sel);
+            if (found && found.length > 0) return found.length;
+          }
+        } catch (err) {
+          // ignore DOM errors and fall back to data
+        }
+        // fallback to total known tours
+        return allTours.length;
+      }
+      // not on tours page: prefer passed-in tours (could be filtered), otherwise total site tours
+      return (tours && tours.length > 0) ? tours.length : allTours.length;
+    };
+
+    setTourCount(computeCount());
+  }, [location.pathname, open, tours, allTours]);
 
   const generateContextualResponse = (userMessage: string) => {
     const q = (userMessage || '').toLowerCase();
@@ -320,7 +347,7 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
               <div>
                 <h3 className="font-bold text-lg">Safari AI Guide</h3>
                 <p className="text-sm text-green-100">
-                  {tours.length} tours • {selectedCountry || 'All countries'} 🌍
++                  {tourCount} tours • {selectedCountry || 'All countries'} 🌍
                 </p>
               </div>
             </div>
