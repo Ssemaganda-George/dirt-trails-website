@@ -233,11 +233,28 @@ const Hero = () => {
   };
 
   const handleLinkClick = (section) => {
-    if (section === 'conservation') {
-      // go to geomapping page
-      window.location.href = '/environment/geotagging';
-    } else if (section === 'tours') {
-      window.location.href = '/tours';
+    // previous implementation did a full navigation which can produce 404s on static hosts
+    // Replace with a client-side navigation attempt (history.pushState + popstate) and
+    // fall back to a hash-based redirect to avoid server 404s.
+    const path = section === 'conservation' ? '/environment/geotagging' : '/tours';
+
+    if (typeof window !== 'undefined') {
+      try {
+        // Try client-side navigation first so React/Next/Router can handle it without reloading.
+        if (window.history && typeof window.history.pushState === 'function') {
+          window.history.pushState({}, '', path);
+          // Some routers listen for popstate; dispatch to notify them.
+          window.dispatchEvent(new PopStateEvent('popstate'));
+          return;
+        }
+      } catch (e) {
+        // ignore and fallback
+      }
+
+      // Fallback: navigate using a hash fragment to avoid server 404s on static hosts
+      // e.g. https://site.example/#/tours
+      const origin = window.location.origin || '';
+      window.location.href = `${origin}/#${path}`;
     }
   };
 
