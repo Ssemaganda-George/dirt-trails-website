@@ -140,8 +140,85 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
     setTourCount(computeCount());
   }, [location.pathname, open, tours, allTours]);
 
+  // --- NEW: conversation persistence & context tracking ---
+  const STORAGE_KEY = 'dirt_trails_chat_history_v1';
+
+  // conversation context used to resolve short follow-ups and pronouns
+  const [conversationContext, setConversationContext] = useState<{ lastUser?: string; lastBot?: string; topic?: string }>({});
+
+  // Load saved conversation on mount
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        if (Array.isArray(saved) && saved.length > 0) {
+          setMessages(saved.map((m: any) => ({ ...m, timestamp: new Date(m.timestamp) })));
+        }
+      }
+    } catch (err) {
+      // ignore parse errors
+      console.error('ChatBot load error', err);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Save conversation and update context whenever messages change
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    } catch (err) {
+      console.error('ChatBot save error', err);
+    }
+
+    // derive a tiny context from the latest messages for follow-ups
+    if (messages && messages.length) {
+      const lastUser = [...messages].reverse().find(m => m.sender === 'user') as any;
+      const lastBot = [...messages].reverse().find(m => m.sender === 'bot') as any;
+      const lastUserText = lastUser ? String(lastUser.text).trim() : undefined;
+      const lastBotText = lastBot ? String(lastBot.text).trim() : undefined;
+
+      // infer a simple topic keyword from last user text or last bot text
+      const inferTopic = (text?: string) => {
+        if (!text) return undefined;
+        const t = text.toLowerCase();
+        if (/(kenya|uganda|tanzania|rwanda)/.test(t)) return t.match(/kenya|uganda|tanzania|rwanda/)?.[0];
+        if (/(price|cost|budget|cheap|expensive)/.test(t)) return 'price';
+        if (/(wildlife|animals|lion|elephant|big five)/.test(t)) return 'wildlife';
+        if (/(duration|days|long|short)/.test(t)) return 'duration';
+        if (/(book|booking|reserve|availability)/.test(t)) return 'booking';
+        return undefined;
+      };
+
+      const topic = inferTopic(lastUserText) || inferTopic(lastBotText);
+
+      setConversationContext({ lastUser: lastUserText, lastBot: lastBotText, topic });
+    }
+  }, [messages]);
+
+  // small helper to make bot responses feel a bit more human/hospitable
+  const friendlyWrap = (text: string) => {
+    // short friendly intro for clarity, keep it concise
+    const prefix = "Happy to help! ";
+    const suffix = " If you'd like, I can open any page for you.";
+    return `${prefix}${text}${suffix}`;
+  };
+  // --- end new region ---
+
   const generateContextualResponse = (userMessage: string) => {
-    const q = (userMessage || '').toLowerCase();
+    // --- UPDATED: resolve follow-ups/pronouns using conversationContext ---
+    let enrichedMessage = userMessage || '';
+    const qraw = (userMessage || '').toLowerCase();
+
+    // If user uses short follow-ups or pronouns, prepend last user or topic to give context to the search logic
+    const pronounPattern = /\b(it|this|that|they|them|those|he|she|it is|is it)\b/;
+    if ((enrichedMessage.trim().length < 4 || pronounPattern.test(qraw)) && conversationContext.lastUser) {
+      enrichedMessage = `${conversationContext.lastUser}. ${enrichedMessage}`;
+    } else if ((enrichedMessage.trim().length < 4 || pronounPattern.test(qraw)) && conversationContext.topic) {
+      enrichedMessage = `${conversationContext.topic} ${enrichedMessage}`;
+    }
+
+    const q = enrichedMessage.toLowerCase();
     const relevantTours = selectedCountry ? allTours.filter(t => t.country === selectedCountry) : allTours;
 
     // Basic site metadata
@@ -151,7 +228,7 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
     // Handle direct company identity / about questions first
     if (/\b(what('?| i)s the name|what('?| i)s this company|company name|who are you|what('?| i)s your name)\b/.test(q)) {
       return {
-        text: `${companyName} — ${companyTagline}. You can read more about our story and mission on the About page. Would you like me to open it for you?`,
+        text: friendlyWrap(`${companyName} — ${companyTagline}. You can read more about our story and mission on the About page.`),
         actions: [ { label: 'About Dirt Trails', path: '/about' }, { label: 'Contact Us', path: '/contact' } ]
       };
     }
@@ -179,7 +256,7 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
       const avg = Math.round(prices.reduce((a,b)=>a+b,0)/prices.length);
       const budgetTours = relevantTours.filter(t => t.price <= avg).slice(0,3);
       return {
-        text: `💰 Prices typically range from $${min.toLocaleString()} to $${max.toLocaleString()}, average $${avg.toLocaleString()}. Here are some value options: \n${budgetTours.map(t=>`• ${t.name} - $${t.price.toLocaleString()}`).join('\n')}`,
+        text: friendlyWrap(`💰 Prices typically range from $${min.toLocaleString()} to $${max.toLocaleString()}, average $${avg.toLocaleString()}. Here are some value options: \n${budgetTours.map(t=>`• ${t.name} - $${t.price.toLocaleString()}`).join('\n')}`),
         actions: budgetTours.map(t => ({ label: t.name, path: `/tours/${t.slug}`}))
       };
     }
@@ -269,7 +346,7 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
           const header = results.length ? `I found these pages and content that match "${userMessage}":` : `I found these destinations related to "${userMessage}":`;
           const body = snippets + (destResults.length ? '\n\n' + destResults.map(d => `• ${(d as any).item.name} — ${(d as any).item.shortDescription || ''}`).join('\n') : '');
 
-          return { text: `${header}\n\n${body}`, actions };
+          return { text: friendlyWrap(`${header}\n\n${body}`), actions };
         }
       } catch (err) {
         // fallback to previous behavior if Fuse throws for any reason
@@ -278,7 +355,7 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
     }
 
     // default
-    const defaultText = `I'd love to help you plan your safari adventure! 🌿 We currently have ${allTours.length} tours. What would you like to know?`;
+    const defaultText = friendlyWrap(`I'd love to help you plan your safari adventure! 🌿 We currently have ${allTours.length} tours. What would you like to know?`);
     return { text: defaultText, actions: [ { label: 'Browse Tours', path: '/tours' }, { label: 'Contact Us', path: '/contact' } ] };
   };
 
