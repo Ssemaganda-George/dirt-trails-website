@@ -446,7 +446,13 @@ const Hero = () => {
                     </div>
                     <div className="text-right">
                       <div className="text-xs font-bold text-gray-800">{t.rating}★</div>
-                      <a href={`/tours/${t.slug}`} className="text-xs text-green-700 hover:underline">View</a>
+                      <Link
+                        to={`/tours/${t.slug}`}
+                        state={{ from: 'hero-search' }}
+                        className="text-xs text-green-700 hover:underline"
+                      >
+                        View
+                      </Link>
                     </div>
                   </li>
                 ))}
@@ -498,7 +504,13 @@ const Hero = () => {
                         </div>
                         <div className="text-right">
                           <div className="text-xs font-bold text-gray-800">{t.rating}★</div>
-                          <a href={`/tours/${t.slug}`} className="text-xs text-green-700 hover:underline">View</a>
+                          <Link
+                            to={`/tours/${t.slug}`}
+                            state={{ from: 'hero-search' }}
+                            className="text-xs text-green-700 hover:underline"
+                          >
+                            View
+                          </Link>
                         </div>
                       </li>
                     ))}
