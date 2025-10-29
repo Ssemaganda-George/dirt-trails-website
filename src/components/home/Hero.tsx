@@ -3,6 +3,7 @@ import { Search, MapPin, Calendar, Users, Compass, Eye, Trees, ChevronDown } fro
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { tours, Tour } from '../../data/tours'; // <-- new import
 
 const CustomDropdown = ({ label, icon, value, options, onChange, placeholder }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -128,6 +129,11 @@ const Hero = () => {
   const [guests, setGuests] = useState('4 adults');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  // new search state
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchResults, setSearchResults] = useState<Tour[]>([]);
+  const [searchSummary, setSearchSummary] = useState<string>('');
+
   // Place the map as the second slide
   const safariImages = [
     '/images/dt3.jpg',
@@ -167,13 +173,68 @@ const Hero = () => {
     { label: '10+ ', value: '2 adults, 2 children' }
   ];
 
-  const handleSearch = () => {
-    console.log({ destination, days, guests });
+  const durationMap: Record<string, number> = {
+    Three: 3,
+    Five: 5,
+    Seven: 7,
+    Ten: 10
+  };
+
+  const parseGroupNumber = (g: string): number | null => {
+    if (!g) return null;
+    const match = g.match(/\d+/);
+    return match ? parseInt(match[0], 10) : null;
+  };
+
+  const handleSearch = async () => {
+    // set searching state
+    setIsSearching(true);
+    setSearchResults([]);
+    setSearchSummary('');
+
+    // small artificial delay to show the "Searching..." state (can be removed)
+    await new Promise((r) => setTimeout(r, 400));
+
+    const qDestination = (destination || '').trim().toLowerCase();
+    const maxDuration = durationMap[days] ?? undefined;
+    const groupNumber = parseGroupNumber(guests);
+
+    const matches = tours.filter((t) => {
+      // destination match on country OR location (case-insensitive)
+      const destMatch = !qDestination || (
+        (t.country && t.country.toLowerCase().includes(qDestination)) ||
+        (t.location && t.location.toLowerCase().includes(qDestination)) ||
+        (t.name && t.name.toLowerCase().includes(qDestination))
+      );
+
+      // duration match: treat selected value as maximum allowed days
+      const durationMatch = typeof maxDuration === 'number' ? (t.duration <= maxDuration) : true;
+
+      // group match: if pricingTiers exist, check any tier covers the groupNumber
+      let groupMatch = true;
+      if (groupNumber && Array.isArray(t.pricingTiers) && t.pricingTiers.length > 0) {
+        groupMatch = t.pricingTiers.some((pt) => groupNumber >= pt.min && groupNumber <= pt.max);
+      }
+
+      return destMatch && durationMatch && groupMatch;
+    });
+
+    // summary text
+    const summaryParts = [];
+    summaryParts.push(`${matches.length} result${matches.length === 1 ? '' : 's'}`);
+    if (qDestination) summaryParts.push(`for "${destination}"`);
+    if (maxDuration) summaryParts.push(`up to ${maxDuration} day${maxDuration === 1 ? '' : 's'}`);
+    if (groupNumber) summaryParts.push(`group size ${groupNumber}`);
+    const summaryText = summaryParts.join(' • ');
+
+    setSearchResults(matches);
+    setSearchSummary(summaryText);
+    setIsSearching(false);
   };
 
   const handleLinkClick = (section) => {
     if (section === 'conservation') {
-      window.location.href = '/environment/tree-planting';
+      window.location.href = '/environment/geotagging';
     } 
      else if (section === 'tours') {
       window.location.href = '/tours';
@@ -281,7 +342,7 @@ const Hero = () => {
             <button 
               onClick={() => handleLinkClick('conservation')}
               className="border-2 border-green-400/80 bg-green-500/20 backdrop-blur-sm text-green-200 hover:bg-green-500 hover:text-white px-4 sm:px-5 lg:px-6 py-2 sm:py-2.5 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base focus:outline-none focus:ring-4 focus:ring-green-400"
-              aria-label="Explore conservation initiatives - navigate to tree planting page"
+              aria-label="Explore conservation initiatives - navigate to geotagging page"
             >
               <Trees size={16} aria-hidden="true" />
               Explore Conservation
@@ -332,13 +393,54 @@ const Hero = () => {
           <div className="mt-4 sm:mt-5">
             <button 
               onClick={handleSearch} 
+              disabled={isSearching}
               className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white py-2 sm:py-2.5 lg:py-3 px-3 sm:px-4 rounded-lg sm:rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm focus:outline-none focus:ring-4 focus:ring-green-400"
               aria-label="Search for safaris based on selected destination, duration, and group size"
             >
               <Search size={14} aria-hidden="true" />
-              Discover Safari
+              {isSearching ? 'Searching…' : 'Discover Safari'}
             </button>
           </div>
+
+          {/* search results summary & list */}
+          <div className="mt-3" aria-live="polite">
+            {searchSummary && (
+              <div className="text-xs sm:text-sm text-gray-700 bg-white/60 rounded-md p-2">
+                <strong>Summary:</strong> {searchSummary}
+              </div>
+            )}
+
+            {searchResults.length > 0 && (
+              <ul className="mt-2 space-y-2 max-h-48 overflow-auto">
+                {searchResults.slice(0, 5).map((t) => (
+                  <li key={t.id} className="bg-white rounded-md p-2 border border-gray-100 flex items-start gap-2">
+                    <img
+                      src={t.coverImage || t.images?.[0]?.url || '/images/placeholder.jpg'}
+                      alt={t.name}
+                      className="w-14 h-10 object-cover rounded"
+                    />
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold text-gray-800">{t.name}</div>
+                      <div className="text-xs text-gray-600">{t.tagline}</div>
+                      <div className="text-xs text-gray-600 mt-1">Duration: {t.duration}d • Location: {t.location} • Price: {t.price}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xs font-bold text-gray-800">{t.rating}★</div>
+                      <a href={`/tours/${t.slug}`} className="text-xs text-green-700 hover:underline">View</a>
+                    </div>
+                  </li>
+                ))}
+                {searchResults.length > 5 && (
+                  <li className="text-xs text-gray-600">And {searchResults.length - 5} more result(s)...</li>
+                )}
+              </ul>
+            )}
+
+            {!isSearching && searchSummary && searchResults.length === 0 && (
+              <div className="mt-2 text-xs text-gray-600 bg-white/60 rounded-md p-2">No tours matched your selections.</div>
+            )}
+          </div>
+
         </div>
       </div>
 
