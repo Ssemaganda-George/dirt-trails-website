@@ -225,6 +225,30 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
     const companyName = 'Dirt Trails Virtual guide';
     const companyTagline = 'Professional, sustainable and unforgettable safari assistant';
 
+    // NEW: handle comparative / "why choose us" questions with a specific, human reply
+    if (/\b(why (should )?i choose|why choose|why pick (us|dirt trails)|why us|what makes (you|dirt trails) different|what sets (you|dirt trails) apart|better than other|how are you different)\b/.test(q)) {
+      const points = [
+        "Local expertise — our guides and partners are locally based with deep knowledge of wildlife, seasons and logistics.",
+        "Sustainability first — we direct funds to reforestation, geotagging and anti-poaching efforts; many bookings include tree-planting and carbon-offset options.",
+        "Personalised itineraries — small groups, custom trip planning and flexible departures so you get the experience you want.",
+        "Trusted partners & safety — we work with vetted camps, conservation organisations and local authorities to prioritise safety and impact.",
+        "Transparent pricing & value — clear cost breakdowns, recommendations for different budgets, and support through every step of booking."
+      ];
+
+      const answer = `Great question — here's why travellers choose Dirt Trails Safaris:\n\n${points.map((p, i) => `${i+1}. ${p}`).join('\n\n')}\n\nIf you'd like, I can show our sustainability programs, top tours, or open the About page for more details.`;
+
+      return {
+        text: friendlyWrap(answer),
+        actions: [
+          { label: 'About Us', path: '/about' },
+          { label: 'Tree Planting', path: '/environment/tree-planting' },
+          { label: 'Carbon Offset', path: '/environment/carbon-offset' },
+          { label: 'Browse Tours', path: '/tours' },
+          { label: 'Contact Us', path: '/contact' }
+        ]
+      };
+    }
+    
     // Handle direct company identity / about questions first
     if (/\b(what('?| i)s the name|what('?| i)s this company|company name|who are you|what('?| i)s your name)\b/.test(q)) {
       return {
