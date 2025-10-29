@@ -102,26 +102,44 @@ const Partners = () => {
             We collaborate with leading conservation organizations, tourism boards, and industry associations 
             to ensure exceptional experiences while protecting Uganda's natural heritage and supporting local communities.
           </p>
+        </div>
+        
+        {/* Partner marquee - continuous right-to-left sliding */}
+        <div className="mb-8">
+          {/* Inline styles for marquee animation (kept local to component) */}
+          <style>{`
+            .dt-marquee { overflow: hidden; width: 100%; }
+            .dt-marquee-track { display: flex; gap: 1.5rem; align-items: stretch; }
+            /* animate from 0 -> -50% so duplicated content loops seamlessly */
+            @keyframes dt-marquee {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            .dt-marquee-track { animation: dt-marquee 24s linear infinite; }
+            /* pause on hover for accessibility */
+            .dt-marquee:hover .dt-marquee-track { animation-play-state: paused; }
+          `}</style>
 
-          {/* Quick contact link */}
-          <div className="mt-6">
-            <Link to="/contact">
-              <button className="inline-flex items-center gap-2 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-6 py-2 rounded-lg font-semibold transition-transform transform hover:scale-105">
-                Patner with Us
-              </button>
-            </Link>
+          <div className="dt-marquee">
+            <div className="dt-marquee-track">
+              {/* render partners twice to create a seamless loop */}
+              {[...partners, ...partners].map((partner, i) => (
+                <div key={i} className="flex-shrink-0 w-80 sm:w-96">
+                  <PartnerCard {...partner} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         
-        {/* Partner cards grid - centered for 2 items */}
-        <div className="flex justify-center mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl">
-            {partners.map((partner, index) => (
-              <PartnerCard key={index} {...partner} />
-            ))}
-          </div>
+        {/* Partner with Us CTA — placed below the marquee */}
+        <div className="flex justify-center mt-6">
+          <Link to="/contact">
+            <button className="inline-flex items-center gap-2 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-6 py-2 rounded-lg font-semibold transition-transform transform hover:scale-105">
+              Partner with Us
+            </button>
+          </Link>
         </div>
-        
         
       </div>
     </section>
