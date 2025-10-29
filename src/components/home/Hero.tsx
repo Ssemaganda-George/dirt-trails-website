@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Search, MapPin, Calendar, Users, Compass, Eye, Trees, ChevronDown } from 'lucide-react';
-import { Link } from 'react-router-dom'; // added
+import { Link, useLocation, useNavigate } from 'react-router-dom'; // added
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -233,27 +233,37 @@ const Hero = () => {
     setIsSearching(false);
   };
 
-  const handleLinkClick = (section) => {
-    // previous implementation did a full navigation which can produce 404s on static hosts
-    // Replace with a client-side navigation attempt (history.pushState + popstate) and
-    // fall back to a hash-based redirect to avoid server 404s.
-    const path = section === 'conservation' ? '/environment/geotagging' : '/tours';
+  // routing helpers to ensure consistent back navigation
+  const location = useLocation();
+  const navigate = useNavigate();
+  const currentPath = `${location.pathname || '/'}${location.search || ''}${location.hash || ''}`;
+
+  const handleLinkClick = (path, extraState = {}) => {
+    const state = {
+      from: 'hero',
+      showBack: true,
+      returnTo: currentPath,
+      ...extraState
+    };
+
+    try {
+      // client-side navigation (preferred)
+      navigate(path, { state });
+      return;
+    } catch (e) {
+      // fallback to history pushState and hash fallback
+    }
 
     if (typeof window !== 'undefined') {
       try {
-        // Try client-side navigation first so React/Next/Router can handle it without reloading.
         if (window.history && typeof window.history.pushState === 'function') {
-          window.history.pushState({}, '', path);
-          // Some routers listen for popstate; dispatch to notify them.
+          window.history.pushState(state, '', path);
           window.dispatchEvent(new PopStateEvent('popstate'));
           return;
         }
       } catch (e) {
         // ignore and fallback
       }
-
-      // Fallback: navigate using a hash fragment to avoid server 404s on static hosts
-      // e.g. https://site.example/#/tours
       const origin = window.location.origin || '';
       window.location.href = `${origin}/#${path}`;
     }
@@ -350,7 +360,8 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 lg:gap-4 justify-center xl:justify-start">
             <Link
               to="/tours"
-              state={{ from: 'hero', showBack: true, returnTo: '/' }}
+              onClick={(e) => { e.preventDefault(); handleLinkClick('/tours', { from: 'hero-cta' }); }}
+              state={{ from: 'hero', showBack: true, returnTo: currentPath }}
               className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-4 sm:px-5 lg:px-6 py-2 sm:py-2.5 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 border-0 flex items-center justify-center gap-2 text-sm sm:text-base focus:outline-none focus:ring-4 focus:ring-green-400"
               aria-label="Plan your safari - navigate to tours page"
             >
@@ -360,7 +371,8 @@ const Hero = () => {
             
             <Link
               to="/environment/geotagging"
-              state={{ from: 'hero', showBack: true, returnTo: '/' }}
+              onClick={(e) => { e.preventDefault(); handleLinkClick('/environment/geotagging', { from: 'hero-cta-conservation' }); }}
+              state={{ from: 'hero', showBack: true, returnTo: currentPath }}
               className="border-2 border-green-400/80 bg-green-500/20 backdrop-blur-sm text-green-200 hover:bg-green-500 hover:text-white px-4 sm:px-5 lg:px-6 py-2 sm:py-2.5 rounded-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base focus:outline-none focus:ring-4 focus:ring-green-400"
               aria-label="Explore conservation initiatives - navigate to geotagging page"
             >
@@ -448,7 +460,8 @@ const Hero = () => {
                       <div className="text-xs font-bold text-gray-800">{t.rating}★</div>
                       <Link
                         to={`/tours/${t.slug}`}
-                        state={{ from: 'hero-search', showBack: true, returnTo: '/' }}
+                        onClick={(e) => { e.preventDefault(); handleLinkClick(`/tours/${t.slug}`, { from: 'hero-search' }); }}
+                        state={{ from: 'hero-search', showBack: true, returnTo: currentPath }}
                         className="text-xs text-green-700 hover:underline"
                       >
                         View
@@ -506,7 +519,8 @@ const Hero = () => {
                           <div className="text-xs font-bold text-gray-800">{t.rating}★</div>
                           <Link
                             to={`/tours/${t.slug}`}
-                            state={{ from: 'hero-search', showBack: true, returnTo: '/' }}
+                            onClick={(e) => { e.preventDefault(); handleLinkClick(`/tours/${t.slug}`, { from: 'hero-search-mobile' }); }}
+                            state={{ from: 'hero-search', showBack: true, returnTo: currentPath }}
                             className="text-xs text-green-700 hover:underline"
                           >
                             View

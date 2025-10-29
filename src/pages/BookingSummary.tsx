@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Tour } from '@/data/tours'; 
 
 interface BookingSummaryProps {
@@ -40,6 +41,23 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
   onTreePlantingChange,
   onTreePlantingAmountChange
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const state = (location.state ?? {}) as any;
+  const returnTo = typeof state.returnTo === 'string' ? state.returnTo : undefined;
+
+  const handleBackClick = () => {
+    if (returnTo) {
+      try {
+        navigate(returnTo);
+        return;
+      } catch {
+        // fall back to history/back
+      }
+    }
+    navigate(-1);
+  };
+
   const totalPrice = calculateTotalPrice();
   const paymentAmounts = calculatePaymentAmounts?.();
   
@@ -48,7 +66,17 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
   
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200 h-fit sticky top-8">
-      <h2 className="text-xl font-bold mb-6 text-gray-900 border-b border-gray-200 pb-3">Booking Summary</h2>
+      <div className="flex items-center justify-between mb-6 border-b border-gray-200 pb-3">
+        <h2 className="text-xl font-bold text-gray-900">Booking Summary</h2>
+        <button
+          type="button"
+          onClick={handleBackClick}
+          className="text-sm text-gray-700 hover:text-gray-900 px-3 py-1 rounded-md border border-gray-100 bg-gray-50"
+          aria-label="Go back to previous page"
+        >
+          ← Back
+        </button>
+      </div>
       
       <div className="space-y-4">
         <div className="flex justify-between items-center py-2 border-b border-gray-100">
