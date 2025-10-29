@@ -58,8 +58,45 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
     navigate(-1);
   };
 
-  const totalPrice = calculateTotalPrice();
-  const paymentAmounts = calculatePaymentAmounts?.();
+  // conversion: UGX -> USD (adjust rate as needed)
+  const UGX_PER_USD = 3700; // example rate
+  const ugxToUsd = (ugx: number) => Math.round((ugx / UGX_PER_USD) * 100) / 100;
+
+  // compute per-person discounts based on group size:
+  const basePrice = getCurrentPricePerPerson();
+  const discountPercent =
+    numberOfPeople >= 6 ? 0.25 :
+    numberOfPeople >= 3 ? 0.15 : 0;
+
+  // adjusted price per person after group discount (assumed in USD)
+  const adjustedPricePerPerson = Math.round((basePrice * (1 - discountPercent)) * 100) / 100;
+
+  // subtotal from base price (USD)
+  const baseSubtotal = Math.round(adjustedPricePerPerson * Math.max(1, numberOfPeople) * 100) / 100;
+
+  // customization totals: priceAdjustment is UGX per person => convert to USD and multiply by people
+  const customizationTotalUgx = Object.values(selectedCustomizations || {}).reduce((sum: number, opt: any) => {
+    if (!opt) return sum;
+    return sum + (opt.priceAdjustment || 0) * numberOfPeople;
+  }, 0);
+  const customizationTotalUsd = ugxToUsd(customizationTotalUgx);
+
+  // tree planting (already in USD)
+  const treePlantingTotal = treePlantingSelected ? (treePlantingAmount || 0) : 0;
+
+  // final total includes base subtotal + customizations + donation
+  const finalTotal = Math.round((baseSubtotal + customizationTotalUsd + treePlantingTotal) * 100) / 100;
+
+  // payment amounts: prefer provided calculatePaymentAmounts, otherwise fallback (40% deposit) — use finalTotal
+  const paymentAmounts = calculatePaymentAmounts?.() ?? (
+    paymentType === 'deposit'
+      ? {
+          totalPrice: finalTotal,
+          depositAmount: Math.round(finalTotal * 0.4 * 100) / 100,
+          remainingBalance: Math.round(finalTotal * 0.6 * 100) / 100,
+        }
+      : { totalPrice: finalTotal, depositAmount: 0, remainingBalance: 0 }
+  );
   
   // Filter out null/undefined values from selectedCustomizations
   const validCustomizations = Object.entries(selectedCustomizations).filter(([key, value]) => value != null);
@@ -91,7 +128,12 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
         
         <div className="flex justify-between items-center py-2 border-b border-gray-100">
           <span className="font-medium text-gray-700">Price per person:</span>
-          <span className="font-semibold text-gray-900">${getCurrentPricePerPerson().toLocaleString()}</span>
+          <span className="font-semibold text-gray-900">
+            ${adjustedPricePerPerson.toLocaleString()}
+            {discountPercent > 0 && (
+              <span className="text-xs text-gray-500 ml-2">({Math.round(discountPercent * 100)}% off from ${basePrice.toLocaleString()})</span>
+            )}
+          </span>
         </div>
         
         {validCustomizations.length > 0 && (
@@ -101,9 +143,13 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
               {validCustomizations.map(([key, value]: [string, any]) => (
                 <div key={key} className="flex justify-between items-center py-1">
                   <span className="text-sm text-gray-700">{value.name}:</span>
-                  <span className="text-sm font-medium text-gray-900">+${value.priceAdjustment.toLocaleString()}</span>
+                  <span className="text-sm font-medium text-gray-900">+${ugxToUsd(value.priceAdjustment).toFixed(2)} / person</span>
                 </div>
               ))}
+             <div className="flex justify-between items-center pt-2 border-t border-gray-100">
+               <span className="text-sm text-gray-700 font-medium">Customizations total:</span>
+               <span className="text-sm font-semibold text-gray-900">${customizationTotalUsd.toFixed(2)}</span>
+             </div>
             </div>
           </div>
         )}
@@ -168,7 +214,7 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
         <div className="border-t border-gray-300 pt-4">
           <div className="flex justify-between items-center py-3 bg-gray-50 rounded-lg px-4">
             <span className="font-bold text-lg text-gray-900">Total Price:</span>
-            <span className="font-bold text-xl text-gray-900">${totalPrice.toLocaleString()}</span>
+            <span className="font-bold text-xl text-gray-900">${finalTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
           </div>
         </div>
         
@@ -181,17 +227,17 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
                   <>
                     <div className="flex justify-between items-center py-2 bg-blue-50 rounded px-3">
                       <span className="font-medium text-blue-800">Deposit (40%):</span> {/* Changed from 20% */}
-                      <span className="font-semibold text-blue-900">${paymentAmounts.depositAmount.toLocaleString()}</span>
+                      <span className="font-semibold text-blue-900">${paymentAmounts.depositAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                     <div className="flex justify-between items-center py-2 text-sm text-gray-600">
                       <span>Remaining balance:</span>
-                      <span className="font-medium">${paymentAmounts.remainingBalance.toLocaleString()}</span>
+                      <span className="font-medium">${paymentAmounts.remainingBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                   </>
                 ) : (
                   <div className="flex justify-between items-center py-2 bg-green-50 rounded px-3">
                     <span className="font-medium text-green-800">Full payment:</span>
-                    <span className="font-semibold text-green-900">${paymentAmounts.totalPrice.toLocaleString()}</span>
+                    <span className="font-semibold text-green-900">${paymentAmounts.totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                   </div>
                 )}
               </div>

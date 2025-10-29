@@ -13,7 +13,32 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import type { CustomizationOption } from '@/data/tours';
 import ChatBot from '@/components/ChatBot';
 
+// Ensure every tour has the standard pricing-tiers template applied (unless already provided)
+const getDefaultPricingTiersForTour = (tour: any) => {
+	// 1-2 people = original price
+	// 3-5 people = -15%
+	// 6+ people = -25%
+	return [
+		{ min: 1, max: 2, price: tour.price, label: "1-2 people" },
+		{ min: 3, max: 5, price: Math.round(tour.price * 0.85 * 100) / 100, label: "3-5 people" },
+		{ min: 6, max: 999, price: Math.round(tour.price * 0.75 * 100) / 100, label: "6+ people" }
+	];
+};
+
+// Mutate the imported tours list once at module load so every tour uses the template by default.
+// This is idempotent: only adds pricingTiers when missing.
+tours.forEach((t: any) => {
+	if (!t.pricingTiers) {
+		// attach default pricing tiers
+		t.pricingTiers = getDefaultPricingTiersForTour(t);
+	}
+});
+
 const TourDetailPage = () => {
+  // conversion: UGX -> USD (adjust rate as needed)
+  const UGX_PER_USD = 3700; // example rate
+  const ugxToUsd = (ugx: number) => Math.round((ugx / UGX_PER_USD) * 100) / 100;
+
   const { tourSlug } = useParams<{ tourSlug: string }>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [numberOfPeople, setNumberOfPeople] = useState(1);
@@ -47,11 +72,14 @@ const TourDetailPage = () => {
       return tour.pricingTiers;
     }
     
-    // Default pricing structure (fallback)
+    // Default pricing tiers per requirement:
+    // 1-2 people = original price
+    // 3-5 people = -15% from original
+    // 6+ people = -25% from original
     return [
-      { min: 1, max: 1, price: tour.price, label: "1 person" },
-      { min: 2, max: 4, price: tour.price * 0.975, label: "2-4 people" },
-      { min: 5, max: 999, price: tour.price * 0.75, label: "5+ people" }
+      { min: 1, max: 2, price: tour.price, label: "1-2 people" },
+      { min: 3, max: 5, price: Math.round(tour.price * 0.85 * 100) / 100, label: "3-5 people" },
+      { min: 6, max: 999, price: Math.round(tour.price * 0.75 * 100) / 100, label: "6+ people" }
     ];
   };
 
@@ -65,21 +93,19 @@ const TourDetailPage = () => {
 
   // Calculate total price including customizations
   const calculateTotalPrice = () => {
-    let pricePerPerson = getPricePerPerson();
-    
-    // Add customization prices per person
-    Object.values(selectedOptions).forEach(option => {
-      if (option) {
-        pricePerPerson += option.priceAdjustment;
-      }
-    });
-    
-    // Apply discount if available
-    if (tour.discount) {
-      pricePerPerson = pricePerPerson * (1 - tour.discount / 100);
-    }
-    
-    return pricePerPerson * numberOfPeople;
+    const basePerPerson = getPricePerPerson(); // already reflects group discount tier
+
+    // per-person customization adjustments
+    const customizationPerPerson = Object.values(selectedOptions).reduce((sum, option) => {
+      return sum + (option ? option.priceAdjustment : 0);
+    }, 0);
+
+    const perPersonBeforeTourDiscount = basePerPerson + customizationPerPerson;
+    const discountFraction = tour.discount ? (tour.discount / 100) : 0;
+    const perPersonAfterTourDiscount = Math.round(perPersonBeforeTourDiscount * (1 - discountFraction) * 100) / 100;
+
+    const total = Math.round(perPersonAfterTourDiscount * numberOfPeople * 100) / 100;
+    return total;
   };
   
   // Handle customization selection
@@ -98,6 +124,15 @@ const TourDetailPage = () => {
   const decrementPeople = () => {
     setNumberOfPeople(prev => Math.max(1, prev - 1));
   };
+
+  // additional computed values used by UI for live calculator display
+  const basePerPerson = getPricePerPerson();
+  const customizationPerPerson = Object.values(selectedOptions).reduce((sum, option) => sum + (option ? option.priceAdjustment : 0), 0);
+  const perPersonBeforeTourDiscount = basePerPerson + customizationPerPerson;
+  const discountFraction = tour.discount ? (tour.discount / 100) : 0;
+  const perPersonAfterTourDiscount = Math.round(perPersonBeforeTourDiscount * (1 - discountFraction) * 100) / 100;
+  const discountAmount = Math.round((perPersonBeforeTourDiscount - perPersonAfterTourDiscount) * numberOfPeople * 100) / 100;
+  const totalPrice = Math.round(perPersonAfterTourDiscount * numberOfPeople * 100) / 100;
 
   // Get group size options based on pricing tiers
   const getGroupSizeOptions = () => {
@@ -129,7 +164,7 @@ const TourDetailPage = () => {
   const getBookingUrl = () => {
     const params = new URLSearchParams({
       people: numberOfPeople.toString(),
-      pricePerPerson: getPricePerPerson().toString(),
+      pricePerPerson: perPersonAfterTourDiscount.toString(),
       totalPrice: calculateTotalPrice().toString(),
       customizations: JSON.stringify(selectedOptions)
     });
@@ -300,12 +335,6 @@ const TourDetailPage = () => {
                       </Button>
                     ))}
                   </div>
-                  
-                  <div className="text-center mt-4 p-3 bg-safari-green/5 rounded-lg">
-                    <span className="text-sm text-gray-600">
-                      Current rate: <span className="font-semibold text-safari-green">${getPricePerPerson().toLocaleString()}</span> per person
-                    </span>
-                  </div>
                 </div>
                 
                 {/* Customization Options */}
@@ -342,30 +371,31 @@ const TourDetailPage = () => {
                   <div className="space-y-3">
                     <div className="flex justify-between hover:bg-white/50 p-2 rounded transition-colors duration-200">
                       <span>Base price ({getCurrentTierLabel()}):</span>
-                      <span className="font-medium">${getBasePriceForTier().toLocaleString()}</span>
+                      <span className="font-medium">${(basePerPerson * numberOfPeople).toLocaleString()}</span>
                     </div>
                     
                     {Object.entries(selectedOptions).map(([category, option]) => {
                       if (!option) return null;
-                      const totalAdjustment = option.priceAdjustment * numberOfPeople;
+                      const totalAdjustmentUgx = option.priceAdjustment * numberOfPeople;
+                      const totalAdjustmentUsd = ugxToUsd(totalAdjustmentUgx);
                       return (
                         <div key={category} className="flex justify-between hover:bg-white/50 p-2 rounded transition-colors duration-200">
                           <span>{option.name} ({numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}):</span>
-                          <span className="font-medium text-safari-green">+${totalAdjustment.toLocaleString()}</span>
+                          <span className="font-medium text-safari-green">+${totalAdjustmentUsd.toFixed(2)}</span>
                         </div>
                       );
                     })}
-                    
+
                     {tour.discount && (
                       <div className="flex justify-between text-safari-green hover:bg-white/50 p-2 rounded transition-colors duration-200">
                         <span>Discount ({tour.discount}%):</span>
-                        <span>-${(calculateTotalPrice() * tour.discount / (100 - tour.discount)).toFixed(2)}</span>
+                        <span>-${discountAmount.toLocaleString()}</span>
                       </div>
                     )}
                     
                     <div className="flex justify-between font-bold text-xl mt-4 pt-4 border-t border-gray-200 bg-safari-green/10 p-3 rounded-lg animate-pulse">
                       <span>Total:</span>
-                      <span className="text-safari-green">${calculateTotalPrice().toLocaleString()}</span>
+                      <span className="text-safari-green">${totalPrice.toLocaleString()}</span>
                     </div>
                   </div>
                 </div>
@@ -663,6 +693,10 @@ const CustomizationSection = ({
   selected: CustomizationOption | null;
   onSelect: (option: CustomizationOption | null) => void;
 }) => {
+  // Localization: conversion helper available in parent; replicate rate here (or import a shared util)
+  const UGX_PER_USD = 3700;
+  const ugxToUsd = (ugx: number) => Math.round((ugx / UGX_PER_USD) * 100) / 100;
+
   return (
     <AccordionItem 
       value={title.toLowerCase()} 
@@ -675,7 +709,7 @@ const CustomizationSection = ({
           </span>
           {selected && (
             <span className="text-sm bg-safari-green/20 text-safari-green px-3 py-1 rounded-full mr-2 animate-pulse">
-              {selected.priceAdjustment >= 0 ? '+' : ''}${selected.priceAdjustment}
+              {selected.priceAdjustment >= 0 ? '+' : ''}${ugxToUsd(selected.priceAdjustment).toFixed(2)}
             </span>
           )}
         </span>
@@ -715,7 +749,7 @@ const CustomizationSection = ({
                         ? 'text-safari-green bg-safari-green/10' 
                         : 'text-gray-600 bg-gray-100'
                     }`}>
-                      {option.priceAdjustment >= 0 ? '+' : ''}${option.priceAdjustment}
+                      {option.priceAdjustment >= 0 ? '+' : ''}${ugxToUsd(option.priceAdjustment).toFixed(2)}
                     </span>
                   </div>
                   <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-200">
