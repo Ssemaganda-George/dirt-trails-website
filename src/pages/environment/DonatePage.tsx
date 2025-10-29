@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Add this import
 import { toast } from '@/components/ui/use-toast';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Heart, DollarSign, Mail, Loader2, User } from "lucide-react";
 
 const DonatePage = () => {
+  const navigate = useNavigate(); // Add this hook
   const [project, setProject] = useState('');
   const [amount, setAmount] = useState('');
   const [name, setName] = useState('');
@@ -212,6 +214,14 @@ const DonatePage = () => {
                     Note: You have chosen to donate anonymously. No email confirmation will be sent.
                   </p>
                 )}
+                <div className="flex gap-2 mt-4">
+                  <Button onClick={() => navigate(-1)} variant="outline" className="flex-1">
+                    Back to Previous Page
+                  </Button>
+                  <Button onClick={() => navigate(-1)} className="flex-1">
+                    Complete Donation
+                  </Button>
+                </div>
               </div>
             )}
           </CardContent>
