@@ -1,6 +1,7 @@
 import { useState, FormEvent, useEffect } from 'react';
 import { useParams, useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { Check, AlertCircle, ArrowLeft, MessageCircle, CreditCard, Copy, ExternalLink, QrCode, RefreshCw, Wallet, Loader2, ChevronRight } from 'lucide-react';
+import { toast } from '@/components/ui/use-toast';
 import { tours } from '@/data/tours'; 
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@radix-ui/react-radio-group';
@@ -271,6 +272,9 @@ const CheckoutPage = () => {
       // Ensure metadata for inbox clarity
       const first = (fd.get('firstName') as string) || '';
       const last = (fd.get('lastName') as string) || '';
+      const email = (fd.get('email') as string) || (fd.get('_replyto') as string) || '';
+      // Formspree expects the reply-to field named "_replyto" for reply routing
+      if (email) fd.append('_replyto', email);
       fd.append('_subject', `New Tour Inquiry: ${tour.name} - ${first} ${last}`);
       fd.append('tourName', tour.name);
       fd.append('tourSlug', tour.slug);
@@ -516,21 +520,38 @@ const CheckoutPage = () => {
       if (bookingMode === 'inquiry') {
         // We already collected all inputs into `formData` via collectFormData().
         // Send FormData (multipart) to Formspree so you receive a normal email notification.
-        await sendInquiryFormData(formData);
-         setInquirySubmitted(true);
-         setTimeout(() => {
-           navigate('/home', {
-             state: {
-               userData,
-               tour,
-               numberOfPeople,
-               pricePerPerson: getCurrentPricePerPerson(),
-               totalPrice: calculateTotalPrice(),
-               selectedCustomizations
-             }
-           });
-         }, 2000);
-       } else {
+        try {
+          await sendInquiryFormData(formData);
+          // Reset the checkout form (clear inputs)
+          const formEl = document.getElementById('checkout-form') as HTMLFormElement | null;
+          if (formEl && typeof formEl.reset === 'function') formEl.reset();
+          setInquirySubmitted(true);
+          toast({
+            title: 'Inquiry Sent',
+            description: `Your travel proposal request for ${tour.name} has been sent. We'll respond within 24 hours.`,
+          });
+          setTimeout(() => {
+            navigate('/home', {
+              state: {
+                userData,
+                tour,
+                numberOfPeople,
+                pricePerPerson: getCurrentPricePerPerson(),
+                totalPrice: calculateTotalPrice(),
+                selectedCustomizations
+              }
+            });
+          }, 1200);
+        } catch (err) {
+          console.error('Formspree inquiry failed', err);
+          setFormErrors({ submit: 'Failed to send inquiry. Please try again or contact us directly.' });
+          toast({
+            title: 'Error',
+            description: 'Failed to send travel proposal. Please try again or contact us directly.',
+            variant: 'destructive',
+          });
+        }
+        } else {
         // Booking path
         // Calculate totals (use currency consistent with your tour data)
         const total = calculateTotalPrice();
