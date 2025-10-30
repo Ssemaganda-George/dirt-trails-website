@@ -265,6 +265,36 @@ const CheckoutPage = () => {
     }
   };
 
+  // New: send FormData to Formspree (multipart/form-data) so Formspree sends an email like Contact form
+  const sendInquiryFormData = async (fd: FormData) => {
+    try {
+      // Ensure metadata for inbox clarity
+      const first = (fd.get('firstName') as string) || '';
+      const last = (fd.get('lastName') as string) || '';
+      fd.append('_subject', `New Tour Inquiry: ${tour.name} - ${first} ${last}`);
+      fd.append('tourName', tour.name);
+      fd.append('tourSlug', tour.slug);
+      fd.append('numberOfTravelers', String(numberOfPeople));
+      fd.append('estimatedTotalPrice', String(calculateTotalPrice()));
+      fd.append('pricePerPerson', String(getCurrentPricePerPerson()));
+      fd.append('selectedCustomizations', JSON.stringify(selectedCustomizations || {}));
+
+      const resp = await fetch('https://formspree.io/f/xpwjoknq', {
+        method: 'POST',
+        body: fd,
+        headers: {
+          Accept: 'application/json' // do not set Content-Type; browser will set multipart boundary
+        }
+      });
+
+      if (!resp.ok) throw new Error('Failed to send inquiry via Formspree');
+      return true;
+    } catch (err) {
+      console.error('sendInquiryFormData error', err);
+      throw err;
+    }
+  };
+ 
   const PaymentTypeSelector: React.FC<PaymentTypeSelectorProps> = ({
   paymentType,
   setPaymentType,
@@ -484,66 +514,23 @@ const CheckoutPage = () => {
       };
       
       if (bookingMode === 'inquiry') {
-        // collect all form values (single and multi-value fields)
-        const allFormValues: Record<string, any> = {};
-        formData.forEach((value, key) => {
-          if (allFormValues[key] === undefined) {
-            allFormValues[key] = value;
-          } else if (Array.isArray(allFormValues[key])) {
-            allFormValues[key].push(value);
-          } else {
-            allFormValues[key] = [allFormValues[key], value];
-          }
-        });
-
-        // explicit arrays for checkbox/multi-select groups
-        const countries = formData.getAll('countries') as string[]; // may be []
-        const activities = formData.getAll('activities') as string[]; // may be []
-
-        const inquiryPayload: Record<string, any> = {
-          // contact fields
-          firstName,
-          lastName,
-          email,
-          phone,
-          travelers: (formData.get('travelers') as string) || '',
-          preferredTravelDate: (formData.get('travelDate') as string) || '',
-          specialRequests: (formData.get('specialRequests') as string) || '',
-          // inquiry form specifics
-          countries,
-          activities,
-          tripDays: (formData.get('tripDays') as string) || '',
-          travelCompanion: (formData.get('travelCompanion') as string) || '',
-          budget: (formData.get('budget') as string) || '',
-          numAdults: (formData.get('numAdults') as string) || '',
-          numChildren: (formData.get('numChildren') as string) || '',
-          message: (formData.get('message') as string) || '',
-          // package details for inbox/context
-          package: {
-            tourName: tour.name,
-            tourSlug: tour.slug,
-            numberOfPeople,
-            pricePerPerson: getCurrentPricePerPerson(),
-            totalPrice: calculateTotalPrice(),
-            selectedCustomizations
-          }
-        };
-
-        await sendInquiry(inquiryPayload);
-        setInquirySubmitted(true);
-        setTimeout(() => {
-          navigate('/home', {
-            state: {
-              userData,
-              tour,
-              numberOfPeople,
-              pricePerPerson: getCurrentPricePerPerson(),
-              totalPrice: calculateTotalPrice(),
-              selectedCustomizations
-            }
-          });
-        }, 2000);
-      } else {
+        // We already collected all inputs into `formData` via collectFormData().
+        // Send FormData (multipart) to Formspree so you receive a normal email notification.
+        await sendInquiryFormData(formData);
+         setInquirySubmitted(true);
+         setTimeout(() => {
+           navigate('/home', {
+             state: {
+               userData,
+               tour,
+               numberOfPeople,
+               pricePerPerson: getCurrentPricePerPerson(),
+               totalPrice: calculateTotalPrice(),
+               selectedCustomizations
+             }
+           });
+         }, 2000);
+       } else {
         // Booking path
         // Calculate totals (use currency consistent with your tour data)
         const total = calculateTotalPrice();
