@@ -41,23 +41,16 @@ const BookingConfirmationPage = () => {
     const stateData = location.state;
     
     if (stateData && stateData.userData && stateData.tour) {
-      // Calculate proper values based on payment type
-      const totalPrice = stateData.totalPrice || stateData.tour.price;
-      const paymentType = stateData.paymentType || 'deposit';
-      
-      // Fix the remaining balance calculation
-      let paidAmount: number;
-      let remainingBalance: number;
-      
-      if (paymentType === 'full') {
-        paidAmount = totalPrice;
-        remainingBalance = 0;
-      } else {
-        // For deposit payments, calculate 20% of total price
-        paidAmount = stateData.paidAmount || Math.round(totalPrice * 0.2);
-        remainingBalance = totalPrice - paidAmount;
-      }
-      
+      // Determine totals and paid amounts based on provided state
+      const totalPrice = stateData.totalPrice ?? stateData.tour.price;
+      const paymentType = stateData.paymentType ?? 'deposit';
+      const depositPercent = typeof stateData.depositPercent === 'number' ? stateData.depositPercent : (paymentType === 'deposit' ? 0.4 : 1);
+      // Use the paidAmount provided by the checkout flow if available; otherwise compute from depositPercent
+      const paidAmount = typeof stateData.paidAmount === 'number'
+        ? stateData.paidAmount
+        : Math.round(totalPrice * depositPercent);
+      const remainingBalance = Math.max(0, Math.round((totalPrice - paidAmount) * 100) / 100);
+
       setBookingData({
         userData: stateData.userData,
         tour: stateData.tour,

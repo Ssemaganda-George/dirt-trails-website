@@ -5,7 +5,6 @@ import { tours } from '@/data/tours';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@radix-ui/react-radio-group';
 import { Input } from '@/components/ui/input';
-import { Checkbox } from '@radix-ui/react-checkbox';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@radix-ui/react-select';
 import { InquiryForm } from './InquiryForm';
 import { Label } from '@radix-ui/react-label';
@@ -13,6 +12,7 @@ import { ContactInfoForm } from './ContactInfoForm';
 import { TravelInfoForm } from './TravelInfoForm';
 import { PaymentMethods } from './PaymentMethods';
 import { BookingSummary } from './BookingSummary';
+import { getStandardPricingTiers } from '@/utils/pricing'; // add near other imports
 
 interface FormData {
   firstName: string;
@@ -92,12 +92,8 @@ const CheckoutPage = () => {
       return tour.pricingTiers;
     }
     
-    // Default pricing structure (fallback)
-    return [
-      { min: 1, max: 1, price: tour.price, label: "1 person" },
-      { min: 2, max: 4, price: tour.price * 0.975, label: "2-4 people" },
-      { min: 5, max: 999, price: tour.price * 0.75, label: "5+ people" }
-    ];
+    // Use the shared standardized pricing tiers as a fallback
+    return getStandardPricingTiers(tour.price);
   };
   const [blueWalletConnected, setBlueWalletConnected] = useState(false);
   const [blueWalletAddress, setBlueWalletAddress] = useState('');
@@ -339,6 +335,56 @@ const CheckoutPage = () => {
     setNumberOfPeople(newNumberOfPeople);
   };
 
+  // Simple helper to call Flutterwave (if the site loads their widget) or simulate it for local/dev.
+  const initiateFlutterwave = async (amount: number, currency = 'USD') => {
+    // amount => numeric (total to charge)
+    const txRef = `DTFW-${Date.now()}`;
+    // If Flutterwave inline is available, use it (this is optional / progressive)
+    const win = window as any;
+    if (win && typeof win.getpaidSetup === 'function') {
+      return new Promise((resolve, reject) => {
+        try {
+          win.getpaidSetup({
+            PBFPubKey: process.env.REACT_APP_FLUTTERWAVE_PK || '',
+            amount,
+            currency,
+            txref: txRef,
+            onclose: () => reject(new Error('payment-closed')),
+            callback: (resp: any) => {
+              // the real widget returns a response we should verify on server-side
+              resolve(resp);
+            }
+          });
+        } catch (err) {
+          reject(err);
+        }
+      });
+    }
+
+    // Fallback: simulate a payment flow (useful for local dev / tests)
+    await new Promise((r) => setTimeout(r, 1500)); // simulate user interaction
+    return {
+      status: 'successful',
+      tx_ref: txRef,
+      amount
+    };
+  };
+
+  // Mocked notification sender — replace /api/sendBookingNotifications with your server endpoint
+  const sendConfirmationNotifications = async (bookingPayload: any) => {
+    try {
+      // Best practice: send notifications from your server (do not rely on client-side only)
+      await fetch('/api/sendBookingNotifications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bookingPayload)
+      });
+    } catch (err) {
+      // fail silently for now; log for debugging
+      console.warn('Failed to trigger server-side notifications (this is a placeholder):', err);
+    }
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     
@@ -393,7 +439,7 @@ const CheckoutPage = () => {
     }
     
     setIsProcessing(true);
-    
+
     try {
       const userData: FormData = {
         firstName,
@@ -422,32 +468,76 @@ const CheckoutPage = () => {
           });
         }, 2000);
       } else {
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        
-        const bookingData = {
-          userData,
-          tour,
-          numberOfPeople,
-          pricePerPerson: getCurrentPricePerPerson(),
-          totalPrice: calculateTotalPrice(),
-          selectedCustomizations,
-          paymentMethod,
-          paymentType,
-          paymentAmount: paymentType === 'deposit' ? calculatePaymentAmounts().depositAmount : calculatePaymentAmounts().totalPrice,
-          cryptoDetails: paymentMethod === 'crypto' ? {
-            currency: selectedCrypto,
-            amount: cryptoAmount,
-            address: cryptoPaymentAddress,
-            walletType: 'BlueWallet'
-          } : undefined
-        };
-        
-        setFormSubmitted(true);
-        setTimeout(() => {
-          navigate('/booking-confirmation', {
-            state: bookingData
-          });
-        }, 2000);
+        // Booking path
+        // Calculate totals (use currency consistent with your tour data)
+        const total = calculateTotalPrice();
+
+        // If paying by card, integrate with Flutterwave (or simulation)
+        if (paymentMethod === 'card') {
+          // If user chose "full" payment, charge total; for deposit charge deposit amount
+          const amountToCharge = paymentType === 'deposit' ? calculatePaymentAmounts().depositAmount : calculatePaymentAmounts().totalPrice;
+
+          // Initiate payment (real widget if present or simulated)
+          const fwResp: any = await initiateFlutterwave(amountToCharge, 'USD');
+
+          // Basic success check (in production verify on server with Flutterwave's webhook)
+          const successful = fwResp && (fwResp.status === 'successful' || fwResp.status === 'success' || fwResp.tx_ref);
+          if (!successful) {
+            throw new Error('Payment failed or cancelled');
+          }
+
+          // Build booking payload with the confirmed paid amount
+          const bookingData = {
+            userData,
+            tour,
+            numberOfPeople,
+            pricePerPerson: getCurrentPricePerPerson(),
+            totalPrice: calculateTotalPrice(),
+            selectedCustomizations,
+            paymentMethod: 'card',
+            paymentType,
+            paymentAmount: amountToCharge,
+            paidAmount: amountToCharge,
+            depositPercent: paymentType === 'deposit' ? (calculatePaymentAmounts().depositAmount / calculatePaymentAmounts().totalPrice) : 1,
+            paymentReference: fwResp.tx_ref || fwResp.txRef || null
+          };
+
+          // Trigger server-side notifications (placeholder endpoint)
+          sendConfirmationNotifications(bookingData).catch(() => { /* noop */ });
+
+          setFormSubmitted(true);
+          setTimeout(() => {
+            navigate('/booking-confirmation', {
+              state: bookingData
+            });
+          }, 1000);
+
+        } else {
+          // Existing flow for other payment methods (simulate)
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          const bookingData = {
+            userData,
+            tour,
+            numberOfPeople,
+            pricePerPerson: getCurrentPricePerPerson(),
+            totalPrice: calculateTotalPrice(),
+            selectedCustomizations,
+            paymentMethod,
+            paymentType,
+            paymentAmount: paymentType === 'deposit' ? calculatePaymentAmounts().depositAmount : calculatePaymentAmounts().totalPrice,
+            paidAmount: paymentType === 'deposit' ? calculatePaymentAmounts().depositAmount : calculatePaymentAmounts().totalPrice
+          };
+
+          // optional: server notifications
+          sendConfirmationNotifications(bookingData).catch(() => { /* noop */ });
+
+          setFormSubmitted(true);
+          setTimeout(() => {
+            navigate('/booking-confirmation', {
+              state: bookingData
+            });
+          }, 2000);
+        }
       }
     } catch (error) {
       console.error('Submission error:', error);
@@ -688,18 +778,6 @@ const CheckoutPage = () => {
                         paymentType={paymentType}
                         calculatePaymentAmounts={calculatePaymentAmounts}
                       />
-                    </div>
-                    
-                    {/* Terms and Conditions */}
-                    <div className="bg-white rounded-xl shadow-sm border p-6">
-                      <div className="flex items-start">
-                        <Checkbox id="terms" required className="mt-1" />
-                        <div className="ml-3">
-                          <label htmlFor="terms" className="text-sm font-medium text-gray-700">
-                            I agree to the <Link to="/terms" className="text-safari-green hover:underline">Terms and Conditions</Link> and <Link to="/privacy" className="text-safari-green hover:underline">Privacy Policy</Link>
-                          </label>
-                        </div>
-                      </div>
                     </div>
                     
                     <div className="flex justify-between">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Tour } from '@/data/tours'; 
+import { getDiscountPercentForGroupSize } from '@/utils/pricing'; // added
 
 interface BookingSummaryProps {
   bookingMode: 'book' | 'inquiry';
@@ -67,13 +68,11 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
 
   // compute per-person discounts based on group size:
   const basePrice = getCurrentPricePerPerson();
-  const discountPercent =
-    numberOfPeople >= 6 ? 0.25 :
-    numberOfPeople >= 3 ? 0.15 : 0;
+  const discountPercent = getDiscountPercentForGroupSize(numberOfPeople);
 
   // adjusted price per person after group discount (assumed in USD)
   const adjustedPricePerPerson = Math.round((basePrice * (1 - discountPercent)) * 100) / 100;
-
+  
   // subtotal from base price (USD)
   const baseSubtotal = Math.round(adjustedPricePerPerson * Math.max(1, numberOfPeople) * 100) / 100;
 

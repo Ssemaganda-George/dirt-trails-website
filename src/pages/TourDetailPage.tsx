@@ -12,33 +12,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import type { CustomizationOption } from '@/data/tours';
 import ChatBot from '@/components/ChatBot';
+import { getStandardPricingTiers } from '@/utils/pricing'; // added
 
-// Ensure every tour has the standard pricing-tiers template applied (unless already provided)
-const getDefaultPricingTiersForTour = (tour: any) => {
-	// 1-2 people = original price
-	// 3-5 people = -15%
-	// 6+ people = -25%
-	return [
-		{ min: 1, max: 2, price: tour.price, label: "1-2 people" },
-		{ min: 3, max: 5, price: Math.round(tour.price * 0.85 * 100) / 100, label: "3-5 people" },
-		{ min: 6, max: 999, price: Math.round(tour.price * 0.75 * 100) / 100, label: "6+ people" }
-	];
-};
-
-// Mutate the imported tours list once at module load so every tour uses the template by default.
-// This is idempotent: only adds pricingTiers when missing.
+// Mutate the imported tours list once at module load so every tour uses the standard pricing tiers.
+// This enforces the common pricing standard site-wide (overrides any existing pricingTiers).
 tours.forEach((t: any) => {
-	if (!t.pricingTiers) {
-		// attach default pricing tiers
-		t.pricingTiers = getDefaultPricingTiersForTour(t);
-	}
+	// always attach standard pricing tiers for all tours
+	t.pricingTiers = getStandardPricingTiers(t.price);
 });
 
 const TourDetailPage = () => {
-  // conversion: UGX -> USD (adjust rate as needed)
-  const UGX_PER_USD = 3700; // example rate
-  const ugxToUsd = (ugx: number) => Math.round((ugx / UGX_PER_USD) * 100) / 100;
-
   const { tourSlug } = useParams<{ tourSlug: string }>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [numberOfPeople, setNumberOfPeople] = useState(1);
@@ -48,6 +31,10 @@ const TourDetailPage = () => {
     transportation: null,
     duration: null
   });
+
+  // conversion: UGX -> USD (used across the component)
+  const UGX_PER_USD = 3700; // adjust exchange rate as needed
+  const ugxToUsd = (ugx: number) => Math.round((ugx / UGX_PER_USD) * 100) / 100;
   
   // Find the tour by slug
   const tour = tours.find(t => t.slug === tourSlug);
@@ -72,15 +59,8 @@ const TourDetailPage = () => {
       return tour.pricingTiers;
     }
     
-    // Default pricing tiers per requirement:
-    // 1-2 people = original price
-    // 3-5 people = -15% from original
-    // 6+ people = -25% from original
-    return [
-      { min: 1, max: 2, price: tour.price, label: "1-2 people" },
-      { min: 3, max: 5, price: Math.round(tour.price * 0.85 * 100) / 100, label: "3-5 people" },
-      { min: 6, max: 999, price: Math.round(tour.price * 0.75 * 100) / 100, label: "6+ people" }
-    ];
+    // fallback to shared standard tiers
+    return getStandardPricingTiers(tour.price);
   };
 
   const getPricePerPerson = () => {
@@ -90,7 +70,7 @@ const TourDetailPage = () => {
     );
     return tier ? tier.price : tour.price;
   };
-
+  
   // Calculate total price including customizations
   const calculateTotalPrice = () => {
     const basePerPerson = getPricePerPerson(); // already reflects group discount tier
@@ -232,6 +212,7 @@ const TourDetailPage = () => {
                 </div>
               )}
               
+              {/* Header Book Now (simple link) */}
               <Button 
                 className="w-full bg-safari-green hover:bg-safari-green/90 text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform mt-4"
                 size="lg"
@@ -400,10 +381,10 @@ const TourDetailPage = () => {
                   </div>
                 </div>
                 
-                {/* Book Now Button - Professional */}
+                {/* Book Now Button - simple link to checkout */}
                 <Button 
                   className="w-full bg-safari-green hover:bg-safari-green/90 text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform h-14 text-lg" 
-                  size="lg" 
+                  size="lg"
                   asChild
                 >
                   <Link to={getBookingUrl()}>
@@ -693,10 +674,6 @@ const CustomizationSection = ({
   selected: CustomizationOption | null;
   onSelect: (option: CustomizationOption | null) => void;
 }) => {
-  // Localization: conversion helper available in parent; replicate rate here (or import a shared util)
-  const UGX_PER_USD = 3700;
-  const ugxToUsd = (ugx: number) => Math.round((ugx / UGX_PER_USD) * 100) / 100;
-
   return (
     <AccordionItem 
       value={title.toLowerCase()} 
@@ -709,7 +686,7 @@ const CustomizationSection = ({
           </span>
           {selected && (
             <span className="text-sm bg-safari-green/20 text-safari-green px-3 py-1 rounded-full mr-2 animate-pulse">
-              {selected.priceAdjustment >= 0 ? '+' : ''}${ugxToUsd(selected.priceAdjustment).toFixed(2)}
+              {selected.priceAdjustment >= 0 ? '+' : ''}${selected.priceAdjustment.toFixed(2)}
             </span>
           )}
         </span>
@@ -749,7 +726,7 @@ const CustomizationSection = ({
                         ? 'text-safari-green bg-safari-green/10' 
                         : 'text-gray-600 bg-gray-100'
                     }`}>
-                      {option.priceAdjustment >= 0 ? '+' : ''}${ugxToUsd(option.priceAdjustment).toFixed(2)}
+                      {option.priceAdjustment >= 0 ? '+' : ''}${option.priceAdjustment.toFixed(2)}
                     </span>
                   </div>
                   <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-200">
