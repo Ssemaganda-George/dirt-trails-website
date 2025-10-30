@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { tours } from '@/data/tours';
 import TourCard from './TourCard';
 
+
 const ToursSection = () => {
   // Group tours by country
   const toursByCountry = tours.reduce((acc, tour) => {

@@ -1,4 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
+import { Search, MapPin, Calendar, Users, Compass, Eye, Trees, ChevronDown } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom'; // added
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { tours, Tour } from '../../data/tours'; // <-- new import
 import { Search, MapPin, Calendar, Users, Compass, Eye, Trees, ChevronDown, Cloud, CloudRain, Sun, CloudSnow } from 'lucide-react';
 
 const CustomDropdown = ({ label, icon, value, options, onChange, placeholder }) => {
@@ -18,13 +24,16 @@ const CustomDropdown = ({ label, icon, value, options, onChange, placeholder }) 
 
   return (
     <div className="space-y-1" ref={dropdownRef}>
-      <label className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gray-600">
+      <label className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gray-600" id={`label-${label.replace(/\s+/g, '-').toLowerCase()}`}>
         {icon}
         {label}
       </label>
       <div className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
+          aria-labelledby={`label-${label.replace(/\s+/g, '-').toLowerCase()}`}
           className="w-full py-1.5 sm:py-2 px-2 sm:px-3 bg-white border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800 font-medium shadow-sm text-xs sm:text-sm flex items-center justify-between hover:border-green-300 transition-colors duration-200"
         >
           <span className={value ? 'text-gray-800' : 'text-gray-400'}>
@@ -32,12 +41,17 @@ const CustomDropdown = ({ label, icon, value, options, onChange, placeholder }) 
           </span>
           <ChevronDown 
             size={16} 
-            className={`text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
+            className={`text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+            aria-hidden="true"
           />
         </button>
         
         {isOpen && (
-          <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg sm:rounded-xl shadow-xl z-50 max-h-48 overflow-y-auto">
+          <div 
+            className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg sm:rounded-xl shadow-xl z-50 max-h-48 overflow-y-auto"
+            role="listbox"
+            aria-labelledby={`label-${label.replace(/\s+/g, '-').toLowerCase()}`}
+          >
             {options.map((option, index) => (
               <button
                 key={index}
@@ -45,7 +59,9 @@ const CustomDropdown = ({ label, icon, value, options, onChange, placeholder }) 
                   onChange(option.value);
                   setIsOpen(false);
                 }}
-                className="w-full px-2 sm:px-3 py-2 text-left hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 text-xs sm:text-sm text-gray-800 font-medium transition-colors duration-150 first:rounded-t-lg first:sm:rounded-t-xl last:rounded-b-lg last:sm:rounded-b-xl border-b border-gray-100 last:border-b-0"
+                role="option"
+                aria-selected={value === option.value}
+                className="w-full px-2 sm:px-3 py-2 text-left hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 text-xs sm:text-sm text-gray-800 font-medium transition-colors duration-150 first:rounded-t-lg first:sm:rounded-t-xl last:rounded-b-lg last:sm:rounded-b-xl border-b border-gray-100 last:border-b-0 focus:bg-green-100 focus:outline-none"
               >
                 {option.label}
               </button>
@@ -56,6 +72,58 @@ const CustomDropdown = ({ label, icon, value, options, onChange, placeholder }) 
     </div>
   );
 };
+
+const treeIcon = L.icon({
+  iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const treeDataList = [
+  {
+    id: "TREE-004",
+    species: 'Markhamia lutea',
+    latitude: 0.34760,
+    longitude: 32.58250,
+    planted_by: 'DirtTrails Community',
+    planted_on: '2025-09-25',
+  },
+  {
+    id: "TREE-003",
+    species: 'Markhamia lutea',
+    latitude: 0.34760,
+    longitude: 32.58250,
+    planted_by: 'DirtTrails Community',
+    planted_on: '2025-09-25',
+  },
+  {
+    id: "TREE-002",
+    species: 'Ficus natalensis',
+    latitude: 0.55800,
+    longitude: 32.45970,
+    planted_by: 'MIICHub',
+    planted_on: '2025-09-25',
+  },
+  {
+    id: "TREE-001",
+    species: 'Prunus africana',
+    latitude: 1.37330,
+    longitude: 32.29030,
+    planted_by: 'Uganda Wildlife Authority',
+    planted_on: '2025-09-25',
+  },
+  {
+    id: "TREE-000",
+    species: 'Ashoka',
+    latitude: 0.32032,
+    longitude: 32.47574,
+    planted_by: 'George, Angel, Sharon, Twine',
+    planted_on: '2025-09-25',
+  }
+];
 
 const Hero = () => {
   const [destination, setDestination] = useState('Uganda');
@@ -70,6 +138,7 @@ const Hero = () => {
   // Safari background images slideshow
   const safariImages = [
     '/images/dt3.jpg',
+    'TREE_MAP_SLIDE', // map is now the second slide
     '/images/field-covered-greenery-surrounded-by-zebras-sunlight-blue-sky.jpg',
     '/images/dt6.jpg',
     '/images/dt2.JPG',
@@ -82,7 +151,7 @@ const Hero = () => {
       setCurrentImageIndex((prev) => (prev + 1) % safariImages.length);
     }, 8000);
     return () => clearInterval(interval);
-  }, []);
+  }, [safariImages.length]);
 
   // Weather dropdown click outside handler
   useEffect(() => {
@@ -182,31 +251,155 @@ const Hero = () => {
     { label: '10+ ', value: '2 adults, 2 children' }
   ];
 
-  const handleSearch = () => {
-    console.log({ destination, days, guests });
+  const durationMap: Record<string, number> = {
+    Three: 3,
+    Five: 5,
+    Seven: 7,
+    Ten: 10
   };
 
-  const handleLinkClick = (section) => {
-    if (section === 'conservation') {
-      window.location.href = '/environment/tree-planting';
-    } 
-     else if (section === 'tours') {
-      window.location.href = '/tours';
+  const parseGroupNumber = (g: string): number | null => {
+    if (!g) return null;
+    const match = g.match(/\d+/);
+    return match ? parseInt(match[0], 10) : null;
+  };
+
+  const handleSearch = async () => {
+    // set searching state
+    setIsSearching(true);
+    setSearchResults([]);
+    setSearchSummary('');
+
+    // small artificial delay to show the "Searching..." state (can be removed)
+    await new Promise((r) => setTimeout(r, 400));
+
+    const qDestination = (destination || '').trim().toLowerCase();
+    const maxDuration = durationMap[days] ?? undefined;
+    const groupNumber = parseGroupNumber(guests);
+
+    const matches = tours.filter((t) => {
+      // destination match on country OR location (case-insensitive)
+      const destMatch = !qDestination || (
+        (t.country && t.country.toLowerCase().includes(qDestination)) ||
+        (t.location && t.location.toLowerCase().includes(qDestination)) ||
+        (t.name && t.name.toLowerCase().includes(qDestination))
+      );
+
+      // duration match: treat selected value as maximum allowed days
+      const durationMatch = typeof maxDuration === 'number' ? (t.duration <= maxDuration) : true;
+
+      // group match: if pricingTiers exist, check any tier covers the groupNumber
+      let groupMatch = true;
+      if (groupNumber && Array.isArray(t.pricingTiers) && t.pricingTiers.length > 0) {
+        groupMatch = t.pricingTiers.some((pt) => groupNumber >= pt.min && groupNumber <= pt.max);
+      }
+
+      return destMatch && durationMatch && groupMatch;
+    });
+
+    // summary text
+    const summaryParts = [];
+    summaryParts.push(`${matches.length} result${matches.length === 1 ? '' : 's'}`);
+    if (qDestination) summaryParts.push(`for "${destination}"`);
+    if (maxDuration) summaryParts.push(`up to ${maxDuration} day${maxDuration === 1 ? '' : 's'}`);
+    if (groupNumber) summaryParts.push(`group size ${groupNumber}`);
+    const summaryText = summaryParts.join(' • ');
+
+    setSearchResults(matches);
+    setSearchSummary(summaryText);
+    setIsSearching(false);
+  };
+
+  // routing helpers to ensure consistent back navigation
+  const location = useLocation();
+  const navigate = useNavigate();
+  const currentPath = `${location.pathname || '/'}${location.search || ''}${location.hash || ''}`;
+
+  const handleLinkClick = (path, extraState = {}) => {
+    const state = {
+      from: 'hero',
+      showBack: true,
+      returnTo: currentPath,
+      ...extraState
+    };
+
+    try {
+      // client-side navigation (preferred)
+      navigate(path, { state });
+      return;
+    } catch (e) {
+      // fallback to history pushState and hash fallback
+    }
+
+    if (typeof window !== 'undefined') {
+      try {
+        if (window.history && typeof window.history.pushState === 'function') {
+          window.history.pushState(state, '', path);
+          window.dispatchEvent(new PopStateEvent('popstate'));
+          return;
+        }
+      } catch (e) {
+        // ignore and fallback
+      }
+      const origin = window.location.origin || '';
+      window.location.href = `${origin}/#${path}`;
     }
   };
 
   return (
     <section className="relative min-h-screen flex flex-col overflow-hidden">
       {/* Animated background slideshow */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" role="img" aria-label="Safari background slideshow featuring African wildlife and landscapes">
         {safariImages.map((image, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 bg-center bg-cover transition-opacity duration-2000 ${
-              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{ backgroundImage: `url('${image}')` }}
-          />
+          image === 'TREE_MAP_SLIDE' ? (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-[1800ms] ease-in-out ${
+                index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              }`}
+            >
+              <MapContainer
+                center={[0.34760, 32.58250]}
+                zoom={7}
+                scrollWheelZoom={true}
+                dragging={true}
+                doubleClickZoom={true}
+                zoomControl={true}
+                attributionControl={true}
+                className="w-full h-full"
+                style={{ width: "100%", height: "100%", borderRadius: 0 }}
+              >
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {treeDataList.map(tree => (
+                  <Marker key={tree.id} position={[tree.latitude, tree.longitude]} icon={treeIcon}>
+                    <Popup>
+                      <div>
+                        <div className="font-semibold text-green-700">{tree.species}</div>
+                        <div className="text-xs">Planted By: {tree.planted_by}</div>
+                        <div className="text-xs">Date: {tree.planted_on}</div>
+                        <div className="text-xs">ID: {tree.id}</div>
+                      </div>
+                    </Popup>
+                  </Marker>
+                ))}
+              </MapContainer>
+              {/* Overlay for readability */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/30 z-10 pointer-events-none"></div>
+              <div className="absolute bottom-4 left-4 z-20 text-white text-lg font-bold bg-green-700/70 px-4 py-2 rounded-lg shadow">
+                Our Tree Planting Map
+              </div>
+            </div>
+          ) : (
+            <div
+              key={index}
+              className={`absolute inset-0 bg-center bg-cover transition-opacity duration-[1800ms] ease-in-out ${
+                index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              }`}
+              style={{ backgroundImage: `url('${image}')` }}
+            />
+          )
         ))}
       </div>
 
@@ -251,7 +444,7 @@ const Hero = () => {
             >
               <Eye size={20} className="group-hover:scale-110 transition-transform" />
               Plan My Safari
-            </button>
+            </Link>
             
             <button 
               onClick={() => handleLinkClick('conservation')}
@@ -259,7 +452,7 @@ const Hero = () => {
             >
               <Trees size={20} className="group-hover:scale-110 transition-transform" />
               Explore Conservation
-            </button>
+            </Link>
           </div>
         </div>
 

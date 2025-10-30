@@ -92,14 +92,14 @@ const Conservation = () => {
               <span className="block bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
                 Supporting Conservation
               </span>
-              <span className="block bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
                 Across East Africa
               </span>
             </h2>
 
             {/* Description */}
             <p className="mb-6 text-gray-600 leading-relaxed">
-              At Dirt Trails Safaris, we believe in responsible tourism that benefits local communities and protects wildlife habitats. Through our Environmental Conservation Program, $50 from each booking goes directly to important conservation initiatives.
+              At Dirt Trails Safaris, we believe in responsible tourism that benefits local communities and protects wildlife habitats. Through our Environmental Conservation Program, $5+ from each booking goes directly to important conservation initiatives.
             </p>
 
             <p className="mb-8 text-gray-600 leading-relaxed">
@@ -123,10 +123,12 @@ const Conservation = () => {
             </div>
 
             {/* CTA Button */}
-            <button className="group bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center gap-2">
-              Learn More About Our Efforts
-              <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform duration-300" />
-            </button>
+            <Link to="/environment/geotagging">
+              <button className="group bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                Learn More About Our Efforts
+                <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform duration-300" />
+              </button>
+            </Link>
           </div>
 
           {/* Right content */}

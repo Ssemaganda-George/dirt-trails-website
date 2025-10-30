@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@radix-ui/react-label';
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@radix-ui/react-select';
-import { RadioGroup, RadioGroupItem } from '@radix-ui/react-radio-group';
+import { Label } from '@/components/ui/label';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Check, Copy, CreditCard, ExternalLink, QrCode, RefreshCw, Wallet } from 'lucide-react';
+import { useState } from 'react';
 
 interface PaymentMethodsProps {
   paymentMethod: string;
@@ -42,6 +42,10 @@ export const PaymentMethods = ({
   paymentType,
   calculatePaymentAmounts
 }: PaymentMethodsProps) => {
+  // local state for terms checkbox and refund policy toggle
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [showRefundPolicy, setShowRefundPolicy] = useState(false);
+  
   const renderPaymentMethodFields = () => {
     switch (paymentMethod) {
       case 'card':
@@ -266,43 +270,80 @@ export const PaymentMethods = ({
     <div className="bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-xl font-semibold mb-4">Payment Method</h2>
       
-      <RadioGroup 
-        value={paymentMethod} 
-        onValueChange={setPaymentMethod}
-        className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"
-      >
-        <div className="flex items-center space-x-2 p-4 border rounded-lg hover:border-green-300 cursor-pointer">
-          <RadioGroupItem value="card" id="card" />
-          <Label htmlFor="card" className="flex items-center cursor-pointer w-full">
-            <CreditCard size={20} className="mr-2" />
-            Credit/Debit Card
-          </Label>
-        </div>
-        
-        <div className="flex items-center space-x-2 p-4 border rounded-lg hover:border-green-300 cursor-pointer">
-          <RadioGroupItem value="crypto" id="crypto" />
-          <Label htmlFor="crypto" className="flex items-center cursor-pointer w-full">
-            <Wallet size={20} className="mr-2" />
-            Cryptocurrency
-          </Label>
-        </div>
-        
-        <div className="flex items-center space-x-2 p-4 border rounded-lg hover:border-green-300 cursor-pointer">
-          <RadioGroupItem value="paypal" id="paypal" />
-          <Label htmlFor="paypal" className="cursor-pointer">PayPal</Label>
-        </div>
-        
-        <div className="flex items-center space-x-2 p-4 border rounded-lg hover:border-green-300 cursor-pointer">
-          <RadioGroupItem value="bank_transfer" id="bank_transfer" />
-          <Label htmlFor="bank_transfer" className="cursor-pointer">Bank Transfer</Label>
-        </div>
-        
-        <div className="flex items-center space-x-2 p-4 border rounded-lg hover:border-green-300 cursor-pointer">
-          <RadioGroupItem value="mobile_money" id="mobile_money" />
-          <Label htmlFor="mobile_money" className="cursor-pointer">Mobile Money</Label>
-        </div>
-      </RadioGroup>
-      
+      <div className="mb-6">
+        <Label className="block mb-2 font-medium">Payment Method</Label>
+        <Select value={paymentMethod} onValueChange={setPaymentMethod}>
+          <SelectTrigger className="w-full h-12">
+            <SelectValue placeholder="Select payment method" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="card">Credit/Debit Card</SelectItem>
+            <SelectItem value="crypto">Cryptocurrency</SelectItem>
+            <SelectItem value="paypal">PayPal</SelectItem>
+            <SelectItem value="bank_transfer">Bank Transfer</SelectItem>
+            <SelectItem value="mobile_money">Mobile Money</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Terms & Conditions / Refund Policy */}
+      <div className="mb-6">
+        <label className="flex items-start space-x-3">
+          <input
+            type="checkbox"
+            checked={agreedToTerms}
+            onChange={() => setAgreedToTerms(prev => !prev)}
+            aria-checked={agreedToTerms}
+            className="mt-1 h-4 w-4 rounded border-gray-300 focus:ring-2 focus:ring-green-500"
+          />
+          <div className="text-sm">
+            <div>
+              I agree to the <button
+                type="button"
+                onClick={() => setShowRefundPolicy(true)}
+                className="text-green-600 underline hover:text-green-700 ml-1"
+                aria-expanded={showRefundPolicy}
+              >
+                Terms &amp; Conditions
+              </button> (includes refund policy)
+            </div>
+            {formErrors.acceptTerms && (
+              <p className="text-red-500 text-xs mt-1">{formErrors.acceptTerms}</p>
+            )}
+          </div>
+        </label>
+
+        {showRefundPolicy && (
+          <div className="mt-3 p-4 bg-gray-50 border rounded text-sm text-gray-700">
+            <div className="flex justify-between items-start">
+              <strong className="text-gray-900">Refund Policy</strong>
+              <button
+                type="button"
+                onClick={() => setShowRefundPolicy(false)}
+                className="text-xs text-gray-500 hover:text-gray-700"
+                aria-label="Close refund policy"
+              >
+                Close
+              </button>
+            </div>
+            <div className="mt-2 leading-relaxed">
+              <p>
+                - Full refund available up to 30 days before departure (less any non‑refundable third-party fees). 
+              </p>
+              <p className="mt-1">
+                - 50% refund available between 29 and 14 days before departure. 
+              </p>
+              <p className="mt-1">
+                - No refund within 14 days of departure. 
+              </p>
+              <p className="mt-2 text-xs text-gray-600">
+                For cancellations due to government travel restrictions or force majeure events, special exceptions may apply — please contact support for case-by-case review.
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+
       {renderPaymentMethodFields()}
     </div>
   );

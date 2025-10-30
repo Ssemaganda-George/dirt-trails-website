@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, Leaf } from 'lucide-react';
 
 const Header = () => {
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isConservationOpen, setIsConservationOpen] = useState(false);
   const location = useLocation();
@@ -81,6 +82,7 @@ const Header = () => {
                 to="/environment/carbon-offset"
                 className="block w-full text-left px-6 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-colors border-b border-white/5"
                 onClick={closeMenu}
+                role="menuitem"
               >
                 Calculate Carbon Offset
               </Link>
@@ -88,6 +90,7 @@ const Header = () => {
                 to="/environment/tree-planting"
                 className="block w-full text-left px-6 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-colors border-b border-white/5"
                 onClick={closeMenu}
+                role="menuitem"
               >
                 Tree Planting Initiatives
               </Link>
@@ -95,6 +98,7 @@ const Header = () => {
                 to="/environment/geotagging"
                 className="block w-full text-left px-6 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-colors"
                 onClick={closeMenu}
+                role="menuitem"
               >
                 Geotagging & Monitoring
               </Link>
@@ -159,8 +163,15 @@ const Header = () => {
                 className="text-left text-white/70 hover:text-white transition-colors pl-6 py-2"
                 onClick={closeMenu}
               >
-                Geotagging & Monitoring
-              </Link>
+                Calculate Carbon Offset
+              </NavLink>
+              <NavLink 
+                to="/community" 
+                className="text-foreground hover:text-primary transition-colors pl-6 py-2"
+                onClick={closeMenu}
+              >
+                Community
+              </NavLink>
             </div>
             
             <Link 

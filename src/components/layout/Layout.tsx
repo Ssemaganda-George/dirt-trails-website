@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
+import ImpactSummary from '../home/ImpactSummary';
+import ChatBot from '../ChatBot';
 // import ImpactSummary from '../home/ImpactSummary';
 
 const Layout = () => {
@@ -36,6 +38,8 @@ const Layout = () => {
         </div>
       </div>
       <Footer />
+      {/* Global chatbot visible on all pages */}
+      <ChatBot />
     </div>
   );
 };

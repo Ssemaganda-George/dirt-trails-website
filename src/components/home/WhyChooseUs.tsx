@@ -66,7 +66,7 @@ const WhyChooseUs = () => {
       icon: Globe,
       title: "Sustainable Impact",
       description: "Your travels give back. Each booking supports tree planting, empowers local communities, and promotes conservation ensuring safaris protect what makes Africa special.",
-      stats: "1 Tree Planted Per Safari",
+      stats: "1+ Trees Planted Per Safari",
       delay: 400
     },
     {
@@ -102,7 +102,7 @@ const WhyChooseUs = () => {
               Your Gateway to
             </span>
             <span className="block bg-gradient-to-r from-green-500 via-green-600 to-green-700 bg-clip-text text-transparent">
-              Adventure, Without the Stress.
+              Eco-Adventure, Without the Stress.
             </span>
           </h2>
           

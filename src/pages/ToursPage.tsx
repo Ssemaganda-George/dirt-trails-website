@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { MapPin, Calendar, Star, ArrowRight } from 'lucide-react';
 import { tours } from '@/data/tours';
+import { Button } from "@/components/ui/button";
 
 const ToursPage = () => {
+  const location = useLocation();
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [sortBy, setSortBy] = useState('default');
   
@@ -119,10 +122,10 @@ const ToursPage = () => {
           {/* Tours Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {sortedTours.map((tour) => (
-              <div 
-                key={tour.id} 
-                className="group block cursor-pointer"
-                onClick={() => console.log(`Navigate to tour: ${tour.slug}`)}
+              <Link
+                key={tour.id}
+                to={`/tours/${tour.slug}`}
+                className="group block"
               >
                 <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] border border-gray-100 relative h-full flex flex-col">
                   {/* Image Container */}
@@ -205,7 +208,7 @@ const ToursPage = () => {
                       
                       {/* View Details Button */}
                       <div className={`opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 bg-gradient-to-r ${theme.gradient} text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-md`}>
-                        View Details
+                        View : Customise : Book
                       </div>
                     </div>
 
@@ -214,7 +217,7 @@ const ToursPage = () => {
 
                   <div className={`absolute inset-0 bg-gradient-to-r ${theme.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-2xl pointer-events-none`}></div>
                 </div>
-              </div> 
+              </Link>
             ))}
           </div>
 

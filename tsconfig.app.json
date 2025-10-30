@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
@@ -26,5 +27,13 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ],
+  // exclude the incorrectly-cased folder so TS doesn't load both casings
+  "exclude": [
+    "src/pages/About",
+    "node_modules",
+    "dist"
+  ]
 }

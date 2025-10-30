@@ -1,0 +1,181 @@
+/* Use system/theme variables where available */
+:root {
+  --ct-hero-start: var(--ct-hero-start, #0f172a);
+  --ct-hero-end: var(--ct-hero-end, #1e293b);
+  --ct-accent: var(--ct-accent, #0f766e);
+  --ct-bg: var(--background, #ffffff);
+  --ct-foreground: var(--foreground, #111827);
+  --ct-muted: var(--muted, #f3f4f6);
+  --ct-border: var(--border, #e5e7eb);
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(90deg, var(--ct-hero-start), var(--ct-hero-end));
+  color: #fff;
+  padding: 3.5rem 1rem;
+}
+.heroInner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.subtitle {
+  opacity: 0.95;
+  margin-top: 0.5rem;
+  color: rgba(255,255,255,0.9);
+}
+
+/* Hero title */
+.heroTitle {
+  font-size: 2rem;
+  margin: 0;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+/* page container */
+.container {
+  max-width: 1100px;
+  margin: 2.25rem auto;
+  padding: 0 1rem;
+  color: var(--ct-foreground);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* intro */
+.intro {
+  margin-bottom: 1.75rem;
+}
+.h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  color: var(--ct-foreground);
+}
+.lead {
+  margin: 0 0 1rem 0;
+  color: #374151;
+  line-height: 1.6;
+}
+
+/* action buttons */
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+.primaryButton {
+  background: var(--ct-accent);
+  color: #fff;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+}
+.primaryButton:hover {
+  opacity: 0.95;
+}
+.outlineButton {
+  background: transparent;
+  border: 1px solid var(--ct-border);
+  color: var(--ct-foreground);
+  padding: 0.55rem 0.9rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.link {
+  color: var(--ct-accent);
+  text-decoration: underline;
+}
+
+/* grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+/* card (keeps parity with component class names) */
+.card {
+  background: var(--ct-bg);
+  border: 1px solid var(--ct-border);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(16,24,40,0.08);
+}
+.cardImage img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  display: block;
+}
+.cardBody {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.cardFooter {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.cardTitle {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.05rem;
+  color: var(--ct-foreground);
+}
+.cardDesc {
+  flex: 1;
+  margin: 0 0 1rem 0;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+/* slightly larger tappable CTA and refined border-radius */
+.button {
+  align-self: flex-start;
+  background: var(--ct-accent);
+  color: #fff;
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+.button:hover,
+.button:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(16,24,40,0.08);
+}
+
+/* footer note */
+.footerNote {
+  margin-top: 1.5rem;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+/* small utility */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
