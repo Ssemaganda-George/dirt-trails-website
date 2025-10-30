@@ -14,7 +14,7 @@ import { PaymentMethods } from './PaymentMethods';
 import { BookingSummary } from './BookingSummary';
 import { getStandardPricingTiers } from '@/utils/pricing'; // add near other imports
 
-interface FormData {
+interface ContactFormData {
   firstName: string;
   lastName: string;
   email: string;
@@ -46,6 +46,15 @@ const CheckoutPage = () => {
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [paymentType, setPaymentType] = useState<'deposit' | 'full'>('deposit');
   const [currentStep, setCurrentStep] = useState(1);
+  // quick inquiry action (used by BookingSummary)
+  const handleQuickInquiry = () => {
+    // Switch the flow into inquiry mode and show the inquiry step so the InquiryForm
+    // (and the sendInquiry path) will include the current package/tour details.
+    setBookingMode('inquiry');
+    setCurrentStep(2);
+    // Scroll to top/step so the user sees the inquiry form
+    window.setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 50);
+  };
   
   const urlNumberOfPeople = parseInt(searchParams.get('people') || '1');
   const urlPricePerPerson = parseFloat(searchParams.get('pricePerPerson') || '0');
@@ -219,26 +228,22 @@ const CheckoutPage = () => {
     };
   };
 
-  // Function to send inquiry via Formspree
-  const sendInquiry = async (formData: FormData) => {
+  // Function to send inquiry via Formspree — accepts a full payload object
+  const sendInquiry = async (payload: Record<string, any>) => {
     try {
+      // enrich payload with consistent metadata
       const inquiryData = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        phone: formData.phone,
+        ...payload,
         tourName: tour.name,
         tourSlug: tour.slug,
         numberOfTravelers: numberOfPeople,
-        preferredTravelDate: formData.travelDate,
-        specialRequests: formData.specialRequests,
         estimatedTotalPrice: calculateTotalPrice(),
         pricePerPerson: getCurrentPricePerPerson(),
         selectedCustomizations: JSON.stringify(selectedCustomizations),
         tourDuration: tour.duration,
         submissionType: 'Tour Inquiry',
         submissionDate: new Date().toISOString(),
-        _subject: `New Tour Inquiry: ${tour.name} - ${formData.firstName} ${formData.lastName}`
+        _subject: `New Tour Inquiry: ${tour.name} - ${payload.firstName || ''} ${payload.lastName || ''}`
       };
 
       const response = await fetch('https://formspree.io/f/xpwjoknq', {
@@ -385,6 +390,32 @@ const CheckoutPage = () => {
     }
   };
 
+  // Collect form values from the checkout form container (captures inputs even if nested forms exist)
+  const collectFormData = (): FormData => {
+    const fd = new FormData();
+    const container = document.getElementById('checkout-form');
+    if (!container) return fd;
+
+    const controls = container.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input[name], select[name], textarea[name]');
+    controls.forEach((el) => {
+      const name = el.getAttribute('name');
+      if (!name) return;
+      const type = (el as HTMLInputElement).type;
+
+      if (type === 'checkbox') {
+        const input = el as HTMLInputElement;
+        if (input.checked) fd.append(name, input.value || 'on');
+      } else if (type === 'radio') {
+        const input = el as HTMLInputElement;
+        if (input.checked) fd.append(name, input.value);
+      } else {
+        fd.append(name, (el as any).value ?? '');
+      }
+    });
+
+    return fd;
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     
@@ -392,8 +423,9 @@ const CheckoutPage = () => {
     const errors: {[key: string]: string} = {};
     
     // Common validation for both modes
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
+    // collect form data from the checkout-form container (works even if InquiryForm renders nested form)
+    const formData = collectFormData();
+
     const firstName = formData.get('firstName') as string || '';
     const lastName = formData.get('lastName') as string || '';
     const email = formData.get('email') as string || '';
@@ -441,7 +473,7 @@ const CheckoutPage = () => {
     setIsProcessing(true);
 
     try {
-      const userData: FormData = {
+      const userData: ContactFormData = {
         firstName,
         lastName,
         email,
@@ -452,9 +484,53 @@ const CheckoutPage = () => {
       };
       
       if (bookingMode === 'inquiry') {
-        await sendInquiry(userData);
+        // collect all form values (single and multi-value fields)
+        const allFormValues: Record<string, any> = {};
+        formData.forEach((value, key) => {
+          if (allFormValues[key] === undefined) {
+            allFormValues[key] = value;
+          } else if (Array.isArray(allFormValues[key])) {
+            allFormValues[key].push(value);
+          } else {
+            allFormValues[key] = [allFormValues[key], value];
+          }
+        });
+
+        // explicit arrays for checkbox/multi-select groups
+        const countries = formData.getAll('countries') as string[]; // may be []
+        const activities = formData.getAll('activities') as string[]; // may be []
+
+        const inquiryPayload: Record<string, any> = {
+          // contact fields
+          firstName,
+          lastName,
+          email,
+          phone,
+          travelers: (formData.get('travelers') as string) || '',
+          preferredTravelDate: (formData.get('travelDate') as string) || '',
+          specialRequests: (formData.get('specialRequests') as string) || '',
+          // inquiry form specifics
+          countries,
+          activities,
+          tripDays: (formData.get('tripDays') as string) || '',
+          travelCompanion: (formData.get('travelCompanion') as string) || '',
+          budget: (formData.get('budget') as string) || '',
+          numAdults: (formData.get('numAdults') as string) || '',
+          numChildren: (formData.get('numChildren') as string) || '',
+          message: (formData.get('message') as string) || '',
+          // package details for inbox/context
+          package: {
+            tourName: tour.name,
+            tourSlug: tour.slug,
+            numberOfPeople,
+            pricePerPerson: getCurrentPricePerPerson(),
+            totalPrice: calculateTotalPrice(),
+            selectedCustomizations
+          }
+        };
+
+        await sendInquiry(inquiryPayload);
         setInquirySubmitted(true);
-        
         setTimeout(() => {
           navigate('/home', {
             state: {
@@ -664,7 +740,7 @@ const CheckoutPage = () => {
                 <p className="text-sm text-gray-600">We'll respond within 24 hours with a personalized quote and detailed information.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form id="checkout-form" onSubmit={handleSubmit} className="space-y-6">
                 {/* Error Display */}
                 {formErrors.submit && (
                   <div className="bg-red-50 border border-red-200 rounded-lg p-4">
@@ -834,6 +910,7 @@ const CheckoutPage = () => {
                 treePlantingAmount={treePlantingAmount}
                 onTreePlantingChange={setTreePlantingSelected}
                 onTreePlantingAmountChange={setTreePlantingAmount}
+                onQuickInquiry={handleQuickInquiry}
               />
             </div>
           </div>

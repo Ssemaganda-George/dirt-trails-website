@@ -21,6 +21,8 @@ interface BookingSummaryProps {
   treePlantingAmount?: number;
   onTreePlantingChange?: (selected: boolean) => void;
   onTreePlantingAmountChange?: (amount: number) => void;
+  // optional quick inquiry callback (invoked when user wants to inquire from the summary)
+  onQuickInquiry?: () => void;
 }
 
 export const BookingSummary: React.FC<BookingSummaryProps> = ({
@@ -40,7 +42,8 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
   treePlantingSelected = false,
   treePlantingAmount = 5,
   onTreePlantingChange,
-  onTreePlantingAmountChange
+  onTreePlantingAmountChange,
+  onQuickInquiry
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -118,6 +121,17 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
         </button>
       </div>
       
+      {/* Quick inquiry CTA — sends user to inquiry flow (or triggers quick inquiry) */}
+      <div className="mb-4">
+        <button
+          type="button"
+          onClick={() => onQuickInquiry?.()}
+          className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition"
+        >
+          Inquire about this package
+        </button>
+      </div>
++
       <div className="space-y-4">
         <div className="flex justify-between items-center py-2 border-b border-gray-100">
           <span className="font-medium text-gray-700">Tour:</span>
