@@ -255,7 +255,7 @@ const Hero = () => {
 
   const durationMap: Record<string, number> = {
     Three: 3,
-    Five: 5,
+    Five: 5,2
     Seven: 7,
     Ten: 10
   };
