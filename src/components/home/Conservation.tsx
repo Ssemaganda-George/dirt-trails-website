@@ -1,6 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { TreePine, Heart, Leaf, Award, Globe, CheckCircle, ArrowRight, Users, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+// Tourist planting images for the right card
+const plantingImages = [
+  "/images/Sharon1.png",
+  "/images/angel.png",
+  "/images/Sharon.png",
+  "/images/uwa.png"
+];
 
 const StatCard = ({ icon: Icon, number, label, gradient }) => (
   <div className="text-center group">
@@ -67,6 +75,16 @@ const Conservation = () => {
       delay: 400
     }
   ];
+
+  const [plantingIdx, setPlantingIdx] = useState(0);
+
+  // Auto-slide for planting images
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPlantingIdx((prev) => (prev + 1) % plantingImages.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="py-20 bg-gradient-to-b from-gray-50/50 to-white relative overflow-hidden">
@@ -138,25 +156,22 @@ const Conservation = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl transform rotate-3 group-hover:rotate-6 transition-transform duration-500"></div>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl transform group-hover:scale-105 transition-transform duration-500">
                 <img 
-                  src="/images/crested.jpg" 
-                  alt="Conservation efforts - wildlife protection and reforestation in East Africa"
-                  className="w-full h-80 object-cover"
+                  src={plantingImages[plantingIdx]} 
+                  alt="Tourists planting trees - conservation in action"
+                  className="w-full h-[28rem] object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                 <div className="absolute bottom-4 left-4 right-4">
                   <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <TreePine className="text-green-600" size={16} />
-                      <span className="font-semibold text-sm text-gray-800">Conservation in Action</span>
+                      <span className="font-semibold text-sm text-gray-800">Tourists Conservation efforts</span>
                     </div>
-                    <p className="text-xs text-gray-600">Every safari contributes to wildlife protection and community development</p>
+                    <p className="text-xs text-gray-600">Join our guests in making a real impact, every safari helps restore nature.</p>
                   </div>
                 </div>
               </div>
             </div>
-
-           
-            
           </div>
         </div>
 
