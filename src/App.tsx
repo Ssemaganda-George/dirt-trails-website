@@ -14,7 +14,7 @@ import ToursPage from "./pages/ToursPage";
 import TourDetailPage from "./pages/TourDetailPage";
 import DestinationsPage from "./pages/DestinationsPage";
 import DestinationDetailPage from "./pages/DestinationDetailPage";
-import AboutPage from "./pages/about/AboutPage";
+import AboutPage from "./pages/About/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import BookingConfirmationPage from "./pages/BookingConfirmationPage";
@@ -23,9 +23,9 @@ import CarbonOffsetPage from "./pages/environment/CarbonOffsetPage";
 import TreePlantingPage from "./pages/environment/TreePlantingPage";
 import GeotaggingPage from "./pages/environment/GeotaggingPage";
 import DonatePage from "./pages/environment/DonatePage";
-import TeamPage from "./pages/about/TeamPage";
+import TeamPage from "./pages/About/TeamPage";
 import CommunityPage from "./pages/CommunityPage";
-import GuidesPage from "./pages/about/GuidesPage";
+import GuidesPage from "./pages/About/GuidesPage";
 
 const queryClient = new QueryClient();
 
