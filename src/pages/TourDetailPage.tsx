@@ -234,7 +234,7 @@ const TourDetailPage = () => {
       {/* Tour Images and Main Content - Professional */}
       <section className="py-12 bg-white">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Tour Images - Professional */}
             <div className="lg:col-span-2 animate-fade-in-up">
               <div className="rounded-xl overflow-hidden mb-6 shadow-2xl group relative">
@@ -249,7 +249,7 @@ const TourDetailPage = () => {
                 {tour.images.map((image, index) => (
                   <div 
                     key={index}
-                    className={`rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+                    className={`rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:brightness-110 ${
                       activeImageIndex === index 
                         ? 'ring-3 ring-safari-green shadow-xl transform scale-105' 
                         : 'hover:ring-2 hover:ring-safari-green/50'

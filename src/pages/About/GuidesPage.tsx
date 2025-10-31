@@ -156,7 +156,7 @@ const GuidesPage = () => {
 							insightful, and unforgettable.
 						</p>
 					</div>
-					<div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-10">
 						{guides.map((guide, idx) => (
 							<div
 								key={idx}
@@ -214,7 +214,7 @@ const GuidesPage = () => {
 							</div>
 						))}
 					</div>
-					<div className="text-center mt-12">
+					<div className="text-center mt-8 sm:mt-12">
 						<Link
 							to="/contact"
 							className="inline-block px-8 py-3 bg-safari-orange text-white rounded-xl font-semibold shadow-lg hover:bg-safari-green transition-all duration-300"
@@ -226,174 +226,174 @@ const GuidesPage = () => {
 			</section>
 			{/* Guide Modal */}
 			{selected !== null && (
-	<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-		<div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 p-0 relative animate-fade-in-up flex flex-col md:flex-row overflow-hidden">
-			{/* Gallery Section */}
-			<div className="md:w-2/3 w-full bg-safari-green/5 flex flex-col justify-center items-center relative p-4">
-				<div className="relative w-full">
-					<button
-						className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-safari-green/80 text-safari-green hover:text-white rounded-full p-2 shadow transition"
-						onClick={e => { e.stopPropagation(); prevImage(); }}
-						aria-label="Previous image"
-						type="button"
-						tabIndex={0}
-					>
-						<svg width={32} height={32} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-							<path d="M15 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round"/>
-						</svg>
-					</button>
-					<div className="overflow-hidden w-full flex items-center justify-center">
-						<div
-							className="flex transition-transform duration-500"
-							style={{
-								transform: `translateX(-${galleryIdx * 100}%)`,
-								width: `${guides[selected].gallery.length * 100}%`
-							}}
-						>
-							{guides[selected].gallery.map((img, i) => (
-								<img
-									key={i}
-									src={img}
-									alt={`Safari with ${guides[selected].name} ${i + 1}`}
-									className="rounded-xl w-full h-[28rem] object-cover flex-shrink-0"
-									style={{ width: "100%" }}
-								/>
-							))}
+				<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-2">
+					<div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 p-0 relative animate-fade-in-up flex flex-col md:flex-row overflow-hidden">
+						{/* Gallery Section */}
+						<div className="md:w-2/3 w-full bg-safari-green/5 flex flex-col justify-center items-center relative p-4">
+							<div className="relative w-full">
+								<button
+									className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-safari-green/80 text-safari-green hover:text-white rounded-full p-2 shadow transition"
+									onClick={e => { e.stopPropagation(); prevImage(); }}
+									aria-label="Previous image"
+									type="button"
+									tabIndex={0}
+								>
+									<svg width={32} height={32} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+										<path d="M15 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round"/>
+									</svg>
+								</button>
+								<div className="overflow-hidden w-full flex items-center justify-center">
+									<div
+										className="flex transition-transform duration-500"
+										style={{
+											transform: `translateX(-${galleryIdx * 100}%)`,
+											width: `${guides[selected].gallery.length * 100}%`
+										}}
+									>
+										{guides[selected].gallery.map((img, i) => (
+											<img
+												key={i}
+												src={img}
+												alt={`Safari with ${guides[selected].name} ${i + 1}`}
+												className="rounded-xl w-full h-[28rem] object-cover flex-shrink-0"
+												style={{ width: "100%" }}
+											/>
+										))}
+									</div>
+								</div>
+								<button
+									className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-safari-green/80 text-safari-green hover:text-white rounded-full p-2 shadow transition"
+									onClick={e => { e.stopPropagation(); nextImage(); }}
+									aria-label="Next image"
+									type="button"
+									tabIndex={0}
+								>
+									<svg width={32} height={32} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+										<path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
+									</svg>
+								</button>
+							</div>
+							<div className="flex justify-center gap-2 mt-3">
+								{guides[selected].gallery.map((_, i) => (
+									<button
+										key={i}
+										className={`w-3 h-3 rounded-full ${i === galleryIdx ? "bg-safari-green" : "bg-gray-300"}`}
+										onClick={e => { e.stopPropagation(); setGalleryIdx(i); }}
+										aria-label={`Go to image ${i + 1}`}
+									/>
+								))}
+							</div>
+						</div>
+						{/* Info Section */}
+						<div className="md:w-1/3 w-full flex flex-col items-center justify-center p-8 relative">
+							<button
+								className="absolute top-4 right-4 text-gray-400 hover:text-safari-green transition-colors"
+								onClick={closeGuide}
+								aria-label="Close guide profile"
+							>
+								<svg width={28} height={28} viewBox="0 0 24 24" fill="none">
+									<path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+									<path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+								</svg>
+							</button>
+							<img
+								src={guides[selected].image}
+								alt={guides[selected].name}
+								className="w-32 h-32 rounded-full object-cover mb-3 border-4 border-safari-green/20 shadow"
+							/>
+							<h3 className="text-2xl font-bold mb-1 text-safari-brown text-center">{guides[selected].name}</h3>
+							<div className="flex items-center justify-center mb-2">
+								{[1, 2, 3, 4, 5].map((star) => (
+									<svg
+										key={star}
+										onClick={() => handleRate(selected, star)}
+										className={`w-5 h-5 cursor-pointer ${
+											star <= Math.round(ratings[selected].rating)
+												? "text-yellow-400"
+												: "text-gray-300"
+										} transition-colors`}
+										fill="currentColor"
+										viewBox="0 0 20 20"
+										aria-label={`Rate ${star} star${star > 1 ? "s" : ""}`}
+									>
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.385-2.46a1 1 0 00-1.175 0l-3.385 2.46c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118l-3.385-2.46c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.286-3.967z" />
+									</svg>
+								))}
+								<span className="ml-2 text-safari-green font-semibold text-sm">
+									{ratings[selected].rating.toFixed(1)} ({ratings[selected].ratingsCount})
+								</span>
+							</div>
+							{/* Phone/WhatsApp */}
+							{(guides[selected].phone || guides[selected].whatsapp) && (
+								<div className="flex flex-col items-center gap-2 mb-2">
+									{guides[selected].phone && (
+										<a
+											href={`tel:${guides[selected].phone}`}
+											className="flex items-center gap-1 text-safari-green hover:text-safari-orange font-medium"
+											title="Call"
+										>
+											<Phone size={18} /> {guides[selected].phone}
+										</a>
+									)}
+									{guides[selected].whatsapp && (
+										<a
+											href={`https://wa.me/256${guides[selected].whatsapp.replace(/^0/, "")}`}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="flex items-center gap-1 text-green-600 hover:text-green-800 font-medium"
+											title="WhatsApp"
+										>
+											<MessageCircle size={18} /> {guides[selected].whatsapp}
+										</a>
+									)}
+								</div>
+							)}
+							{/* Socials below phone/whatsapp */}
+							<div className="flex flex-row justify-center gap-4 mb-4">
+								{guides[selected].facebook && (
+									<a
+										href={guides[selected].facebook}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-blue-600 hover:text-blue-800"
+										title="Facebook"
+									>
+										<Facebook size={22} />
+									</a>
+								)}
+								{guides[selected].instagram && (
+									<a
+										href={guides[selected].instagram}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-pink-500 hover:text-pink-700"
+										title="Instagram"
+									>
+										<Instagram size={22} />
+									</a>
+								)}
+								{guides[selected].twitter && (
+									<a
+										href={guides[selected].twitter}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-sky-500 hover:text-sky-700"
+										title="Twitter"
+									>
+										<Twitter size={22} />
+									</a>
+								)}
+							</div>
+							<p className="text-gray-700 text-base mb-4 text-center whitespace-pre-line">{guides[selected].bio}</p>
 						</div>
 					</div>
-					<button
-						className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-safari-green/80 text-safari-green hover:text-white rounded-full p-2 shadow transition"
-						onClick={e => { e.stopPropagation(); nextImage(); }}
-						aria-label="Next image"
-						type="button"
-						tabIndex={0}
-					>
-						<svg width={32} height={32} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-							<path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
-						</svg>
-					</button>
+					<div
+						className="fixed inset-0 z-40"
+						onClick={closeGuide}
+						aria-label="Close guide overlay"
+					/>
 				</div>
-				<div className="flex justify-center gap-2 mt-3">
-					{guides[selected].gallery.map((_, i) => (
-						<button
-							key={i}
-							className={`w-3 h-3 rounded-full ${i === galleryIdx ? "bg-safari-green" : "bg-gray-300"}`}
-							onClick={e => { e.stopPropagation(); setGalleryIdx(i); }}
-							aria-label={`Go to image ${i + 1}`}
-						/>
-					))}
-				</div>
-			</div>
-			{/* Info Section */}
-			<div className="md:w-1/3 w-full flex flex-col items-center justify-center p-8 relative">
-				<button
-					className="absolute top-4 right-4 text-gray-400 hover:text-safari-green transition-colors"
-					onClick={closeGuide}
-					aria-label="Close guide profile"
-				>
-					<svg width={28} height={28} viewBox="0 0 24 24" fill="none">
-						<path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-						<path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-					</svg>
-				</button>
-				<img
-					src={guides[selected].image}
-					alt={guides[selected].name}
-					className="w-32 h-32 rounded-full object-cover mb-3 border-4 border-safari-green/20 shadow"
-				/>
-				<h3 className="text-2xl font-bold mb-1 text-safari-brown text-center">{guides[selected].name}</h3>
-				<div className="flex items-center justify-center mb-2">
-					{[1, 2, 3, 4, 5].map((star) => (
-						<svg
-							key={star}
-							onClick={() => handleRate(selected, star)}
-							className={`w-5 h-5 cursor-pointer ${
-								star <= Math.round(ratings[selected].rating)
-									? "text-yellow-400"
-									: "text-gray-300"
-							} transition-colors`}
-							fill="currentColor"
-							viewBox="0 0 20 20"
-							aria-label={`Rate ${star} star${star > 1 ? "s" : ""}`}
-						>
-							<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.385-2.46a1 1 0 00-1.175 0l-3.385 2.46c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118l-3.385-2.46c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.286-3.967z" />
-						</svg>
-					))}
-					<span className="ml-2 text-safari-green font-semibold text-sm">
-						{ratings[selected].rating.toFixed(1)} ({ratings[selected].ratingsCount})
-					</span>
-				</div>
-				{/* Phone/WhatsApp */}
-				{(guides[selected].phone || guides[selected].whatsapp) && (
-					<div className="flex flex-col items-center gap-2 mb-2">
-						{guides[selected].phone && (
-							<a
-								href={`tel:${guides[selected].phone}`}
-								className="flex items-center gap-1 text-safari-green hover:text-safari-orange font-medium"
-								title="Call"
-							>
-								<Phone size={18} /> {guides[selected].phone}
-							</a>
-						)}
-						{guides[selected].whatsapp && (
-							<a
-								href={`https://wa.me/256${guides[selected].whatsapp.replace(/^0/, "")}`}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="flex items-center gap-1 text-green-600 hover:text-green-800 font-medium"
-								title="WhatsApp"
-							>
-								<MessageCircle size={18} /> {guides[selected].whatsapp}
-							</a>
-						)}
-					</div>
-				)}
-				{/* Socials below phone/whatsapp */}
-				<div className="flex flex-row justify-center gap-4 mb-4">
-					{guides[selected].facebook && (
-						<a
-							href={guides[selected].facebook}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-blue-600 hover:text-blue-800"
-							title="Facebook"
-						>
-							<Facebook size={22} />
-						</a>
-					)}
-					{guides[selected].instagram && (
-						<a
-							href={guides[selected].instagram}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-pink-500 hover:text-pink-700"
-							title="Instagram"
-						>
-							<Instagram size={22} />
-						</a>
-					)}
-					{guides[selected].twitter && (
-						<a
-							href={guides[selected].twitter}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-sky-500 hover:text-sky-700"
-							title="Twitter"
-						>
-							<Twitter size={22} />
-						</a>
-					)}
-				</div>
-				<p className="text-gray-700 text-base mb-4 text-center whitespace-pre-line">{guides[selected].bio}</p>
-			</div>
-		</div>
-		<div
-			className="fixed inset-0 z-40"
-			onClick={closeGuide}
-			aria-label="Close guide overlay"
-		/>
-	</div>
-)}
+			)}
 		</div>
 	);
 };

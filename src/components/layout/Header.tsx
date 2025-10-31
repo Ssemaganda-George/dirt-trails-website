@@ -25,13 +25,13 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md border-b border-white/10">
       <div className="absolute inset-0 bg-black/40 z-0"></div>
-      <div className="container mx-auto px-4 flex justify-between items-center h-20 relative z-10">
+      <div className="container mx-auto px-2 sm:px-4 flex justify-between items-center h-20 relative z-10">
         {/* Logo */}
         <Link to="/" className="flex items-center" onClick={closeMenu}>
           <img 
             src="/images/logo.png" 
             alt="Dirt Trails Safaris Logo" 
-            className="h-12" 
+            className="h-10 sm:h-12 w-auto" 
           />
         </Link>
 
@@ -198,21 +198,19 @@ const Header = () => {
             Contact Us
           </Link>
         </nav>
-
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-white"
+          className="md:hidden text-white p-2"
           onClick={toggleMenu}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
-
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-20 left-0 right-0 bg-zinc-900/95 backdrop-blur-md border-t border-white/10 z-40">
-          <div className="container mx-auto px-4 py-6 flex flex-col space-y-4">
+        <div className="md:hidden absolute top-20 left-0 right-0 bg-zinc-900/95 backdrop-blur-md border-t border-white/10 z-40 max-h-[90vh] overflow-y-auto">
+          <div className="container mx-auto px-2 py-6 flex flex-col space-y-4">
             <Link
               to="/"
               onClick={closeMenu}

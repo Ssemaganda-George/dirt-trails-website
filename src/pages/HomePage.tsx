@@ -22,8 +22,8 @@ const HomePage = () => {
   return (
     <div className="min-h-screen">
       {showWelcome && (
-        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-yellow-50 p-6 transition-opacity duration-700 ${fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-          <div className="max-w-2xl bg-white rounded-xl shadow-lg p-10 text-center">
+        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-yellow-50 p-2 sm:p-6 transition-opacity duration-700 ${fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+          <div className="max-w-2xl w-full bg-white rounded-xl shadow-lg p-4 sm:p-10 text-center overflow-y-auto max-h-[90vh]">
             <h1 className="text-4xl font-extrabold mb-6 text-green-700 tracking-tight">Welcome to Dirt Trails Safaris</h1>
             <p className="text-lg mb-6 text-gray-700">
               <span className="font-semibold text-green-700">Dirt Trails Safaris</span> is an adventure and eco-tourism company committed to delivering sustainable, professional, and safe safari experiences. Our mission is to connect travelers with Africa's beautiful landscapes and vibrant cultures, while upholding the highest standards of service and sustainability.

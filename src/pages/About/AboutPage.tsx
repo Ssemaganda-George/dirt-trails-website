@@ -7,7 +7,7 @@ import ChatBot from '../../components/ChatBot';
 const AboutPage = () => (
   <div className="bg-gradient-to-b from-gray-50 to-white">
     {/* Hero Section - Professional Color Scheme */}
-    <section className="relative py-24 bg-safari-green text-white overflow-hidden">
+    <section className="relative py-16 sm:py-24 bg-safari-green text-white overflow-hidden">
       <div className="absolute inset-0 bg-black/10"></div>
       <div className="container relative">
         <div className="max-w-4xl animate-fade-in-up">
@@ -22,7 +22,7 @@ const AboutPage = () => (
     </section>
 
     {/* Our Story - Professional */}
-    <section className="py-20 bg-white">
+    <section className="py-12 sm:py-20 bg-white">
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center animate-fade-in-up">
           <div className="space-y-6">
@@ -51,7 +51,7 @@ const AboutPage = () => (
     </section>
 
     {/* Our Values - Professional */}
-    <section className="py-20 bg-safari-brown/5">
+    <section className="py-12 sm:py-20 bg-safari-brown/5">
       <div className="container">
         <div className="text-center mb-16 animate-fade-in-up">
           <h2 className="text-4xl font-bold mb-6 text-safari-brown">
@@ -88,7 +88,7 @@ const AboutPage = () => (
     </section>
 
     {/* Conservation Efforts - Professional */}
-    <section className="py-20 bg-white">
+    <section className="py-12 sm:py-20 bg-white">
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center animate-fade-in-up">
           <div className="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 group">
@@ -120,7 +120,7 @@ const AboutPage = () => (
     </section>
 
     {/* CTA Section - Professional */}
-    <section className="py-20 bg-safari-green text-white relative overflow-hidden">
+    <section className="py-12 sm:py-20 bg-safari-green text-white relative overflow-hidden">
       <div className="absolute inset-0 bg-black/10"></div>
       <div className="container relative text-center animate-fade-in-up">
         <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">

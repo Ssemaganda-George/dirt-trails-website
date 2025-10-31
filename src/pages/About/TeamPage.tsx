@@ -63,7 +63,7 @@ const TeamPage = () => {
 						</p>
 					</div>
 
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10">
 						{team.map((member, idx) => (
 							<div
 								key={member.name}
@@ -142,80 +142,80 @@ const TeamPage = () => {
 							</div>
 						))}
 					</div>
-				</div>
-				{/* Modal for bio */}
-				{selected !== null && (
-					<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-						<div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-8 relative animate-fade-in-up">
-							<button
-								className="absolute top-4 right-4 text-gray-400 hover:text-safari-green transition-colors"
-								onClick={() => setSelected(null)}
-								aria-label="Close bio"
-							>
-								<X size={24} />
-							</button>
-							<div className="flex flex-col items-center">
-								<img
-									src={team[selected].image}
-									alt={team[selected].name}
-									className="w-32 h-32 rounded-full object-cover mb-4 border-4 border-safari-green/20 shadow"
-								/>
-								<h3 className="text-2xl font-bold mb-1 text-safari-brown">{team[selected].name}</h3>
-								<p className="text-safari-green font-medium mb-2">{team[selected].title}</p>
-								<div className="flex justify-center space-x-4 mb-4">
-									{team[selected].linkedin && (
-										<a
-											href={team[selected].linkedin}
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-safari-green hover:text-safari-orange transition-colors duration-300"
-											aria-label={`${team[selected].name} LinkedIn`}
-										>
-											<Linkedin size={20} />
-										</a>
-									)}
-									{team[selected].twitter && (
-										<a
-											href={team[selected].twitter}
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-safari-green hover:text-safari-orange transition-colors duration-300"
-											aria-label={`${team[selected].name} Twitter`}
-										>
-											<Twitter size={20} />
-										</a>
-									)}
-									{team[selected].instagram && (
-										<a
-											href={team[selected].instagram}
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-safari-green hover:text-safari-orange transition-colors duration-300"
-											aria-label={`${team[selected].name} Instagram`}
-										>
-											<Instagram size={20} />
-										</a>
-									)}
-									{team[selected].email && (
-										<a
-											href={`mailto:${team[selected].email}`}
-											className="text-safari-green hover:text-safari-orange transition-colors duration-300"
-											aria-label={`${team[selected].name} Email`}
-										>
-											<Mail size={20} />
-										</a>
-									)}
+					{/* Modal for bio */}
+					{selected !== null && (
+						<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-2">
+							<div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-4 sm:p-8 relative animate-fade-in-up">
+								<button
+									className="absolute top-4 right-4 text-gray-400 hover:text-safari-green transition-colors"
+									onClick={() => setSelected(null)}
+									aria-label="Close bio"
+								>
+									<X size={24} />
+								</button>
+								<div className="flex flex-col items-center">
+									<img
+										src={team[selected].image}
+										alt={team[selected].name}
+										className="w-32 h-32 rounded-full object-cover mb-4 border-4 border-safari-green/20 shadow"
+									/>
+									<h3 className="text-2xl font-bold mb-1 text-safari-brown">{team[selected].name}</h3>
+									<p className="text-safari-green font-medium mb-2">{team[selected].title}</p>
+									<div className="flex justify-center space-x-4 mb-4">
+										{team[selected].linkedin && (
+											<a
+												href={team[selected].linkedin}
+												target="_blank"
+												rel="noopener noreferrer"
+												className="text-safari-green hover:text-safari-orange transition-colors duration-300"
+												aria-label={`${team[selected].name} LinkedIn`}
+											>
+												<Linkedin size={20} />
+											</a>
+										)}
+										{team[selected].twitter && (
+											<a
+												href={team[selected].twitter}
+												target="_blank"
+												rel="noopener noreferrer"
+												className="text-safari-green hover:text-safari-orange transition-colors duration-300"
+												aria-label={`${team[selected].name} Twitter`}
+											>
+												<Twitter size={20} />
+											</a>
+										)}
+										{team[selected].instagram && (
+											<a
+												href={team[selected].instagram}
+												target="_blank"
+												rel="noopener noreferrer"
+												className="text-safari-green hover:text-safari-orange transition-colors duration-300"
+												aria-label={`${team[selected].name} Instagram`}
+											>
+												<Instagram size={20} />
+											</a>
+										)}
+										{team[selected].email && (
+											<a
+												href={`mailto:${team[selected].email}`}
+												className="text-safari-green hover:text-safari-orange transition-colors duration-300"
+												aria-label={`${team[selected].name} Email`}
+											>
+												<Mail size={20} />
+											</a>
+										)}
+									</div>
+									<p className="text-gray-700 text-base leading-relaxed">{team[selected].bio}</p>
 								</div>
-								<p className="text-gray-700 text-base leading-relaxed">{team[selected].bio}</p>
 							</div>
+							<div
+								className="fixed inset-0 z-40"
+								onClick={() => setSelected(null)}
+								aria-label="Close bio overlay"
+							/>
 						</div>
-						<div
-							className="fixed inset-0 z-40"
-							onClick={() => setSelected(null)}
-							aria-label="Close bio overlay"
-						/>
-					</div>
-				)}
+					)}
+				</div>
 			</section>
 			<section className="py-16 bg-safari-green/5">
 				<div className="max-w-3xl mx-auto px-4 text-center">

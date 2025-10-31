@@ -77,7 +77,7 @@ const ContactPage = () => {
       {/* Contact Form and Info - Professional */}
       <section className="py-20 bg-white">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
             {/* Contact Form */}
             <div className="animate-fade-in-up">
               <h2 className="text-4xl font-bold mb-8 text-gray-900">
@@ -261,9 +261,8 @@ const ContactPage = () => {
           </div>
         </div>
       </section>
-
-      {/* Map Section - Professional */}
-      <section className="py-20 bg-gray-50">
+      {/* Map Section */}
+      <section className="py-12 sm:py-20 bg-gray-50">
         <div className="container">
           <h2 className="text-4xl font-bold mb-12 text-center text-gray-900">
             Find Our Office
@@ -307,9 +306,8 @@ const ContactPage = () => {
           </div>
         </div>
       </section>
-      
-      {/* FAQ Section - Professional */}
-      <section className="py-20 bg-white">
+      {/* FAQ Section */}
+      <section className="py-12 sm:py-20 bg-white">
         <div className="container">
           <h2 className="text-4xl font-bold mb-12 text-center text-gray-900">
             Frequently Asked Questions
