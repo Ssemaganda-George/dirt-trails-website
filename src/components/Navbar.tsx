@@ -28,6 +28,11 @@ const Navbar = () => {
                 Our Team
               </Link>
             </li>
+            <li>
+              <Link to="/about/guides" className="block px-4 py-2 text-sm text-gray-700 hover:bg-safari-brown/5">
+                Our Guides
+              </Link>
+            </li>
           </ul>
         </li>
 

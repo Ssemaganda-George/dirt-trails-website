@@ -25,6 +25,7 @@ import GeotaggingPage from "./pages/environment/GeotaggingPage";
 import DonatePage from "./pages/environment/DonatePage";
 import TeamPage from "./pages/about/TeamPage";
 import CommunityPage from "./pages/CommunityPage";
+import GuidesPage from "./pages/about/GuidesPage";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ const App = () => (
               <Route path="destinations/:destinationSlug" element={<DestinationDetailPage />} />
               <Route path="about" element={<AboutPage />} />
               <Route path="about/team" element={<TeamPage />} />
+              <Route path="about/guides" element={<GuidesPage />} />
               <Route path="community" element={<CommunityPage />} />
               <Route path="contact" element={<ContactPage />} />
               <Route path="checkout/:tourSlug" element={<CheckoutPage />} />
