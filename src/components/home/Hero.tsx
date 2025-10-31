@@ -459,13 +459,13 @@ const Hero = () => {
         {/* Right side: Cards container */}
         <div className="w-full xl:w-1/2 flex flex-col xl:flex-row gap-6 max-w-2xl mt-8 xl:mt-0">
           {/* Search form */}
-          <div className="w-full xl:w-3/5 bg-gradient-to-br from-white/98 to-amber-50/98 backdrop-blur-xl rounded-3xl shadow-2xl border-2 border-amber-200/50 p-4 sm:p-6 md:p-8 text-gray-800 transform hover:scale-[1.02] transition-all duration-300">
+          <div className="w-full xl:w-3/5 bg-gradient-to-br from-white/98 to-amber-50/98 backdrop-blur-xl rounded-3xl shadow-2xl border-2 border-amber-200/50 p-4 sm:p-6 md:p-8 text-gray-900 transform hover:scale-[1.02] transition-all duration-300">
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
                   <Search className="text-white" size={20} />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-800 leading-tight">Find Your Perfect Safari</h3>
+                <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight">Find Your Perfect Safari</h3>
               </div>
 
               <div className="space-y-5">
