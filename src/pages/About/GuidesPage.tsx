@@ -149,7 +149,7 @@ const GuidesPage = () => {
 				<div className="container">
 					<div className="text-center mb-12">
 						<h1 className="text-5xl font-bold mb-4 text-safari-brown">
-							Our Guides
+							Meet Our Guides
 						</h1>
 						<p className="text-lg text-gray-600 max-w-2xl mx-auto">
 							Meet the expert guides who make every Dirt Trails safari safe,
