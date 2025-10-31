@@ -61,12 +61,6 @@ const TeamPage = () => {
 							Our experienced team is passionate about East Africa and committed to
 							creating unforgettable, sustainable safari experiences for every guest.
 						</p>
-						<Link
-							to="/contact"
-							className="inline-block mt-6 px-8 py-3 bg-safari-green text-white rounded-xl font-semibold shadow-lg hover:bg-safari-brown transition-all duration-300"
-						>
-							Join Our Team
-						</Link>
 					</div>
 
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
