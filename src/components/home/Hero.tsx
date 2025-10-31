@@ -405,17 +405,15 @@ const Hero = () => {
         ))}
       </div>
 
-      {/* Enhanced gradient overlay for better text readability */}
+      {/* Enhanced gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/60 z-10"></div>
       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10"></div>
 
-
-
       {/* Main content container */}
-      <div className="container relative z-20 flex flex-col xl:flex-row items-center justify-between gap-8 sm:gap-10 lg:gap-12 xl:gap-16 py-8 sm:py-12 lg:py-16 xl:py-20 px-4 sm:px-6 lg:px-8 text-white flex-grow max-w-7xl mx-auto">
+      <div className="container relative z-20 flex flex-col xl:flex-row items-center justify-between gap-8 sm:gap-10 lg:gap-12 xl:gap-16 py-8 sm:py-12 lg:py-16 xl:py-20 px-2 sm:px-4 md:px-6 lg:px-8 text-white flex-grow max-w-7xl mx-auto">
         
         {/* Left side: text content */}
-        <div className="max-w-xl lg:max-w-2xl xl:max-w-3xl text-center xl:text-left space-y-6 sm:space-y-8">
+        <div className="w-full xl:w-1/2 max-w-xl lg:max-w-2xl xl:max-w-3xl text-center xl:text-left space-y-6 sm:space-y-8">
           {/* Safari badge */}
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/30 to-orange-500/30 backdrop-blur-md border-2 border-amber-300/40 rounded-full px-4 py-2 shadow-lg animate-pulse">
             <Compass className="text-amber-200" size={18} />
@@ -439,18 +437,18 @@ const Hero = () => {
           </p>
 
           {/* Call to action buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center xl:justify-start pt-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center xl:justify-start pt-2 sm:pt-4 w-full">
             <button 
               onClick={() => handleLinkClick('tours')}
-              className="group bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-8 py-4 rounded-xl font-bold shadow-2xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 text-base sm:text-lg"
+              className="group w-full sm:w-auto bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold shadow-2xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-lg"
             >
               <Eye size={20} className="group-hover:scale-110 transition-transform" />
               Plan My Safari
             </button>
             
             <button 
-              onClick={() => handleLinkClick('conservation')}
-              className="group border-2 border-green-400/90 bg-green-500/25 backdrop-blur-md text-green-100 hover:bg-green-500 hover:text-white hover:border-green-500 px-8 py-4 rounded-xl font-bold shadow-2xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 text-base sm:text-lg"
+              onClick={() => handleLinkClick('environment/geotagging')}
+              className="group w-full sm:w-auto border-2 border-green-400/90 bg-green-500/25 backdrop-blur-md text-green-100 hover:bg-green-500 hover:text-white hover:border-green-500 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold shadow-2xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-lg"
             >
               <Trees size={20} className="group-hover:scale-110 transition-transform" />
               Explore Conservation
@@ -459,9 +457,9 @@ const Hero = () => {
         </div>
 
         {/* Right side: Cards container */}
-        <div className="flex flex-col xl:flex-row gap-6 w-full max-w-2xl">
+        <div className="w-full xl:w-1/2 flex flex-col xl:flex-row gap-6 max-w-2xl mt-8 xl:mt-0">
           {/* Search form */}
-          <div className="bg-gradient-to-br from-white/98 to-amber-50/98 backdrop-blur-xl rounded-3xl shadow-2xl border-2 border-amber-200/50 p-6 sm:p-8 text-gray-800 transform hover:scale-[1.02] transition-all duration-300 xl:flex-3">
+          <div className="w-full xl:w-3/5 bg-gradient-to-br from-white/98 to-amber-50/98 backdrop-blur-xl rounded-3xl shadow-2xl border-2 border-amber-200/50 p-4 sm:p-6 md:p-8 text-gray-800 transform hover:scale-[1.02] transition-all duration-300">
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
@@ -510,11 +508,90 @@ const Hero = () => {
                 Discover Safari
               </button>
             </div>
-          </div>
 
-          {/* Weather Card - Reduced height to 50% */}
+            {/* Search Results */}
+            {(isSearching || searchResults.length > 0 || (searchSummary && searchResults.length === 0)) && (
+              <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 px-2 sm:px-0 pt-24 sm:pt-32">
+                <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full mx-auto p-4 sm:p-6 border border-green-100 relative animate-fade-in-up">
+                  {/* Close button */}
+                  <button
+                    onClick={() => {
+                      setSearchResults([]);
+                      setSearchSummary('');
+                      setIsSearching(false);
+                    }}
+                    className="absolute top-3 right-3 text-gray-400 hover:text-green-600 rounded-full p-2 transition"
+                    aria-label="Close search results"
+                  >
+                    <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+                      <path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M6 6l8 8M14 6l-8 8"/>
+                    </svg>
+                  </button>
+                  <div className="mb-4 flex items-center gap-2">
+                    <Search size={18} className="text-green-600" />
+                    <span className="font-bold text-green-700 text-lg">Safari Search Results</span>
+                  </div>
+                  {isSearching && (
+                    <div className="text-center text-green-700 font-semibold animate-pulse py-8">
+                      Searching...
+                    </div>
+                  )}
+                  {!isSearching && searchResults.length > 0 && (
+                    <>
+                      <div className="mb-2 text-sm text-gray-700 font-semibold">{searchSummary}</div>
+                      <ul className="space-y-4 max-h-72 overflow-y-auto">
+                        {searchResults.map((tour) => (
+                          <li key={tour.id} className="bg-green-50 rounded-xl shadow border border-green-100 p-3 flex items-center gap-3 hover:bg-green-100 transition">
+                            <img
+                              src={tour.coverImage || (tour.images && tour.images[0]?.url) || "/images/placeholder.jpg"}
+                              alt={tour.name}
+                              className="w-16 h-12 object-cover rounded-lg flex-shrink-0"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <Link
+                                to={`/tours/${tour.slug}`}
+                                className="font-semibold text-green-700 hover:underline truncate block"
+                                onClick={() => {
+                                  setSearchResults([]);
+                                  setSearchSummary('');
+                                }}
+                              >
+                                {tour.name}
+                              </Link>
+                              <div className="text-xs text-gray-500 truncate">{tour.tagline}</div>
+                              <div className="flex gap-2 text-xs text-gray-600 mt-1">
+                                <span>{tour.location}</span>
+                                <span>• {tour.duration} days</span>
+                                <span>• ${tour.price}</span>
+                              </div>
+                            </div>
+                            <Link
+                              to={`/tours/${tour.slug}`}
+                              className="ml-2 px-3 py-1 bg-green-600 text-white rounded-lg text-xs font-semibold hover:bg-green-700 transition"
+                              onClick={() => {
+                                setSearchResults([]);
+                                setSearchSummary('');
+                              }}
+                            >
+                              View
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+                  {!isSearching && searchResults.length === 0 && searchSummary && (
+                    <div className="text-center text-red-600 font-semibold py-8">
+                      No safaris found matching your search.
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+          {/* Weather Card */}
           {weather && (
-            <div className="bg-gradient-to-br from-orange-500/95 to-amber-600/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/30 p-3 text-white transform hover:scale-[1.02] transition-all duration-300 xl:w-52 h-1/2 relative" ref={weatherDropdownRef}>
+            <div className="w-full xl:w-2/5 bg-gradient-to-br from-orange-500/95 to-amber-600/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/30 p-3 text-white transform hover:scale-[1.02] transition-all duration-300 h-fit relative mt-4 xl:mt-0" ref={weatherDropdownRef}>
               <button
                 onClick={() => setShowWeatherDropdown(!showWeatherDropdown)}
                 className="w-full text-left h-full flex flex-col justify-between"
@@ -579,14 +656,14 @@ const Hero = () => {
       </div>
 
       {/* Image navigation dots */}
-      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3 bg-black/30 backdrop-blur-md px-4 py-3 rounded-full">
+      <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2 sm:gap-3 bg-black/30 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-3 rounded-full">
         {safariImages.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentImageIndex(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
               index === currentImageIndex 
-                ? 'bg-amber-400 w-8 shadow-lg' 
+                ? 'bg-amber-400 w-6 sm:w-8 shadow-lg' 
                 : 'bg-white/50 hover:bg-white/80'
             }`}
           />
