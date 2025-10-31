@@ -77,7 +77,8 @@ const TourDetailPage = () => {
 
     // per-person customization adjustments
     const customizationPerPerson = Object.values(selectedOptions).reduce((sum, option) => {
-      return sum + (option ? option.priceAdjustment : 0);
+      const opt = option as CustomizationOption | null;
+      return sum + (opt ? opt.priceAdjustment : 0);
     }, 0);
 
     const perPersonBeforeTourDiscount = basePerPerson + customizationPerPerson;
@@ -107,7 +108,10 @@ const TourDetailPage = () => {
 
   // additional computed values used by UI for live calculator display
   const basePerPerson = getPricePerPerson();
-  const customizationPerPerson = Object.values(selectedOptions).reduce((sum, option) => sum + (option ? option.priceAdjustment : 0), 0);
+  const customizationPerPerson = Object.values(selectedOptions).reduce((sum, option) => {
+    const opt = option as CustomizationOption | null;
+    return sum + (opt ? opt.priceAdjustment : 0);
+  }, 0);
   const perPersonBeforeTourDiscount = basePerPerson + customizationPerPerson;
   const discountFraction = tour.discount ? (tour.discount / 100) : 0;
   const perPersonAfterTourDiscount = Math.round(perPersonBeforeTourDiscount * (1 - discountFraction) * 100) / 100;
@@ -356,12 +360,13 @@ const TourDetailPage = () => {
                     </div>
                     
                     {Object.entries(selectedOptions).map(([category, option]) => {
-                      if (!option) return null;
-                      const totalAdjustmentUgx = option.priceAdjustment * numberOfPeople;
+                      const opt = option as CustomizationOption | null;
+                      if (!opt) return null;
+                      const totalAdjustmentUgx = opt.priceAdjustment * numberOfPeople;
                       const totalAdjustmentUsd = ugxToUsd(totalAdjustmentUgx);
                       return (
                         <div key={category} className="flex justify-between hover:bg-white/50 p-2 rounded transition-colors duration-200">
-                          <span>{option.name} ({numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}):</span>
+                          <span>{opt.name} ({numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}):</span>
                           <span className="font-medium text-safari-green">+${totalAdjustmentUsd.toFixed(2)}</span>
                         </div>
                       );
