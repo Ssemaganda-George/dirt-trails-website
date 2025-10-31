@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Phone, MessageCircle, Facebook, Instagram, Twitter } from "lucide-react";
 
@@ -7,7 +7,7 @@ const guides = [
 	{
 		name: "Chemutai Simeon",
 		bio: "Chemutai Simeon is a professional tour guide specializing in Sipi Falls and Mount Elgon. Based in Kapchorwa district, eastern Uganda, he offers expert guiding services in the Sipi region. Reach out for unforgettable adventures in the heart of Uganda's highlands.",
-		image: "/images/guides/john-okello.jpg",
+		image: "/images/guides/Simeon/john-okello-1.jpg",
 		rating: 4.8,
 		ratingsCount: 32,
 		slug: "john-okello",
@@ -19,7 +19,14 @@ const guides = [
 		gallery: [
 			"/images/guides/Simeon/john-okello-1.jpg",
 			"/images/guides/Simeon/john-okello-2.jpg",
-			"/images/guides/Simeon/john-okello-3.jpg"
+			"/images/guides/Simeon/john-okello-3.jpg",
+      "/images/guides/Simeon/john-okello-4.jpg",
+      "/images/guides/Simeon/john-okello-5.jpg",
+      "/images/guides/Simeon/john-okello-6.jpg",
+      "/images/guides/Simeon/john-okello-7.jpg",
+      "/images/guides/Simeon/john-okello-8.jpg",
+      "/images/guides/Simeon/john-okello-9.jpg",
+      "/images/guides/Simeon/john-okello-10.jpg",
 		]
 	},
 	{
@@ -67,6 +74,22 @@ const GuidesPage = () => {
 	const [selected, setSelected] = useState<number | null>(null);
 	const [galleryIdx, setGalleryIdx] = useState(0);
 
+	// Auto-slide logic
+	const autoSlideRef = useRef<NodeJS.Timeout | null>(null);
+
+	useEffect(() => {
+		if (selected !== null) {
+			autoSlideRef.current = setInterval(() => {
+				setGalleryIdx((prev) =>
+					(prev + 1) % guides[selected].gallery.length
+				);
+			}, 3500);
+			return () => {
+				if (autoSlideRef.current) clearInterval(autoSlideRef.current);
+			};
+		}
+	}, [selected, guides]);
+
 	const handleRate = (idx: number, newRating: number) => {
 		setRatings((prev) =>
 			prev.map((r, i) =>
@@ -88,6 +111,7 @@ const GuidesPage = () => {
 	const closeGuide = () => {
 		setSelected(null);
 		setGalleryIdx(0);
+		if (autoSlideRef.current) clearInterval(autoSlideRef.current);
 	};
 
 	const nextImage = () => {
@@ -95,6 +119,14 @@ const GuidesPage = () => {
 		setGalleryIdx((prev) =>
 			(prev + 1) % guides[selected].gallery.length
 		);
+		if (autoSlideRef.current) {
+			clearInterval(autoSlideRef.current);
+			autoSlideRef.current = setInterval(() => {
+				setGalleryIdx((prev) =>
+					(prev + 1) % guides[selected].gallery.length
+				);
+			}, 3500);
+		}
 	};
 
 	const prevImage = () => {
@@ -102,6 +134,14 @@ const GuidesPage = () => {
 		setGalleryIdx((prev) =>
 			(prev - 1 + guides[selected].gallery.length) % guides[selected].gallery.length
 		);
+		if (autoSlideRef.current) {
+			clearInterval(autoSlideRef.current);
+			autoSlideRef.current = setInterval(() => {
+				setGalleryIdx((prev) =>
+					(prev + 1) % guides[selected].gallery.length
+				);
+			}, 3500);
+		}
 	};
 
 	return (
