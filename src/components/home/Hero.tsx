@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { Search, MapPin, Calendar, Users, Compass, Eye, Trees, ChevronDown } from 'lucide-react';
-import { Link, useLocation, useNavigate } from 'react-router-dom'; // added
+import { Search, MapPin, Calendar, Users, Compass, Eye, Trees, ChevronDown, Cloud, CloudRain, Sun, CloudSnow } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { tours, Tour } from '../../data/tours'; // <-- new import
-import { Search, MapPin, Calendar, Users, Compass, Eye, Trees, ChevronDown, Cloud, CloudRain, Sun, CloudSnow } from 'lucide-react';
+import { tours, Tour } from '../../data/tours';
 
 const CustomDropdown = ({ label, icon, value, options, onChange, placeholder }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -133,6 +132,9 @@ const Hero = () => {
   const [weather, setWeather] = useState(null);
   const [weatherCity, setWeatherCity] = useState('Kampala');
   const [showWeatherDropdown, setShowWeatherDropdown] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchSummary, setSearchSummary] = useState('');
   const weatherDropdownRef = useRef(null);
   
   // Safari background images slideshow
@@ -444,7 +446,7 @@ const Hero = () => {
             >
               <Eye size={20} className="group-hover:scale-110 transition-transform" />
               Plan My Safari
-            </Link>
+            </button>
             
             <button 
               onClick={() => handleLinkClick('conservation')}
@@ -452,7 +454,7 @@ const Hero = () => {
             >
               <Trees size={20} className="group-hover:scale-110 transition-transform" />
               Explore Conservation
-            </Link>
+            </button>
           </div>
         </div>
 
