@@ -208,7 +208,7 @@ const GuidesPage = () => {
 								</div>
 								<div className="mt-2 text-center">
 									<span className="inline-block bg-safari-green/10 text-safari-green text-xs px-3 py-1 rounded-full font-medium">
-										Click to view profile
+										View profile
 									</span>
 								</div>
 							</div>
