@@ -21,9 +21,10 @@ const NotFound = () => {
           Return to Home
         </a>
       </div>
-      <ChatBot />
     </div>
   );
 };
 
 export default NotFound;
+
+<ChatBot />
