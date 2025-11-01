@@ -226,8 +226,8 @@ const GuidesPage = () => {
 			</section>
 			{/* Guide Modal */}
 			{selected !== null && (
-				<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-2">
-					<div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 p-0 relative animate-fade-in-up flex flex-col md:flex-row overflow-hidden">
+				<div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm px-2 flex items-end md:items-center md:justify-center">
+					<div className="bg-white rounded-t-2xl md:rounded-2xl shadow-2xl w-full md:max-w-4xl md:mx-auto p-0 relative animate-slide-up md:animate-fade-in-up flex flex-col md:flex-row overflow-hidden max-h-[90vh] md:max-h-none">
 						{/* Gallery Section */}
 						<div className="md:w-2/3 w-full bg-safari-green/5 flex flex-col justify-center items-center relative p-4">
 							<div className="relative w-full">
@@ -255,7 +255,7 @@ const GuidesPage = () => {
 												key={i}
 												src={img}
 												alt={`Safari with ${guides[selected].name} ${i + 1}`}
-												className="rounded-xl w-full h-[28rem] object-cover flex-shrink-0"
+												className="rounded-xl w-full h-64 md:h-[28rem] object-cover flex-shrink-0"
 												style={{ width: "100%" }}
 											/>
 										))}
@@ -285,7 +285,7 @@ const GuidesPage = () => {
 							</div>
 						</div>
 						{/* Info Section */}
-						<div className="md:w-1/3 w-full flex flex-col items-center justify-center p-8 relative">
+						<div className="md:w-1/3 w-full flex flex-col items-center justify-center p-6 md:p-8 relative">
 							<button
 								className="absolute top-4 right-4 text-gray-400 hover:text-safari-green transition-colors"
 								onClick={closeGuide}
@@ -299,15 +299,15 @@ const GuidesPage = () => {
 							<img
 								src={guides[selected].image}
 								alt={guides[selected].name}
-								className="w-32 h-32 rounded-full object-cover mb-3 border-4 border-safari-green/20 shadow"
+								className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover mb-3 border-4 border-safari-green/20 shadow"
 							/>
-							<h3 className="text-2xl font-bold mb-1 text-safari-brown text-center">{guides[selected].name}</h3>
+							<h3 className="text-xl md:text-2xl font-bold mb-1 text-safari-brown text-center">{guides[selected].name}</h3>
 							<div className="flex items-center justify-center mb-2">
 								{[1, 2, 3, 4, 5].map((star) => (
 									<svg
 										key={star}
 										onClick={() => handleRate(selected, star)}
-										className={`w-5 h-5 cursor-pointer ${
+										className={`w-4 h-4 md:w-5 md:h-5 cursor-pointer ${
 											star <= Math.round(ratings[selected].rating)
 												? "text-yellow-400"
 												: "text-gray-300"
@@ -329,10 +329,10 @@ const GuidesPage = () => {
 									{guides[selected].phone && (
 										<a
 											href={`tel:${guides[selected].phone}`}
-											className="flex items-center gap-1 text-safari-green hover:text-safari-orange font-medium"
+											className="flex items-center gap-1 text-safari-green hover:text-safari-orange font-medium text-sm md:text-base"
 											title="Call"
 										>
-											<Phone size={18} /> {guides[selected].phone}
+											<Phone size={16} className="md:w-5 md:h-5" /> {guides[selected].phone}
 										</a>
 									)}
 									{guides[selected].whatsapp && (
@@ -340,10 +340,10 @@ const GuidesPage = () => {
 											href={`https://wa.me/256${guides[selected].whatsapp.replace(/^0/, "")}`}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="flex items-center gap-1 text-green-600 hover:text-green-800 font-medium"
+											className="flex items-center gap-1 text-green-600 hover:text-green-800 font-medium text-sm md:text-base"
 											title="WhatsApp"
 										>
-											<MessageCircle size={18} /> {guides[selected].whatsapp}
+											<MessageCircle size={16} className="md:w-5 md:h-5" /> {guides[selected].whatsapp}
 										</a>
 									)}
 								</div>
@@ -358,7 +358,7 @@ const GuidesPage = () => {
 										className="text-blue-600 hover:text-blue-800"
 										title="Facebook"
 									>
-										<Facebook size={22} />
+										<Facebook size={20} className="md:w-6 md:h-6" />
 									</a>
 								)}
 								{guides[selected].instagram && (
@@ -369,7 +369,7 @@ const GuidesPage = () => {
 										className="text-pink-500 hover:text-pink-700"
 										title="Instagram"
 									>
-										<Instagram size={22} />
+										<Instagram size={20} className="md:w-6 md:h-6" />
 									</a>
 								)}
 								{guides[selected].twitter && (
@@ -380,11 +380,11 @@ const GuidesPage = () => {
 										className="text-sky-500 hover:text-sky-700"
 										title="Twitter"
 									>
-										<Twitter size={22} />
+										<Twitter size={20} className="md:w-6 md:h-6" />
 									</a>
 								)}
 							</div>
-							<p className="text-gray-700 text-base mb-4 text-center whitespace-pre-line">{guides[selected].bio}</p>
+							<p className="text-gray-700 text-sm md:text-base mb-4 text-center whitespace-pre-line">{guides[selected].bio}</p>
 						</div>
 					</div>
 					<div
