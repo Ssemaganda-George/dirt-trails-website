@@ -152,7 +152,7 @@ const GuidesPage = () => {
 							Meet Our Guides
 						</h1>
 						<p className="text-lg text-gray-600 max-w-2xl mx-auto">
-							Meet the expert guides who make every Dirt Trails safari safe,
+							Meet, join and support the expert guides who make every Dirt Trails safari safe,
 							insightful, and unforgettable.
 						</p>
 					</div>
