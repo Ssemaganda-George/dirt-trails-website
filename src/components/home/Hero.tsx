@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Search, MapPin, Calendar, Users, Compass, Eye, Trees, ChevronDown, Cloud, CloudRain, Sun, CloudSnow } from 'lucide-react';
+import { Search, MapPin, Calendar, Users, Compass, Eye, Trees, ChevronDown, Sun, Cloud, CloudRain, CloudSnow } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
@@ -135,6 +135,7 @@ const Hero = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [searchSummary, setSearchSummary] = useState('');
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false); // Start collapsed on mobile
   const weatherDropdownRef = useRef(null);
   
   // Safari background images slideshow
@@ -460,14 +461,35 @@ const Hero = () => {
         <div className="w-full xl:w-1/2 flex flex-col xl:flex-row gap-6 max-w-2xl mt-8 xl:mt-0">
           {/* Search form */}
           <div className="w-full xl:w-3/5 bg-gradient-to-br from-white/98 to-amber-50/98 backdrop-blur-xl rounded-3xl shadow-2xl border-2 border-amber-200/50 p-4 sm:p-6 md:p-8 text-gray-900 transform hover:scale-[1.02] transition-all duration-300">
-            <div>
-              <div className="flex items-center gap-3 mb-6">
+            {/* Mobile toggle button */}
+            <button
+              onClick={() => setIsSearchExpanded(!isSearchExpanded)}
+              className="md:hidden w-full text-left flex items-center justify-between mb-4"
+              aria-expanded={isSearchExpanded}
+              aria-label="Toggle search form"
+            >
+              <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
                   <Search className="text-white" size={20} />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight">Find Your Perfect Safari</h3>
               </div>
+              <ChevronDown 
+                className={`text-white transition-transform duration-200 ${isSearchExpanded ? 'rotate-180' : ''}`}
+                size={20}
+              />
+            </button>
 
+            {/* Desktop header */}
+            <div className="hidden md:flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                <Search className="text-white" size={20} />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight">Find Your Perfect Safari</h3>
+            </div>
+
+            {/* Form fields - hidden on mobile unless expanded */}
+            <div className={`${isSearchExpanded ? 'block' : 'hidden'} md:block`}>
               <div className="space-y-5">
                 <CustomDropdown
                   label="Destination"
@@ -496,98 +518,98 @@ const Hero = () => {
                   placeholder="Choose group size"
                 />
               </div>
-            </div>
 
-            {/* Search button */}
-            <div className="mt-6">
-              <button
-                onClick={handleSearch}
-                className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white py-4 px-6 rounded-xl font-bold shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 text-base sm:text-lg"
-              >
-                <Search size={18} />
-                Discover Safari
-              </button>
-            </div>
+              {/* Search button */}
+              <div className="mt-6">
+                <button
+                  onClick={handleSearch}
+                  className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white py-4 px-6 rounded-xl font-bold shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 text-base sm:text-lg"
+                >
+                  <Search size={18} />
+                  Discover Safari
+                </button>
+              </div>
 
-            {/* Search Results */}
-            {(isSearching || searchResults.length > 0 || (searchSummary && searchResults.length === 0)) && (
-              <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 px-2 sm:px-0 pt-24 sm:pt-32">
-                <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full mx-auto p-4 sm:p-6 border border-green-100 relative animate-fade-in-up">
-                  {/* Close button */}
-                  <button
-                    onClick={() => {
-                      setSearchResults([]);
-                      setSearchSummary('');
-                      setIsSearching(false);
-                    }}
-                    className="absolute top-3 right-3 text-gray-400 hover:text-green-600 rounded-full p-2 transition"
-                    aria-label="Close search results"
-                  >
-                    <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
-                      <path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M6 6l8 8M14 6l-8 8"/>
-                    </svg>
-                  </button>
-                  <div className="mb-4 flex items-center gap-2">
-                    <Search size={18} className="text-green-600" />
-                    <span className="font-bold text-green-700 text-lg">Safari Search Results</span>
-                  </div>
-                  {isSearching && (
-                    <div className="text-center text-green-700 font-semibold animate-pulse py-8">
-                      Searching...
+              {/* Search Results */}
+              {(isSearching || searchResults.length > 0 || (searchSummary && searchResults.length === 0)) && (
+                <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 px-2 sm:px-0 pt-24 sm:pt-32">
+                  <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full mx-auto p-4 sm:p-6 border border-green-100 relative animate-fade-in-up">
+                    {/* Close button */}
+                    <button
+                      onClick={() => {
+                        setSearchResults([]);
+                        setSearchSummary('');
+                        setIsSearching(false);
+                      }}
+                      className="absolute top-3 right-3 text-gray-400 hover:text-green-600 rounded-full p-2 transition"
+                      aria-label="Close search results"
+                    >
+                      <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M6 6l8 8M14 6l-8 8"/>
+                      </svg>
+                    </button>
+                    <div className="mb-4 flex items-center gap-2">
+                      <Search size={18} className="text-green-600" />
+                      <span className="font-bold text-green-700 text-lg">Safari Search Results</span>
                     </div>
-                  )}
-                  {!isSearching && searchResults.length > 0 && (
-                    <>
-                      <div className="mb-2 text-sm text-gray-700 font-semibold">{searchSummary}</div>
-                      <ul className="space-y-4 max-h-72 overflow-y-auto">
-                        {searchResults.map((tour) => (
-                          <li key={tour.id} className="bg-green-50 rounded-xl shadow border border-green-100 p-3 flex items-center gap-3 hover:bg-green-100 transition">
-                            <img
-                              src={tour.coverImage || (tour.images && tour.images[0]?.url) || "/images/placeholder.jpg"}
-                              alt={tour.name}
-                              className="w-16 h-12 object-cover rounded-lg flex-shrink-0"
-                            />
-                            <div className="flex-1 min-w-0">
+                    {isSearching && (
+                      <div className="text-center text-green-700 font-semibold animate-pulse py-8">
+                        Searching...
+                      </div>
+                    )}
+                    {!isSearching && searchResults.length > 0 && (
+                      <>
+                        <div className="mb-2 text-sm text-gray-700 font-semibold">{searchSummary}</div>
+                        <ul className="space-y-4 max-h-72 overflow-y-auto">
+                          {searchResults.map((tour) => (
+                            <li key={tour.id} className="bg-green-50 rounded-xl shadow border border-green-100 p-3 flex items-center gap-3 hover:bg-green-100 transition">
+                              <img
+                                src={tour.coverImage || (tour.images && tour.images[0]?.url) || "/images/placeholder.jpg"}
+                                alt={tour.name}
+                                className="w-16 h-12 object-cover rounded-lg flex-shrink-0"
+                              />
+                              <div className="flex-1 min-w-0">
+                                <Link
+                                  to={`/tours/${tour.slug}`}
+                                  className="font-semibold text-green-700 hover:underline truncate block"
+                                  onClick={() => {
+                                    setSearchResults([]);
+                                    setSearchSummary('');
+                                  }}
+                                >
+                                  {tour.name}
+                                </Link>
+                                <div className="text-xs text-gray-500 truncate">{tour.tagline}</div>
+                                <div className="flex gap-2 text-xs text-gray-600 mt-1">
+                                  <span>{tour.location}</span>
+                                  <span>• {tour.duration} days</span>
+                                  <span>• ${tour.price}</span>
+                                </div>
+                              </div>
                               <Link
                                 to={`/tours/${tour.slug}`}
-                                className="font-semibold text-green-700 hover:underline truncate block"
+                                className="ml-2 px-3 py-1 bg-green-600 text-white rounded-lg text-xs font-semibold hover:bg-green-700 transition"
                                 onClick={() => {
                                   setSearchResults([]);
                                   setSearchSummary('');
                                 }}
                               >
-                                {tour.name}
+                                View
                               </Link>
-                              <div className="text-xs text-gray-500 truncate">{tour.tagline}</div>
-                              <div className="flex gap-2 text-xs text-gray-600 mt-1">
-                                <span>{tour.location}</span>
-                                <span>• {tour.duration} days</span>
-                                <span>• ${tour.price}</span>
-                              </div>
-                            </div>
-                            <Link
-                              to={`/tours/${tour.slug}`}
-                              className="ml-2 px-3 py-1 bg-green-600 text-white rounded-lg text-xs font-semibold hover:bg-green-700 transition"
-                              onClick={() => {
-                                setSearchResults([]);
-                                setSearchSummary('');
-                              }}
-                            >
-                              View
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-                  {!isSearching && searchResults.length === 0 && searchSummary && (
-                    <div className="text-center text-red-600 font-semibold py-8">
-                      No safaris found matching your search.
-                    </div>
-                  )}
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                    {!isSearching && searchResults.length === 0 && searchSummary && (
+                      <div className="text-center text-red-600 font-semibold py-8">
+                        No safaris found matching your search.
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
           {/* Weather Card */}
           {weather && (
