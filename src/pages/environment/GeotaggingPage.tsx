@@ -79,8 +79,8 @@ const GeotaggingPage = () => {
   const [allTrees, setAllTrees] = useState(treeDataList);
   const [selectedTree, setSelectedTree] = useState(null);
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
-  const [mapCenter, setMapCenter] = useState<[number, number]>([-0.0236, 37.9062]);
-  const [mapZoom, setMapZoom] = useState(7);
+  const [mapCenter, setMapCenter] = useState<[number, number]>([0.32032, 32.47574]); // Center on TREE-000 by default
+  const [mapZoom, setMapZoom] = useState(10); // Adjusted zoom for better view of TREE-000
   const hasCenteredOnUser = useRef(false);
   const mapRef = useRef<any>(null);
   const navigate = useNavigate(); // Add this hook
@@ -136,30 +136,28 @@ const GeotaggingPage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Get user location on mount and center map there
+  // Get user location on mount (store for potential use, but don't center map)
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const loc: [number, number] = [position.coords.latitude, position.coords.longitude];
           setUserLocation(loc);
-          setMapCenter(loc);
-          setMapZoom(12);
+          // Do not set mapCenter to user location; keep TREE-000 as default
         },
         () => {
           setUserLocation(null);
-          setMapCenter([-0.0236, 37.9062]);
-          setMapZoom(7);
+          // Keep default center on TREE-000
         }
       );
     }
   }, []);
 
   // Search by Tree ID and center map on that tree
-  const handleTreeIdSearch = () => {
-    const id = trackingId.trim();
-    if (!id) return;
-    const foundTree = allTrees.find(tree => tree.id.toLowerCase() === id.toLowerCase());
+  const handleTreeIdSearch = (id?: string) => {
+    const searchId = id || trackingId.trim();
+    if (!searchId) return;
+    const foundTree = allTrees.find(tree => tree.id.toLowerCase() === searchId.toLowerCase());
     if (foundTree && mapRef.current) {
       setSelectedTree(foundTree);
       setMapCenter([foundTree.latitude, foundTree.longitude]);
@@ -171,17 +169,12 @@ const GeotaggingPage = () => {
     }
   };
 
-  // Helper component to center map on user location when available
-  function CenterMapOnUser({ userLocation }: { userLocation: [number, number] | null }) {
-    const map = useMap();
-    if (userLocation && !hasCenteredOnUser.current) {
-      map.setView(userLocation, 12, { animate: true });
-      hasCenteredOnUser.current = true;
+  // Auto-center on TREE-000 when component mounts and trees are loaded
+  useEffect(() => {
+    if (allTrees.length > 0) {
+      handleTreeIdSearch('TREE-000');
     }
-    // Attach map ref for search
-    if (!mapRef.current) mapRef.current = map;
-    return null;
-  }
+  }, [allTrees]);
 
   const handleSearch = () => {
     if (trackingId.trim()) {
@@ -288,7 +281,7 @@ const GeotaggingPage = () => {
                 onChange={(e) => setTrackingId(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleTreeIdSearch()}
               />
-              <Button onClick={handleTreeIdSearch} className="bg-green-600 hover:bg-green-700">
+              <Button onClick={() => handleTreeIdSearch()} className="bg-green-600 hover:bg-green-700">
                 Find
               </Button>
             </div>
@@ -362,7 +355,6 @@ const GeotaggingPage = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <CenterMapOnUser userLocation={userLocation} />
           {userLocation && (
             <Marker position={userLocation}>
               <Popup>You are here 📍</Popup>
