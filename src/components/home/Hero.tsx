@@ -554,7 +554,7 @@ const Hero = () => {
                     </div>
                     {isSearching && (
                       <div className="text-center text-green-700 font-semibold animate-pulse py-8">
-                        Searching...
+                        Searching
                       </div>
                     )}
                     {!isSearching && searchResults.length > 0 && (
