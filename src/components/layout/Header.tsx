@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Leaf, Users } from 'lucide-react';
+import { Menu, X, ChevronDown, Leaf, Users, Plus, Minus } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isConservationOpen, setIsConservationOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
+  // Add mobile-specific collapse states
+  const [isAboutExpanded, setIsAboutExpanded] = useState(false);
+  const [isConservationExpanded, setIsConservationExpanded] = useState(false);
   const location = useLocation();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -13,6 +16,8 @@ const Header = () => {
     setIsMenuOpen(false);
     setIsConservationOpen(false);
     setIsAboutOpen(false);
+    setIsAboutExpanded(false);
+    setIsConservationExpanded(false);
   };
 
   const isActive = (path: string) => location.pathname === path;
@@ -233,68 +238,88 @@ const Header = () => {
             >
               Safaris & Tours
             </Link>
-            {/* About Dropdown Mobile */}
+            {/* About Dropdown Mobile - Now Collapsible */}
             <div className="flex flex-col space-y-2 pl-4">
-              <h3 className="font-semibold flex items-center text-emerald-400 py-2">
-                <Users className="mr-2 h-4 w-4" />
-                About
-              </h3>
-              <Link 
-                to="/about"
-                className="text-left text-white/70 hover:text-white transition-colors pl-6 py-2"
-                onClick={closeMenu}
+              <button
+                onClick={() => setIsAboutExpanded(!isAboutExpanded)}
+                className="flex items-center justify-between text-emerald-400 py-2 hover:text-emerald-300 transition-colors"
               >
-                About
-              </Link>
-              <Link 
-                to="/about/team"
-                className="text-left text-white/70 hover:text-white transition-colors pl-6 py-2"
-                onClick={closeMenu}
-              >
-                Our Team
-              </Link>
-              <Link 
-                to="/about/guides"
-                className="text-left text-white/70 hover:text-white transition-colors pl-6 py-2"
-                onClick={closeMenu}
-              >
-                Our Guides
-              </Link>
-              <Link 
-                to="/community"
-                className="text-left text-white/70 hover:text-white transition-colors pl-6 py-2"
-                onClick={closeMenu}
-              >
-                Community
-              </Link>
+                <div className="flex items-center">
+                  <Users className="mr-2 h-4 w-4" />
+                  About
+                </div>
+                {isAboutExpanded ? <Minus size={16} /> : <Plus size={16} />}
+              </button>
+              {isAboutExpanded && (
+                <div className="space-y-2 pl-6">
+                  <Link 
+                    to="/about"
+                    className="block text-left text-white/70 hover:text-white transition-colors py-2"
+                    onClick={closeMenu}
+                  >
+                    About
+                  </Link>
+                  <Link 
+                    to="/about/team"
+                    className="block text-left text-white/70 hover:text-white transition-colors py-2"
+                    onClick={closeMenu}
+                  >
+                    Our Team
+                  </Link>
+                  <Link 
+                    to="/about/guides"
+                    className="block text-left text-white/70 hover:text-white transition-colors py-2"
+                    onClick={closeMenu}
+                  >
+                    Our Guides
+                  </Link>
+                  <Link 
+                    to="/community"
+                    className="block text-left text-white/70 hover:text-white transition-colors py-2"
+                    onClick={closeMenu}
+                  >
+                    Community
+                  </Link>
+                </div>
+              )}
             </div>
-            {/* Conservation Dropdown Mobile */}
+            {/* Conservation Dropdown Mobile - Now Collapsible */}
             <div className="flex flex-col space-y-2 pl-4">
-              <h3 className="font-semibold flex items-center text-emerald-400 py-2">
-                <Leaf className="mr-2 h-4 w-4" />
-                Conservation
-              </h3>
-              <Link 
-                to="/environment/carbon-offset"
-                className="text-left text-white/70 hover:text-white transition-colors pl-6 py-2"
-                onClick={closeMenu}
+              <button
+                onClick={() => setIsConservationExpanded(!isConservationExpanded)}
+                className="flex items-center justify-between text-emerald-400 py-2 hover:text-emerald-300 transition-colors"
               >
-                Calculate Carbon Offset
-              </Link>
-              <Link 
-                to="/environment/tree-planting"
-                className="text-left text-white/70 hover:text-white transition-colors pl-6 py-2"
-                onClick={closeMenu}
-              >
-                Tree Planting Initiative
-              </Link>
-              <Link 
-                to="/environment/geotagging"
-                className="text-left text-white/70 hover:text-white transition-colors pl-6 py-2"
-                onClick={closeMenu}
-              >
-                Geotagging & Monitoring
-              </Link>
+                <div className="flex items-center">
+                  <Leaf className="mr-2 h-4 w-4" />
+                  Conservation
+                </div>
+                {isConservationExpanded ? <Minus size={16} /> : <Plus size={16} />}
+              </button>
+              {isConservationExpanded && (
+                <div className="space-y-2 pl-6">
+                  <Link 
+                    to="/environment/carbon-offset"
+                    className="block text-left text-white/70 hover:text-white transition-colors py-2"
+                    onClick={closeMenu}
+                  >
+                    Calculate Carbon Offset
+                  </Link>
+                  <Link 
+                    to="/environment/tree-planting"
+                    className="block text-left text-white/70 hover:text-white transition-colors py-2"
+                    onClick={closeMenu}
+                  >
+                    Tree Planting Initiative
+                  </Link>
+                  <Link 
+                    to="/environment/geotagging"
+                    className="block text-left text-white/70 hover:text-white transition-colors py-2"
+                    onClick={closeMenu}
+                  >
+                    Geotagging & Monitoring
+                  </Link>
+                </div>
+              )}
             </div>
             <Link 
               to="/contact"
