@@ -124,7 +124,7 @@ export const tours: Tour[] = [
       {
         day: 2,
         title: "Morning Game Drive and Afternoon Kazinga Channel Boat Cruise",
-        description: "You will wake early in the morning with the early grazers, have your breakfast, and then head to the jungle, in search for the wild residents. During this game drive, you will have an opportunity to see a number wildlife, including the elephants, buffaloes, lions, leopards, beautiful birds and many others. Then then after, head to the lodge for your lunch, as your prepare for the afternoon boat cruise.Afternoon boat cruise  You will get set for the 2-3 hours boat cruise along Kazinga channel, that connects Lakes Edward and George, with over 40kn long. You will be able to see a number animals more especially the water life, like Hippos, crocodiles, water birds like kingfishers and many others.You will after, head back to the lodge for dinner and overnight. ",
+        description: "You will wake early in the morning with the early grazers, have your breakfast, and then head to the jungle, in search for the wild residents. During this game drive, you will have an opportunity to see a number wildlife, including the elephants, buffaloes, lions, leopards, beautiful birds and many others. Then then after, head to the lodge for your lunch, as your prepare for the afternoon boat cruise.Afternoon boat cruise  You will get set for the 2-3 hours boat cruise along Kazinga channel, that connects Lakes Edward and George, with over 40kn long. You will be able to see a number of animals more especially the water life, like Hippos, crocodiles, water birds like kingfishers and many others.You will after, head back to the lodge for dinner and overnight. ",
         meals: { breakfast: true, lunch: true, dinner: true },
         accommodation: "Bwindi Lodge"
       },
@@ -296,7 +296,7 @@ export const tours: Tour[] = [
     slug: "murchison-falls",
     name: "3 Days Wildlife Encounter- Murchison Falls NP",
     tagline: "Witness the world's most powerful waterfall",
-    description: "The park is located in west Nile and have a number of activities that reward you with the great connection to the nature.  You will enjoy the great and stunning view of the falls standing on the top. The park is home for a number of wildlife including the lions, elephants, buffaloes, giraffes, warthogs, leopards, hippos, and many others.While on your boat cruise, you will be able to encounter the number of animals, like hippos, crocodiles, elephants, and others. The boat cruise starts from the lower side of the river Nile, and cruise as you head towards the bottom of the falls. This will be very interesting and engaging moment than ever before.",
+    description: "The park is located in west Nile and have a number of activities that reward you with the great connection to the nature.  You will enjoy the great and stunning view of the falls standing on the top. The park is home for a number of wildlife including the lions, elephants, buffaloes, giraffes, warthogs, leopards, hippos, and many others.While on your boat cruise, you will be able to encounter the number of animals, like hippos, crocodiles, elephants, and others. The boat cruise starts from the lower side of the river Nile, and cruise as you head towards the bottom of the falls. This will be very interesting and engaging moment",
     duration: 3,
     price: 1500,
     location: "Murchison Falls",

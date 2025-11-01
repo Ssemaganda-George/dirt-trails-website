@@ -1,47 +1,85 @@
-import { useState } from 'react';
-import { Users, Settings, Heart, Award, Compass, TreePine, Camera, Globe, Star, CheckCircle, Shield } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Compass, TreePine, Star, CheckCircle, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const FeatureCard = ({ icon: Icon, title, description, stats, delay = 0 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  
+// Add team images to the guides images array
+const teamImages = [
+  "/images/Gerald.jpg",
+  "/images/Mariam.jpg",
+  "/images/Joselyne.jpg",
+  "/images/George.jpg"
+];
+
+const guideImages = [
+  ...teamImages,
+  "/images/guides/Simeon/john-okello-1.jpg",
+  "/images/guides/grace-nambasa.jpg",
+  "/images/guides/peter-kamau.jpg"
+];
+
+// Import tourist planting images for sustainability card
+const plantingImages = [
+  "/images/Sharon1.png",
+  "/images/angel.png",
+  "/images/Sharon.png",
+  "/images/uwa.png"
+];
+
+const FeatureCard = ({ title, stats, delay = 0, backgroundType }) => {
+  // For background slideshows
+  const [bgIdx, setBgIdx] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Determine which images to use for the background
+  let bgImages: string[] = [];
+  if (backgroundType === "guides") bgImages = guideImages;
+  if (backgroundType === "planting") bgImages = plantingImages;
+
+  useEffect(() => {
+    if (bgImages.length > 1) {
+      intervalRef.current = setInterval(() => {
+        setBgIdx((prev) => (prev + 1) % bgImages.length);
+      }, 3500);
+      return () => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+      };
+    }
+  }, [bgImages.length]);
+
   return (
     <div 
-      className="group relative bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-500 border border-gray-100/50 hover:border-green-200/50"
+      className={`group relative ${bgImages.length > 0 ? 'bg-white/100' : 'bg-gray-200'} backdrop-blur-sm rounded-3xl p-0 shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-500 border border-green-200/50 hover:border-green-400/70 overflow-hidden min-h-[420px] flex flex-col justify-end`}
       style={{ animationDelay: `${delay}ms` }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Gradient background overlay on hover */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-green-600 to-green-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-      
-      <div className="relative z-10">
-        {/* Icon with gradient background */}
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-600 to-green-500 flex items-center justify-center mb-6 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-          <Icon size={28} className="text-white" />
+      {/* Dynamic background slideshow for specific cards */}
+      {bgImages.length > 0 && (
+        <div className="absolute inset-0 z-0">
+          <img
+            src={bgImages[bgIdx]}
+            alt=""
+            className="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-700"
+            style={{ transition: 'opacity 0.7s' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-white/0"></div>
         </div>
-        
-        {/* Title with gradient text */}
-        <h3 className="text-xl font-bold mb-3 bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300">
+      )}
+      {/* Gradient background overlay on hover */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-green-600 to-green-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500 z-10"></div>
+      
+      <div className="relative z-20 p-8 flex flex-col justify-end h-full min-h-[420px]">
+        {/* Title with heavy font and shadow for readability */}
+        <h3 className="text-3xl font-extrabold mb-4 bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300 drop-shadow-2xl uppercase tracking-tight">
           {title}
         </h3>
-        
-        {/* Description */}
-        <p className="text-gray-600 leading-relaxed mb-4 group-hover:text-gray-700 transition-colors duration-300">
-          {description}
-        </p>
-        
-        {/* Stats */}
-        <div className="flex items-center gap-2 text-sm font-semibold">
-          <div className="w-2 h-2 rounded-full bg-gradient-to-r from-green-600 to-green-500 animate-pulse"></div>
-          <span className="bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">
+        {/* Stats with heavy font */}
+        <div className="flex items-center gap-2 text-lg font-bold">
+          <span className="bg-gradient-to-r from-brown-600 to-brown-500 bg-clip-text text-transparent drop-shadow-lg">
             {stats}
           </span>
         </div>
       </div>
-      
       {/* Decorative corner element */}
-      <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gradient-to-br from-green-600 to-green-500 opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+      <div className="absolute top-6 right-6 w-12 h-12 rounded-full bg-gradient-to-br from-green-600 to-green-500 opacity-20 group-hover:opacity-40 transition-opacity duration-300 z-20"></div>
     </div>
   );
 };
@@ -49,37 +87,37 @@ const FeatureCard = ({ icon: Icon, title, description, stats, delay = 0 }) => {
 const WhyChooseUs = () => {
   const features = [
     {
-      icon: Users,
       title: "Expert Local Guides",
-      description: "Journey with passionate local guides who know East Africa’s wildlife, cultures, and hidden trails. They turn safaris into meaningful, story-filled adventures.",
-      stats: "3+ Years Combined Experience",
-      delay: 0
+      // description: "Journey with passionate local guides who know East Africa’s wildlife, cultures, and hidden trails. They turn safaris into meaningful, story-filled adventures.",
+      stats: "Our passionate guides deliver unparalleled value and expertise",
+      delay: 0,
+      backgroundType: "guides"
     },
     {
-      icon: Settings,
       title: "Customizable Journeys", 
-      description: "Every traveler is unique. Choose from curated safari packages or design your own adventure from gorilla trekking to cultural immersions or camping under the stars.",
-      stats: "100% Tailored Safaris",
-      delay: 200
+      // description: "Every traveler is unique. Choose from curated safari packages or design your own adventure from gorilla trekking to cultural immersions or camping under the stars.",
+      stats: "Get maximum value with fully tailored safaris",
+      delay: 200,
+      backgroundType: undefined
     },
     {
-      icon: Globe,
       title: "Sustainable Impact",
-      description: "Your travels give back. Each booking supports tree planting, empowers local communities, and promotes conservation ensuring safaris protect what makes Africa special.",
-      stats: "1+ Trees Planted Per Safari",
-      delay: 400
+      // description: "Your travels give back. Each booking supports tree planting, empowers local communities, and promotes conservation ensuring safaris protect what makes Africa special.",
+      stats: "Experience the true value of responsible travel",
+      delay: 400,
+      backgroundType: "planting"
     },
     {
-      icon: Shield,
       title: "Safety & Comfort",
-      description: "Travel with peace of mind. From secure transport to handpicked eco-lodges, we prioritize your comfort and safety while keeping adventures exciting and authentic.",
-      stats: "Trusted by 30+ Travelers",
-      delay: 600
+      // description: "Travel with peace of mind. From secure transport to handpicked eco-lodges, we prioritize your comfort and safety while keeping adventures exciting and authentic.",
+      stats: "Travel with complete peace of mind",
+      delay: 600,
+      backgroundType: undefined
     }
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50/50 to-white relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-gray-50/50 to-white relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-green-300/20 to-green-400/20 rounded-full blur-3xl"></div>
@@ -130,7 +168,7 @@ const WhyChooseUs = () => {
         </div>
         
         {/* Feature cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 mb-16">
           {features.map((feature, index) => (
             <FeatureCard key={index} {...feature} />
           ))}
@@ -147,11 +185,10 @@ const WhyChooseUs = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link to="/tours">
-  <button className="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300">
-    View Our Tours and Let's Chat
-  </button>
-</Link>
-
+              <button className="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300">
+                View Our Tours and Let's Chat
+              </button>
+            </Link>
           </div>
         </div>
       </div>

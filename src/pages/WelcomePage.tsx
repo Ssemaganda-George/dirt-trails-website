@@ -29,7 +29,7 @@ const WelcomePage: React.FC = () => {
       role="main"
       aria-label="Welcome to Dirt Trails Safaris"
     >
-      <div className="mx-auto w-full max-w-lg sm:max-w-2xl bg-white rounded-xl shadow-lg p-6 sm:p-10 text-center max-h-[calc(100vh-4rem)] overflow-y-auto" tabIndex={-1} style={{ WebkitOverflowScrolling: 'touch' }}>
+      <div className="mx-auto w-full max-w-lg sm:max-w-2xl bg-white rounded-xl shadow-lg p-4 sm:p-10 text-center max-h-[calc(100vh-4rem)] overflow-y-auto" tabIndex={-1} style={{ WebkitOverflowScrolling: 'touch' }}>
         <h1 className="text-3xl sm:text-4xl font-extrabold mb-4 sm:mb-6 text-green-700 tracking-tight">Welcome to Dirt Trails Safaris</h1>
         {/* Short summary on small screens, full text on larger */}
         <p className="text-base mb-4 sm:hidden text-gray-700 leading-relaxed">
