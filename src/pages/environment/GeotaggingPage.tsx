@@ -212,7 +212,7 @@ const GeotaggingPage = () => {
       <div className="h-72 bg-gradient-to-br from-green-100 to-green-200 border rounded-lg flex items-center justify-center relative overflow-hidden">
         <div className="absolute inset-0 bg-green-400 opacity-20"></div>
         <div className="text-center z-10">
-          <MapPin className="h-12 w-12 text-green-600 mx-auto mb-4" />
+          <TreePine className="h-12 w-12 text-green-600 mx-auto mb-4" />
           <p className="text-green-800 font-medium">Interactive map showing tree locations</p>
           <p className="text-green-700 text-sm mt-2">Enter your tracking ID to see exact coordinates</p>
         </div>
@@ -230,7 +230,7 @@ const GeotaggingPage = () => {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 px-6 pt-8 pb-4">
         <div className="text-center md:text-left flex-1">
           <div className="inline-flex items-center justify-center p-2 bg-green-500/10 rounded-full mb-4">
-            <MapPin className="h-6 w-6 text-green-600" />
+            <TreePine className="h-6 w-6 text-green-600" />
           </div>
           <h1 className="text-4xl font-bold mb-2">Geotagging & Tree Tracking</h1>
           <p className="text-gray-600 max-w-2xl mx-auto md:mx-0 mb-4">
@@ -402,7 +402,7 @@ const GeotaggingPage = () => {
           <Card className="text-center">
             <CardHeader>
               <div className="mx-auto bg-green-500/10 p-3 rounded-full">
-                <MapPin className="h-6 w-6 text-green-600" />
+                <TreePine className="h-6 w-6 text-green-600" />
               </div>
               <CardTitle className="mt-2">GPS Mapping</CardTitle>
             </CardHeader>
