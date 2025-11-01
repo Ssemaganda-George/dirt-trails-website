@@ -25,7 +25,7 @@ const plantingImages = [
   "/images/uwa.png"
 ];
 
-const FeatureCard = ({ title, description, stats, delay = 0, backgroundType }) => {
+const FeatureCard = ({ title, stats, delay = 0, backgroundType }) => {
   // For background slideshows
   const [bgIdx, setBgIdx] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -48,7 +48,7 @@ const FeatureCard = ({ title, description, stats, delay = 0, backgroundType }) =
 
   return (
     <div 
-      className="group relative bg-white/95 backdrop-blur-sm rounded-3xl p-0 shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-500 border border-green-200/50 hover:border-green-400/70 overflow-hidden min-h-[420px] flex flex-col justify-end"
+      className={`group relative ${bgImages.length > 0 ? 'bg-white/100' : 'bg-gray-200'} backdrop-blur-sm rounded-3xl p-0 shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-500 border border-green-200/50 hover:border-green-400/70 overflow-hidden min-h-[420px] flex flex-col justify-end`}
       style={{ animationDelay: `${delay}ms` }}
     >
       {/* Dynamic background slideshow for specific cards */}
@@ -71,14 +71,9 @@ const FeatureCard = ({ title, description, stats, delay = 0, backgroundType }) =
         <h3 className="text-3xl font-extrabold mb-4 bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300 drop-shadow-2xl uppercase tracking-tight">
           {title}
         </h3>
-        {/* Description with heavy font and shadow */}
-        <p className="text-white font-semibold leading-relaxed mb-6 group-hover:text-white transition-colors duration-300 drop-shadow-2xl text-lg">
-          {description}
-        </p>
         {/* Stats with heavy font */}
         <div className="flex items-center gap-2 text-lg font-bold">
-          <div className="w-3 h-3 rounded-full bg-gradient-to-r from-green-600 to-green-500 animate-pulse"></div>
-          <span className="bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent drop-shadow-lg">
+          <span className="bg-gradient-to-r from-brown-600 to-brown-500 bg-clip-text text-transparent drop-shadow-lg">
             {stats}
           </span>
         </div>
@@ -93,28 +88,28 @@ const WhyChooseUs = () => {
   const features = [
     {
       title: "Expert Local Guides",
-      description: "Journey with passionate local guides who know East Africa’s wildlife, cultures, and hidden trails. They turn safaris into meaningful, story-filled adventures.",
+      // description: "Journey with passionate local guides who know East Africa’s wildlife, cultures, and hidden trails. They turn safaris into meaningful, story-filled adventures.",
       stats: "3+ Years Combined Experience",
       delay: 0,
       backgroundType: "guides"
     },
     {
       title: "Customizable Journeys", 
-      description: "Every traveler is unique. Choose from curated safari packages or design your own adventure from gorilla trekking to cultural immersions or camping under the stars.",
+      // description: "Every traveler is unique. Choose from curated safari packages or design your own adventure from gorilla trekking to cultural immersions or camping under the stars.",
       stats: "100% Tailored Safaris",
       delay: 200,
       backgroundType: undefined
     },
     {
       title: "Sustainable Impact",
-      description: "Your travels give back. Each booking supports tree planting, empowers local communities, and promotes conservation ensuring safaris protect what makes Africa special.",
+      // description: "Your travels give back. Each booking supports tree planting, empowers local communities, and promotes conservation ensuring safaris protect what makes Africa special.",
       stats: "1+ Trees Planted Per Safari",
       delay: 400,
       backgroundType: "planting"
     },
     {
       title: "Safety & Comfort",
-      description: "Travel with peace of mind. From secure transport to handpicked eco-lodges, we prioritize your comfort and safety while keeping adventures exciting and authentic.",
+      // description: "Travel with peace of mind. From secure transport to handpicked eco-lodges, we prioritize your comfort and safety while keeping adventures exciting and authentic.",
       stats: "Trusted by 30+ Travelers",
       delay: 600,
       backgroundType: undefined
