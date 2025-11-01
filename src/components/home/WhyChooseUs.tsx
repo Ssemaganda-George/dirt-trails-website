@@ -89,28 +89,28 @@ const WhyChooseUs = () => {
     {
       title: "Expert Local Guides",
       // description: "Journey with passionate local guides who know East Africa’s wildlife, cultures, and hidden trails. They turn safaris into meaningful, story-filled adventures.",
-      stats: "3+ Years Combined Experience",
+      stats: "Our passionate guides deliver unparalleled value and expertise",
       delay: 0,
       backgroundType: "guides"
     },
     {
       title: "Customizable Journeys", 
       // description: "Every traveler is unique. Choose from curated safari packages or design your own adventure from gorilla trekking to cultural immersions or camping under the stars.",
-      stats: "100% Tailored Safaris",
+      stats: "Get maximum value with fully tailored safaris",
       delay: 200,
       backgroundType: undefined
     },
     {
       title: "Sustainable Impact",
       // description: "Your travels give back. Each booking supports tree planting, empowers local communities, and promotes conservation ensuring safaris protect what makes Africa special.",
-      stats: "1+ Trees Planted Per Safari",
+      stats: "Experience the true value of responsible travel",
       delay: 400,
       backgroundType: "planting"
     },
     {
       title: "Safety & Comfort",
       // description: "Travel with peace of mind. From secure transport to handpicked eco-lodges, we prioritize your comfort and safety while keeping adventures exciting and authentic.",
-      stats: "Trusted by 30+ Travelers",
+      stats: "Travel with complete peace of mind",
       delay: 600,
       backgroundType: undefined
     }
