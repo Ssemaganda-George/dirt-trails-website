@@ -184,12 +184,17 @@ const Hero = () => {
     return city || safariCities[0];
   };
 
-  const getWeatherCondition = (code) => {
+  const getWeatherCondition = (code: number) => {
     if (code === 0) return 'Clear';
-    if (code <= 3) return 'Partly Cloudy';
-    if (code <= 67) return 'Rainy';
-    if (code <= 77) return 'Snowy';
-    return 'Cloudy';
+    if (code >= 1 && code <= 3) return 'Partly Cloudy';
+    if (code >= 45 && code <= 48) return 'Foggy';
+    if (code >= 51 && code <= 57) return 'Drizzle';
+    if (code >= 61 && code <= 67) return 'Rainy';
+    if (code >= 71 && code <= 77) return 'Snowy';
+    if (code >= 80 && code <= 82) return 'Rain Showers';
+    if (code >= 83 && code <= 85) return 'Snow Showers';
+    if (code >= 86 && code <= 99) return 'Thunderstorm';
+    return 'Cloudy'; // Default for overcast or unknown
   };
 
   const getWeatherIcon = (condition) => {
