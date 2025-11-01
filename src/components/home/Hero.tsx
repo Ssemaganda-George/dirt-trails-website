@@ -23,7 +23,7 @@ const CustomDropdown = ({ label, icon, value, options, onChange, placeholder }) 
 
   return (
     <div className="space-y-1" ref={dropdownRef}>
-      <label className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gray-600" id={`label-${label.replace(/\s+/g, '-').toLowerCase()}`}>
+      <label className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-amber-600" id={`label-${label.replace(/\s+/g, '-').toLowerCase()}`}>
         {icon}
         {label}
       </label>
@@ -460,7 +460,7 @@ const Hero = () => {
         {/* Right side: Cards container */}
         <div className="w-full xl:w-1/2 flex flex-col xl:flex-row gap-6 max-w-2xl mt-8 xl:mt-0">
           {/* Search form */}
-          <div className="w-full xl:w-3/5 bg-gradient-to-br from-white/98 to-amber-50/98 backdrop-blur-xl rounded-3xl shadow-2xl border-2 border-amber-200/50 p-4 sm:p-6 md:p-8 text-gray-900 transform hover:scale-[1.02] transition-all duration-300">
+          <div className="w-full xl:w-3/5 bg-gradient-to-br from-white/98 to-amber-50/98 backdrop-blur-xl rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 text-gray-900 transform hover:scale-[1.02] transition-all duration-300">
             {/* Mobile toggle button */}
             <button
               onClick={() => setIsSearchExpanded(!isSearchExpanded)}
@@ -554,7 +554,7 @@ const Hero = () => {
                     </div>
                     {isSearching && (
                       <div className="text-center text-green-700 font-semibold animate-pulse py-8">
-                        Searching...
+                        Searching
                       </div>
                     )}
                     {!isSearching && searchResults.length > 0 && (
