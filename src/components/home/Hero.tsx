@@ -460,7 +460,7 @@ const Hero = () => {
         {/* Right side: Cards container */}
         <div className="w-full xl:w-1/2 flex flex-col xl:flex-row gap-6 max-w-2xl mt-8 xl:mt-0">
           {/* Search form */}
-          <div className="w-full xl:w-3/5 bg-gradient-to-br from-white/98 to-amber-50/98 backdrop-blur-xl rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 text-gray-900 transform hover:scale-[1.02] transition-all duration-300">
+          <div className="w-full xl:w-3/5 rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 text-white transform hover:scale-[1.02] transition-all duration-300">
             {/* Mobile toggle button */}
             <button
               onClick={() => setIsSearchExpanded(!isSearchExpanded)}
