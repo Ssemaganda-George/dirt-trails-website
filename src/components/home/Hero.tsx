@@ -629,7 +629,7 @@ const Hero = () => {
                   <div className="bg-white/20 p-1 rounded-lg">
                     {getWeatherIcon(weather.condition)}
                   </div>
-                  <span className="text-xl font-bold tracking-tight">{weather.temp}°</span>
+                  <span className="text-xl font-bold tracking-tight">{weather.temp}° {weather.condition}</span>
                   <span className="text-xs font-medium ml-auto">{weather.condition}</span>
                 </div>
 
