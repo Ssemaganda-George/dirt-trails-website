@@ -460,7 +460,7 @@ const Hero = () => {
         {/* Right side: Cards container */}
         <div className="w-full xl:w-1/2 flex flex-col xl:flex-row gap-6 max-w-2xl mt-8 xl:mt-0">
           {/* Search form */}
-          <div className="w-full xl:w-3/5 rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 text-white transform hover:scale-[1.02] transition-all duration-300">
+          <div className="w-full xl:w-3/5 bg-black/20 backdrop-blur-sm rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 text-white transform hover:scale-[1.02] transition-all duration-300">
             {/* Mobile toggle button */}
             <button
               onClick={() => setIsSearchExpanded(!isSearchExpanded)}
