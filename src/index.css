@@ -118,7 +118,7 @@
   }
 
   .animate-fade-in-up {
-  animation: fadeInUp 2s ease-out forwards;
+  animation: fadeInUp 1.2s ease-out forwards;
   opacity: 0;
   transform: translateY(20px);
 }
