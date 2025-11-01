@@ -350,7 +350,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col overflow-hidden">
+    <section className="relative min-h-[70vh] md:min-h-screen flex flex-col overflow-hidden">
       {/* Animated background slideshow */}
       <div className="absolute inset-0" role="img" aria-label="Safari background slideshow featuring African wildlife and landscapes">
         {safariImages.map((image, index) => (
@@ -411,7 +411,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10"></div>
 
       {/* Main content container */}
-      <div className="container relative z-20 flex flex-col xl:flex-row items-center justify-between gap-8 sm:gap-10 lg:gap-12 xl:gap-16 py-8 sm:py-12 lg:py-16 xl:py-20 px-2 sm:px-4 md:px-6 lg:px-8 text-white flex-grow max-w-7xl mx-auto">
+      <div className="container relative z-20 flex flex-col xl:flex-row items-center justify-between gap-8 sm:gap-10 lg:gap-12 xl:gap-16 py-4 sm:py-8 lg:py-12 xl:py-16 px-2 sm:px-4 md:px-6 lg:px-8 text-white flex-grow max-w-7xl mx-auto">
         
         {/* Left side: text content */}
         <div className="w-full xl:w-1/2 max-w-xl lg:max-w-2xl xl:max-w-3xl text-center xl:text-left space-y-6 sm:space-y-8">
