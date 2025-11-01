@@ -532,8 +532,8 @@ const Hero = () => {
 
               {/* Search Results */}
               {(isSearching || searchResults.length > 0 || (searchSummary && searchResults.length === 0)) && (
-                <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 px-2 sm:px-0 pt-24 sm:pt-32">
-                  <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full mx-auto p-4 sm:p-6 border border-green-100 relative animate-fade-in-up">
+                <div className="fixed inset-0 z-50 bg-black/40" onClick={() => { setSearchResults([]); setSearchSummary(''); setIsSearching(false); }}>
+                  <div className="absolute left-0 top-0 bottom-0 w-4/5 max-w-md bg-white rounded-r-2xl shadow-2xl p-4 sm:p-6 border border-green-100 transform translate-x-0 transition-transform duration-300 ease-in-out animate-slide-in-left">
                     {/* Close button */}
                     <button
                       onClick={() => {
