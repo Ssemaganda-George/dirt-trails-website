@@ -513,18 +513,6 @@ const CheckoutPage = () => {
             title: 'Inquiry Sent',
             description: `Your travel proposal request for ${tour.name} has been sent. We'll respond within 24 hours.`,
           });
-          setTimeout(() => {
-            navigate('/home', {
-              state: {
-                userData,
-                tour,
-                numberOfPeople,
-                pricePerPerson: getCurrentPricePerPerson(),
-                totalPrice: calculateTotalPrice(),
-                selectedCustomizations
-              }
-            });
-          }, 1200);
         } catch (err) {
           console.error('Formspree inquiry failed', err);
           setFormErrors({ submit: 'Failed to send inquiry. Please try again or contact us directly.' });
