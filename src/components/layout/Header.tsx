@@ -216,33 +216,33 @@ const Header = () => {
       {/* Mobile Top Navigation Bar */}
       <div className="md:hidden bg-white/95 backdrop-blur-sm border-t border-gray-200">
         <div className="container mx-auto px-2 py-2">
-          <div className="flex justify-around items-center">
+          <div className="flex justify-around items-center overflow-x-auto">
             <Link
               to="/"
               onClick={closeMenu}
-              className={`flex flex-col items-center px-2 py-1 rounded-lg transition-colors ${
-                isActive('/') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+              className={`flex flex-col items-center px-2 py-1 rounded-lg transition-colors whitespace-nowrap ${
+                isActive('/') ? 'text-green-700 bg-green-50 font-bold' : 'text-gray-800 hover:text-green-700 hover:bg-green-50 font-semibold'
               }`}
             >
-              <span className="text-xs font-medium">Home</span>
+              <span className="text-xs">Home</span>
             </Link>
             <Link
               to="/tours"
               onClick={closeMenu}
-              className={`flex flex-col items-center px-2 py-1 rounded-lg transition-colors ${
-                isActive('/tours') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+              className={`flex flex-col items-center px-2 py-1 rounded-lg transition-colors whitespace-nowrap ${
+                isActive('/tours') ? 'text-green-700 bg-green-50 font-bold' : 'text-gray-800 hover:text-green-700 hover:bg-green-50 font-semibold'
               }`}
             >
-              <span className="text-xs font-medium">Safaris & Tours</span>
+              <span className="text-xs">Safaris & Tours</span>
             </Link>
             <Link
               to="/environment/geotagging"
               onClick={closeMenu}
-              className={`flex flex-col items-center px-2 py-1 rounded-lg transition-colors ${
-                location.pathname === '/environment/geotagging' ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+              className={`flex flex-col items-center px-2 py-1 rounded-lg transition-colors whitespace-nowrap ${
+                location.pathname === '/environment/geotagging' ? 'text-green-700 bg-green-50 font-bold' : 'text-gray-800 hover:text-green-700 hover:bg-green-50 font-semibold'
               }`}
             >
-              <span className="text-xs font-medium">Geotagging</span>
+              <span className="text-xs">Geotagging</span>
             </Link>
           </div>
         </div>
