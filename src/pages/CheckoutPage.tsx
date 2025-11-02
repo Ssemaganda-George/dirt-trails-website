@@ -47,6 +47,7 @@ const CheckoutPage = () => {
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [paymentType, setPaymentType] = useState<'deposit' | 'full'>('deposit');
   const [currentStep, setCurrentStep] = useState(1);
+  const [stepErrors, setStepErrors] = useState<{[key: string]: string}>({});
   // quick inquiry action (used by BookingSummary)
   const handleQuickInquiry = () => {
     // Switch the flow into inquiry mode and show the inquiry step so the InquiryForm
@@ -743,6 +744,19 @@ const CheckoutPage = () => {
 
                 {/* Step 1: Contact Info - Always rendered, shown only if currentStep === 1 */}
                 <div className={`${currentStep === 1 ? '' : 'hidden'} bg-white rounded-xl shadow-sm border p-6`}>
+                  {/* Error Display for Step 1 */}
+                  {Object.keys(stepErrors).length > 0 && (
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                      <div className="flex items-center">
+                        <AlertCircle size={18} className="text-red-600 mr-2" />
+                        <ul className="text-red-800 text-sm">
+                          {Object.values(stepErrors).map((error, index) => (
+                            <li key={index}>{error}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
                   <h2 className="text-xl font-semibold mb-4 text-gray-900">Contact Information</h2>
                   <ContactInfoForm
                     firstName={firstName}
@@ -757,7 +771,18 @@ const CheckoutPage = () => {
                   <div className="mt-6 flex justify-end">
                     <Button 
                       type="button" 
-                      onClick={() => setCurrentStep(2)}
+                      onClick={() => {
+                        const errors: {[key: string]: string} = {};
+                        if (!firstName.trim()) errors.firstName = "First name is required";
+                        if (!lastName.trim()) errors.lastName = "Last name is required";
+                        if (!email.trim() || !email.includes('@')) errors.email = "Valid email is required";
+                        if (Object.keys(errors).length > 0) {
+                          setStepErrors(errors);
+                          return;
+                        }
+                        setStepErrors({});
+                        setCurrentStep(2);
+                      }}
                       className="bg-safari-green hover:bg-safari-green/90"
                     >
                       Next: {bookingMode === 'book' ? 'Travel Details' : 'Inquiry Details'}
@@ -785,14 +810,26 @@ const CheckoutPage = () => {
                     <Button 
                       type="button" 
                       variant="outline" 
-                      onClick={() => setCurrentStep(1)}
+                      onClick={() => {
+                        setStepErrors({});
+                        setCurrentStep(1);
+                      }}
                     >
                       Back
                     </Button>
                     {bookingMode === 'book' ? (
                       <Button 
                         type="button" 
-                        onClick={() => setCurrentStep(3)}
+                        onClick={() => {
+                          const errors: {[key: string]: string} = {};
+                          if (numberOfPeople <= 0) errors.travelers = "Number of travelers is required";
+                          if (Object.keys(errors).length > 0) {
+                            setStepErrors(errors);
+                            return;
+                          }
+                          setStepErrors({});
+                          setCurrentStep(3);
+                        }}
                         className="bg-safari-green hover:bg-safari-green/90"
                       >
                         Next: Payment
@@ -813,6 +850,19 @@ const CheckoutPage = () => {
                       </Button>
                     )}
                   </div>
+                  {/* Error Display for Step 2 */}
+                  {Object.keys(stepErrors).length > 0 && (
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-4 mt-4">
+                      <div className="flex items-center">
+                        <AlertCircle size={18} className="text-red-600 mr-2" />
+                        <ul className="text-red-800 text-sm">
+                          {Object.values(stepErrors).map((error, index) => (
+                            <li key={index}>{error}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Step 3: Payment - Rendered only for booking mode, shown only if currentStep === 3 */}
