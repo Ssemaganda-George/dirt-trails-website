@@ -217,7 +217,7 @@ const Hero = () => {
       try {
         const coords = getCityCoordinates(weatherCity);
         const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=temperature_2m,weather_code,precipitation,relative_humidity_2m,wind_speed_10m&timezone=auto`
+          `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=temperature_2m,weather_code,precipitation,relative_humidity_2m,wind_speed_10m&timezone=auto&_=${Date.now()}`
         );
         const data = await response.json();
         setWeather({

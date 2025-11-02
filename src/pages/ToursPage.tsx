@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { MapPin, Calendar, Star, ArrowRight } from 'lucide-react';
 import { tours } from '@/data/tours';
@@ -8,6 +8,7 @@ const ToursPage = () => {
   const location = useLocation();
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [sortBy, setSortBy] = useState('default');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   const theme = {
     gradient: 'from-green-600 to-green-700', 
@@ -17,6 +18,30 @@ const ToursPage = () => {
     border: 'border-green-200',
     hoverAccent: 'hover:text-green-700'
   };
+  
+  // Collect at least 2 images from each tour's gallery
+  const tourImages = tours.flatMap(tour => 
+    tour.images && tour.images.length > 0 
+      ? tour.images.slice(0, Math.min(2, tour.images.length)).map(img => img.url) 
+      : []
+  );
+  
+  // Fallback images if no tour images
+  const fallbackImages = [
+    '/images/dt3.jpg',
+    '/images/field-covered-greenery-surrounded-by-zebras-sunlight-blue-sky.jpg',
+    '/images/dt6.jpg',
+    '/images/dt2.JPG'
+  ];
+  
+  const safariImages = tourImages.length > 0 ? tourImages : fallbackImages;
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % safariImages.length);
+    }, 8000);
+    return () => clearInterval(interval);
+  }, [safariImages.length]);
   
   // Filter tours by selected country
   const filteredTours = selectedCountry 
@@ -43,8 +68,21 @@ const ToursPage = () => {
     <div>
       {/* Hero Section */}
       <section className={`relative py-20 bg-gradient-to-r ${theme.lightGradient} text-white overflow-hidden`}>
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="container mx-auto px-4 relative z-10">
+        {/* Animated background slideshow */}
+        <div className="absolute inset-0" role="img" aria-label="Safari background slideshow featuring tour images">
+          {safariImages.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 bg-center bg-cover transition-opacity duration-[1800ms] ease-in-out ${
+                index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              }`}
+              style={{ backgroundImage: `url('${image}')` }}
+            />
+          ))}
+        </div>
+        
+        <div className="absolute inset-0 bg-black/20 z-10"></div>
+        <div className="container mx-auto px-4 relative z-20">
           <div className="max-w-4xl">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
               Explore Our 
@@ -58,8 +96,23 @@ const ToursPage = () => {
           </div>
         </div>
         {/* Decorative elements */}
-        <div className="absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
-        <div className="absolute bottom-10 left-10 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
+        <div className="absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full blur-xl z-20"></div>
+        <div className="absolute bottom-10 left-10 w-32 h-32 bg-white/5 rounded-full blur-2xl z-20"></div>
+        
+        {/* Image navigation dots */}
+        <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-2 sm:gap-3 bg-black/30 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-3 rounded-full">
+          {safariImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
+                index === currentImageIndex 
+                  ? 'bg-amber-400 w-6 sm:w-8 shadow-lg' 
+                  : 'bg-white/50 hover:bg-white/80'
+              }`}
+            />
+          ))}
+        </div>
       </section>
 
       {/* Tours List Section */}
