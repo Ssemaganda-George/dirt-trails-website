@@ -212,32 +212,46 @@ const Header = () => {
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden absolute top-20 left-0 right-0 bg-zinc-900/95 backdrop-blur-md border-t border-white/10 z-40 max-h-[90vh] overflow-y-auto">
-          <div className="container mx-auto px-2 py-6 flex flex-col space-y-4">
+      
+      {/* Mobile Top Navigation Bar */}
+      <div className="md:hidden bg-white/95 backdrop-blur-sm border-t border-gray-200">
+        <div className="container mx-auto px-2 py-2">
+          <div className="flex justify-around items-center">
             <Link
               to="/"
               onClick={closeMenu}
-              className={`text-left py-2 px-4 rounded-md transition-colors ${
-                isActive('/')
-                  ? 'text-white bg-white/10 border-l-2 border-amber-500' 
-                  : 'text-white/70 hover:text-white hover:bg-white/5'
+              className={`flex flex-col items-center px-2 py-1 rounded-lg transition-colors ${
+                isActive('/') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
               }`}
             >
-              Home
+              <span className="text-xs font-medium">Home</span>
             </Link>
             <Link
               to="/tours"
               onClick={closeMenu}
-              className={`text-left py-2 px-4 rounded-md transition-colors ${
-                isActive('/tours')
-                  ? 'text-white bg-white/10 border-l-2 border-amber-500' 
-                  : 'text-white/70 hover:text-white hover:bg-white/5'
+              className={`flex flex-col items-center px-2 py-1 rounded-lg transition-colors ${
+                isActive('/tours') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
               }`}
             >
-              Safaris & Tours
+              <span className="text-xs font-medium">Safaris & Tours</span>
             </Link>
+            <Link
+              to="/environment/geotagging"
+              onClick={closeMenu}
+              className={`flex flex-col items-center px-2 py-1 rounded-lg transition-colors ${
+                location.pathname === '/environment/geotagging' ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+              }`}
+            >
+              <span className="text-xs font-medium">Geotagging</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+      
+      {/* Mobile Navigation */}
+      {isMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 right-0 bg-zinc-900/95 backdrop-blur-md border-t border-white/10 z-40 max-h-[90vh] overflow-y-auto">
+          <div className="container mx-auto px-2 py-6 flex flex-col space-y-4">
             {/* About Dropdown Mobile - Now Collapsible */}
             <div className="flex flex-col space-y-2 pl-4">
               <button
@@ -310,13 +324,6 @@ const Header = () => {
                     onClick={closeMenu}
                   >
                     Tree Planting Initiative
-                  </Link>
-                  <Link 
-                    to="/environment/geotagging"
-                    className="block text-left text-white/70 hover:text-white transition-colors py-2"
-                    onClick={closeMenu}
-                  >
-                    Geotagging & Monitoring
                   </Link>
                 </div>
               )}
