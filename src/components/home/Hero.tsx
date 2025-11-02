@@ -156,16 +156,23 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [safariImages.length]);
 
-  // Weather dropdown click outside handler
+  // Weather dropdown click outside handler - improved for mobile
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (weatherDropdownRef.current && !weatherDropdownRef.current.contains(event.target)) {
-        setShowWeatherDropdown(false);
-      }
+      // Add a small delay to prevent accidental closures on mobile taps
+      setTimeout(() => {
+        if (weatherDropdownRef.current && !weatherDropdownRef.current.contains(event.target)) {
+          setShowWeatherDropdown(false);
+        }
+      }, 100);
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside); // Add touch support for mobile
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
   }, []);
 
   // Safari destination cities with coordinates
@@ -680,38 +687,74 @@ const Hero = () => {
         {weather && (
           <div className="block xl:hidden w-full max-w-2xl order-3" ref={weatherDropdownRef}>
             <div className="bg-gradient-to-br from-orange-500/95 to-amber-600/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/30 p-3 text-white transform hover:scale-[1.02] transition-all duration-300 h-fit">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider">Weather</span>
-                <ChevronDown
-                  size={14}
-                  className={`text-white transition-transform duration-200 ${showWeatherDropdown ? 'rotate-180' : ''}`}
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="bg-white/20 p-1 rounded-lg">
-                  {getWeatherIcon(weather.condition)}
+              <button
+                onClick={() => setShowWeatherDropdown(!showWeatherDropdown)}
+                className="w-full text-left h-full flex flex-col justify-between cursor-pointer"
+                aria-expanded={showWeatherDropdown}
+                aria-haspopup="listbox"
+                aria-label="Select weather city"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold uppercase tracking-wider">Weather</span>
+                  <ChevronDown
+                    size={14}
+                    className={`text-white transition-transform duration-200 ${showWeatherDropdown ? 'rotate-180' : ''}`}
+                    aria-hidden="true"
+                  />
                 </div>
-                <span className="text-xl font-bold tracking-tight">{weather.temp}° {weather.condition}</span>
-                <span className="text-xs font-medium ml-auto">{weather.condition}</span>
-              </div>
+                <div className="flex items-center gap-2">
+                  <div className="bg-white/20 p-1 rounded-lg">
+                    {getWeatherIcon(weather.condition)}
+                  </div>
+                  <span className="text-xl font-bold tracking-tight">{weather.temp}° {weather.condition}</span>
+                  <span className="text-xs font-medium ml-auto">{weather.condition}</span>
+                </div>
 
-              {/* Additional weather details - more compact */}
-              <div className="grid grid-cols-3 gap-1 pt-1 border-t border-white/20">
-                <div className="text-center">
-                  <div className="text-[10px] text-white/70">Rain</div>
-                  <div className="text-xs font-semibold">{weather.precipitation}%</div>
+                {/* Additional weather details - more compact */}
+                <div className="grid grid-cols-3 gap-1 pt-1 border-t border-white/20">
+                  <div className="text-center">
+                    <div className="text-[10px] text-white/70">Rain</div>
+                    <div className="text-xs font-semibold">{weather.precipitation}%</div>
+                  </div>
+                  <div className="text-center border-l border-r border-white/20">
+                    <div className="text-[10px] text-white/70">Humid</div>
+                    <div className="text-xs font-semibold">{weather.humidity}%</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-[10px] text-white/70">Wind</div>
+                    <div className="text-xs font-semibold">{weather.windSpeed}</div>
+                  </div>
                 </div>
-                <div className="text-center border-l border-r border-white/20">
-                  <div className="text-[10px] text-white/70">Humid</div>
-                  <div className="text-xs font-semibold">{weather.humidity}%</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-[10px] text-white/70">Wind</div>
-                  <div className="text-xs font-semibold">{weather.windSpeed}</div>
-                </div>
-              </div>
 
-              <div className="text-white/70 text-[10px] text-center pt-1 border-t border-white/20">{weatherCity}</div>
+                <div className="text-white/70 text-[10px] text-center pt-1 border-t border-white/20">{weatherCity}</div>
+              </button>
+
+              {/* City Dropdown - improved for mobile */}
+              {showWeatherDropdown && (
+                <div 
+                  className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-200 max-h-64 overflow-y-auto z-[100] pointer-events-auto"
+                  role="listbox"
+                  aria-label="Select a city for weather"
+                >
+                  {safariCities.map((city, index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        setWeatherCity(city.name);
+                        setShowWeatherDropdown(false);
+                      }}
+                      className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 transition-colors duration-150 border-b border-gray-100 last:border-b-0 ${
+                        weatherCity === city.name ? 'bg-orange-50' : ''
+                      }`}
+                      role="option"
+                      aria-selected={weatherCity === city.name}
+                    >
+                      <div className="font-semibold text-gray-800 text-sm">{city.name}</div>
+                      <div className="text-gray-500 text-xs">{city.country}</div>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
