@@ -156,19 +156,16 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [safariImages.length]);
 
-  // Weather dropdown click outside handler - improved for mobile
+  // Weather dropdown click outside handler - fixed for web persistence
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Add a small delay to prevent accidental closures on mobile taps
-      setTimeout(() => {
-        if (weatherDropdownRef.current && !weatherDropdownRef.current.contains(event.target)) {
-          setShowWeatherDropdown(false);
-        }
-      }, 100);
+      if (weatherDropdownRef.current && !weatherDropdownRef.current.contains(event.target)) {
+        setShowWeatherDropdown(false);
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside); // Add touch support for mobile
+    document.addEventListener('touchstart', handleClickOutside); // Keep touch support for mobile
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
