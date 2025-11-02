@@ -66,17 +66,10 @@ export const InquiryForm = () => {
                 <SelectValue placeholder="Choose number of days" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="3">3 days</SelectItem>
-                <SelectItem value="4">4 days</SelectItem>
-                <SelectItem value="5">5 days</SelectItem>
-                <SelectItem value="6">6 days</SelectItem>
-                <SelectItem value="7">7 days</SelectItem>
-                <SelectItem value="8">8 days</SelectItem>
-                <SelectItem value="9">9 days</SelectItem>
-                <SelectItem value="10">10 days</SelectItem>
-                <SelectItem value="12">12 days</SelectItem>
-                <SelectItem value="14">14 days</SelectItem>
-                <SelectItem value="21+">21+ days</SelectItem>
+                <SelectItem value="3-5">3-5 days</SelectItem>
+                <SelectItem value="6-9">6-9 days</SelectItem>
+                <SelectItem value="10-14">10-14 days</SelectItem>
+                <SelectItem value="15+">15+ days</SelectItem>
               </SelectContent>
             </Select>
           </div>
