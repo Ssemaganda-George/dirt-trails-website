@@ -7,9 +7,9 @@ const guides = [
 	{
 		name: "Chemutai Simeon",
 		bio: "Chemutai Simeon is a professional tour guide specializing in Sipi Falls and Mount Elgon Adventures. Based in Kapchorwa district, eastern Uganda, he offers expert guiding services in the Sipi region. Reach out for unforgettable adventures in the heart of Uganda's highlands.",
-		image: "/images/guides/Simeon/john-okello-1.jpg",
+		image: "/images/guides/Simeon/john-okello-19.jpg",
 		rating: 4.8,
-		ratingsCount: 32,
+		ratingsCount: 29,
 		slug: "john-okello",
 		// phone: "0777495336",
 		whatsapp: "0774968565",
@@ -18,23 +18,31 @@ const guides = [
 		twitter: "https://twitter.com/chemutaisimeon",
 		gallery: [
       "/images/guides/Simeon/john-okello-8.jpg",
-			"/images/guides/Simeon/john-okello-2.jpg",
-			"/images/guides/Simeon/john-okello-3.jpg",
+	  "/images/guides/Simeon/john-okello-2.jpg",
+	  "/images/guides/Simeon/john-okello-3.jpg",
       "/images/guides/Simeon/john-okello-4.jpg",
       "/images/guides/Simeon/john-okello-5.jpg",
       "/images/guides/Simeon/john-okello-6.jpg",
       "/images/guides/Simeon/john-okello-7.jpg",
       "/images/guides/Simeon/john-okello-9.jpg",
       "/images/guides/Simeon/john-okello-10.jpg",
+	  "/images/guides/Simeon/john-okello-11.jpg",
+	  "/images/guides/Simeon/john-okello-12.jpg",
+	  "/images/guides/Simeon/john-okello-13.jpg",
+	  "/images/guides/Simeon/john-okello-14.jpg",
+	  "/images/guides/Simeon/john-okello-15.jpg",
+	  "/images/guides/Simeon/john-okello-16.jpg",
+	  "/images/guides/Simeon/john-okello-17.jpg",
+	  "/images/guides/Simeon/john-okello-18.jpg",
 		]
 	},
 	{
-		name: "Grace Nambasa",
-		bio: "Grace specializes in primate trekking and cultural tours, sharing deep knowledge of local communities.",
-		image: "/images/guides/grace-nambasa.jpg",
+		name: "Mariam W",
+		bio: "Mariam specializes in primate trekking and cultural tours, sharing deep knowledge of local communities.",
+		image: "/images/Mariam.jpg",
 		rating: 4.9,
-		ratingsCount: 41,
-		slug: "grace-nambasa",
+		ratingsCount: 25,
+		slug: "mariam-w",
 		phone: "",
 		whatsapp: "",
 		facebook: "",
@@ -47,12 +55,12 @@ const guides = [
 		]
 	},
 	{
-		name: "Peter Kamau",
-		bio: "Peter is a certified driver-guide with a love for the savannah and the Big Five.",
-		image: "/images/guides/peter-kamau.jpg",
+		name: "Gerald Ariho",
+		bio: "Gerald is a certified driver-guide with a love for nature, the savannah and the Big Five.",
+		image: "/images/Gerald.jpg",
 		rating: 4.7,
 		ratingsCount: 28,
-		slug: "peter-kamau",
+		slug: "gerald-ariho",
 		phone: "",
 		whatsapp: "",
 		facebook: "",
@@ -219,7 +227,7 @@ const GuidesPage = () => {
 							to="/contact"
 							className="inline-block px-8 py-3 bg-safari-orange text-white rounded-xl font-semibold shadow-lg hover:bg-safari-green transition-all duration-300"
 						>
-							Join Our Guides
+							Want to Join Our Team?
 						</Link>
 					</div>
 				</div>

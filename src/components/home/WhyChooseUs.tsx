@@ -13,8 +13,10 @@ const teamImages = [
 const guideImages = [
   ...teamImages,
   "/images/guides/Simeon/john-okello-1.jpg",
-  "/images/guides/grace-nambasa.jpg",
-  "/images/guides/peter-kamau.jpg"
+  // "/images/guides/grace-nambasa.jpg",
+  // "/images/guides/peter-kamau.jpg",
+  "/images/guides/Simeon/john-okello-20.jpg",
+  "/images/guides/Simeon/john-okello-17.jpg",
 ];
 
 // Import tourist planting images for sustainability card

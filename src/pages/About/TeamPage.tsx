@@ -239,7 +239,7 @@ const TeamPage = () => {
 							to="/contact"
 							className="px-8 py-3 bg-safari-orange text-white rounded-xl font-semibold shadow-lg hover:bg-safari-green transition-all duration-300"
 						>
-							Join Our Team
+							Wish to Join Our Team?
 						</Link>
 					</div>
 				</div>
