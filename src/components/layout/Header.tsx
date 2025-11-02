@@ -244,6 +244,15 @@ const Header = () => {
             >
               <span className="text-xs">Geotagging</span>
             </Link>
+            <Link
+              to="/contact"
+              onClick={closeMenu}
+              className={`flex flex-col items-center px-2 py-1 rounded-lg transition-colors whitespace-nowrap ${
+                isActive('/contact') ? 'text-green-700 bg-green-50 font-bold' : 'text-gray-800 hover:text-green-700 hover:bg-green-50 font-semibold'
+              }`}
+            >
+              <span className="text-xs">Contact Us</span>
+            </Link>
           </div>
         </div>
       </div>
