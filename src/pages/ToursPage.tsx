@@ -22,7 +22,7 @@ const ToursPage = () => {
   // Collect at least 2 images from each tour's gallery
   const tourImages = tours.flatMap(tour => 
     tour.images && tour.images.length > 0 
-      ? tour.images.slice(0, Math.min(2, tour.images.length)).map(img => img.url) 
+      ? tour.images.slice(0, Math.min(1, tour.images.length)).map(img => img.url) 
       : []
   );
   
