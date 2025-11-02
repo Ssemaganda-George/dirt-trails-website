@@ -44,10 +44,11 @@ const Footer = () => {
               Quick Links
             </h3>
             <ul className="space-y-4">
+              <FooterLink to="/index">Home</FooterLink>
               <FooterLink to="/tours">Tour Packages</FooterLink>
-              <FooterLink to="/destinations">Destinations</FooterLink>
+              <FooterLink to="/environment/geotagging">Conservation</FooterLink>
               <FooterLink to="/about">About Us</FooterLink>
-              <FooterLink to="/contact">Contact</FooterLink>
+              <FooterLink to="/contact">Contact Us</FooterLink>
             </ul>
           </div>
 
@@ -58,9 +59,9 @@ const Footer = () => {
               Top Destinations
             </h3>
             <ul className="space-y-4">
+              <FooterLink to="/destinations/uganda">Uganda</FooterLink>
               <FooterLink to="/destinations/kenya">Kenya</FooterLink>
               <FooterLink to="/destinations/tanzania">Tanzania</FooterLink>
-              <FooterLink to="/destinations/uganda">Uganda</FooterLink>
               <FooterLink to="/destinations/rwanda">Rwanda</FooterLink>
             </ul>
           </div>
