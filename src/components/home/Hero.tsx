@@ -413,8 +413,8 @@ const Hero = () => {
       {/* Main content container */}
       <div className="container relative z-20 flex flex-col xl:flex-row items-center justify-between gap-8 sm:gap-10 lg:gap-12 xl:gap-16 py-4 sm:py-8 lg:py-12 xl:py-16 px-2 sm:px-4 md:px-6 lg:px-8 text-white flex-grow max-w-7xl mx-auto">
         
-        {/* Left side: text content */}
-        <div className="w-full xl:w-1/2 max-w-xl lg:max-w-2xl xl:max-w-3xl text-center xl:text-left space-y-6 sm:space-y-8">
+        {/* Left side: text content - reordered for mobile */}
+        <div className="w-full xl:w-1/2 max-w-xl lg:max-w-2xl xl:max-w-3xl text-center xl:text-left space-y-6 sm:space-y-8 order-2 xl:order-1">
           {/* Safari badge */}
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/30 to-orange-500/30 backdrop-blur-md border-2 border-amber-300/40 rounded-full px-4 py-2 shadow-lg animate-pulse">
             <Compass className="text-amber-200" size={18} />
@@ -457,8 +457,8 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Right side: Cards container */}
-        <div className="w-full xl:w-1/2 flex flex-col xl:flex-row gap-6 max-w-2xl mt-8 xl:mt-0">
+        {/* Right side: Cards container - reordered for mobile */}
+        <div className="w-full xl:w-1/2 flex flex-col xl:flex-row gap-6 max-w-2xl mt-8 xl:mt-0 order-1 xl:order-2">
           {/* Search form */}
           <div className="w-full xl:w-3/5 bg-black/20 backdrop-blur-sm rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 text-white transform hover:scale-[1.02] transition-all duration-300">
             {/* Mobile toggle button */}
