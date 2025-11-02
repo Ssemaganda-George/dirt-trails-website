@@ -299,7 +299,7 @@ const GeotaggingPage = () => {
       {/* Gallery at top */}
       <div className="w-full py-8 relative overflow-hidden">
         <h2 className="text-xl font-semibold mb-4 px-4">Tourists Planting Trees</h2>
-        <div className="relative" style={{ width: "100%", overflow: "hidden", height: "190px" }}>
+        <div className="relative" style={{ width: "100%", overflow: "hidden", height: "250px" }}>
           <div
             className="flex space-x-6 absolute left-0 top-0"
             style={{
@@ -309,19 +309,19 @@ const GeotaggingPage = () => {
           >
             {[...Array(2)].flatMap((_, i) => [
               <div className="flex-shrink-0 w-64" key={`img1-${i}`}>
-                <img src="/images/Sharon1.png" alt="Tourist 1 planting" className="rounded-lg w-full h-40 object-cover shadow" />
+                <img src="/images/Sharon1.png" alt="Tourist 1 planting" className="rounded-lg w-full h-48 object-cover shadow" />
                 <div className="mt-2 text-center text-sm font-medium">Sharon planting Markhamia lutea</div>
               </div>,
               <div className="flex-shrink-0 w-64" key={`img2-${i}`}>
-                <img src="/images/angel.png" alt="Tourist 2 planting" className="rounded-lg w-full h-40 object-cover shadow" />
+                <img src="/images/angel.png" alt="Tourist 2 planting" className="rounded-lg w-full h-48 object-cover shadow" />
                 <div className="mt-2 text-center text-sm font-medium">George & Angel with Ashoka</div>
               </div>,
               <div className="flex-shrink-0 w-64" key={`img3-${i}`}>
-                <img src="/images/Sharon.png" alt="Tourist 3 planting" className="rounded-lg w-full h-40 object-cover shadow" />
+                <img src="/images/Sharon.png" alt="Tourist 3 planting" className="rounded-lg w-full h-48 object-cover shadow" />
                 <div className="mt-2 text-center text-sm font-medium">MIICHub team with Ficus natalensis</div>
               </div>,
               <div className="flex-shrink-0 w-64" key={`img4-${i}`}>
-                <img src="/images/uwa.png" alt="Tourist 4 planting" className="rounded-lg w-full h-40 object-cover shadow" />
+                <img src="/images/uwa.png" alt="Tourist 4 planting" className="rounded-lg w-full h-48 object-cover shadow" />
                 <div className="mt-2 text-center text-sm font-medium">Uganda Wildlife Authority - Prunus africana</div>
               </div>
             ])}
