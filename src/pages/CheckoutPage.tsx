@@ -66,7 +66,13 @@ const CheckoutPage = () => {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [treePlantingSelected, setTreePlantingSelected] = useState(false);
   const [treePlantingAmount, setTreePlantingAmount] = useState(5);
-  
+
+  // Add state for contact form
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+
   // Parse customizations from URL
   const selectedCustomizations = customizationsParam 
     ? JSON.parse(customizationsParam) 
@@ -265,39 +271,6 @@ const CheckoutPage = () => {
       throw error;
     }
   };
-
-  // New: send FormData to Formspree (multipart/form-data) so Formspree sends an email like Contact form
-  const sendInquiryFormData = async (fd: FormData) => {
-    try {
-      // Ensure metadata for inbox clarity
-      const first = (fd.get('firstName') as string) || '';
-      const last = (fd.get('lastName') as string) || '';
-      const email = (fd.get('email') as string) || (fd.get('_replyto') as string) || '';
-      // Formspree expects the reply-to field named "_replyto" for reply routing
-      if (email) fd.append('_replyto', email);
-      fd.append('_subject', `New Tour Inquiry: ${tour.name} - ${first} ${last}`);
-      fd.append('tourName', tour.name);
-      fd.append('tourSlug', tour.slug);
-      fd.append('numberOfTravelers', String(numberOfPeople));
-      fd.append('estimatedTotalPrice', String(calculateTotalPrice()));
-      fd.append('pricePerPerson', String(getCurrentPricePerPerson()));
-      fd.append('selectedCustomizations', JSON.stringify(selectedCustomizations || {}));
-
-      const resp = await fetch('https://formspree.io/f/xpwjoknq', {
-        method: 'POST',
-        body: fd,
-        headers: {
-          Accept: 'application/json' // do not set Content-Type; browser will set multipart boundary
-        }
-      });
-
-      if (!resp.ok) throw new Error('Failed to send inquiry via Formspree');
-      return true;
-    } catch (err) {
-      console.error('sendInquiryFormData error', err);
-      throw err;
-    }
-  };
  
   const PaymentTypeSelector: React.FC<PaymentTypeSelectorProps> = ({
   paymentType,
@@ -425,10 +398,10 @@ const CheckoutPage = () => {
   };
 
   // Collect form values from the checkout form container (captures inputs even if nested forms exist)
-  const collectFormData = (): FormData => {
-    const fd = new FormData();
+  const collectFormData = (): Record<string, any> => {
+    const data: Record<string, any> = {};
     const container = document.getElementById('checkout-form');
-    if (!container) return fd;
+    if (!container) return data;
 
     const controls = container.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input[name], select[name], textarea[name]');
     controls.forEach((el) => {
@@ -438,16 +411,21 @@ const CheckoutPage = () => {
 
       if (type === 'checkbox') {
         const input = el as HTMLInputElement;
-        if (input.checked) fd.append(name, input.value || 'on');
+        if (input.checked) {
+          if (!data[name]) data[name] = [];
+          data[name].push(input.value || 'on');
+        }
       } else if (type === 'radio') {
         const input = el as HTMLInputElement;
-        if (input.checked) fd.append(name, input.value);
+        if (input.checked) {
+          data[name] = input.value;
+        }
       } else {
-        fd.append(name, (el as any).value ?? '');
+        data[name] = (el as any).value ?? '';
       }
     });
 
-    return fd;
+    return data;
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -459,23 +437,24 @@ const CheckoutPage = () => {
     // Common validation for both modes
     // collect form data from the checkout-form container (works even if InquiryForm renders nested form)
     const formData = collectFormData();
+    console.log('Collected form data:', formData); // Debug: Log collected data
 
-    const firstName = formData.get('firstName') as string || '';
-    const lastName = formData.get('lastName') as string || '';
-    const email = formData.get('email') as string || '';
-    const phone = formData.get('phone') as string || '';
+    const firstNameVal = formData.firstName as string || '';
+    const lastNameVal = formData.lastName as string || '';
+    const emailVal = formData.email as string || '';
+    const phoneVal = formData.phone as string || '';
     
-    if (!firstName.trim()) errors.firstName = "First name is required";
-    if (!lastName.trim()) errors.lastName = "Last name is required";
-    if (!email.trim() || !email.includes('@')) errors.email = "Valid email is required";
-    if (!phone.trim()) errors.phone = "Phone number is required";
+    if (!firstNameVal.trim()) errors.firstName = "First name is required";
+    if (!lastNameVal.trim()) errors.lastName = "Last name is required";
+    if (!emailVal.trim() || !emailVal.includes('@')) errors.email = "Valid email is required";
+    // Removed: if (!phoneVal.trim()) errors.phone = "Phone number is required";
     
     if (bookingMode === 'book') {
       // Additional validation for booking
       if (paymentMethod === 'card') {
-        const cardNumber = formData.get('cardNumber') as string || '';
-        const expiry = formData.get('expiry') as string || '';
-        const cvv = formData.get('cvv') as string || '';
+        const cardNumber = formData.cardNumber as string || '';
+        const expiry = formData.expiry as string || '';
+        const cvv = formData.cvv as string || '';
         
         if (cardNumber.length < 16) {
           errors.cardNumber = "Please enter a valid card number";
@@ -495,33 +474,36 @@ const CheckoutPage = () => {
       }
     } else {
       // Validation for inquiry
-      const travelDate = formData.get('travelDate') as string || '';
+      const travelDate = formData.travelDate as string || '';
       if (!travelDate) errors.travelDate = "Preferred travel date is required";
     }
     
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
+      console.log('Validation errors:', errors); // Debug: Log errors
       return;
     }
     
     setIsProcessing(true);
+    console.log('Starting submission for mode:', bookingMode); // Debug: Log start
 
     try {
       const userData: ContactFormData = {
-        firstName,
-        lastName,
-        email,
-        phone,
-        travelers: formData.get('travelers') as string,
-        travelDate: formData.get('travelDate') as string,
-        specialRequests: formData.get('specialRequests') as string || ''
+        firstName: firstNameVal,
+        lastName: lastNameVal,
+        email: emailVal,
+        phone: phoneVal,
+        travelers: formData.travelers as string,
+        travelDate: formData.travelDate as string,
+        specialRequests: formData.specialRequests as string || ''
       };
       
       if (bookingMode === 'inquiry') {
-        // We already collected all inputs into `formData` via collectFormData().
-        // Send FormData (multipart) to Formspree so you receive a normal email notification.
+        // Send JSON payload to Formspree
         try {
-          await sendInquiryFormData(formData);
+          console.log('Sending inquiry to Formspree...'); // Debug: Log send attempt
+          await sendInquiry(formData);
+          console.log('Inquiry sent successfully'); // Debug: Log success
           // Reset the checkout form (clear inputs)
           const formEl = document.getElementById('checkout-form') as HTMLFormElement | null;
           if (formEl && typeof formEl.reset === 'function') formEl.reset();
@@ -759,57 +741,125 @@ const CheckoutPage = () => {
                   </div>
                 )}
 
-                {/* Step 1: Contact Info */}
-                {currentStep === 1 && (
-                  <div className="bg-white rounded-xl shadow-sm border p-6">
-                    <h2 className="text-xl font-semibold mb-4 text-gray-900">Contact Information</h2>
-                    <ContactInfoForm />
-                    <div className="mt-6 flex justify-end">
+                {/* Step 1: Contact Info - Always rendered, shown only if currentStep === 1 */}
+                <div className={`${currentStep === 1 ? '' : 'hidden'} bg-white rounded-xl shadow-sm border p-6`}>
+                  <h2 className="text-xl font-semibold mb-4 text-gray-900">Contact Information</h2>
+                  <ContactInfoForm
+                    firstName={firstName}
+                    setFirstName={setFirstName}
+                    lastName={lastName}
+                    setLastName={setLastName}
+                    email={email}
+                    setEmail={setEmail}
+                    phone={phone}
+                    setPhone={setPhone}
+                  />
+                  <div className="mt-6 flex justify-end">
+                    <Button 
+                      type="button" 
+                      onClick={() => setCurrentStep(2)}
+                      className="bg-safari-green hover:bg-safari-green/90"
+                    >
+                      Next: {bookingMode === 'book' ? 'Travel Details' : 'Inquiry Details'}
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Step 2: Travel Details or Inquiry Details - Always rendered, shown only if currentStep === 2 */}
+                <div className={`${currentStep === 2 ? '' : 'hidden'} bg-white rounded-xl shadow-sm border p-6`}>
+                  <h2 className="text-xl font-semibold mb-4 text-gray-900">
+                    {bookingMode === 'book' ? 'Travel Details' : 'Inquiry Details'}
+                  </h2>
+                  {bookingMode === 'inquiry' ? (
+                    <InquiryForm />
+                  ) : (
+                    <TravelInfoForm 
+                      numberOfPeople={numberOfPeople}
+                      handleTravelersChange={handleTravelersChange}
+                      getCurrentPricePerPerson={getCurrentPricePerPerson}
+                      getCurrentTierLabel={getCurrentTierLabel}
+                      selectedCustomizations={selectedCustomizations}
+                    />
+                  )}
+                  <div className="mt-6 flex justify-between">
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      onClick={() => setCurrentStep(1)}
+                    >
+                      Back
+                    </Button>
+                    {bookingMode === 'book' ? (
                       <Button 
                         type="button" 
-                        onClick={() => setCurrentStep(2)}
+                        onClick={() => setCurrentStep(3)}
                         className="bg-safari-green hover:bg-safari-green/90"
                       >
-                        Next: {bookingMode === 'book' ? 'Travel Details' : 'Inquiry Details'}
+                        Next: Payment
                       </Button>
-                    </div>
-                  </div>
-                )}
-
-                {/* Step 2: Travel Details or Inquiry Details */}
-                {currentStep === 2 && (
-                  <div className="bg-white rounded-xl shadow-sm border p-6">
-                    <h2 className="text-xl font-semibold mb-4 text-gray-900">
-                      {bookingMode === 'book' ? 'Travel Details' : 'Inquiry Details'}
-                    </h2>
-                    {bookingMode === 'inquiry' ? (
-                      <InquiryForm />
                     ) : (
-                      <TravelInfoForm 
-                        numberOfPeople={numberOfPeople}
-                        handleTravelersChange={handleTravelersChange}
-                        getCurrentPricePerPerson={getCurrentPricePerPerson}
-                        getCurrentTierLabel={getCurrentTierLabel}
-                        selectedCustomizations={selectedCustomizations}
-                      />
-                    )}
-                    <div className="mt-6 flex justify-between">
                       <Button 
-                        type="button" 
-                        variant="outline" 
-                        onClick={() => setCurrentStep(1)}
+                        type="submit" 
+                        size="lg" 
+                        className="bg-safari-green hover:bg-safari-green/90 flex items-center gap-2" 
+                        disabled={isProcessing}
                       >
-                        Back
+                        {isProcessing ? (
+                          <>
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                            Submitting...
+                          </>
+                        ) : "Submit Travel Proposal"}
                       </Button>
-                      {bookingMode === 'book' ? (
+                    )}
+                  </div>
+                </div>
+
+                {/* Step 3: Payment - Rendered only for booking mode, shown only if currentStep === 3 */}
+                {bookingMode === 'book' && (
+                  <div className={`${currentStep === 3 ? '' : 'hidden'}`}>
+                    <div className="space-y-6">
+                      {/* Payment Type Selection */}
+                      <div className="bg-white rounded-xl shadow-sm border p-6">
+                        <h2 className="text-xl font-semibold mb-4 text-gray-900">Payment Options</h2>
+                        <PaymentTypeSelector 
+                          paymentType={paymentType}
+                          setPaymentType={setPaymentType}
+                          calculatePaymentAmounts={calculatePaymentAmounts}
+                        />
+                      </div>
+                      
+                      {/* Payment Methods */}
+                      <div className="bg-white rounded-xl shadow-sm border p-6">
+                        <h2 className="text-xl font-semibold mb-4 text-gray-900">Payment Method</h2>
+                        <PaymentMethods 
+                          paymentMethod={paymentMethod}
+                          setPaymentMethod={setPaymentMethod}
+                          formErrors={formErrors}
+                          blueWalletConnected={blueWalletConnected}
+                          isConnectingWallet={isConnectingWallet}
+                          connectBlueWallet={connectBlueWallet}
+                          selectedCrypto={selectedCrypto}
+                          setSelectedCrypto={setSelectedCrypto}
+                          cryptoAmount={cryptoAmount}
+                          cryptoPaymentAddress={cryptoPaymentAddress}
+                          paymentQRCode={paymentQRCode}
+                          disconnectWallet={disconnectWallet}
+                          copyToClipboard={copyToClipboard}
+                          openInBlueWallet={openInBlueWallet}
+                          paymentType={paymentType}
+                          calculatePaymentAmounts={calculatePaymentAmounts}
+                        />
+                      </div>
+                      
+                      <div className="flex justify-between">
                         <Button 
                           type="button" 
-                          onClick={() => setCurrentStep(3)}
-                          className="bg-safari-green hover:bg-safari-green/90"
+                          variant="outline" 
+                          onClick={() => setCurrentStep(2)}
                         >
-                          Next: Payment
+                          Back
                         </Button>
-                      ) : (
                         <Button 
                           type="submit" 
                           size="lg" 
@@ -821,75 +871,14 @@ const CheckoutPage = () => {
                               <Loader2 className="w-5 h-5 animate-spin" />
                               Processing...
                             </>
-                          ) : "Submit Travel Proposal"}
+                          ) : paymentMethod === 'crypto'
+                            ? `Pay ${paymentType === 'deposit' ? 'Deposit' : 'Full Amount'} with Crypto`
+                            : paymentType === 'deposit'
+                              ? `Pay Deposit $${calculatePaymentAmounts().depositAmount.toLocaleString()}`
+                              : `Pay Full Amount $${calculatePaymentAmounts().totalPrice.toLocaleString()}`
+                          }
                         </Button>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {/* Step 3: Payment - Only for booking */}
-                {currentStep === 3 && bookingMode === 'book' && (
-                  <div className="space-y-6">
-                    {/* Payment Type Selection */}
-                    <div className="bg-white rounded-xl shadow-sm border p-6">
-                      <h2 className="text-xl font-semibold mb-4 text-gray-900">Payment Options</h2>
-                      <PaymentTypeSelector 
-                        paymentType={paymentType}
-                        setPaymentType={setPaymentType}
-                        calculatePaymentAmounts={calculatePaymentAmounts}
-                      />
-                    </div>
-                    
-                    {/* Payment Methods */}
-                    <div className="bg-white rounded-xl shadow-sm border p-6">
-                      <h2 className="text-xl font-semibold mb-4 text-gray-900">Payment Method</h2>
-                      <PaymentMethods 
-                        paymentMethod={paymentMethod}
-                        setPaymentMethod={setPaymentMethod}
-                        formErrors={formErrors}
-                        blueWalletConnected={blueWalletConnected}
-                        isConnectingWallet={isConnectingWallet}
-                        connectBlueWallet={connectBlueWallet}
-                        selectedCrypto={selectedCrypto}
-                        setSelectedCrypto={setSelectedCrypto}
-                        cryptoAmount={cryptoAmount}
-                        cryptoPaymentAddress={cryptoPaymentAddress}
-                        paymentQRCode={paymentQRCode}
-                        disconnectWallet={disconnectWallet}
-                        copyToClipboard={copyToClipboard}
-                        openInBlueWallet={openInBlueWallet}
-                        paymentType={paymentType}
-                        calculatePaymentAmounts={calculatePaymentAmounts}
-                      />
-                    </div>
-                    
-                    <div className="flex justify-between">
-                      <Button 
-                        type="button" 
-                        variant="outline" 
-                        onClick={() => setCurrentStep(2)}
-                      >
-                        Back
-                      </Button>
-                      <Button 
-                        type="submit" 
-                        size="lg" 
-                        className="bg-safari-green hover:bg-safari-green/90 flex items-center gap-2" 
-                        disabled={isProcessing}
-                      >
-                        {isProcessing ? (
-                          <>
-                            <Loader2 className="w-5 h-5 animate-spin" />
-                            Processing...
-                          </>
-                        ) : paymentMethod === 'crypto'
-                          ? `Pay ${paymentType === 'deposit' ? 'Deposit' : 'Full Amount'} with Crypto`
-                          : paymentType === 'deposit'
-                            ? `Pay Deposit $${calculatePaymentAmounts().depositAmount.toLocaleString()}`
-                            : `Pay Full Amount $${calculatePaymentAmounts().totalPrice.toLocaleString()}`
-                        }
-                      </Button>
+                      </div>
                     </div>
                   </div>
                 )}

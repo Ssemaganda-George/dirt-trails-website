@@ -23,7 +23,7 @@ export const TravelInfoForm = ({
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div>
-          <Label htmlFor="travelers">Number of Travelers</Label>
+          <Label htmlFor="travelers">Number of Travelers <span className="text-red-500">*</span></Label>
           <Input
             id="travelers"
             name="travelers"
@@ -39,7 +39,7 @@ export const TravelInfoForm = ({
         </div>
         
         <div>
-          <Label htmlFor="travelDate">Preferred Travel Date</Label>
+          <Label htmlFor="travelDate">Preferred Travel Date <span className="text-red-500">*</span></Label>
           <Input id="travelDate" name="travelDate" type="date" required />
         </div>
       </div>

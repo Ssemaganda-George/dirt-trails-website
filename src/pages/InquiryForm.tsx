@@ -13,7 +13,7 @@ export const InquiryForm = () => {
         
         {/* Countries to visit */}
         <div className="space-y-4">
-          <label className="block text-base font-medium text-gray-800">What country/countries do you want to visit? *</label>
+          <label className="block text-base font-medium text-gray-800">What country/countries do you want to visit? <span className="text-red-500">*</span></label>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
               <Checkbox id="kenya" name="countries" value="kenya" className="w-5 h-5" />
@@ -32,7 +32,7 @@ export const InquiryForm = () => {
 
         {/* What do you want to do */}
         <div className="space-y-4">
-          <label className="block text-base font-medium text-gray-800">What do you want to do? *</label>
+          <label className="block text-base font-medium text-gray-800">What do you want to do? <span className="text-red-500">*</span></label>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
               <Checkbox id="safari" name="activities" value="safari" className="w-5 h-5" />
@@ -60,7 +60,7 @@ export const InquiryForm = () => {
         {/* How many days and travel companion */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-4">
-            <label htmlFor="tripDays" className="block text-base font-medium text-gray-800">How many days do you want to travel? *</label>
+            <label htmlFor="tripDays" className="block text-base font-medium text-gray-800">How many days do you want to travel? <span className="text-red-500">*</span></label>
             <Select name="tripDays">
               <SelectTrigger className="h-12">
                 <SelectValue placeholder="Choose number of days" />
@@ -83,7 +83,7 @@ export const InquiryForm = () => {
 
           {/* Who are you travelling with */}
           <div className="space-y-4">
-            <label htmlFor="travelCompanion" className="block text-base font-medium text-gray-800">Who are you travelling with? *</label>
+            <label htmlFor="travelCompanion" className="block text-base font-medium text-gray-800">Who are you travelling with? <span className="text-red-500">*</span></label>
             <Select name="travelCompanion">
               <SelectTrigger className="h-12">
                 <SelectValue placeholder="Select travel companion" />
@@ -102,7 +102,7 @@ export const InquiryForm = () => {
 
         {/* Budget */}
         <div className="space-y-4">
-          <label htmlFor="budget" className="block text-base font-medium text-gray-800">Do you have a budget per person in mind? *</label>
+          <label htmlFor="budget" className="block text-base font-medium text-gray-800">Do you have a budget per person in mind? <span className="text-red-500">*</span></label>
           <p className="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg border-l-4 border-blue-200">
             Budget EXCLUDING INTERNATIONAL FLIGHTS.
           </p>
@@ -111,11 +111,11 @@ export const InquiryForm = () => {
               <SelectValue placeholder="Select budget range" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="1500">$1,500 per person</SelectItem>
-              <SelectItem value="3000">$3,000 per person</SelectItem>
-              <SelectItem value="4500">$4,500 per person</SelectItem>
-              <SelectItem value="6000">$6,000 per person</SelectItem>
-              <SelectItem value="7500+">$7,500+ per person</SelectItem>
+              <SelectItem value="1500">{'<$1,500 per person'}</SelectItem>
+              <SelectItem value="3000">$1,500 - $3,000 per person</SelectItem>
+              <SelectItem value="4500">$3,000 - $4,500 per person</SelectItem>
+              <SelectItem value="6000">$4,500 - $6,000 per person</SelectItem>
+              <SelectItem value="6000+">$6,000+ per person</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -127,7 +127,7 @@ export const InquiryForm = () => {
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-4">
-            <label htmlFor="numAdults" className="block text-base font-medium text-gray-800">Choose the number of adults *</label>
+            <label htmlFor="numAdults" className="block text-base font-medium text-gray-800">Choose the number of adults <span className="text-red-500">*</span></label>
             <Select name="numAdults" defaultValue="2">
               <SelectTrigger className="h-12">
                 <SelectValue />
@@ -170,7 +170,7 @@ export const InquiryForm = () => {
         <div className="max-w-md space-y-4">
           <label htmlFor="travelDate" className="flex items-center gap-3 text-base font-medium text-gray-800">
             <Calendar size={20} className="text-blue-600" />
-            Choose an arrival date
+            Choose an arrival date <span className="text-red-500">*</span>
           </label>
           <Input id="travelDate" name="travelDate" type="date" required className="h-12 text-base" />
         </div>
