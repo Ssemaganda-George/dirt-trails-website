@@ -173,6 +173,14 @@ const Header = () => {
                 tabIndex={-1}
               >
                 <Link 
+                  to="/environment/geotagging"
+                  className="block w-full text-left px-6 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-colors"
+                  onClick={closeMenu}
+                  tabIndex={0}
+                >
+                  Geotagging & Monitoring
+                </Link>
+                <Link 
                   to="/environment/carbon-offset"
                   className="block w-full text-left px-6 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-colors border-b border-white/5"
                   onClick={closeMenu}
@@ -187,14 +195,6 @@ const Header = () => {
                   tabIndex={0}
                 >
                   Tree Planting Initiatives
-                </Link>
-                <Link 
-                  to="/environment/geotagging"
-                  className="block w-full text-left px-6 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-colors"
-                  onClick={closeMenu}
-                  tabIndex={0}
-                >
-                  Geotagging & Monitoring
                 </Link>
               </div>
             )}
