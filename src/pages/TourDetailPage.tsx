@@ -156,6 +156,17 @@ const TourDetailPage = () => {
     return `/checkout/${tour.slug}?${params.toString()}`;
   };
 
+  // Add scroll to customization section function
+  const scrollToCustomization = () => {
+    const customizationElement = document.getElementById('customization-section');
+    if (customizationElement) {
+      customizationElement.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <div className="bg-gray-50">
       {/* Tour Header - Professional Single Color */}
@@ -201,31 +212,50 @@ const TourDetailPage = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-white/95 backdrop-blur-sm p-8 rounded-xl shadow-2xl border border-white/20 hover:shadow-3xl transition-all duration-300 hover:scale-[1.02] animate-fade-in-up tour-detail-delay-400">
+            <div className="bg-white/95 backdrop-blur-sm p-6 sm:p-8 rounded-xl shadow-2xl border border-white/20 hover:shadow-3xl transition-all duration-300 hover:scale-[1.02] animate-fade-in-up tour-detail-delay-400">
               <div className="text-center mb-6">
                 <div className="text-gray-500 mb-2 text-sm font-medium">Starting from</div>
-                <div className="text-4xl font-bold text-safari-green mb-2 animate-pulse">
+                <div className="text-3xl sm:text-4xl font-bold text-safari-green mb-2 animate-pulse">
                   ${tour.price.toLocaleString()}
                 </div>
                 <div className="text-sm text-gray-500">per person</div>
               </div>
               
               {tour.discount && (
-                <div className="inline-block bg-safari-green text-white px-4 py-2 rounded-full text-sm font-semibold animate-bounce shadow-lg mb-4">
+                <div className="inline-block bg-safari-green text-white px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold animate-bounce shadow-lg mb-4 w-full text-center">
                   {tour.discount}% OFF - Limited Time!
                 </div>
               )}
               
-              {/* Header Book Now (simple link) */}
-              <Button 
-                className="w-full bg-safari-green hover:bg-safari-green/90 text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform mt-4"
-                size="lg"
-                asChild
-              >
-                <Link to={getBookingUrl()}>
-                  Book Now
-                </Link>
-              </Button>
+              {/* Updated Button Section - Mobile Optimized */}
+              <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                <Button 
+                  className="flex-1 bg-safari-green hover:bg-safari-green/90 text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform h-12 sm:h-14 text-sm sm:text-base"
+                  size="lg"
+                  asChild
+                >
+                  <Link to={getBookingUrl()}>
+                    <span className="hidden sm:inline">Book Now</span>
+                    <span className="sm:hidden">Book</span>
+                  </Link>
+                </Button>
+                
+                <Button 
+                  className="flex-1 border-2 border-safari-green text-safari-green hover:bg-safari-green hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform h-12 sm:h-14 text-sm sm:text-base"
+                  variant="outline"
+                  size="lg"
+                  onClick={scrollToCustomization}
+                >
+                  <span className="hidden sm:inline">Customize</span>
+                  <span className="sm:hidden">Custom</span>
+                </Button>
+              </div>
+              
+              <div className="text-center mt-3 text-xs sm:text-sm text-gray-500 flex items-center justify-center">
+                <Check size={14} className="mr-1 text-safari-green" />
+                <span className="hidden sm:inline">Free cancellation up to 3-months before</span>
+                <span className="sm:hidden">Free cancellation</span>
+              </div>
             </div>
           </div>
         </div>
@@ -267,46 +297,48 @@ const TourDetailPage = () => {
             </div>
             
             {/* Booking Card - Professional */}
-            <div className="lg:row-span-2 animate-fade-in-up tour-detail-delay-200">
-              <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 sticky top-24 border border-white/20 hover:shadow-3xl transition-all duration-300">
-                <h3 className="text-2xl font-semibold mb-6 text-gray-900">
+            <div className="lg:row-span-2 animate-fade-in-up tour-detail-delay-200" id="customization-section">
+              <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 sm:p-8 sticky top-24 border border-white/20 hover:shadow-3xl transition-all duration-300">
+                <h3 className="text-xl sm:text-2xl font-semibold mb-6 text-gray-900">
                   Customize Your Tour
                 </h3>
                 
-                {/* Group Size Selector - Professional */}
-                <div className="mb-8">
-                  <Label className="text-lg font-medium mb-4 block text-gray-700">Number of People</Label>
-                  <div className="flex items-center justify-center space-x-4 mb-6">
+                {/* Group Size Selector - Mobile Optimized */}
+                <div className="mb-6 sm:mb-8">
+                  <Label className="text-base sm:text-lg font-medium mb-3 sm:mb-4 block text-gray-700">Number of People</Label>
+                  <div className="flex items-center justify-center space-x-3 sm:space-x-4 mb-4 sm:mb-6">
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={decrementPeople}
                       disabled={numberOfPeople <= 1}
-                      className="h-12 w-12 p-0 hover:scale-110 transition-transform duration-200 hover:bg-safari-green hover:text-white border-2 rounded-full"
+                      className="h-10 w-10 sm:h-12 sm:w-12 p-0 hover:scale-110 transition-transform duration-200 hover:bg-safari-green hover:text-white border-2 rounded-full"
                     >
-                      <Minus size={20} />
+                      <Minus size={16} className="sm:hidden" />
+                      <Minus size={20} className="hidden sm:block" />
                     </Button>
-                    <div className="flex items-center justify-center min-w-[80px] bg-safari-green/10 rounded-lg px-6 py-3">
-                      <span className="text-2xl font-semibold animate-pulse text-safari-green">{numberOfPeople}</span>
+                    <div className="flex items-center justify-center min-w-[60px] sm:min-w-[80px] bg-safari-green/10 rounded-lg px-4 sm:px-6 py-2 sm:py-3">
+                      <span className="text-xl sm:text-2xl font-semibold animate-pulse text-safari-green">{numberOfPeople}</span>
                     </div>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={incrementPeople}
-                      className="h-12 w-12 p-0 hover:scale-110 transition-transform duration-200 hover:bg-safari-green hover:text-white border-2 rounded-full"
+                      className="h-10 w-10 sm:h-12 sm:w-12 p-0 hover:scale-110 transition-transform duration-200 hover:bg-safari-green hover:text-white border-2 rounded-full"
                     >
-                      <Plus size={20} />
+                      <Plus size={16} className="sm:hidden" />
+                      <Plus size={20} className="hidden sm:block" />
                     </Button>
                   </div>
                   
-                  {/* Quick select buttons for pricing tiers */}
-                  <div className="space-y-3">
+                  {/* Quick select buttons for pricing tiers - Mobile Optimized */}
+                  <div className="space-y-2 sm:space-y-3">
                     {getPricingTiers().map((tier, index) => (
                       <Button
                         key={index}
                         variant={numberOfPeople >= tier.min && numberOfPeople <= tier.max ? "default" : "outline"}
                         size="sm"
-                        className={`w-full justify-between transition-all duration-300 hover:scale-[1.02] h-12 ${
+                        className={`w-full justify-between transition-all duration-300 hover:scale-[1.02] h-10 sm:h-12 text-sm sm:text-base ${
                           numberOfPeople >= tier.min && numberOfPeople <= tier.max
                             ? 'bg-safari-green shadow-lg' 
                             : 'hover:bg-safari-green/10'
@@ -386,20 +418,35 @@ const TourDetailPage = () => {
                   </div>
                 </div>
                 
-                {/* Book Now Button - simple link to checkout */}
-                <Button 
-                  className="w-full bg-safari-green hover:bg-safari-green/90 text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform h-14 text-lg" 
-                  size="lg"
-                  asChild
-                >
-                  <Link to={getBookingUrl()}>
-                    Book Now - Secure Your Spot
-                  </Link>
-                </Button>
+                {/* Updated Book Now Button - Mobile Optimized */}
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Button 
+                    className="flex-1 bg-safari-green hover:bg-safari-green/90 text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform h-12 sm:h-14 text-sm sm:text-lg" 
+                    size="lg"
+                    asChild
+                  >
+                    <Link to={getBookingUrl()}>
+                      <span className="hidden sm:inline">Book Now - Secure Your Spot</span>
+                      <span className="sm:hidden">Book Now</span>
+                    </Link>
+                  </Button>
+                  
+                  <Button 
+                    className="sm:hidden border-2 border-safari-green text-safari-green hover:bg-safari-green hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform h-12 text-sm"
+                    variant="outline"
+                    size="lg"
+                    asChild
+                  >
+                    <Link to="/contact">
+                      Inquire
+                    </Link>
+                  </Button>
+                </div>
                 
-                <div className="text-center mt-4 text-sm text-gray-500 flex items-center justify-center">
-                  <Check size={16} className="mr-2 text-safari-green" />
-                  <span>Free cancellation up to 3-months before</span>
+                <div className="text-center mt-3 sm:mt-4 text-xs sm:text-sm text-gray-500 flex items-center justify-center">
+                  <Check size={14} className="mr-2 text-safari-green" />
+                  <span className="hidden sm:inline">Free cancellation up to 3-months before</span>
+                  <span className="sm:hidden">Free cancellation</span>
                 </div>
               </div>
             </div>
