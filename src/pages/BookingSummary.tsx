@@ -178,29 +178,33 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
           </div>
         )}
         
-        {/* Tree Planting Option */}
+        {/* Tree Planting Option - Updated for Mobile */}
         <div className="border-t border-gray-200 pt-4">
-          <div className="flex items-center justify-between py-2">
+          <div className="flex items-center justify-between py-2 mb-3">
             <button
               type="button"
               onClick={() => onTreePlantingChange?.(!treePlantingSelected)}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`w-full sm:w-auto px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                 treePlantingSelected
                   ? 'bg-green-600 text-white hover:bg-green-700'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
-              {treePlantingSelected ? 'Remove Conservation' : 'Add Conservation'}
+              {treePlantingSelected ? '✓ Conservation Added' : 'Add Conservation'}
             </button>
           </div>
+          
           {treePlantingSelected && (
-            <div className="mt-2">
-              <label htmlFor="tree-planting-amount" className="text-xs text-gray-500">Donation Amount (min $5):</label>
-              <div className="flex items-center mt-1">
+            <div className="mt-3 space-y-3">
+              <label htmlFor="tree-planting-amount" className="text-xs sm:text-sm text-gray-600 font-medium block">
+                Conservation Donation Amount (minimum $5)
+              </label>
+              <div className="flex items-center justify-center">
                 <button
                   type="button"
                   onClick={() => onTreePlantingAmountChange?.(Math.max(5, treePlantingAmount - 1))}
-                  className="px-3 py-2 bg-gray-200 text-gray-700 rounded-l-md hover:bg-gray-300 focus:outline-none"
+                  className="px-3 py-2 bg-gray-200 text-gray-700 rounded-l-md hover:bg-gray-300 focus:outline-none transition-colors"
+                  aria-label="Decrease donation amount"
                 >
                   -
                 </button>
@@ -210,21 +214,33 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
                   min="5"
                   value={treePlantingAmount}
                   onChange={(e) => onTreePlantingAmountChange?.(Math.max(5, parseFloat(e.target.value) || 5))}
-                  className="block w-full px-3 py-2 border-t border-b border-gray-300 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm text-center"
-                  style={{ MozAppearance: 'textfield' }}
+                  className="block w-24 sm:w-32 px-3 py-2 border-t border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm text-center"
+                  style={{ appearance: 'textfield' }}
                 />
                 <button
                   type="button"
                   onClick={() => onTreePlantingAmountChange?.(treePlantingAmount + 1)}
-                  className="px-3 py-2 bg-gray-200 text-gray-700 rounded-r-md hover:bg-gray-300 focus:outline-none"
+                  className="px-3 py-2 bg-gray-200 text-gray-700 rounded-r-md hover:bg-gray-300 focus:outline-none transition-colors"
+                  aria-label="Increase donation amount"
                 >
                   +
                 </button>
               </div>
+              
+              <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-green-800 font-medium">Conservation Impact:</span>
+                  <span className="text-green-900 font-semibold">${treePlantingAmount}</span>
+                </div>
+                <p className="text-xs text-green-700 mt-1">
+                  Your contribution plants trees and supports local conservation efforts
+                </p>
+              </div>
             </div>
           )}
-          <p className="text-xs text-gray-500 mt-1">
-            Help reforest East Africa with every booking (minimum $5).
+          
+          <p className="text-xs text-gray-500 mt-2 leading-relaxed">
+            Help reforest East Africa with every booking. Your contribution goes directly to tree planting and conservation projects.
           </p>
         </div>
         
@@ -233,6 +249,13 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
             <span className="font-bold text-lg text-gray-900">Total Price:</span>
             <span className="font-bold text-xl text-gray-900">${finalTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
           </div>
+          
+          {/* Show tree planting contribution in total if selected */}
+          {treePlantingSelected && treePlantingAmount > 0 && (
+            <div className="mt-2 text-xs text-green-600 text-center">
+              (Includes ${treePlantingAmount} conservation contribution)
+            </div>
+          )}
         </div>
         
         {bookingMode === 'book' && paymentAmounts && (

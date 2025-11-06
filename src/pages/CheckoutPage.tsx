@@ -926,7 +926,7 @@ const CheckoutPage = () => {
             )}
           </div>
           
-          {/* Booking Summary - Always visible */}
+          {/* Booking Summary - Always visible and responsive */}
           <div className="lg:col-span-1">
             <div className="sticky top-4">
               <BookingSummary 
