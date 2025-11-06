@@ -16,7 +16,7 @@ const team = [
 	},
 	{
 		name: 'Mariam Wambui',
-		title: 'Chief Operating Officer (COO)', // Updated title
+		title: 'COO, Lead Technology & Growth', // Updated title
 		image: '/images/Mariam.jpg',
 		bio: 'Mariam is our Chief Operating Officer, bringing exceptional technical expertise and strategic business acumen to Dirt Trails. She oversees our digital operations, marketing initiatives, and technology infrastructure while ensuring seamless guest experiences. Her proactive leadership and innovative approach drive our growth and operational excellence across all departments.',
 		linkedin: 'https://www.linkedin.com/in/mariam-wambui-942458278/',
@@ -26,7 +26,7 @@ const team = [
 	},
 	{
 		name: 'Nantongo Joselyne',
-		title: 'Operations & Logistics Manager',
+		title: 'CMO & Logistics Manager',
 		image: '/images/Joselyne.jpg',
 		bio: 'Joselyne is the backbone of our operations, coordinating logistics, guest services, and on-the-ground support. Her attention to detail ensures every trip runs smoothly from start to finish.',
 		linkedin: 'https://www.linkedin.com/in/nantongo-joselyn-6b395b294/',
