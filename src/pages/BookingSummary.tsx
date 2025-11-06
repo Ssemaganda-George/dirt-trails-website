@@ -62,10 +62,6 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
     navigate(-1);
   };
 
-  // conversion: UGX -> USD (adjust rate as needed)
-  const UGX_PER_USD = 3700; // example rate
-  const ugxToUsd = (ugx: number) => Math.round((ugx / UGX_PER_USD) * 100) / 100;
-
   // guard & typing helper for incoming customizations to avoid `unknown` errors
   const safeSelectedCustomizations = (selectedCustomizations ?? {}) as Record<string, any>;
 
@@ -79,13 +75,12 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
   // subtotal from base price (USD)
   const baseSubtotal = Math.round(adjustedPricePerPerson * Math.max(1, numberOfPeople) * 100) / 100;
 
-  // customization totals: priceAdjustment is UGX per person => convert to USD and multiply by people
-  const customizationTotalUgx = Object.values(safeSelectedCustomizations).reduce((sum: number, opt: any) => {
+  // Customization totals: priceAdjustment is now USD per person
+  const customizationTotalUsd = Object.values(safeSelectedCustomizations).reduce((sum: number, opt: any) => {
     if (!opt) return sum;
     const adj = Number((opt as any)?.priceAdjustment ?? 0);
-    return sum + adj * numberOfPeople;
+    return sum + adj * numberOfPeople; // Direct USD calculation
   }, 0);
-  const customizationTotalUsd = ugxToUsd(customizationTotalUgx);
 
   // tree planting (already in USD)
   const treePlantingTotal = treePlantingSelected ? (treePlantingAmount || 0) : 0;
@@ -158,12 +153,13 @@ export const BookingSummary: React.FC<BookingSummaryProps> = ({
             <p className="font-semibold mb-3 text-gray-900">Customizations:</p>
             <div className="space-y-2">
               {validCustomizations.map(([key, value]: [string, any]) => {
-                const perPersonUgx = Number((value as any)?.priceAdjustment ?? 0);
-                const perPersonUsd = ugxToUsd(perPersonUgx);
+                const perPersonUsd = Number((value as any)?.priceAdjustment ?? 0); // Direct USD value
                 return (
                   <div key={key} className="flex justify-between items-center py-1">
                     <span className="text-sm text-gray-700">{value.name}:</span>
-                    <span className="text-sm font-medium text-gray-900">+${perPersonUsd.toFixed(2)} / person</span>
+                    <span className="text-sm font-medium text-gray-900">
+                      {perPersonUsd >= 0 ? '+' : ''}${perPersonUsd.toFixed(2)} / person
+                    </span>
                   </div>
                 );
               })}

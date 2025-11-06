@@ -167,7 +167,7 @@ export const tours: Tour[] = [
           name: "Budget Camping",
           type: "accommodation",
           description: "Basic camping with shared facilities at Uganda Wildlife Authority bandas or community campsites. Includes sleeping bags and basic meals.",
-          priceAdjustment: -150000
+          priceAdjustment: -41
         },
         {
           id: "acc-002",
@@ -181,14 +181,14 @@ export const tours: Tour[] = [
           name: "Luxury Safari Lodge",
           type: "accommodation",
           description: "Upmarket lodges like Mweya Safari Lodge or Katara Lodge with premium amenities, spa services, and stunning views.",
-          priceAdjustment: 350000
+          priceAdjustment: 95
         },
         {
           id: "acc-004",
           name: "Community Homestay",
           type: "accommodation",
           description: "Authentic cultural experience staying with local families in nearby communities. Includes traditional meals and cultural activities.",
-          priceAdjustment: -100000
+          priceAdjustment: -27
         }
       ],
       activities: [
@@ -197,35 +197,35 @@ export const tours: Tour[] = [
           name: "Chimpanzee Tracking - Kyambura Gorge",
           type: "activity",
           description: "Track chimpanzees in the 'Valley of Apes' - Kyambura Gorge. 2-4 hour guided trek to observe our closest relatives in their natural habitat.",
-          priceAdjustment: 150000
+          priceAdjustment: 41
         },
         {
           id: "act-002",
           name: "Night Game Drive",
           type: "activity",
           description: "Guided night game drive to spot nocturnal animals like leopards, hyenas, bush babies, and nightjars. Unique opportunity to see different animal behavior.",
-          priceAdjustment: 80000
+          priceAdjustment: 22
         },
         {
           id: "act-003",
           name: "Crater Lakes Exploration",
           type: "activity",
           description: "Visit the beautiful crater lakes around Queen Elizabeth NP including Lake Katwe (salt mining), Lake Munyanyange, and other scenic crater lakes.",
-          priceAdjustment: 60000
+          priceAdjustment: 16
         },
         {
           id: "act-004",
           name: "Cultural Village Visit",
           type: "activity",
           description: "Visit local communities around the park to learn about traditional lifestyle, crafts, and cultural practices. Includes traditional dance performances.",
-          priceAdjustment: 40000
+          priceAdjustment: 11
         },
         {
           id: "act-005",
           name: "Maramagambo Forest Walk",
           type: "activity",
           description: "Guided nature walk through Maramagambo Forest to see primates, birds, and visit the bat cave and python cave.",
-          priceAdjustment: 50000
+          priceAdjustment: 14
         }
       ],
       transportation: [
@@ -234,7 +234,7 @@ export const tours: Tour[] = [
           name: "Shared Safari Vehicle",
           type: "transportation",
           description: "Shared 4WD safari vehicle with pop-up roof, accommodating 6-7 passengers. Cost-effective option for budget travelers.",
-          priceAdjustment: -120000
+          priceAdjustment: -32
         },
         {
           id: "trans-002",
@@ -248,14 +248,14 @@ export const tours: Tour[] = [
           name: "Luxury Safari Vehicle",
           type: "transportation",
           description: "Premium 4WD vehicle with air conditioning, mini-fridge, and enhanced comfort features. Ideal for luxury travelers.",
-          priceAdjustment: 200000
+          priceAdjustment: 54
         },
         {
           id: "trans-004",
           name: "Fly-in Safari",
           type: "transportation",
           description: "Chartered flight from Entebbe to Mweya or Kasese airstrip, significantly reducing travel time. Ground transfers included.",
-          priceAdjustment: 800000
+          priceAdjustment: 216
         }
       ],
       duration: [
@@ -264,7 +264,7 @@ export const tours: Tour[] = [
           name: "2 Days Express Safari",
           type: "duration",
           description: "Quick 2-day safari focusing on game drives and Kazinga Channel boat cruise. Perfect for short visits to Uganda.",
-          priceAdjustment: -180000
+          priceAdjustment: -49
         },
         {
           id: "dur-002",
@@ -278,14 +278,14 @@ export const tours: Tour[] = [
           name: "4 Days Extended Safari",
           type: "duration",
           description: "Extended safari including chimpanzee tracking, cultural visits, and more game drives. More relaxed pace with extra activities.",
-          priceAdjustment: 250000
+          priceAdjustment: 68
         },
         {
           id: "dur-004",
           name: "5 Days Comprehensive Safari",
           type: "duration",
           description: "Comprehensive experience with all major activities, rest days, and optional visits to nearby attractions like Kibale Forest.",
-          priceAdjustment: 450000
+          priceAdjustment: 122
         }
       ]
     },
@@ -387,7 +387,7 @@ export const tours: Tour[] = [
         name: "Budget Camping",
         type: "accommodation",
         description: "Basic camping at Red Chilli Rest Camp or UWA bandas with shared facilities and camping gear provided.",
-        priceAdjustment: -180000 // UGX
+        priceAdjustment: -49
       },
       {
         id: "acc-002",
@@ -401,14 +401,14 @@ export const tours: Tour[] = [
         name: "Luxury Safari Lodge",
         type: "accommodation",
         description: "Premium lodges like Chobe Safari Lodge or Nile Safari Lodge with luxury amenities and Nile views.",
-        priceAdjustment: 1000000 // UGX
+        priceAdjustment: 270
       },
       {
         id: "acc-004",
         name: "Community Homestay",
         type: "accommodation",
         description: "Stay with local communities near the park, experiencing traditional lifestyle and local cuisine.",
-        priceAdjustment: -120000 // UGX
+        priceAdjustment: -32
       }
     ],
       activities: [
@@ -417,35 +417,35 @@ export const tours: Tour[] = [
         name: "Nile Delta Boat Cruise",
         type: "activity",
         description: "Extended boat cruise to Nile Delta where the Nile enters Lake Albert. Excellent for bird watching and wildlife.",
-        priceAdjustment: 120000 // UGX
+        priceAdjustment: 32
       },
       {
         id: "act-002",
         name: "Ziwa Rhino Sanctuary Visit",
         type: "activity",
         description: "Visit Ziwa Rhino Sanctuary en route to track white rhinos on foot. Uganda's only place to see rhinos.",
-        priceAdjustment: 200000 // UGX
+        priceAdjustment: 54
       },
       {
         id: "act-003",
         name: "Top of the Falls Hike",
         type: "activity",
         description: "Hike to the top of Murchison Falls for spectacular views and photo opportunities of the world's most powerful waterfall.",
-        priceAdjustment: 40000 // UGX
+        priceAdjustment: 11
       },
       {
         id: "act-004",
         name: "Night Game Drive",
         type: "activity",
         description: "Guided night game drive to spot nocturnal animals like leopards, hyenas, and bush babies.",
-        priceAdjustment: 100000 // UGX
+        priceAdjustment: 27
       },
       {
         id: "act-005",
         name: "Sport Fishing on the Nile",
         type: "activity",
         description: "Catch and release fishing for the famous Nile perch and other fish species on the Victoria Nile.",
-        priceAdjustment: 200000 // UGX
+        priceAdjustment: 54
       }
     ],
       transportation: [
@@ -454,7 +454,7 @@ export const tours: Tour[] = [
         name: "Shared Safari Vehicle",
         type: "transportation",
         description: "Shared 4WD vehicle for transfers between Ziwa and Jinja. Budget-friendly option.",
-        priceAdjustment: -80000 // UGX
+        priceAdjustment: -22
       },
       {
         id: "trans-002",
@@ -468,14 +468,14 @@ export const tours: Tour[] = [
         name: "Luxury Safari Vehicle",
         type: "transportation",
         description: "Premium 4WD with air conditioning and comfort features for smooth transfers.",
-        priceAdjustment: 120000 // UGX
+        priceAdjustment: 32
       },
       {
         id: "trans-004",
         name: "Helicopter Transfer",
         type: "transportation",
         description: "Helicopter transfer from Entebbe to Jinja with scenic aerial views of the Nile.",
-        priceAdjustment: 3000000 // UGX
+        priceAdjustment: 811
       }
     ],
       duration: [
@@ -484,7 +484,7 @@ export const tours: Tour[] = [
         name: "2 Days Express Safari",
         type: "duration",
         description: "Quick 2-day safari with game drive and boat cruise to Murchison Falls. Fly-in recommended due to 6–8-hour drive.",
-        priceAdjustment: -200000 // UGX
+        priceAdjustment: -54
       },
       {
         id: "dur-002",
@@ -498,14 +498,14 @@ export const tours: Tour[] = [
         name: "4 Days Extended Safari",
         type: "duration",
         description: "Extended safari including Ziwa Rhino Sanctuary and additional game drives.",
-        priceAdjustment: 300000 // UGX
+        priceAdjustment: 81
       },
       {
         id: "dur-004",
         name: "5 Days Comprehensive Safari",
         type: "duration",
         description: "Comprehensive experience with all activities, rest days, and Nile Delta exploration.",
-        priceAdjustment: 500000 // UGX
+        priceAdjustment: 135
       }
     ]
     },
@@ -622,7 +622,7 @@ export const tours: Tour[] = [
         name: "Budget Camping",
         type: "accommodation",
         description: "Basic camping at UWA bandas or community campsites near Bwindi. Shared facilities with sleeping bags and basic meals.",
-        priceAdjustment: -200000
+        priceAdjustment: -54
       },
       {
         id: "acc-002",
@@ -636,14 +636,14 @@ export const tours: Tour[] = [
         name: "Luxury Safari Lodge",
         type: "accommodation",
         description: "Premium lodges like Sanctuary Gorilla Forest Camp or Clouds Mountain Gorilla Lodge with luxury amenities.",
-        priceAdjustment: 1500000
+        priceAdjustment: 405
       },
       {
         id: "acc-004",
         name: "Community Homestay",
         type: "accommodation",
         description: "Authentic cultural experience with Batwa or local families. Includes traditional meals and cultural activities.",
-        priceAdjustment: -150000
+        priceAdjustment: -41
       }
     ],
       activities: [
@@ -652,35 +652,35 @@ export const tours: Tour[] = [
         name: "Gorilla Habituation Experience",
         type: "activity",
         description: "Full day gorilla habituation in Rushaga sector. Spend 4+ hours with gorillas and researchers learning about their behavior. Permit included.",
-        priceAdjustment: 4000000
+        priceAdjustment: 1081
       },
       {
         id: "act-002",
         name: "Batwa Cultural Trail",
         type: "activity",
         description: "Learn about the indigenous Batwa people's traditional forest lifestyle, hunting techniques, and cultural practices.",
-        priceAdjustment: 100000
+        priceAdjustment: 27
       },
       {
         id: "act-003",
         name: "Bwindi Forest Bird Watching",
         type: "activity",
         description: "Guided bird watching tour in Bwindi Forest with chances to see 23 endemic Albertine Rift species.",
-        priceAdjustment: 80000
+        priceAdjustment: 22
       },
       {
         id: "act-004",
         name: "Nature Forest Walk",
         type: "activity",
         description: "Guided nature walk through Bwindi Forest to see primates, butterflies, and medicinal plants.",
-        priceAdjustment: 60000
+        priceAdjustment: 16
       },
       {
         id: "act-005",
         name: "Community Village Visit",
         type: "activity",
         description: "Visit local communities around Bwindi for traditional crafts, farming practices, and cultural performances.",
-        priceAdjustment: 50000
+        priceAdjustment: 14
       }
     ],
       transportation: [
@@ -689,7 +689,7 @@ export const tours: Tour[] = [
         name: "Shared Safari Vehicle",
         type: "transportation",
         description: "Shared 4WD vehicle for transfers and game drives. Budget-friendly option.",
-        priceAdjustment: -80000
+        priceAdjustment: -22
       },
       {
         id: "trans-002",
@@ -703,14 +703,14 @@ export const tours: Tour[] = [
         name: "Luxury Safari Vehicle",
         type: "transportation",
         description: "Premium 4WD with air conditioning and enhanced comfort features.",
-        priceAdjustment: 120000
+        priceAdjustment: 32
       },
       {
         id: "trans-004",
         name: "Helicopter Safari",
         type: "transportation",
         description: "Helicopter scenic flight over Lake Mburo with aerial wildlife viewing opportunities.",
-        priceAdjustment: 2000000
+        priceAdjustment: 541
       }
     ],
       duration: [
@@ -719,7 +719,7 @@ export const tours: Tour[] = [
         name: "2 Days Express Safari",
         type: "duration",
         description: "Quick 2-day safari with horseback riding and game drives. Perfect for short visits.",
-        priceAdjustment: -150000
+        priceAdjustment: -41
       },
       {
         id: "dur-002",
@@ -733,14 +733,14 @@ export const tours: Tour[] = [
         name: "4 Days Extended Safari",
         type: "duration",
         description: "Extended safari with additional activities and cultural visits for comprehensive experience.",
-        priceAdjustment: 200000
+        priceAdjustment: 54
       },
       {
         id: "dur-004",
         name: "5 Days Comprehensive Safari",
         type: "duration",
         description: "Most comprehensive Lake Mburo experience with all activities and relaxed pace.",
-        priceAdjustment: 350000
+        priceAdjustment: 95
       }
     ]
     },
@@ -879,7 +879,7 @@ export const tours: Tour[] = [
         name: "Basic Mountain Huts",
         type: "accommodation",
         description: "Basic mountain huts along the trekking route with shared facilities and sleeping bags provided.",
-        priceAdjustment: -300000 // UGX
+        priceAdjustment: -81
       },
       {
         id: "acc-002",
@@ -893,51 +893,51 @@ export const tours: Tour[] = [
         name: "Premium Mountain Lodges",
         type: "accommodation",
         description: "Premium mountain lodges with enhanced comfort, better food, and additional services.",
-        priceAdjustment: 800000 // UGX
+        priceAdjustment: 216
       },
       {
         id: "acc-004",
         name: "Camping Experience",
         type: "accommodation",
         description: "Camping experience with high-quality tents and camping equipment for adventurous trekkers.",
-        priceAdjustment: -200000 // UGX
+        priceAdjustment: -54
       }
     ],
-    activities: [
+      activities: [
       {
         id: "act-001",
         name: "Margherita Peak Summit",
         type: "activity",
         description: "Summit attempt to Margherita Peak (5,109m), the highest peak in the Rwenzori Mountains. Includes specialized gear and guides.",
-        priceAdjustment: 500000 
+        priceAdjustment: 135
       },
       {
         id: "act-002",
         name: "Cultural Community Visit",
         type: "activity",
         description: "Visit Bakonzo communities around Rwenzori to learn about mountain culture and traditions.",
-        priceAdjustment: 80000 
+        priceAdjustment: 22
       },
       {
         id: "act-003",
         name: "Nature Photography Workshop",
         type: "activity",
         description: "Professional photography workshop focusing on mountain landscapes and endemic flora.",
-        priceAdjustment: 150000 
+        priceAdjustment: 41
       },
       {
         id: "act-004",
         name: "Botanical Tour",
         type: "activity",
         description: "Specialized botanical tour focusing on unique Rwenzori flora including giant lobelias.",
-        priceAdjustment: 100000 
+        priceAdjustment: 27
       },
       {
         id: "act-005",
         name: "Rock Climbing Experience",
         type: "activity",
         description: "Rock climbing sessions on Rwenzori rock faces with professional climbing guides.",
-        priceAdjustment: 200000 
+        priceAdjustment: 54
       }
     ],
       transportation: [
@@ -946,7 +946,7 @@ export const tours: Tour[] = [
         name: "Shared Transfer Vehicle",
         type: "transportation",
         description: "Shared vehicle transfer from Kampala to Kasese and return. Budget option for trekkers.",
-        priceAdjustment: -100000 
+        priceAdjustment: -27
       },
       {
         id: "trans-002",
@@ -960,14 +960,14 @@ export const tours: Tour[] = [
         name: "Luxury Transfer Vehicle",
         type: "transportation",
         description: "Premium vehicle with air conditioning and comfort features for transfers to and from Rwenzori.",
-        priceAdjustment: 150000 
+        priceAdjustment: 41
       },
       {
         id: "trans-004",
         name: "Helicopter Access",
         type: "transportation",
         description: "Helicopter transfer to higher camps to reduce trekking time and physical demands.",
-        priceAdjustment: 4000000 
+        priceAdjustment: 1081
       }
     ],
       duration: [
@@ -976,7 +976,7 @@ export const tours: Tour[] = [
         name: "5 Days Central Circuit",
         type: "duration",
         description: "5-day central circuit trek to Guy Yeoman Hut without summit attempt.",
-        priceAdjustment: -400000 
+        priceAdjustment: -108
       },
       {
         id: "dur-002",
@@ -990,14 +990,14 @@ export const tours: Tour[] = [
         name: "9 Days Extended Trek",
         type: "duration",
         description: "Extended 9-day trek with multiple peak attempts and comprehensive exploration.",
-        priceAdjustment: 500000 
+        priceAdjustment: 135
       },
       {
         id: "dur-004",
         name: "12 Days Comprehensive Adventure",
         type: "duration",
         description: "Most comprehensive Rwenzori experience with all peaks and cultural activities.",
-        priceAdjustment: 800000 
+        priceAdjustment: 216
       }
     ]
     },
@@ -1114,7 +1114,7 @@ export const tours: Tour[] = [
         name: "Budget Camping",
         type: "accommodation",
         description: "Basic camping at Ziwa Rhino Sanctuary and budget accommodation in Jinja with shared facilities.",
-        priceAdjustment: -150000 // UGX
+        priceAdjustment: -41
       },
       {
         id: "acc-002",
@@ -1128,14 +1128,14 @@ export const tours: Tour[] = [
         name: "Luxury Safari Lodge",
         type: "accommodation",
         description: "Premium accommodation at Ziwa Guest House and luxury resorts in Jinja with Nile views.",
-        priceAdjustment: 800000 // UGX
+        priceAdjustment: 216
       },
       {
         id: "acc-004",
         name: "Adventure Camp",
         type: "accommodation",
         description: "Specialized adventure camps near Jinja focusing on water sports and outdoor activities.",
-        priceAdjustment: 100000 // UGX
+        priceAdjustment: 27
       }
     ],
       activities: [
@@ -1144,35 +1144,35 @@ export const tours: Tour[] = [
         name: "Grade 5 White Water Rafting",
         type: "activity",
         description: "Full-day extreme white water rafting on the Nile with grade 5 rapids and professional guides.",
-        priceAdjustment: 200000 // UGX
+        priceAdjustment: 54
       },
       {
         id: "act-002",
         name: "Bungee Jumping",
         type: "activity",
         description: "Adrenaline-pumping bungee jump from 44 meters above the Nile River at Jinja.",
-        priceAdjustment: 180000 // UGX
+        priceAdjustment: 49
       },
       {
         id: "act-003",
         name: "Kayaking on the Nile",
         type: "activity",
         description: "Multi-day kayaking adventure on the Nile River with camping and professional instruction.",
-        priceAdjustment: 250000 // UGX
+        priceAdjustment: 68
       },
       {
         id: "act-004",
         name: "Horseback Rhino Tracking",
         type: "activity",
         description: "Unique horseback riding experience while tracking rhinos at Ziwa Rhino Sanctuary.",
-        priceAdjustment: 200000 // UGX
+        priceAdjustment: 54
       },
       {
         id: "act-005",
         name: "Quad Biking Adventure",
         type: "activity",
         description: "Quad biking adventure through rural Uganda countryside and along the Nile banks.",
-        priceAdjustment: 120000 // UGX
+        priceAdjustment: 32
       }
     ],
       transportation: [
@@ -1181,7 +1181,7 @@ export const tours: Tour[] = [
         name: "Shared Safari Vehicle",
         type: "transportation",
         description: "Shared 4WD vehicle for transfers between Ziwa and Jinja. Budget-friendly option.",
-        priceAdjustment: -80000 // UGX
+        priceAdjustment: -22
       },
       {
         id: "trans-002",
@@ -1195,14 +1195,14 @@ export const tours: Tour[] = [
         name: "Luxury Safari Vehicle",
         type: "transportation",
         description: "Premium 4WD with air conditioning and comfort features for smooth transfers.",
-        priceAdjustment: 120000 // UGX
+        priceAdjustment: 32
       },
       {
         id: "trans-004",
         name: "Helicopter Transfer",
         type: "transportation",
         description: "Helicopter transfer from Entebbe to Jinja with scenic aerial views of the Nile.",
-        priceAdjustment: 3000000 // UGX
+        priceAdjustment: 811
       }
     ],
       duration: [
@@ -1211,7 +1211,7 @@ export const tours: Tour[] = [
         name: "2 Days Express Rhinos & Rapids",
         type: "duration",
         description: "Quick 2-day adventure focusing on rhino tracking and one major water activity.",
-        priceAdjustment: -200000 // UGX
+        priceAdjustment: -54
       },
       {
         id: "dur-002",
@@ -1225,14 +1225,14 @@ export const tours: Tour[] = [
         name: "4 Days Extended Adventure",
         type: "duration",
         description: "Extended adventure with multiple water activities and extended time at Ziwa.",
-        priceAdjustment: 250000 // UGX
+        priceAdjustment: 68
       },
       {
         id: "dur-004",
         name: "5 Days Comprehensive Adventure",
         type: "duration",
         description: "Most comprehensive adventure experience with all activities and cultural visits.",
-        priceAdjustment: 450000 // UGX
+        priceAdjustment: 122
       }
     ]
     },
@@ -1371,7 +1371,7 @@ export const tours: Tour[] = [
         name: "Basic Mountain Huts",
         type: "accommodation",
         description: "Basic mountain huts along the trekking route with shared facilities and sleeping bags provided.",
-        priceAdjustment: -300000 // UGX
+        priceAdjustment: -81
       },
       {
         id: "acc-002",
@@ -1385,51 +1385,51 @@ export const tours: Tour[] = [
         name: "Premium Mountain Lodges",
         type: "accommodation",
         description: "Premium mountain lodges with enhanced comfort, better food, and additional services.",
-        priceAdjustment: 800000 // UGX
+        priceAdjustment: 216
       },
       {
         id: "acc-004",
         name: "Camping Experience",
         type: "accommodation",
         description: "Camping experience with high-quality tents and camping equipment for adventurous trekkers.",
-        priceAdjustment: -200000 // UGX
+        priceAdjustment: -54
       }
     ],
-    activities: [
+      activities: [
       {
         id: "act-001",
         name: "Margherita Peak Summit",
         type: "activity",
         description: "Summit attempt to Margherita Peak (5,109m), the highest peak in the Rwenzori Mountains. Includes specialized gear and guides.",
-        priceAdjustment: 500000 
+        priceAdjustment: 135
       },
       {
         id: "act-002",
         name: "Cultural Community Visit",
         type: "activity",
         description: "Visit Bakonzo communities around Rwenzori to learn about mountain culture and traditions.",
-        priceAdjustment: 80000 
+        priceAdjustment: 22
       },
       {
         id: "act-003",
         name: "Nature Photography Workshop",
         type: "activity",
         description: "Professional photography workshop focusing on mountain landscapes and endemic flora.",
-        priceAdjustment: 150000 
+        priceAdjustment: 41
       },
       {
         id: "act-004",
         name: "Botanical Tour",
         type: "activity",
         description: "Specialized botanical tour focusing on unique Rwenzori flora including giant lobelias.",
-        priceAdjustment: 100000 
+        priceAdjustment: 27
       },
       {
         id: "act-005",
         name: "Rock Climbing Experience",
         type: "activity",
         description: "Rock climbing sessions on Rwenzori rock faces with professional climbing guides.",
-        priceAdjustment: 200000 
+        priceAdjustment: 54
       }
     ],
       transportation: [
@@ -1438,7 +1438,7 @@ export const tours: Tour[] = [
         name: "Shared Transfer Vehicle",
         type: "transportation",
         description: "Shared vehicle transfer from Kampala to Kasese and return. Budget option for trekkers.",
-        priceAdjustment: -100000 
+        priceAdjustment: -27
       },
       {
         id: "trans-002",
@@ -1452,14 +1452,14 @@ export const tours: Tour[] = [
         name: "Luxury Transfer Vehicle",
         type: "transportation",
         description: "Premium vehicle with air conditioning and comfort features for transfers to and from Rwenzori.",
-        priceAdjustment: 150000 
+        priceAdjustment: 41
       },
       {
         id: "trans-004",
         name: "Helicopter Access",
         type: "transportation",
         description: "Helicopter transfer to higher camps to reduce trekking time and physical demands.",
-        priceAdjustment: 4000000 
+        priceAdjustment: 1081
       }
     ],
       duration: [
@@ -1468,7 +1468,7 @@ export const tours: Tour[] = [
         name: "5 Days Central Circuit",
         type: "duration",
         description: "5-day central circuit trek to Guy Yeoman Hut without summit attempt.",
-        priceAdjustment: -400000 
+        priceAdjustment: -108
       },
       {
         id: "dur-002",
@@ -1482,14 +1482,14 @@ export const tours: Tour[] = [
         name: "9 Days Extended Trek",
         type: "duration",
         description: "Extended 9-day trek with multiple peak attempts and comprehensive exploration.",
-        priceAdjustment: 500000 
+        priceAdjustment: 135
       },
       {
         id: "dur-004",
         name: "12 Days Comprehensive Adventure",
         type: "duration",
         description: "Most comprehensive Rwenzori experience with all peaks and cultural activities.",
-        priceAdjustment: 800000 
+        priceAdjustment: 216
       }
     ]
     },
@@ -1606,7 +1606,7 @@ export const tours: Tour[] = [
         name: "Budget Camping",
         type: "accommodation",
         description: "Basic camping at Ziwa Rhino Sanctuary and budget accommodation in Jinja with shared facilities.",
-        priceAdjustment: -150000 // UGX
+        priceAdjustment: -41
       },
       {
         id: "acc-002",
@@ -1620,14 +1620,14 @@ export const tours: Tour[] = [
         name: "Luxury Safari Lodge",
         type: "accommodation",
         description: "Premium accommodation at Ziwa Guest House and luxury resorts in Jinja with Nile views.",
-        priceAdjustment: 800000 // UGX
+        priceAdjustment: 216
       },
       {
         id: "acc-004",
         name: "Adventure Camp",
         type: "accommodation",
         description: "Specialized adventure camps near Jinja focusing on water sports and outdoor activities.",
-        priceAdjustment: 100000 // UGX
+        priceAdjustment: 27
       }
     ],
       activities: [
@@ -1636,35 +1636,35 @@ export const tours: Tour[] = [
         name: "Grade 5 White Water Rafting",
         type: "activity",
         description: "Full-day extreme white water rafting on the Nile with grade 5 rapids and professional guides.",
-        priceAdjustment: 200000 // UGX
+        priceAdjustment: 54
       },
       {
         id: "act-002",
         name: "Bungee Jumping",
         type: "activity",
         description: "Adrenaline-pumping bungee jump from 44 meters above the Nile River at Jinja.",
-        priceAdjustment: 180000 // UGX
+        priceAdjustment: 49
       },
       {
         id: "act-003",
         name: "Kayaking on the Nile",
         type: "activity",
         description: "Multi-day kayaking adventure on the Nile River with camping and professional instruction.",
-        priceAdjustment: 250000 // UGX
+        priceAdjustment: 68
       },
       {
         id: "act-004",
         name: "Horseback Rhino Tracking",
         type: "activity",
         description: "Unique horseback riding experience while tracking rhinos at Ziwa Rhino Sanctuary.",
-        priceAdjustment: 200000 // UGX
+        priceAdjustment: 54
       },
       {
         id: "act-005",
         name: "Quad Biking Adventure",
         type: "activity",
         description: "Quad biking adventure through rural Uganda countryside and along the Nile banks.",
-        priceAdjustment: 120000 // UGX
+        priceAdjustment: 32
       }
     ],
       transportation: [
@@ -1673,7 +1673,7 @@ export const tours: Tour[] = [
         name: "Shared Safari Vehicle",
         type: "transportation",
         description: "Shared 4WD vehicle for transfers between Ziwa and Jinja. Budget-friendly option.",
-        priceAdjustment: -80000 // UGX
+        priceAdjustment: -22
       },
       {
         id: "trans-002",
@@ -1687,14 +1687,14 @@ export const tours: Tour[] = [
         name: "Luxury Safari Vehicle",
         type: "transportation",
         description: "Premium 4WD with air conditioning and comfort features for smooth transfers.",
-        priceAdjustment: 120000 // UGX
+        priceAdjustment: 32
       },
       {
         id: "trans-004",
         name: "Helicopter Transfer",
         type: "transportation",
         description: "Helicopter transfer from Entebbe to Jinja with scenic aerial views of the Nile.",
-        priceAdjustment: 3000000 // UGX
+        priceAdjustment: 811
       }
     ],
       duration: [
@@ -1703,7 +1703,7 @@ export const tours: Tour[] = [
         name: "2 Days Express Rhinos & Rapids",
         type: "duration",
         description: "Quick 2-day adventure focusing on rhino tracking and one major water activity.",
-        priceAdjustment: -200000 // UGX
+        priceAdjustment: -54
       },
       {
         id: "dur-002",
@@ -1717,14 +1717,14 @@ export const tours: Tour[] = [
         name: "4 Days Extended Adventure",
         type: "duration",
         description: "Extended adventure with multiple water activities and extended time at Ziwa.",
-        priceAdjustment: 250000 // UGX
+        priceAdjustment: 68
       },
       {
         id: "dur-004",
         name: "5 Days Comprehensive Adventure",
         type: "duration",
         description: "Most comprehensive adventure experience with all activities and cultural visits.",
-        priceAdjustment: 450000 // UGX
+        priceAdjustment: 122
       }
     ]
     },
@@ -1863,7 +1863,7 @@ export const tours: Tour[] = [
         name: "Basic Mountain Huts",
         type: "accommodation",
         description: "Basic mountain huts along the trekking route with shared facilities and sleeping bags provided.",
-        priceAdjustment: -300000 // UGX
+        priceAdjustment: -81
       },
       {
         id: "acc-002",
@@ -1877,51 +1877,51 @@ export const tours: Tour[] = [
         name: "Premium Mountain Lodges",
         type: "accommodation",
         description: "Premium mountain lodges with enhanced comfort, better food, and additional services.",
-        priceAdjustment: 800000 // UGX
+        priceAdjustment: 216
       },
       {
         id: "acc-004",
         name: "Camping Experience",
         type: "accommodation",
         description: "Camping experience with high-quality tents and camping equipment for adventurous trekkers.",
-        priceAdjustment: -200000 // UGX
+        priceAdjustment: -54
       }
     ],
-    activities: [
+      activities: [
       {
         id: "act-001",
         name: "Margherita Peak Summit",
         type: "activity",
         description: "Summit attempt to Margherita Peak (5,109m), the highest peak in the Rwenzori Mountains. Includes specialized gear and guides.",
-        priceAdjustment: 500000 
+        priceAdjustment: 135
       },
       {
         id: "act-002",
         name: "Cultural Community Visit",
         type: "activity",
         description: "Visit Bakonzo communities around Rwenzori to learn about mountain culture and traditions.",
-        priceAdjustment: 80000 
+        priceAdjustment: 22
       },
       {
         id: "act-003",
         name: "Nature Photography Workshop",
         type: "activity",
         description: "Professional photography workshop focusing on mountain landscapes and endemic flora.",
-        priceAdjustment: 150000 
+        priceAdjustment: 41
       },
       {
         id: "act-004",
         name: "Botanical Tour",
         type: "activity",
         description: "Specialized botanical tour focusing on unique Rwenzori flora including giant lobelias.",
-        priceAdjustment: 100000 
+        priceAdjustment: 27
       },
       {
         id: "act-005",
         name: "Rock Climbing Experience",
         type: "activity",
         description: "Rock climbing sessions on Rwenzori rock faces with professional climbing guides.",
-        priceAdjustment: 200000 
+        priceAdjustment: 54
       }
     ],
       transportation: [
@@ -1930,7 +1930,7 @@ export const tours: Tour[] = [
         name: "Shared Transfer Vehicle",
         type: "transportation",
         description: "Shared vehicle transfer from Kampala to Kasese and return. Budget option for trekkers.",
-        priceAdjustment: -100000 
+        priceAdjustment: -27
       },
       {
         id: "trans-002",
@@ -1944,14 +1944,14 @@ export const tours: Tour[] = [
         name: "Luxury Transfer Vehicle",
         type: "transportation",
         description: "Premium vehicle with air conditioning and comfort features for transfers to and from Rwenzori.",
-        priceAdjustment: 150000 
+        priceAdjustment: 41
       },
       {
         id: "trans-004",
         name: "Helicopter Access",
         type: "transportation",
         description: "Helicopter transfer to higher camps to reduce trekking time and physical demands.",
-        priceAdjustment: 4000000 
+        priceAdjustment: 1081
       }
     ],
       duration: [
@@ -1960,7 +1960,7 @@ export const tours: Tour[] = [
         name: "5 Days Central Circuit",
         type: "duration",
         description: "5-day central circuit trek to Guy Yeoman Hut without summit attempt.",
-        priceAdjustment: -400000 
+        priceAdjustment: -108
       },
       {
         id: "dur-002",
@@ -1974,14 +1974,249 @@ export const tours: Tour[] = [
         name: "9 Days Extended Trek",
         type: "duration",
         description: "Extended 9-day trek with multiple peak attempts and comprehensive exploration.",
-        priceAdjustment: 500000 
+        priceAdjustment: 135
       },
       {
         id: "dur-004",
         name: "12 Days Comprehensive Adventure",
         type: "duration",
         description: "Most comprehensive Rwenzori experience with all peaks and cultural activities.",
-        priceAdjustment: 800000 
+        priceAdjustment: 216
+      }
+    ]
+    },
+    featured: false
+  },
+  {
+    id: "tour-020",
+    slug: "ziwa-rhino-sanctuary-murchison-combo",
+    name: "Rhinos & Rapids Safari",
+    tagline: "Track rhinos on foot and witness the mighty Murchison Falls",
+    description: "Experience a unique combination of endangered rhino tracking at Ziwa Rhino Sanctuary followed by the wildlife and scenic wonders of Murchison Falls National Park. This tour begins with the thrilling experience of approaching white rhinos on foot in the company of trained rangers at Ziwa, the only place to see rhinos in the wild in Uganda. Then continue to Murchison Falls National Park to witness the spectacular waterfall, enjoy game drives teeming with wildlife, and cruise along the Nile River. This safari offers a perfect blend of adventure, wildlife viewing, and natural beauty.",
+    duration: 5,
+    price: 2950,
+    location: "Murchison Falls National Park",
+    country: "Uganda",
+    coverImage: "/images/murchison-falls-view.jpg",
+    images: [
+      { url: "/images/murchison-falls-view.jpg", alt: "Murchison Falls" },
+      { url: "/images/queen-Elizabeth.jpeg", alt: "Wildlife viewing" },
+      { url: "/images/kibaale.jpeg", alt: "Luxury lodge" },
+      { url: "/images/murchison-falls-view.jpg", alt: "River cruise" }
+    ],
+    mapImage: "/images/murchison-falls-view.jpg",
+    highlights: [
+      "On-foot tracking of white rhinos with expert rangers",
+      "Thundering spectacle of Murchison Falls",
+      "Game drives with diverse wildlife including lions and elephants",
+      "Nile River boat safari to the base of the falls",
+      "Opportunity to spot rare shoebill storks"
+    ],
+    inclusions: [
+      "All accommodations",
+      "Professional safari guide",
+      "All meals as specified",
+      "Rhino tracking fees",
+      "Park entry fees",
+      "Game drives in 4x4 vehicles",
+      "Boat cruise on the Nile",
+      "Airport transfers"
+    ],
+    exclusions: [
+      "International flights",
+      "Travel insurance",
+      "Optional activities",
+      "Personal expenses",
+      "Tips and gratuities",
+      "Visa fees"
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Entebbe to Ziwa Rhino Sanctuary",
+        description: "Morning departure from Entebbe, driving north to Ziwa Rhino Sanctuary (approximately 3 hours). After lunch, enjoy your first rhino tracking experience on foot with trained rangers, approaching these magnificent endangered animals safely in their natural habitat. Evening presentation about rhino conservation efforts in Uganda.",
+        meals: { breakfast: false, lunch: true, dinner: true },
+        accommodation: "Amuka Lodge"
+      },
+      {
+        day: 2,
+        title: "Ziwa to Murchison Falls National Park",
+        description: "Optional early morning rhino tracking before breakfast. Continue your journey to Murchison Falls National Park (approximately 2 hours). After crossing by ferry, check in at your lodge. Afternoon game drive in the northern section of the park, known for its abundant wildlife.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Paraa Safari Lodge"
+      },
+      {
+        day: 3,
+        title: "Murchison Falls Game Drives",
+        description: "Full day of game viewing in Murchison Falls National Park. Early morning game drive when animals are most active, searching for lions, elephants, giraffes, and numerous antelope species. Afternoon game drive in a different sector of the park focusing on buffalo herds and leopard habitat.",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Paraa Safari Lodge"
+      },
+      {
+        day: 4,
+        title: "Nile Delta Boat Safari & Falls",
+        description: "Morning boat safari to the Nile Delta where the river enters Lake Albert, a prime area for spotting the rare shoebill stork and numerous water birds. Afternoon boat cruise upstream to the base of Murchison Falls for spectacular views of the world's most powerful waterfall. Optional hike to the top of the falls (moderate difficulty).",
+        meals: { breakfast: true, lunch: true, dinner: true },
+        accommodation: "Paraa Safari Lodge"
+      },
+      {
+        day: 5,
+        title: "Murchison Falls to Entebbe",
+        description: "Final morning game drive before breakfast. Depart Murchison Falls, returning to Entebbe with a stop for lunch en route. Arrive in the late afternoon for your onward journey.",
+        meals: { breakfast: true, lunch: true, dinner: false },
+        accommodation: null
+      }
+    ],
+    reviews: [
+      {
+        id: "review-001",
+        name: "Charles Wilson",
+        rating: 5,
+        comment: "Approaching rhinos on foot was an incredible experience - heart-pounding but completely safe with the excellent rangers. Murchison Falls was spectacular and we saw so much wildlife including 3 tree-climbing lions!",
+        date: "2024-08-28"
+      },
+      {
+        id: "review-002",
+        name: "Sophia Lin",
+        rating: 4,
+        comment: "Great combination of unique experiences. The rhino tracking was special and more intimate than we expected. The boat safari was my highlight - we saw countless hippos, crocs, and birds, plus the falls are impressive up close.",
+        date: "2024-12-10"
+      },
+      {
+        id: "review-003",
+        name: "Trevor and Amelia Jackson",
+        rating: 5,
+        comment: "Perfect 5-day safari with good variety. Getting close to rhinos on foot was thrilling but felt completely safe. In Murchison we saw all the big game including elephants crossing the Nile. Highly recommended for those short on time.",
+        date: "2025-01-22"
+      }
+    ],
+    rating: 4.7,
+    customizationOptions: {
+      accommodation: [
+      {
+        id: "acc-001",
+        name: "Budget Camping",
+        type: "accommodation",
+        description: "Basic camping at Ziwa Rhino Sanctuary and budget accommodation in Jinja with shared facilities.",
+        priceAdjustment: -41
+      },
+      {
+        id: "acc-002",
+        name: "Mid-range Lodge",
+        type: "accommodation",
+        description: "Comfortable lodges like Amuka Lodge at Ziwa and mid-range hotels in Jinja with en-suite facilities.",
+        priceAdjustment: 0
+      },
+      {
+        id: "acc-003",
+        name: "Luxury Safari Lodge",
+        type: "accommodation",
+        description: "Premium accommodation at Ziwa Guest House and luxury resorts in Jinja with Nile views.",
+        priceAdjustment: 216
+      },
+      {
+        id: "acc-004",
+        name: "Adventure Camp",
+        type: "accommodation",
+        description: "Specialized adventure camps near Jinja focusing on water sports and outdoor activities.",
+        priceAdjustment: 27
+      }
+    ],
+      activities: [
+      {
+        id: "act-001",
+        name: "Grade 5 White Water Rafting",
+        type: "activity",
+        description: "Full-day extreme white water rafting on the Nile with grade 5 rapids and professional guides.",
+        priceAdjustment: 54
+      },
+      {
+        id: "act-002",
+        name: "Bungee Jumping",
+        type: "activity",
+        description: "Adrenaline-pumping bungee jump from 44 meters above the Nile River at Jinja.",
+        priceAdjustment: 49
+      },
+      {
+        id: "act-003",
+        name: "Kayaking on the Nile",
+        type: "activity",
+        description: "Multi-day kayaking adventure on the Nile River with camping and professional instruction.",
+        priceAdjustment: 68
+      },
+      {
+        id: "act-004",
+        name: "Horseback Rhino Tracking",
+        type: "activity",
+        description: "Unique horseback riding experience while tracking rhinos at Ziwa Rhino Sanctuary.",
+        priceAdjustment: 54
+      },
+      {
+        id: "act-005",
+        name: "Quad Biking Adventure",
+        type: "activity",
+        description: "Quad biking adventure through rural Uganda countryside and along the Nile banks.",
+        priceAdjustment: 32
+      }
+    ],
+      transportation: [
+      {
+        id: "trans-001",
+        name: "Shared Safari Vehicle",
+        type: "transportation",
+        description: "Shared 4WD vehicle for transfers between Ziwa and Jinja. Budget-friendly option.",
+        priceAdjustment: -22
+      },
+      {
+        id: "trans-002",
+        name: "Private Safari Vehicle",
+        type: "transportation",
+        description: "Private 4WD vehicle with professional driver-guide for flexible transfers.",
+        priceAdjustment: 0
+      },
+      {
+        id: "trans-003",
+        name: "Luxury Safari Vehicle",
+        type: "transportation",
+        description: "Premium 4WD with air conditioning and comfort features for smooth transfers.",
+        priceAdjustment: 32
+      },
+      {
+        id: "trans-004",
+        name: "Helicopter Transfer",
+        type: "transportation",
+        description: "Helicopter transfer from Entebbe to Jinja with scenic aerial views of the Nile.",
+        priceAdjustment: 811
+      }
+    ],
+      duration: [
+      {
+        id: "dur-001",
+        name: "2 Days Express Rhinos & Rapids",
+        type: "duration",
+        description: "Quick 2-day adventure focusing on rhino tracking and one major water activity.",
+        priceAdjustment: -54
+      },
+      {
+        id: "dur-002",
+        name: "3 Days Standard Adventure",
+        type: "duration",
+        description: "Standard 3-day itinerary with rhino tracking, white water rafting, and source of Nile visit.",
+        priceAdjustment: 0
+      },
+      {
+        id: "dur-003",
+        name: "4 Days Extended Adventure",
+        type: "duration",
+        description: "Extended adventure with multiple water activities and extended time at Ziwa.",
+        priceAdjustment: 68
+      },
+      {
+        id: "dur-004",
+        name: "5 Days Comprehensive Adventure",
+        type: "duration",
+        description: "Most comprehensive adventure experience with all activities and cultural visits.",
+        priceAdjustment: 122
       }
     ]
     },
@@ -2085,7 +2320,7 @@ export const tours: Tour[] = [
         name: "Budget Camping",
         type: "accommodation",
         description: "Basic camping at Rwonyo Rest Camp or community campsites with shared facilities.",
-        priceAdjustment: -120000 
+        priceAdjustment: -32
       },
       {
         id: "acc-002",
@@ -2099,14 +2334,14 @@ export const tours: Tour[] = [
         name: "Luxury Safari Lodge",
         type: "accommodation",
         description: "Premium lodges like Mihingo Lodge with luxury amenities and stunning lake views.",
-        priceAdjustment: 1000000 
+        priceAdjustment: 270
       },
       {
         id: "acc-004",
         name: "Community Bandas",
         type: "accommodation",
         description: "Community-managed bandas offering authentic local experience with traditional meals.",
-        priceAdjustment: -80000 
+        priceAdjustment: -22
       }
     ],
       activities: [
@@ -2115,35 +2350,35 @@ export const tours: Tour[] = [
         name: "Extended Horseback Safari",
         type: "activity",
         description: "Multi-day horseback safari exploring different areas of Lake Mburo National Park.",
-        priceAdjustment: 200000 
+        priceAdjustment: 54
       },
       {
         id: "act-002",
         name: "Boat Cruise on Lake Mburo",
         type: "activity",
         description: "Boat cruise on Lake Mburo to see hippos, crocodiles, and diverse water birds.",
-        priceAdjustment: 80000 
+        priceAdjustment: 22
       },
       {
         id: "act-003",
         name: "Walking Safari",
         type: "activity",
         description: "Guided walking safari to get closer to wildlife and experience nature on foot.",
-        priceAdjustment: 60000 
+        priceAdjustment: 16
       },
       {
         id: "act-004",
         name: "Cultural Community Visit",
         type: "activity",
         description: "Visit Bahima pastoralist communities to learn about traditional cattle keeping and lifestyle.",
-        priceAdjustment: 50000 
+        priceAdjustment: 14
       },
       {
         id: "act-005",
         name: "Night Game Drive",
         type: "activity",
         description: "Night game drive to spot nocturnal animals like leopards, hyenas, and bush babies.",
-        priceAdjustment: 70000 
+        priceAdjustment: 19
       }
     ],
       transportation: [
@@ -2152,7 +2387,7 @@ export const tours: Tour[] = [
         name: "Shared Safari Vehicle",
         type: "transportation",
         description: "Shared 4WD vehicle for transfers and game drives. Budget-friendly option.",
-        priceAdjustment: -80000 
+        priceAdjustment: -22
       },
       {
         id: "trans-002",
@@ -2166,14 +2401,14 @@ export const tours: Tour[] = [
         name: "Luxury Safari Vehicle",
         type: "transportation",
         description: "Premium 4WD with air conditioning and enhanced comfort features.",
-        priceAdjustment: 120000 
+        priceAdjustment: 32
       },
       {
         id: "trans-004",
         name: "Helicopter Safari",
         type: "transportation",
         description: "Helicopter scenic flight over Lake Mburo with aerial wildlife viewing opportunities.",
-        priceAdjustment: 2000000 
+        priceAdjustment: 541
       }
     ],
       duration: [
@@ -2182,7 +2417,7 @@ export const tours: Tour[] = [
         name: "2 Days Express Safari",
         type: "duration",
         description: "Quick 2-day safari with horseback riding and game drives. Perfect for short visits.",
-        priceAdjustment: -150000 
+        priceAdjustment: -41
       },
       {
         id: "dur-002",
@@ -2196,14 +2431,14 @@ export const tours: Tour[] = [
         name: "4 Days Extended Safari",
         type: "duration",
         description: "Extended safari with additional activities and cultural visits for comprehensive experience.",
-        priceAdjustment: 200000 
+        priceAdjustment: 54
       },
       {
         id: "dur-004",
         name: "5 Days Comprehensive Safari",
         type: "duration",
         description: "Most comprehensive Lake Mburo experience with all activities and relaxed pace.",
-        priceAdjustment: 350000
+        priceAdjustment: 95
       }
     ]
     },

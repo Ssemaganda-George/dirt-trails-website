@@ -32,10 +32,6 @@ const TourDetailPage = () => {
     duration: null
   });
 
-  // conversion: UGX -> USD (used across the component)
-  const UGX_PER_USD = 3700; // adjust exchange rate as needed
-  const ugxToUsd = (ugx: number) => Math.round((ugx / UGX_PER_USD) * 100) / 100;
-  
   // Find the tour by slug
   const tour = tours.find(t => t.slug === tourSlug);
   
@@ -71,14 +67,14 @@ const TourDetailPage = () => {
     return tier ? tier.price : tour.price;
   };
   
-  // Calculate total price including customizations
+  // Calculate total price including customizations (all values now in USD)
   const calculateTotalPrice = () => {
-    const basePerPerson = getPricePerPerson(); // already reflects group discount tier
+    const basePerPerson = getPricePerPerson(); // already reflects group discount tier (USD)
 
-    // per-person customization adjustments
+    // Customization adjustments are now directly in USD
     const customizationPerPerson = Object.values(selectedOptions).reduce((sum, option) => {
       const opt = option as CustomizationOption | null;
-      return sum + (opt ? opt.priceAdjustment : 0);
+      return sum + (opt ? opt.priceAdjustment : 0); // Direct USD value
     }, 0);
 
     const perPersonBeforeTourDiscount = basePerPerson + customizationPerPerson;
@@ -110,7 +106,7 @@ const TourDetailPage = () => {
   const basePerPerson = getPricePerPerson();
   const customizationPerPerson = Object.values(selectedOptions).reduce((sum, option) => {
     const opt = option as CustomizationOption | null;
-    return sum + (opt ? opt.priceAdjustment : 0);
+    return sum + (opt ? opt.priceAdjustment : 0); // Direct USD value
   }, 0);
   const perPersonBeforeTourDiscount = basePerPerson + customizationPerPerson;
   const discountFraction = tour.discount ? (tour.discount / 100) : 0;
@@ -382,7 +378,7 @@ const TourDetailPage = () => {
                   />
                 </Accordion>
                 
-                {/* Price Summary - Professional */}
+                {/* Price Summary - Updated to show USD values correctly */}
                 <div className="border-t pt-6 mb-8 p-6 rounded-xl bg-white/50 border-gray-200">
                   <h4 className="text-lg font-semibold mb-4 text-gray-900">Price Summary</h4>
                   <div className="space-y-3">
@@ -394,12 +390,13 @@ const TourDetailPage = () => {
                     {Object.entries(selectedOptions).map(([category, option]) => {
                       const opt = option as CustomizationOption | null;
                       if (!opt) return null;
-                      const totalAdjustmentUgx = opt.priceAdjustment * numberOfPeople;
-                      const totalAdjustmentUsd = ugxToUsd(totalAdjustmentUgx);
+                      const totalAdjustmentUsd = opt.priceAdjustment * numberOfPeople; // Direct USD calculation
                       return (
                         <div key={category} className="flex justify-between hover:bg-white/50 p-2 rounded transition-colors duration-200">
                           <span>{opt.name} ({numberOfPeople} {numberOfPeople === 1 ? 'person' : 'people'}):</span>
-                          <span className="font-medium text-safari-green">+${totalAdjustmentUsd.toFixed(2)}</span>
+                          <span className="font-medium text-safari-green">
+                            {totalAdjustmentUsd >= 0 ? '+' : ''}${totalAdjustmentUsd.toLocaleString()}
+                          </span>
                         </div>
                       );
                     })}

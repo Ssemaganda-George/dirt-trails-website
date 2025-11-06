@@ -202,12 +202,14 @@ const CheckoutPage = () => {
     return tier ? tier.label : "Custom";
   };
 
+  // Calculate total price including customizations (all values now in USD)
   const calculateTotalPrice = () => {
     let pricePerPersonCalc = getCurrentPricePerPerson();
     
+    // Customizations are now directly in USD
     Object.values(selectedCustomizations).forEach((option: any) => {
       if (option) {
-        pricePerPersonCalc += option.priceAdjustment;
+        pricePerPersonCalc += option.priceAdjustment; // Direct USD value
       }
     });
     
@@ -218,7 +220,7 @@ const CheckoutPage = () => {
     let total = pricePerPersonCalc * numberOfPeople;
     
     if (treePlantingSelected) {
-      total += treePlantingAmount; // Add custom amount for tree planting
+      total += treePlantingAmount; // Add custom amount for tree planting (USD)
     }
     
     return total;
