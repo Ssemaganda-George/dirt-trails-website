@@ -38,7 +38,7 @@ const guides = [
 	},
 	{
 		name: "Mariam W",
-		bio: "Mariam specializes in primate trekking and cultural tours, sharing deep knowledge of local communities.",
+		bio: "Mariam is our Chief Operating Officer specializing in digital operations, strategic partnerships, and ensuring exceptional guest experiences through innovative technology solutions.",
 		image: "/images/Mariam.jpg",
 		rating: 4.9,
 		ratingsCount: 25,

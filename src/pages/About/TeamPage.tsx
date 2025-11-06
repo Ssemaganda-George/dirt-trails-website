@@ -16,9 +16,9 @@ const team = [
 	},
 	{
 		name: 'Mariam Wambui',
-		title: 'Software Engineer & CMO',
+		title: 'Chief Operating Officer (COO)', // Updated title
 		image: '/images/Mariam.jpg',
-		bio: 'Mariam brings a unique blend of software engineering and marketing expertise. She manages our digital presence and guest communications, ensuring our message of sustainability reaches a global audience.',
+		bio: 'Mariam is our Chief Operating Officer, bringing exceptional technical expertise and strategic business acumen to Dirt Trails. She oversees our digital operations, marketing initiatives, and technology infrastructure while ensuring seamless guest experiences. Her proactive leadership and innovative approach drive our growth and operational excellence across all departments.',
 		linkedin: 'https://www.linkedin.com/in/mariam-wambui-942458278/',
 		twitter: 'https://twitter.com/mariamwambui',
 		instagram: 'https://instagram.com/mariamwambui',
