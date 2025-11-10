@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
-import ImpactSummary from '../home/ImpactSummary';
+// import ImpactSummary from '../home/ImpactSummary';
 import ChatBot from '../ChatBot';
 // import ImpactSummary from '../home/ImpactSummary';
 
@@ -13,7 +13,7 @@ const Layout = () => {
       <main className="flex-grow">
         <Outlet />
       </main>
-      <div className="bg-safari-green/5 py-6 px-2 sm:py-8 sm:px-4">
+      {/* <div className="bg-safari-green/5 py-6 px-2 sm:py-8 sm:px-4">
         <div className="container mx-auto text-center">
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
             <div className="flex items-center">
@@ -36,7 +36,7 @@ const Layout = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <Footer />
       {/* Global chatbot visible on all pages */}
       <ChatBot />
