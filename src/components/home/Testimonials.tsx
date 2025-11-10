@@ -51,7 +51,7 @@ const Testimonials = () => {
         {/* Cards Container */}
         <div className="relative">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
-            <div className="transform hover:scale-105 transition-transform duration-300">
+            {/* <div className="transform hover:scale-105 transition-transform duration-300">
               <TestimonialCard 
                 name="Sarah Johnson"
                 location="United States"
@@ -59,7 +59,7 @@ const Testimonials = () => {
                 rating={4}
                 imageSrc="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80"
               />
-            </div>
+            </div> */}
             
             <div className="transform hover:scale-105 transition-transform duration-300 md:mt-8">
               <TestimonialCard 
@@ -71,7 +71,7 @@ const Testimonials = () => {
               />
             </div>
             
-            <div className="transform hover:scale-105 transition-transform duration-300">
+            {/* <div className="transform hover:scale-105 transition-transform duration-300">
               <TestimonialCard 
                 name="Emma Brown"
                 location="Australia"
@@ -79,7 +79,7 @@ const Testimonials = () => {
                 rating={4}
                 imageSrc="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=120&q=80"
               />
-            </div>
+            </div> */}
           </div>
         </div>
 
