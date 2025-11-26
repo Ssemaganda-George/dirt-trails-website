@@ -5,13 +5,13 @@ import { Heart, Users, Globe, TreePine } from 'lucide-react';
 import ChatBot from '../../components/ChatBot';
 
 const AboutPage = () => (
-  <div className="bg-gradient-to-b from-gray-50 to-white">
+  <div className="bg-cream">
     {/* Hero Section - Professional Color Scheme */}
-    <section className="relative py-16 sm:py-24 bg-safari-green text-white overflow-hidden">
+    <section className="relative py-16 sm:py-24 bg-accent text-white overflow-hidden">
       <div className="absolute inset-0 bg-black/10"></div>
-      <div className="container relative">
+      <div className="container relative max-w-7xl">
         <div className="max-w-4xl animate-fade-in-up">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+          <h1 className="text-5xl md:text-6xl font-serif mb-6 text-white">
             About Dirt Trails Safaris
           </h1>
           <p className="text-xl text-white max-w-3xl leading-relaxed">
@@ -23,10 +23,10 @@ const AboutPage = () => (
 
     {/* Our Story - Professional */}
     <section className="py-12 sm:py-20 bg-white">
-      <div className="container">
+      <div className="container max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center animate-fade-in-up">
           <div className="space-y-6">
-            <h2 className="text-4xl font-bold mb-8 text-safari-brown">
+            <h2 className="text-4xl font-serif mb-8 text-brown-900">
               Our Story
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed">
@@ -51,35 +51,35 @@ const AboutPage = () => (
     </section>
 
     {/* Our Values - Professional */}
-    <section className="py-12 sm:py-20 bg-safari-brown/5">
-      <div className="container">
+    <section className="py-12 sm:py-20 bg-cream">
+      <div className="container max-w-7xl">
         <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-4xl font-bold mb-6 text-safari-brown">
+          <h2 className="text-4xl font-serif mb-6 text-brown-900">
             Our Values
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-brown-600 max-w-3xl mx-auto leading-relaxed">
             Our core values guide everything we do, from designing our tours to working with local communities.
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <ValueCard 
-            icon={<TreePine className="h-12 w-12 text-safari-green" />}
+            icon={<TreePine className="h-12 w-12 text-accent" />}
             title="Sustainability First" 
             description="We prioritize eco-friendly practices, ensuring every safari contributes to conservation and climate resilience."
           />
           <ValueCard 
-            icon={<Globe className="h-12 w-12 text-safari-green" />}
+            icon={<Globe className="h-12 w-12 text-accent" />}
             title="Community Empowerment" 
             description="We partner with local guides and communities, creating jobs and opportunities while celebrating cultural heritage."
           />
           <ValueCard 
-            icon={<Heart className="h-12 w-12 text-safari-green" />}
+            icon={<Heart className="h-12 w-12 text-accent" />}
             title="Safety & Comfort" 
             description="We guarantee safe, reliable, and comfortable travel experiences so guests can explore with peace of mind."
           />
           <ValueCard 
-            icon={<Users className="h-12 w-12 text-safari-green" />}
+            icon={<Users className="h-12 w-12 text-accent" />}
             title="Innovation with Purpose" 
             description="Through our digital platform, we make planning, booking, and enjoying safaris seamless and impactful."
           />
@@ -89,7 +89,7 @@ const AboutPage = () => (
 
     {/* Conservation Efforts - Professional */}
     <section className="py-12 sm:py-20 bg-white">
-      <div className="container">
+      <div className="container max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center animate-fade-in-up">
           <div className="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 group">
             <img 
@@ -99,7 +99,7 @@ const AboutPage = () => (
             />
           </div>
           <div className="order-1 lg:order-2 space-y-6">
-            <h2 className="text-4xl font-bold mb-8 text-safari-brown">
+            <h2 className="text-4xl font-serif mb-8 text-brown-900">
               Our Conservation Commitment
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed">
@@ -120,20 +120,20 @@ const AboutPage = () => (
     </section>
 
     {/* CTA Section - Professional */}
-    <section className="py-12 sm:py-20 bg-safari-green text-white relative overflow-hidden">
+    <section className="py-12 sm:py-20 bg-accent text-white relative overflow-hidden">
       <div className="absolute inset-0 bg-black/10"></div>
-      <div className="container relative text-center animate-fade-in-up">
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-          Ready to Explore East Africa with Us?
+      <div className="container relative text-center max-w-7xl animate-fade-in-up">
+        <h2 className="text-4xl md:text-5xl font-serif mb-6 text-white">
+          Ready for Your African Adventure?
         </h2>
         <p className="text-xl mb-10 max-w-3xl mx-auto leading-relaxed text-white">
           Contact our team to start planning your perfect safari adventure today.
         </p>
         <div className="flex flex-wrap justify-center gap-6">
-          <Button size="lg" variant="outline" className="bg-white text-safari-green hover:bg-safari-brown hover:text-white border-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105" asChild>
+          <Button size="lg" variant="outline" className="bg-white text-accent hover:bg-brown-100 hover:text-brown-900 border-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105" asChild>
             <Link to="/tours">Browse Tours</Link>
           </Button>
-          <Button size="lg" className="bg-safari-orange hover:bg-safari-orange/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105" asChild>
+          <Button size="lg" className="bg-brown-600 hover:bg-brown-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105" asChild>
             <Link to="/contact">Contact Us</Link>
           </Button>
         </div>

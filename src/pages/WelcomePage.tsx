@@ -10,7 +10,6 @@ const WelcomePage: React.FC = () => {
   const [showAllGoals, setShowAllGoals] = useState(false);
 
   useEffect(() => {
-    // Focus the card for keyboard/screen-reader users when the page loads
     containerRef.current?.focus();
   }, []);
 
@@ -19,29 +18,27 @@ const WelcomePage: React.FC = () => {
     setFadeOut(true);
     setTimeout(() => {
       navigate('/booking');
-    }, 600); // match the transition duration
+    }, 600);
   };
 
   return (
     <div
       ref={containerRef}
-      className={`min-h-screen bg-gradient-to-br from-green-100 to-yellow-50 p-4 sm:p-6 transition-opacity duration-700 ${fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+      className={`min-h-screen bg-cream p-4 sm:p-6 transition-opacity duration-700 ${fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
       role="main"
       aria-label="Welcome to Dirt Trails Safaris"
     >
-      <div className="mx-auto w-full max-w-lg sm:max-w-2xl bg-white rounded-xl shadow-lg p-4 sm:p-10 text-center max-h-[calc(100vh-4rem)] overflow-y-auto" tabIndex={-1} style={{ WebkitOverflowScrolling: 'touch' }}>
-        <h1 className="text-3xl sm:text-4xl font-extrabold mb-4 sm:mb-6 text-green-700 tracking-tight">Welcome to Dirt Trails Safaris</h1>
-        {/* Short summary on small screens, full text on larger */}
+      <div className="mx-auto w-full max-w-7xl bg-white rounded-xl shadow-lg p-4 sm:p-10 text-center max-h-[calc(100vh-4rem)] overflow-y-auto" tabIndex={-1} style={{ WebkitOverflowScrolling: 'touch' }}>
+        <h1 className="text-3xl sm:text-4xl font-serif mb-4 sm:mb-6 text-brown-900 tracking-tight">Welcome to Dirt Trails Safaris</h1>
         <p className="text-base mb-4 sm:hidden text-gray-700 leading-relaxed">
-          <span className="font-semibold text-green-700">Dirt Trails Safaris</span> — sustainable, professional safari experiences connecting you with Africa’s wildlife and communities.
+          <span className="font-semibold text-brown-900">Dirt Trails Safaris</span> — sustainable, professional safari experiences connecting you with Africa's wildlife and communities.
         </p>
         <p className="hidden sm:block text-base sm:text-lg mb-4 sm:mb-6 text-gray-700 leading-relaxed">
-          <span className="font-semibold text-green-700">Dirt Trails Safaris</span> is an adventure and eco-tourism company committed to delivering sustainable, professional, and safe safari experiences. Our mission is to connect travelers with Africa’s beautiful landscapes and vibrant cultures, while upholding the highest standards of service and sustainability.
+          <span className="font-semibold text-brown-900">Dirt Trails Safaris</span> is an adventure and eco-tourism company committed to delivering sustainable, professional, and safe safari experiences. Our mission is to connect travelers with Africa's beautiful landscapes and vibrant cultures, while upholding the highest standards of service and sustainability.
         </p>
         <div className="mb-6">
-          <h2 className="text-2xl font-bold text-green-800 mb-2">Our Core Goals</h2>
+          <h2 className="text-2xl font-serif text-brown-900 mb-2">Our Core Goals</h2>
           <ul className="text-left text-gray-700 mb-4 list-disc list-inside mx-auto max-w-md space-y-1">
-            {/* on small screens show abbreviated goals with option to expand */}
             <li>Provide memorable safari journeys with professionalism and care</li>
             <li>Promote conservation and support local communities</li>
             <div className="sm:hidden">
@@ -50,7 +47,7 @@ const WelcomePage: React.FC = () => {
                   <li>…and more — sustainable, community-focused travel</li>
                   <button
                     onClick={() => setShowAllGoals(true)}
-                    className="mt-2 text-sm text-green-700 font-semibold underline"
+                    className="mt-2 text-sm text-accent font-semibold underline"
                     aria-expanded={showAllGoals}
                     aria-controls="full-goals"
                   >
@@ -74,7 +71,7 @@ const WelcomePage: React.FC = () => {
           We invite you to begin your journey with us. Click below to access our booking platform and start planning your adventure.
         </p>
         <Button
-          className="mt-2 px-6 py-3 text-base sm:text-lg font-semibold rounded-lg shadow-lg w-full sm:w-auto flex items-center justify-center gap-2 focus-visible:ring-4 focus-visible:ring-green-400 focus-visible:outline-none"
+          className="mt-2 px-6 py-3 text-base sm:text-lg font-semibold rounded-lg shadow-lg w-full sm:w-auto flex items-center justify-center gap-2 focus-visible:ring-4 focus-visible:ring-accent focus-visible:outline-none"
           onClick={handleContinue}
           tabIndex={0}
           aria-label="Continue to booking platform"

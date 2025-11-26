@@ -59,15 +59,15 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="bg-gray-50">
+    <div className="bg-cream">
       {/* Hero Section - Professional Single Color */}
-      <section className="relative py-24 bg-safari-green text-white overflow-hidden">
-        <div className="container relative">
+      <section className="relative py-24 bg-accent text-white overflow-hidden">
+        <div className="container relative max-w-7xl">
           <div className="max-w-4xl animate-fade-in-up">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+            <h1 className="text-5xl md:text-6xl font-serif mb-6 text-white">
               Contact Us
             </h1>
-            <p className="text-xl text-gray-100 max-w-3xl leading-relaxed">
+            <p className="text-xl text-white max-w-3xl leading-relaxed">
               Have questions about our tours or need help planning your East African adventure? We're here to help.
             </p>
           </div>
@@ -76,16 +76,16 @@ const ContactPage = () => {
 
       {/* Contact Form and Info - Professional */}
       <section className="py-20 bg-white">
-        <div className="container">
+        <div className="container max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
             {/* Contact Form */}
             <div className="animate-fade-in-up">
-              <h2 className="text-4xl font-bold mb-8 text-gray-900">
+              <h2 className="text-4xl font-serif mb-8 text-brown-900">
                 Send Us a Message
               </h2>
               {formSubmitted ? (
-                <div className="bg-green-50 border border-green-200 text-green-700 p-8 rounded-2xl shadow-lg">
-                  <h3 className="text-2xl font-semibold mb-4">Thank You!</h3>
+                <div className="bg-cream border border-cream text-accent p-8 rounded-2xl shadow-lg">
+                  <h3 className="text-2xl font-serif mb-4">Thank You!</h3>
                   <p className="text-lg mb-6">Your message has been sent successfully. We'll get back to you within 24 hours.</p>
                   <Button 
                     onClick={() => {
@@ -93,13 +93,13 @@ const ContactPage = () => {
                       setSubmitError(null);
                     }}
                     variant="outline"
-                    className="border-safari-green text-safari-green hover:bg-safari-green hover:text-white transition-all duration-300"
+                    className="border-accent text-accent hover:bg-accent hover:text-white transition-all duration-300"
                   >
                     Send Another Message
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6 bg-gray-50 p-8 rounded-2xl shadow-xl border border-gray-200">
+                <form onSubmit={handleSubmit} className="space-y-6 bg-cream p-8 rounded-2xl shadow-xl border border-cream">
                   {submitError && (
                     <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg">
                       <p>{submitError}</p>
@@ -192,7 +192,7 @@ const ContactPage = () => {
                   <Button 
                     type="submit" 
                     size="lg" 
-                    className="w-full h-12 bg-safari-green hover:bg-safari-green/90 text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105" 
+                    className="w-full h-12 bg-accent hover:bg-accent/90 text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105" 
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
@@ -210,10 +210,10 @@ const ContactPage = () => {
             
             {/* Contact Information - Professional */}
             <div className="animate-fade-in-up">
-              <h2 className="text-4xl font-bold mb-8 text-gray-900">
+              <h2 className="text-4xl font-serif mb-8 text-brown-900">
                 Get In Touch
               </h2>
-              <div className="bg-white shadow-xl rounded-2xl p-8 mb-8 border border-gray-200">
+              <div className="bg-cream shadow-xl rounded-2xl p-8 mb-8 border border-cream">
                 <div className="space-y-6">
                   <div className="flex items-start hover:bg-gray-50 p-4 rounded-lg transition-colors duration-300">
                     <MapPin className="h-8 w-8 text-safari-green mr-6 shrink-0 mt-1" />
@@ -250,25 +250,25 @@ const ContactPage = () => {
                 </div>
               </div>
               
-              <div className="bg-safari-green/5 rounded-2xl p-8 border border-safari-green/20">
-                <h3 className="text-2xl font-semibold mb-4 text-gray-900">Emergency Contact</h3>
-                <p className="text-gray-600 mb-4 leading-relaxed">
+              <div className="bg-accent/5 rounded-2xl p-8 border border-accent/20">
+                <h3 className="text-2xl font-serif mb-4 text-brown-900">Emergency Contact</h3>
+                <p className="text-brown-600 mb-4 leading-relaxed">
                   For urgent matters outside of office hours, please contact our 24-hour emergency line:
                 </p>
-                <div className="font-bold text-xl text-safari-green">+256 759 918649</div>
+                <div className="font-bold text-xl text-accent">+256 759 918649</div>
               </div>
             </div>
           </div>
         </div>
       </section>
       {/* Map Section */}
-      <section className="py-12 sm:py-20 bg-gray-50">
-        <div className="container">
-          <h2 className="text-4xl font-bold mb-12 text-center text-gray-900">
+      <section className="py-12 sm:py-20 bg-cream">
+        <div className="container max-w-7xl">
+          <h2 className="text-4xl font-serif mb-12 text-center text-brown-900">
             Find Our Office
           </h2>
           <div className="max-w-5xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
+            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-cream">
               <div className="aspect-video">
                 <iframe 
                   src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3989.751207514449!2d32.5678668!3d0.3323261!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177dbb91e1a6c939%3A0x38793a83feb972e9!2sMakerere%20Innovation%20and%20Incubation%20Center!5e0!3m2!1sen!2sug!"
@@ -284,8 +284,8 @@ const ContactPage = () => {
               <div className="p-8">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-2xl font-semibold mb-2 text-gray-900">Visit Our Office</h3>
-                    <p className="text-gray-600 leading-relaxed">
+                    <h3 className="text-2xl font-serif mb-2 text-brown-900">Visit Our Office</h3>
+                    <p className="text-brown-600 leading-relaxed">
                       MIICHub, Makerere University, Kampala, Uganda
                     </p>
                   </div>
@@ -294,7 +294,7 @@ const ContactPage = () => {
                       href="https://maps.app.goo.gl/9HwmBKsXjgLv9AKo7"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-6 py-3 bg-safari-green text-white rounded-lg hover:bg-safari-green/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                      className="inline-flex items-center px-6 py-3 bg-accent text-white rounded-lg hover:bg-accent/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
                     >
                       <MapPin className="h-5 w-5 mr-2" />
                       Open in Maps
@@ -308,8 +308,8 @@ const ContactPage = () => {
       </section>
       {/* FAQ Section */}
       <section className="py-12 sm:py-20 bg-white">
-        <div className="container">
-          <h2 className="text-4xl font-bold mb-12 text-center text-gray-900">
+        <div className="container max-w-7xl">
+          <h2 className="text-4xl font-serif mb-12 text-center text-brown-900">
             Frequently Asked Questions
           </h2>
           <div className="max-w-4xl mx-auto space-y-4">

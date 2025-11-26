@@ -354,7 +354,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-[70vh] md:min-h-screen flex flex-col overflow-hidden">
+    <section className="relative min-h-[70vh] md:min-h-screen flex flex-col overflow-hidden bg-cream">
       {/* Animated background slideshow */}
       <div className="absolute inset-0" role="img" aria-label="Safari background slideshow featuring African wildlife and landscapes">
         {safariImages.map((image, index) => (
