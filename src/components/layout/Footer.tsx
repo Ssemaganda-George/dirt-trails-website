@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-br from-white via-green-50 to-green-100 pt-20 pb-8 relative overflow-hidden">
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-green-600 via-green-500 to-amber-600"></div>
+      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-green-600 via-green-500 to-green-600"></div>
       <div className="absolute top-4 right-4 opacity-10">
         <Leaf className="h-32 w-32 text-green-600 rotate-12" />
       </div>
@@ -40,7 +40,7 @@ const Footer = () => {
           {/* Quick Links */}
           <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-md border border-green-100">
             <h3 className="font-bold text-xl mb-6 text-green-800 flex items-center">
-              <div className="h-2 w-2 rounded-full bg-amber-600 mr-3"></div>
+              {/* <div className="h-2 w-2 rounded-full bg-amber-600 mr-3"></div> */}
               Quick Links
             </h3>
             <ul className="space-y-4">
@@ -55,7 +55,7 @@ const Footer = () => {
           {/* Top Destinations */}
           <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-md border border-green-100">
             <h3 className="font-bold text-xl mb-6 text-green-800 flex items-center">
-              <div className="h-2 w-2 rounded-full bg-amber-600 mr-3"></div>
+              {/* <div className="h-2 w-2 rounded-full bg-amber-600 mr-3"></div> */}
               Top Destinations
             </h3>
             <ul className="space-y-4">
@@ -84,24 +84,24 @@ const Footer = () => {
             
             <div className="pt-6 border-t border-green-200">
               <h3 className="font-bold text-xl mb-4 text-green-800 flex items-center">
-                <div className="h-2 w-2 rounded-full bg-amber-600 mr-3"></div>
+                {/* <div className="h-2 w-2 rounded-full bg-amber-600 mr-3"></div> */}
                 Contact Us
               </h3>
               <div className="space-y-4">
                 <div className="flex items-start group">
-                  <div className="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center mr-3 group-hover:bg-green-200 transition-colors">
+                  <div className="h-8 w-8 rounded-full bg-white-100 flex items-center justify-center mr-3 group-hover:bg-green-200 transition-colors">
                     <MapPin className="h-4 w-4 text-green-600" />
                   </div>
                   <span className="text-green-700 text-sm leading-relaxed">MIICHub, Makerere University, Kampala, Uganda</span>
                 </div>
                 <div className="flex items-center group">
-                  <div className="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center mr-3 group-hover:bg-green-200 transition-colors">
+                  <div className="h-8 w-8 rounded-full bg-white-100 flex items-center justify-center mr-3 group-hover:bg-green-200 transition-colors">
                     <Phone className="h-4 w-4 text-green-600" />
                   </div>
                   <a href="tel:+256759918649" className="text-green-700 hover:text-green-800 transition-colors">+256 759 918649</a>
                 </div>
                 <div className="flex items-center group">
-                  <div className="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center mr-3 group-hover:bg-green-200 transition-colors">
+                  <div className="h-8 w-8 rounded-full bg-white-100 flex items-center justify-center mr-3 group-hover:bg-green-200 transition-colors">
                     <Mail className="h-4 w-4 text-green-600" />
                   </div>
                   <a href="mailto:safaris.dirttrails@gmail.com" className="text-green-700 hover:text-green-800 transition-colors">safaris.dirttrails@gmail.com</a>
@@ -115,7 +115,7 @@ const Footer = () => {
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-md border border-green-100">
           <div className="text-center md:flex md:justify-between md:items-center md:text-left">
             <div className="flex items-center justify-center md:justify-start mb-4 md:mb-0">
-              <div className="h-8 w-8 rounded-full bg-gradient-to-r from-green-600 to-amber-600 flex items-center justify-center mr-3">
+              <div className="h-8 w-8 rounded-full bg-gradient-to-r from-green-600 to-green-600 flex items-center justify-center mr-3">
                 <Leaf className="h-4 w-4 text-white" />
               </div>
               <p className="text-green-800 font-medium">
