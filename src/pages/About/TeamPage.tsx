@@ -117,23 +117,23 @@ const TeamPage = () => {
       </section>
 
       {selected !== null && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
-          <div className="relative mx-auto w-full max-w-5xl overflow-hidden rounded-[2rem] bg-white shadow-2xl">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 p-4 sm:p-6">
+          <div className="relative mx-auto w-full max-w-[95vw] sm:max-w-5xl overflow-hidden rounded-[2rem] bg-white shadow-2xl sm:my-8 max-h-[calc(100vh-2rem)]">
             <button
-              className="absolute right-5 top-5 inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-white transition hover:bg-slate-700"
+              className="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-slate-900 text-white transition hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-400"
               onClick={() => setSelected(null)}
               aria-label="Close team member details"
             >
-              <X size={24} />
+              <X size={22} />
             </button>
-            <div className="grid gap-6 md:grid-cols-[0.9fr_1.1fr]">
-              <div className="overflow-hidden bg-slate-900 md:rounded-l-[2rem]">
-                <img src={team[selected].image} alt={team[selected].name} className="h-full w-full object-cover" />
+            <div className="grid gap-6 md:grid-cols-[0.95fr_1.05fr] h-full min-h-0">
+              <div className="overflow-hidden bg-slate-900 md:rounded-l-[2rem] max-h-72 md:max-h-none md:min-h-0">
+                <img src={team[selected].image} alt={team[selected].name} className="h-64 w-full object-cover md:h-full" />
               </div>
-              <div className="p-8 md:p-12">
-                <h2 className="text-4xl font-semibold text-slate-900">{team[selected].name}</h2>
-                <p className="mt-3 text-xl uppercase tracking-[0.24em] text-teal-600">{team[selected].title}</p>
-                <p className="mt-6 text-base leading-8 text-slate-700">{team[selected].bio}</p>
+              <div className="flex flex-col p-5 md:p-12 overflow-y-auto min-h-0 max-h-[calc(100vh-6rem)]">
+                <h2 className="text-3xl font-semibold text-slate-900 md:text-4xl">{team[selected].name}</h2>
+                <p className="mt-3 text-base uppercase tracking-[0.24em] text-teal-600 md:text-xl">{team[selected].title}</p>
+                <p className="mt-5 text-sm leading-7 text-slate-700 md:text-base md:leading-8">{team[selected].bio}</p>
                 <div className="mt-8 space-y-4">
                   {team[selected].accordion.map((item, idx) => (
                     <div key={item.title}>
