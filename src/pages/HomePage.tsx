@@ -40,56 +40,6 @@ const HomePage = () => {
           </div>
         </section>
 
-        <section className="mt-16 rounded-[2rem] bg-slate-950 p-8 shadow-xl border border-slate-900">
-          <div className="max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.28em] text-slate-400">Fine art journey</p>
-            <h2 className="mt-4 text-3xl font-semibold text-white">Travel and tech as abstract paintings.</h2>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300">
-              Minimal storytelling, richly layered color fields and subtle forms evoke maps, motion and modern systems.
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                title: 'Map of motion',
-                description: 'Soft color planes suggest routes, horizon and the pulse of travel.',
-                accents: 'from-amber-300/30 to-orange-400/20',
-              },
-              {
-                title: 'Circuit sky',
-                description: 'Layered blocks and curves reference networks, flight paths and digital systems.',
-                accents: 'from-sky-400/25 to-indigo-500/15',
-              },
-              {
-                title: 'Journey canvas',
-                description: 'Warm shapes and cool gradients feel both organic and engineered.',
-                accents: 'from-rose-400/25 to-violet-500/15',
-              },
-            ].map((item) => (
-              <div key={item.title} className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-slate-900 p-6 text-white shadow-xl">
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.accents}`} />
-                <div className="absolute left-[-1rem] top-8 h-24 w-24 rounded-full bg-white/10 blur-2xl" />
-                <div className="absolute right-[-1rem] bottom-10 h-32 w-32 rounded-full bg-slate-50/5 blur-3xl" />
-                <div className="relative z-10 flex h-full flex-col justify-between gap-6">
-                  <div className="grid gap-4">
-                    <div className="h-24 rounded-[1.75rem] bg-white/10 backdrop-blur-sm" />
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      <div className="h-16 rounded-[1.5rem] bg-white/5" />
-                      <div className="h-16 rounded-full bg-white/10" />
-                    </div>
-                    <div className="h-8 w-3/4 rounded-full bg-white/10" />
-                  </div>
-                  <div className="mt-4">
-                    <p className="text-xs uppercase tracking-[0.28em] text-slate-300">{item.title}</p>
-                    <p className="mt-3 text-sm leading-7 text-slate-200">{item.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
         <section id="why-dirt-trails" className="mt-16 rounded-[2rem] bg-white p-12 shadow-xl border border-slate-200">
           <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
             <div className="max-w-2xl">
