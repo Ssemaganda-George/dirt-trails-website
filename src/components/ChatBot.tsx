@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; // added useLocation
-import { Send, MessageCircle, X, Bot, User, Leaf, MapPin, Calendar, Star, DollarSign } from 'lucide-react';
+import { Send, MessageCircle, X, Bot, User, Leaf, MapPin, Calendar, Star, DollarSign, BarChart3 } from 'lucide-react';
 import { tours as siteTours } from '@/data/tours';
 import { destinations as siteDestinations } from '@/data/destinations';
 import { siteContent } from '@/data/siteContent';
@@ -14,7 +14,7 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
-      text: "Hey there, explorer! 🦁 I'm your Safari AI guide. I have information about our tours, destinations and services — ask me anything or try a quick question below.",
+      text: "Hey there! 🧭 I'm your Dirt Trails travel intelligence guide. I can help with partner programs, distribution, sustainability and travel tech — ask me anything below.",
       sender: 'bot',
       timestamp: new Date(),
     }
@@ -196,16 +196,50 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
     }
   }, [messages]);
 
-  // small helper to make bot responses feel a bit more human/hospitable
-  const friendlyWrap = (text: string) => {
-    // short friendly intro for clarity, keep it concise
-    const prefix = "Happy to help! ";
-    const suffix = " If you'd like, I can open any page for you.";
+  // small helper to format bot responses consistently
+  const friendlyWrap = (text: string, options: { prefix?: boolean; suffix?: boolean } = {}) => {
+    const prefix = options.prefix ? "Happy to help! " : "";
+    const suffix = options.suffix ? " If you'd like, I can open any page for you." : "";
     return `${prefix}${text}${suffix}`;
+  };
+
+  const searchApiUrl = import.meta.env.VITE_CHATBOT_SEARCH_API_URL;
+  const searchApiKey = import.meta.env.VITE_CHATBOT_SEARCH_API_KEY;
+
+  const performExternalLookup = async (query: string) => {
+    if (!searchApiUrl) return null;
+    try {
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (searchApiKey) headers.Authorization = `Bearer ${searchApiKey}`;
+      const response = await fetch(searchApiUrl, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ query })
+      });
+      if (!response.ok) return null;
+      const payload = await response.json();
+      if (!payload?.results || !Array.isArray(payload.results)) return null;
+      return payload.results.slice(0, 3).map((res: any) => ({
+        title: res.title || res.snippet?.slice(0, 60) || query,
+        url: res.url,
+        snippet: res.snippet || res.excerpt || ''
+      }));
+    } catch (err) {
+      console.error('ChatBot external lookup error:', err);
+      return null;
+    }
+  };
+
+  const openPath = (path: string) => {
+    if (path.startsWith('http')) {
+      window.open(path, '_blank', 'noopener');
+    } else {
+      navigate(path);
+    }
   };
   // --- end new region ---
 
-  const generateContextualResponse = (userMessage: string) => {
+  const generateContextualResponse = async (userMessage: string) => {
     // --- UPDATED: resolve follow-ups/pronouns using conversationContext ---
     let enrichedMessage = userMessage || '';
     const qraw = (userMessage || '').toLowerCase();
@@ -222,17 +256,17 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
     const relevantTours = selectedCountry ? allTours.filter(t => t.country === selectedCountry) : allTours;
 
     // Basic site metadata
-    const companyName = 'Dirt Trails Virtual guide';
-    const companyTagline = 'Professional, sustainable and unforgettable safari assistant';
+    const companyName = 'Dirt Trails';
+    const companyTagline = 'A travel intelligence platform for operators, partners and premium experiences';
 
     // NEW: handle comparative / "why choose us" questions with a specific, human reply
-    if (/\b(why (should )?i choose|why choose|why pick (us|dirt trails)|why us|what makes (you|dirt trails) different|what sets (you|dirt trails) apart|better than other|how are you different)\b/.test(q)) {
+    if (/\b(why (should )?i choose|why choose|why pick (us|dirt trails)|why dirt trails|why (us|dirt trails)|why us|what makes (you|dirt trails) different|what sets (you|dirt trails) apart|better than other|how are you different)\b/.test(q)) {
       const points = [
-        "Local expertise — our guides and partners are locally based with deep knowledge of wildlife, seasons and logistics.",
-        "Sustainability first — we direct funds to reforestation, geotagging and anti-poaching efforts; many bookings include tree-planting and carbon-offset options.",
-        "Personalised itineraries — small groups, custom trip planning and flexible departures so you get the experience you want.",
-        "Trusted partners & safety — we work with vetted camps, conservation organisations and local authorities to prioritise safety and impact.",
-        "Transparent pricing & value — clear cost breakdowns, recommendations for different budgets, and support through every step of booking."
+        "Travel technology expertise — we help operators, partners and suppliers coordinate bookings, distribution and partner workflows with clarity.",
+        "Partner-first delivery — our platform supports local operators, destination collaborators and supplier networks across East Africa.",
+        "Data-driven growth — we provide market insight, pricing guidance and research support to help you launch premium products.",
+        "Sustainability and impact — we support responsible travel, reporting and conservation-aligned partner programs.",
+        "Operational reliability — onboarding, integrations and ongoing support help keep your launch and operations running smoothly."
       ];
 
       const answer = `Great question — here's why travellers choose Dirt Trails Safaris:\n\n${points.map((p, i) => `${i+1}. ${p}`).join('\n\n')}\n\nIf you'd like, I can show our sustainability programs, top tours, or open the About page for more details.`;
@@ -250,10 +284,93 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
     }
     
     // Handle direct company identity / about questions first
-    if (/\b(what('?| i)s the name|what('?| i)s this company|company name|who are you|what('?| i)s your name)\b/.test(q)) {
+    if (/\b(what('?| i)s the name|what('?| i)s this company|company name|who are you|what('?| i)s your name|what('?| i)s dirt trails|what do you do|what's dirt trails|whats dirt trails)\b/.test(q)) {
       return {
-        text: friendlyWrap(`${companyName} — ${companyTagline}. You can read more about our story and mission on the About page.`),
+        text: friendlyWrap(`${companyName} — ${companyTagline}. We help operators, partners and suppliers with intelligent booking, distribution and sustainability tools.`),
         actions: [ { label: 'About Dirt Trails', path: '/about' }, { label: 'Contact Us', path: '/contact' } ]
+      };
+    }
+
+    // travel intelligence definition
+    if (/\b(travel intelligence|intelligent travel|travel intelligence platform|what is travel intelligence|whats travel intelligence|what's travel intelligence|define travel intelligence)\b/.test(q)) {
+      return {
+        text: friendlyWrap(`Travel intelligence at Dirt Trails is the blend of data, distribution automation and partner workflows that helps operators, agents and suppliers make smarter decisions. It combines booking insights, inventory control, route optimization, pricing guidance and sustainability tracking so teams can grow premium, reliable products with greater operational clarity.`),
+        actions: [
+          { label: 'About Us', path: '/about' },
+          { label: 'Partner Programs', path: '/partners' },
+          { label: 'Contact Us', path: '/contact' }
+        ]
+      };
+    }
+
+    // travel tech definition
+    if (/\b(travel tech|travel technology|what is travel tech|what's travel tech|whats travel tech|define travel tech)\b/.test(q)) {
+      return {
+        text: friendlyWrap(`Travel tech at Dirt Trails means the digital systems and intelligence that help operators, partners and destinations manage bookings, distribution, supplier workflows and sustainability reporting in one connected platform. It brings data, partner coordination and operational clarity together so travel teams can grow reliably.`),
+        actions: [
+          { label: 'Partner Programs', path: '/partners' },
+          { label: 'Contact Us', path: '/contact' },
+          { label: 'About Dirt Trails', path: '/about' }
+        ]
+      };
+    }
+
+    // business model / revenue
+    if (/\b(how do you make money|how do you earn|how do you generate revenue|business model|make money|revenue model|monetiz(e|ation))\b/.test(q)) {
+      return {
+        text: friendlyWrap(`Dirt Trails makes money by helping travel operators, partners and suppliers connect through our travel intelligence platform. We support revenue through partner enablement services, distribution and booking facilitation, premium technology integrations, and sustainability program partnerships that create value for operators and their guests.`),
+        actions: [
+          { label: 'Partner Programs', path: '/partners' },
+          { label: 'Contact Us', path: '/contact' }
+        ]
+      };
+    }
+
+    // target market / who do you serve
+    if (/\b(who do you serve|who do you work with|who is your target market|who is the target market|what is your target market|who are your customers|who are your clients|who is dir trails for|who is dirt trails for|who do you serve|who do you help)\b/.test(q)) {
+      return {
+        text: friendlyWrap(`Dirt Trails serves travel operators, distribution partners, suppliers and destination teams. Our travel intelligence platform is built for partners who want better booking coordination, smarter distribution and measurable sustainability across premium travel products.`),
+        actions: [
+          { label: 'Partner Programs', path: '/partners' },
+          { label: 'Become a Partner', path: '/become-partner' },
+          { label: 'About Dirt Trails', path: '/about' }
+        ]
+      };
+    }
+
+    // support for travel companies
+    if (/\b(support my travel company|support my company|help my travel company|support travel company|support operators|help operators|help travel companies|partner with (us|dirt trails)|support (a )?travel business)\b/.test(q)) {
+      return {
+        text: friendlyWrap(`Dirt Trails helps travel companies by providing travel intelligence for bookings, distribution, partner workflows, pricing and sustainability. We connect operators with distribution partners, centralize supplier coordination, and surface actionable insights so companies can scale premium travel products with more operational confidence.`),
+        actions: [
+          { label: 'Become a Partner', path: '/become-partner' },
+          { label: 'Partner Programs', path: '/partners' },
+          { label: 'Contact Us', path: '/contact' }
+        ]
+      };
+    }
+
+    // travel business owner guidance
+    if (/\b(succeed|success|succed|grow|growth|scale|scaling|guide me|how do i|how can i|how to|tips|advice)\b/.test(q) && /\b(travel business owner|travel business|travel company owner|tour operator|tour operators|operator|operators|travel operator|travel operators|tour company|tour companies)\b/.test(q)) {
+      return {
+        text: friendlyWrap(`To succeed as a travel business owner, focus on building reliable partnerships, delivering premium experiences, and using travel intelligence to improve operations. Dirt Trails supports this with partner programs, distribution automation, price optimization, and sustainability tools so you can grow your business with more confidence and clarity.`),
+        actions: [
+          { label: 'Partner Programs', path: '/partners' },
+          { label: 'Become a Partner', path: '/become-partner' },
+          { label: 'Contact Us', path: '/contact' }
+        ]
+      };
+    }
+
+    // key offerings
+    if (/\b(key offerings|what do you offer|what are your offerings|what are your key offerings|services do you offer|services|offerings)\b/.test(q)) {
+      return {
+        text: friendlyWrap(`Dirt Trails offers a travel intelligence platform for partner programs, distribution, supplier coordination and sustainability. We help operators and partners improve booking performance, automate workflows, optimize pricing, and track impact across premium travel experiences.`),
+        actions: [
+          { label: 'Partner Programs', path: '/partners' },
+          { label: 'Sustainability', path: '/sustainability' },
+          { label: 'Contact Us', path: '/contact' }
+        ]
       };
     }
 
@@ -346,31 +463,33 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
 
         if (results.length || destResults.length) {
           const actions: any[] = [];
-          const snippets = results.slice(0, 4).map(r => {
+          const summaries: string[] = [];
+
+          results.slice(0, 2).forEach(r => {
             const item = (r as any).item;
             actions.push({ label: item.title, path: item.path });
 
-            // extract snippet via matches when available
-            let excerpt = (item.content || '').slice(0, 200) + ((item.content || '').length > 200 ? '...' : '');
+            let excerpt = (item.content || '').slice(0, 180) + ((item.content || '').length > 180 ? '...' : '');
             const matches = (r as any).matches;
             if (matches && matches.length) {
               const match = matches[0];
               if (match.indices && match.indices.length) {
                 const idx = match.indices[0][0];
                 const start = Math.max(0, idx - 60);
-                excerpt = (start > 0 ? '...' : '') + (item.content || '').slice(start, Math.min(start + 200, (item.content || '').length)) + ((item.content || '').length > start + 200 ? '...' : '');
+                excerpt = (start > 0 ? '...' : '') + (item.content || '').slice(start, Math.min(start + 180, (item.content || '').length)) + ((item.content || '').length > start + 180 ? '...' : '');
               }
             }
+            summaries.push(`${item.title}: ${excerpt}`);
+          });
 
-            return `— ${item.title}: ${excerpt}`;
-          }).join('\n\n');
+          destResults.slice(0, 2).forEach(d => {
+            const item = (d as any).item;
+            actions.push({ label: item.name, path: `/destinations/${item.slug}` });
+            summaries.push(`${item.name}: ${item.shortDescription || item.description || ''}`);
+          });
 
-          destResults.forEach(d => actions.push({ label: (d as any).item.name, path: `/destinations/${(d as any).item.slug}` }));
-
-          const header = results.length ? `I found these pages and content that match "${userMessage}":` : `I found these destinations related to "${userMessage}":`;
-          const body = snippets + (destResults.length ? '\n\n' + destResults.map(d => `• ${(d as any).item.name} — ${(d as any).item.shortDescription || ''}`).join('\n') : '');
-
-          return { text: friendlyWrap(`${header}\n\n${body}`), actions };
+          const body = summaries.join('\n\n');
+          return { text: friendlyWrap(`I found some relevant information for "${userMessage}":\n\n${body}`), actions };
         }
       } catch (err) {
         // fallback to previous behavior if Fuse throws for any reason
@@ -378,15 +497,32 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
       }
     }
 
+    // try external lookup when local content doesn't match
+    if (searchApiUrl) {
+      const externalResults = await performExternalLookup(userMessage);
+      if (externalResults && externalResults.length) {
+        const primary = externalResults[0];
+        const others = externalResults.slice(1).map(res => res.title).filter(Boolean);
+        const actions = externalResults.map(res => ({ label: res.title, path: res.url }));
+        const summary = `${primary.title}: ${primary.snippet || ''}`.trim();
+        const additional = others.length ? ` I also found related articles on ${others.join(', ')}.` : '';
+        const citationList = externalResults.map((res, index) => `${index + 1}. ${res.url}`).join('\n');
+        return {
+          text: friendlyWrap(`${summary}${additional} Sources:\n${citationList}`),
+          actions
+        };
+      }
+    }
+
     // default
-    const defaultText = friendlyWrap(`I'd love to help you plan your safari adventure! 🌿 We currently have ${allTours.length} tours. What would you like to know?`);
-    return { text: defaultText, actions: [ { label: 'Browse Tours', path: '/tours' }, { label: 'Contact Us', path: '/contact' } ] };
+    const defaultText = friendlyWrap(`I can search the website for answers about partner programs, distribution, sustainability and travel intelligence. Ask me a question and I will use the site content to answer.`);
+    return { text: defaultText, actions: [ { label: 'Partner Programs', path: '/partners' }, { label: 'Contact Us', path: '/contact' } ] };
   };
 
   const simulateBotResponse = (userMessage: string) => {
     setIsTyping(true);
-    setTimeout(() => {
-      const raw = generateContextualResponse(userMessage);
+    setTimeout(async () => {
+      const raw = await generateContextualResponse(userMessage);
       const responseObj = (typeof raw === 'string') ? { text: raw } : raw;
       setMessages(prev => [...prev, { 
         text: responseObj.text, 
@@ -402,8 +538,7 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
     if (label) {
       setMessages(prev => [...prev, { text: `Opening ${label}...`, sender: 'bot', timestamp: new Date() }]);
     }
-    // navigate to path
-    navigate(path);
+    openPath(path);
     // close chat if desired or keep open
     // setOpen(false);
   };
@@ -423,10 +558,10 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
 
   // Quick action buttons
   const quickActions = [
-    { text: "Show me budget tours", icon: DollarSign },
-    { text: "Best rated tours", icon: Star },
-    { text: "Kenya safaris", icon: MapPin },
-    { text: "Short trips (≤5 days)", icon: Calendar }
+    { text: "Partner programs", icon: DollarSign },
+    { text: "Sustainability support", icon: Leaf },
+    { text: "Travel tech", icon: BarChart3 },
+    { text: "Explore solutions", icon: MapPin }
   ];
 
   const handleQuickAction = (actionText) => {
@@ -437,55 +572,47 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
   return (
     <div className="fixed bottom-6 right-6 z-50">
       {open ? (
-        <div className="bg-white shadow-2xl rounded-2xl w-96 h-[600px] flex flex-col overflow-hidden border-2 border-green-200 transform transition-all duration-300 ease-out scale-100">
+        <div className="bg-white shadow-2xl rounded-2xl w-96 h-[600px] flex flex-col overflow-hidden border-2 border-slate-200 transform transition-all duration-300 ease-out scale-100">
           {/* Header */}
-          <div className="bg-gradient-to-r from-green-500 via-green-600 to-emerald-600 text-white p-4 flex justify-between items-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-400/20 via-green-500/20 to-emerald-500/20"></div>
-            <div className="flex items-center space-x-3 relative z-10">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/30">
-                <Leaf className="w-5 h-5 text-white" />
+          <div className="bg-slate-950 text-white p-4 flex justify-between items-center border-b border-slate-800">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center border border-slate-700">
+                <Leaf className="w-5 h-5 text-slate-300" />
               </div>
               <div>
-                <h3 className="font-bold text-lg">Safari AI Guide</h3>
-                <p className="text-sm text-green-100">
-+                  {tourCount} tours • {selectedCountry || 'All countries'} 🌍
-                </p>
+                <h3 className="font-semibold text-lg">Dirt Trails Assistant</h3>
+                <p className="text-sm text-slate-300">Travel intelligence • {selectedCountry || 'All countries'}</p>
               </div>
             </div>
             <button 
               onClick={() => setOpen(false)}
-              className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors duration-200 relative z-10 border border-white/30"
+              className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-slate-700 transition-colors duration-200 border border-slate-700"
             >
               <X className="w-4 h-4" />
             </button>
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400"></div>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 p-4 overflow-y-auto bg-white space-y-4 relative">
-            <div className="absolute inset-0 opacity-5">
-              <div className="w-full h-full bg-gradient-to-br from-green-500 to-emerald-500"></div>
-            </div>
-            
+          <div className="flex-1 p-4 overflow-y-auto bg-slate-50 space-y-4 relative">
             {messages.map((msg, idx) => (
               <div key={idx} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} relative z-10`}>
                 <div className={`flex items-start space-x-2 max-w-[85%] ${msg.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border-2 ${
                     msg.sender === 'user' 
-                      ? 'bg-white text-green-600 border-green-300' 
-                      : 'bg-gradient-to-r from-green-500 to-emerald-500 text-white border-green-300'
+                      ? 'bg-slate-900 text-slate-100 border-slate-700' 
+                      : 'bg-slate-200 text-slate-700 border-slate-300'
                   }`}>
                     {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Leaf className="w-4 h-4" />}
                   </div>
                   <div className="flex flex-col">
                     <div className={`px-4 py-3 rounded-2xl border ${
                       msg.sender === 'user' 
-                        ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-br-sm border-green-400 shadow-lg' 
-                        : 'bg-white text-green-800 rounded-bl-sm shadow-lg border-green-200 bg-gradient-to-r from-white to-green-50'
+                        ? 'bg-slate-900 text-slate-100 rounded-br-sm border-slate-700 shadow-lg shadow-slate-900/10' 
+                        : 'bg-white text-slate-900 rounded-bl-sm border-slate-200 shadow-sm'
                     }`}>
                       <p className="text-sm leading-relaxed font-medium whitespace-pre-line">{msg.text}</p>
                     </div>
-                    <span className={`text-xs text-green-600 mt-1 font-medium ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
+                    <span className={`text-xs ${msg.sender === 'user' ? 'text-slate-500 text-right' : 'text-slate-400 text-left'} mt-1 font-medium`}>
                       {formatTime(msg.timestamp)}
                     </span>
                     { (msg as any).actions && (msg as any).actions.length > 0 && (
@@ -494,7 +621,7 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
                           <button
                             key={i}
                             onClick={() => handleActionClick(a.path, a.label)}
-                            className="text-xs px-3 py-1 rounded-md bg-green-50 border border-green-200 text-green-700 hover:bg-green-100 transition-colors"
+                            className="text-xs px-3 py-1 rounded-md bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 transition-colors"
                           >
                             {a.label}
                           </button>
@@ -509,13 +636,13 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
             {/* Quick Actions - Show after welcome message */}
             {messages.length === 1 && !isTyping && (
               <div className="relative z-10">
-                <p className="text-xs text-green-600 font-semibold mb-2 text-center">Quick questions:</p>
+                <p className="text-xs text-slate-500 font-semibold mb-2 text-center">Quick questions:</p>
                 <div className="grid grid-cols-2 gap-2">
                   {quickActions.map((action, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleQuickAction(action.text)}
-                      className="flex items-center space-x-2 p-2 bg-green-50 hover:bg-green-100 rounded-lg border border-green-200 text-green-700 text-xs font-medium transition-colors duration-200"
+                      className="flex items-center space-x-2 p-2 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-200 text-slate-700 text-xs font-medium transition-colors duration-200"
                     >
                       <action.icon className="w-3 h-3" />
                       <span className="truncate">{action.text}</span>
@@ -529,14 +656,14 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
             {isTyping && (
               <div className="flex justify-start relative z-10">
                 <div className="flex items-start space-x-2 max-w-[80%]">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white flex items-center justify-center flex-shrink-0 border-2 border-green-300">
+                  <div className="w-8 h-8 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center flex-shrink-0 border-2 border-slate-300">
                     <Leaf className="w-4 h-4" />
                   </div>
-                  <div className="bg-white px-4 py-3 rounded-2xl rounded-bl-sm shadow-lg border border-green-200 bg-gradient-to-r from-white to-green-50">
+                  <div className="bg-white px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm border border-slate-200">
                     <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-2 h-2 bg-teal-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-2 h-2 bg-slate-500 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
                 </div>
@@ -546,18 +673,18 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
           </div>
 
           {/* Input */}
-          <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 border-t-2 border-green-200">
+          <div className="p-4 bg-slate-100 border-t border-slate-200">
             <div className="flex items-center space-x-2">
               <input
-                className="flex-1 border-2 border-green-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-white placeholder-green-500 text-green-800 font-medium"
+                className="flex-1 border border-slate-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:border-slate-400 transition-all duration-200 bg-white placeholder-slate-400 text-slate-900 font-medium"
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleSend()}
-                placeholder="Ask about tours, prices, countries..."
+                placeholder="Ask about tours, partner programs, or sustainability support..."
                 disabled={isTyping}
               />
               <button 
-                className="w-10 h-10 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-600 text-white rounded-full flex items-center justify-center hover:from-green-600 hover:via-emerald-600 hover:to-teal-700 transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 border-2 border-green-400 shadow-lg"
+                className="w-10 h-10 bg-slate-900 text-white rounded-full flex items-center justify-center hover:bg-slate-800 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed border border-slate-700 shadow-sm"
                 onClick={handleSend}
                 disabled={isTyping || !input.trim()}
               >
@@ -568,12 +695,10 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
         </div>
       ) : (
         <button
-          className="bg-gradient-to-r from-green-500 via-emerald-600 to-teal-600 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-110 hover:rotate-3 border-2 border-green-400 relative overflow-hidden"
+          className="bg-slate-900 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-slate-700"
           onClick={() => setOpen(true)}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20"></div>
-          <MessageCircle className="w-6 h-6 relative z-10" />
-          <div className="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full border-2 border-green-500 animate-pulse shadow-lg"></div>
+          <MessageCircle className="w-6 h-6" />
         </button>
       )}
     </div>

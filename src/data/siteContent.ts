@@ -72,6 +72,71 @@ to plant native species and support community nurseries.`
     title: 'Geotagging',
     content: `How we use geotagged data to support conservation monitoring,
 wildlife tracking and community stewardship projects.`
+  },
+  {
+    path: '/partners',
+    title: 'Partners',
+    content: `Learn about partnership opportunities with Dirt Trails, including collaboration with operators, suppliers and destination teams to build premium travel experiences.`
+  },
+  {
+    path: '/partners/become',
+    title: 'Become a Partner',
+    content: `Information for new partners who want to join the Dirt Trails network, including benefits, requirements and onboarding support.`
+  },
+  {
+    path: '/partners/technology',
+    title: 'Technology Partners',
+    content: `Details for technology partners and integrations that help operators connect booking systems, distribution channels and partner workflows.`
+  },
+  {
+    path: '/resources',
+    title: 'Resources',
+    content: `Browse resources including blog posts, case studies, FAQs, webinars and events to learn more about our travel technology platform and partner services.`
+  },
+  {
+    path: '/resources/blog',
+    title: 'Blog',
+    content: `Insights and stories about travel technology, sustainable tourism, partner success and market intelligence for travel operators.`
+  },
+  {
+    path: '/resources/faqs',
+    title: 'FAQs',
+    content: `Frequently asked questions about the platform, how it supports operators, partner programs, sustainability and distribution.`
+  },
+  {
+    path: '/resources/events',
+    title: 'Webinars & Events',
+    content: `Information about upcoming events, webinars and training opportunities for operators and partners.`
+  },
+  {
+    path: '/resources/case-studies',
+    title: 'Case Studies',
+    content: `Examples of how travel operators and partners have used Dirt Trails to improve bookings, partner coordination and sustainability outcomes.`
+  },
+  {
+    path: '/resources/data-metrics',
+    title: 'Data & Metrics',
+    content: `Overview of the platform's analytics and reporting tools, including performance metrics, demand signals and impact measurement.`
+  },
+  {
+    path: '/solutions',
+    title: 'Solutions',
+    content: `Explore the platform solutions that help operators manage sales, suppliers, operations and partner networks in one connected system.`
+  },
+  {
+    path: '/sustainability',
+    title: 'Sustainability',
+    content: `Learn about Dirt Trails' sustainability approach, including responsible tourism, impact reporting and conservation partnerships.`
+  },
+  {
+    path: '/about/team',
+    title: 'Our Team',
+    content: `Meet the Dirt Trails team, including travel technology experts, partner managers and operations specialists.`
+  },
+  {
+    path: '/about/careers',
+    title: 'Careers',
+    content: `Career opportunities at Dirt Trails for people who want to build travel intelligence products, support partners, and advance sustainable travel.`
   }
 ];
 
