@@ -54,34 +54,29 @@ const ContactPage = () => {
     <div className="bg-slate-50 text-slate-900">
       <section className="container mx-auto max-w-6xl px-4 py-20">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <div className="rounded-[2rem] bg-slate-950 p-12 text-white shadow-xl border border-white/10">
-            <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.35em] text-slate-300">
+          <div className="rounded-[1.5rem] border border-slate-200 bg-white p-10">
+            <span className="inline-flex rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-xs uppercase tracking-[0.35em] text-slate-600">
               Contact our travel intelligence team
             </span>
-            <h1 className="mt-8 text-4xl font-serif tracking-tight sm:text-5xl">
+            <h1 className="mt-8 text-4xl font-semibold tracking-tight text-slate-950">
               Talk to Dirt Trails about your next launch.
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-8 text-slate-300">
-              We help operators, partners and destination teams connect bookings, distribution, sustainability and market intelligence through a premium travel technology experience.
+            <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">
+              Share the key details and we’ll respond with a clear next step within one business day.
             </p>
-
-            <div className="mt-10 grid gap-4">
-              <div className="rounded-3xl bg-white/5 p-6">
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Fast response</p>
-                <p className="mt-3 text-2xl font-semibold">Within 1 business day</p>
+            <div className="mt-8 space-y-4 text-slate-700">
+              <div>
+                <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Fast response</p>
+                <p className="mt-2 text-lg font-semibold text-slate-950">Within 1 business day</p>
               </div>
-              <div className="rounded-3xl bg-white/5 p-6">
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Expert support</p>
-                <p className="mt-3 text-2xl font-semibold">Travel tech guidance</p>
-              </div>
-              <div className="rounded-3xl bg-white/5 p-6">
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Partner enablement</p>
-                <p className="mt-3 text-2xl font-semibold">Operator & supplier support</p>
+              <div>
+                <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Expert support</p>
+                <p className="mt-2 text-lg font-semibold text-slate-950">Professional travel technology guidance</p>
               </div>
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-10 shadow-[0_40px_120px_rgba(15,23,42,0.08)]">
+          <div className="rounded-[1.5rem] border border-slate-200 bg-white p-10 shadow-sm">
             {formSubmitted ? (
               <div className="space-y-6">
                 <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8">
