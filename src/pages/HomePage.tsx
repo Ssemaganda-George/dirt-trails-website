@@ -1,4 +1,4 @@
-import { Globe, ShieldCheck, ServerCog, Leaf, CheckCircle, MessageSquare, BarChart3, TrendingUp, LifeBuoy, Cpu, PlayCircle, Phone, Sparkles } from 'lucide-react';
+import { Globe, ShieldCheck, ServerCog, Leaf, CheckCircle, MessageSquare, BarChart3, TrendingUp, LifeBuoy, Cpu, PlayCircle, Phone, Sparkles, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Hero from '@/components/home/Hero';
 
@@ -167,39 +167,42 @@ const HomePage = () => {
             <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Implementation flow</p>
             <h2 className="mt-4 text-3xl font-semibold text-slate-950">Learn about the steps of our implementation flow</h2>
             <p className="mt-5 text-base leading-8 text-slate-600">
-              From demo request to commissioning, our team supports you with clear steps, expert handoffs, and a tailored launch plan.
+              From demo request to commissioning, our team guides you through a connected launch journey with clear handoffs, fast feedback loops, and a launch plan built around your business.
             </p>
           </div>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-6 lg:grid-cols-4">
             {[
               {
                 title: 'Request a demo',
-                description: 'Complete the form with information about your company.',
+                description: 'Share your company profile quickly so we can design the right launch path.',
                 icon: PlayCircle,
               },
               {
                 title: 'Our experts will contact you',
-                description: 'Once we receive the request, our travel distribution experts will reach out.',
+                description: 'A travel distribution specialist reviews your brief and aligns next steps to your team.',
                 icon: Phone,
               },
               {
                 title: 'We will offer the best solution',
-                description: 'We analyze your business and recommend the modules you need to grow.',
+                description: 'We map a tailored blend of modules, partners and rollout phases for measurable growth.',
                 icon: Sparkles,
               },
               {
                 title: 'Commissioning',
-                description: "You're all set to get your project up and running with Dirt Trails.",
+                description: 'Your platform goes live with hands-on setup, training, and a confident handover.',
                 icon: CheckCircle,
               },
-            ].map((item) => (
-              <div key={item.title} className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-emerald-400">
-                  <item.icon size={22} />
+            ].map((item, index) => (
+              <div key={item.title} className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-slate-950 text-white shadow-sm">
+                  <item.icon size={24} />
                 </div>
+                <span className="mt-5 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-slate-700">
+                  Step {index + 1}
+                </span>
                 <h3 className="mt-5 text-xl font-semibold text-slate-950">{item.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-600">{item.description}</p>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
               </div>
             ))}
           </div>
