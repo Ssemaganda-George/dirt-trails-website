@@ -695,7 +695,7 @@ const ChatBot = ({ tours = [], selectedCountry = null, currentFilters = {} }) =>
         </div>
       ) : (
         <button
-          className="bg-slate-900 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-slate-700"
+          className="bg-emerald-500 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-xl shadow-emerald-300/30 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-300"
           onClick={() => setOpen(true)}
         >
           <MessageCircle className="w-6 h-6" />

@@ -8,7 +8,39 @@ const HomePage = () => {
       <Hero />
 
       <main className="container mx-auto px-4 pb-32 lg:px-8">
-        <section className="mt-16 rounded-[2rem] bg-white p-12 shadow-xl border border-slate-200">
+        <section className="mt-10 rounded-[2rem] border border-slate-200 bg-slate-50 px-6 py-10 shadow-sm">
+          <div className="mx-auto max-w-5xl">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Home index</p>
+                <h2 className="mt-3 text-3xl font-semibold text-slate-950">Quick links to the key sections of the homepage.</h2>
+              </div>
+              <p className="max-w-xl text-sm leading-6 text-slate-600">
+                Jump directly to the product story, research and support, proof points or business outcomes for a faster overview.
+              </p>
+            </div>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { title: 'Why Dirt Trails', description: 'Discover our premium travel platform for operators and partners.', href: '#why-dirt-trails' },
+                { title: 'Product', description: 'See the platform capabilities for bookings, distribution and operations.', href: '#product' },
+                { title: 'How it works', description: 'Learn how our modular platform connects partners and systems.', href: '#how-it-works' },
+                { title: 'Proof points', description: 'Understand the business value for operators and global workflows.', href: '#proof-points' },
+              ].map((item) => (
+                <a
+                  key={item.title}
+                  href={item.href}
+                  className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50"
+                >
+                  <p className="text-sm uppercase tracking-[0.24em] text-slate-500 group-hover:text-slate-900">{item.title}</p>
+                  <p className="mt-3 text-sm leading-6 text-slate-700">{item.description}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="why-dirt-trails" className="mt-16 rounded-[2rem] bg-white p-12 shadow-xl border border-slate-200">
           <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Why Dirt Trails</p>
             <h2 className="mt-4 text-4xl font-semibold text-slate-950">A premium travel platform built for operators that want more than booking software.</h2>
@@ -57,7 +89,7 @@ const HomePage = () => {
           </div>
         </section>
 
-        <section className="mt-16 grid gap-8 lg:grid-cols-2">
+        <section id="product" className="mt-16 grid gap-8 lg:grid-cols-2">
           <div className="rounded-[2rem] bg-slate-950 p-10 text-white shadow-2xl border border-slate-900">
             <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Product</p>
             <h2 className="mt-4 text-3xl font-semibold">A refined commercial engine for bookings, distribution and operations.</h2>
@@ -101,7 +133,7 @@ const HomePage = () => {
           </div>
         </section>
 
-        <section className="mt-16 rounded-[2rem] bg-slate-50 p-10 shadow-sm border border-slate-200">
+        <section id="how-it-works" className="mt-16 rounded-[2rem] bg-slate-50 p-10 shadow-sm border border-slate-200">
           <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.24em] text-slate-500">How it works</p>
             <h2 className="mt-4 text-3xl font-semibold text-slate-950">A modular platform with secure integrations and clear commercial impact.</h2>
@@ -138,7 +170,7 @@ const HomePage = () => {
           </div>
         </section>
 
-        <section className="mt-16 rounded-[2rem] bg-white p-10 shadow-xl border border-slate-200">
+        <section id="proof-points" className="mt-16 rounded-[2rem] bg-white p-10 shadow-xl border border-slate-200">
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
               <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Proof points</p>
@@ -197,17 +229,17 @@ const HomePage = () => {
           </div>
         </section>
 
-        <section id="business-cta" className="mt-16 rounded-[2rem] bg-[#1F2937] p-12 text-white shadow-xl border border-slate-900 scroll-mt-28">
+        <section id="business-cta" className="mt-16 rounded-[2rem] bg-[#111827] p-12 text-white shadow-xl border border-slate-900 scroll-mt-28">
           <div className="max-w-3xl text-center mx-auto">
-            <p className="text-sm uppercase tracking-[0.24em] text-[#93C5FD]">Start your next partnership</p>
-            <h2 className="mt-4 text-4xl font-semibold">Work with a travel technology partner for local and global growth.</h2>
-            <p className="mt-4 text-base leading-8 text-slate-300">Request a demo, get research support or speak to our partner desk about your next launch.</p>
+            <p className="text-sm uppercase tracking-[0.24em] text-[#93C5FD]">Partner with Dirt Trails</p>
+            <h2 className="mt-4 text-4xl font-semibold">Build your next launch with travel intelligence and trusted partner support.</h2>
+            <p className="mt-4 text-base leading-8 text-slate-300">Talk to our team about platform demos, market research or partner onboarding for your next product.</p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <Link to="/contact" className="inline-flex items-center justify-center rounded-full bg-[#FF6A3D] px-8 py-3 text-sm font-semibold text-white transition hover:bg-[#e85a2f]">
+              <Link to="/contact" className="inline-flex items-center justify-center rounded-full bg-[#2ECC71] px-8 py-3 text-sm font-semibold text-slate-950 transition hover:bg-[#28b765]">
                 Request a demo
               </Link>
-              <Link to="/contact" className="inline-flex items-center justify-center rounded-full border border-slate-500 bg-transparent px-8 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">
-                Research inquiry
+              <Link to="/contact" className="inline-flex items-center justify-center rounded-full border border-slate-600 bg-slate-900 px-8 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">
+                Partner desk inquiry
               </Link>
             </div>
           </div>
