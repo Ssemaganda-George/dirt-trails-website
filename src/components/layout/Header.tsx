@@ -40,39 +40,38 @@ const Header = () => {
   const isResourcesActive = () => location.pathname === '/contact' || location.pathname.startsWith('/resources');
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
-      <div className="container mx-auto px-2 sm:px-4 flex justify-between items-center h-20 relative z-10 max-w-7xl">
-        <Link to="/" className="inline-flex flex-col items-center justify-center gap-0.5" onClick={closeMenu}>
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-xl shadow-sm">
+      <div className="container mx-auto px-4 flex items-center justify-between gap-4 h-20 max-w-7xl">
+        <Link to="/" className="inline-flex items-center gap-3" onClick={closeMenu}>
           <img 
             src="/images/logo.png" 
             alt="Dirt Trails logo" 
-            className="h-7 sm:h-8 w-auto" 
+            className="h-8 w-auto" 
           />
-          <span className="block text-[0.55rem] uppercase tracking-[0.32em] text-slate-500 font-semibold leading-none text-center max-w-[6.5rem]">
+          <span className="text-[0.6rem] uppercase tracking-[0.28em] text-slate-500 font-semibold">
             Safari Intelligence
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center space-x-1">
+        <nav className="hidden md:flex items-center gap-1">
           <Link
             to="/"
             onClick={closeMenu}
-            className={`px-4 py-2 text-slate-900 font-medium transition-all relative group ${
-              isActive('/') ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'
+            className={`px-2 py-2 text-sm font-normal transition ${
+              isActive('/') ? 'text-slate-900' : 'text-slate-700 hover:text-slate-900'
             }`}
           >
             Home
-            <span 
-              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-[#2ECC71] transition-all ${
-                isActive('/') ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
-              }`}
-            />
           </Link>
 
-          <div className="relative group">
+          <div
+            className="relative group"
+            onMouseEnter={() => setIsSolutionsOpen(true)}
+            onMouseLeave={() => setIsSolutionsOpen(false)}
+          >
             <button
-              className={`px-4 py-2 text-slate-900 font-medium flex items-center transition-all relative ${
-                isSolutionsActive() ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'
+              className={`px-3 py-2 text-sm font-normal flex items-center transition ${
+                isSolutionsActive() ? 'text-slate-900' : 'text-slate-700 hover:text-slate-900'
               }`}
               onClick={() => setIsSolutionsOpen((v) => !v)}
               onFocus={() => setIsSolutionsOpen(true)}
@@ -90,7 +89,7 @@ const Header = () => {
             </button>
             {isSolutionsOpen && (
               <div
-                className="absolute top-full left-0 bg-white shadow-xl rounded-xl mt-2 w-80 z-50 border border-slate-200"
+                className="absolute top-full left-0 z-50 mt-3 w-80 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg"
                 onMouseEnter={() => setIsSolutionsOpen(true)}
                 onMouseLeave={() => setIsSolutionsOpen(false)}
               >
@@ -121,10 +120,14 @@ const Header = () => {
             )}
           </div>
 
-          <div className="relative group">
+          <div
+            className="relative group"
+            onMouseEnter={() => setIsSustainabilityOpen(true)}
+            onMouseLeave={() => setIsSustainabilityOpen(false)}
+          >
             <button
-              className={`px-4 py-2 text-slate-900 font-medium flex items-center transition-all relative ${
-                isSustainabilityActive() ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'
+              className={`px-3 py-2 text-sm font-normal flex items-center transition relative ${
+                isSustainabilityActive() ? 'text-slate-900' : 'text-slate-700 hover:text-slate-900'
               }`}
               onClick={() => setIsSustainabilityOpen((v) => !v)}
               onFocus={() => setIsSustainabilityOpen(true)}
@@ -169,10 +172,14 @@ const Header = () => {
             )}
           </div>
 
-          <div className="relative group">
+          <div
+            className="relative group"
+            onMouseEnter={() => setIsPartnersOpen(true)}
+            onMouseLeave={() => setIsPartnersOpen(false)}
+          >
             <button
-              className={`px-4 py-2 text-slate-900 font-medium flex items-center transition-all relative ${
-                isPartnersActive() ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'
+              className={`px-3 py-2 text-sm font-normal flex items-center transition relative ${
+                isPartnersActive() ? 'text-slate-900' : 'text-slate-700 hover:text-slate-900'
               }`}
               onClick={() => setIsPartnersOpen((v) => !v)}
               onFocus={() => setIsPartnersOpen(true)}
@@ -202,10 +209,14 @@ const Header = () => {
             )}
           </div>
 
-          <div className="relative group">
+          <div
+            className="relative group"
+            onMouseEnter={() => setIsAboutOpen(true)}
+            onMouseLeave={() => setIsAboutOpen(false)}
+          >
             <button
-              className={`px-4 py-2 text-slate-900 font-medium flex items-center transition-all relative ${
-                isAboutActive() ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'
+              className={`px-3 py-2 text-sm font-normal flex items-center transition relative ${
+                isAboutActive() ? 'text-slate-900' : 'text-slate-700 hover:text-slate-900'
               }`}
               onClick={() => setIsAboutOpen((v) => !v)}
               onFocus={() => setIsAboutOpen(true)}
@@ -234,10 +245,14 @@ const Header = () => {
             )}
           </div>
 
-          <div className="relative group">
+          <div
+            className="relative group"
+            onMouseEnter={() => setIsResourcesOpen(true)}
+            onMouseLeave={() => setIsResourcesOpen(false)}
+          >
             <button
-              className={`px-4 py-2 text-slate-900 font-medium flex items-center transition-all relative ${
-                isResourcesActive() ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'
+              className={`px-3 py-2 text-sm font-normal flex items-center transition relative ${
+                isResourcesActive() ? 'text-slate-900' : 'text-slate-700 hover:text-slate-900'
               }`}
               onClick={() => setIsResourcesOpen((v) => !v)}
               onFocus={() => setIsResourcesOpen(true)}
@@ -267,13 +282,13 @@ const Header = () => {
             )}
           </div>
 
-          <Link to="/contact" className="ml-4 px-6 py-2.5 bg-[#2ECC71] hover:bg-[#2ECC71]/90 text-white font-medium rounded-md transition-colors shadow-lg shadow-accent/20">
+          <Link to="/contact" className="ml-4 inline-flex items-center rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-900 shadow-sm shadow-slate-950/15">
             Contact Us
           </Link>
         </nav>
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-slate-900 p-2"
+          className="md:hidden rounded-full border border-slate-200 bg-white p-2 text-slate-900 shadow-sm hover:bg-slate-50"
           onClick={toggleMenu}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
