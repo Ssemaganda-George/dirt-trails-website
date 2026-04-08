@@ -63,26 +63,26 @@ const ContactPage = () => {
         <div className="relative container mx-auto max-w-7xl px-4 py-24 sm:py-28">
           <div className="max-w-3xl space-y-8">
             <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.35em] text-slate-300">
-              Vision Map inquiry
+              Contact our travel intelligence team
             </span>
             <div className="space-y-6">
-              <h1 className="text-5xl font-serif tracking-tight sm:text-6xl">Plan your next chapter with the Dirt Trails Vision Map.</h1>
+              <h1 className="text-5xl font-serif tracking-tight sm:text-6xl">Talk to Dirt Trails about your next launch.</h1>
               <p className="max-w-2xl text-lg leading-8 text-slate-300">
-                Our Vision Map connects market intelligence, partner operations and sustainable product design so travel teams can grow with clarity and confidence.
+                We help operators, partners and destination teams connect bookings, distribution, sustainability and market intelligence through a premium travel technology experience.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-3">
               <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 shadow-[0_30px_90px_rgba(15,23,42,0.14)] backdrop-blur-xl">
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Roadmap speed</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Fast response</p>
                 <p className="mt-4 text-2xl font-semibold">Within 1 business day</p>
               </div>
               <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 shadow-[0_30px_90px_rgba(15,23,42,0.14)] backdrop-blur-xl">
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Strategic support</p>
-                <p className="mt-4 text-2xl font-semibold">Market-informed guidance</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Expert support</p>
+                <p className="mt-4 text-2xl font-semibold">Travel tech guidance</p>
               </div>
               <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 shadow-[0_30px_90px_rgba(15,23,42,0.14)] backdrop-blur-xl">
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Partner alignment</p>
-                <p className="mt-4 text-2xl font-semibold">Operator & destination strategy</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Partner enablement</p>
+                <p className="mt-4 text-2xl font-semibold">Operator & supplier support</p>
               </div>
             </div>
           </div>
@@ -94,10 +94,10 @@ const ContactPage = () => {
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
             <div className="animate-fade-in-up rounded-[2rem] border border-slate-200 bg-white p-10 shadow-[0_40px_120px_rgba(15,23,42,0.08)]">
               <div className="mb-10 max-w-2xl">
-                <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Vision Map inquiry</p>
-                <h2 className="mt-4 text-4xl font-serif text-slate-950">Tell us about your Vision Map.</h2>
+                <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Send us a message</p>
+                <h2 className="mt-4 text-4xl font-serif text-slate-950">Start your inquiry.</h2>
                 <p className="mt-4 text-base leading-8 text-slate-600">
-                  Share your current plans, market goals and partner ambitions so we can tailor a Vision Map that strengthens your operation and supports sustainable growth.
+                  Share your business goals, partner needs or operations challenges. Our team will respond with clear next steps for bookings, distribution, sustainability and partner collaboration.
                 </p>
               </div>
 
@@ -173,7 +173,7 @@ const ContactPage = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="interest" className="mb-3 block text-sm font-semibold text-slate-700">Vision Map focus</label>
+                    <label htmlFor="interest" className="mb-3 block text-sm font-semibold text-slate-700">I'm interested in</label>
                     <select
                       id="interest"
                       name="interest"
@@ -181,28 +181,29 @@ const ContactPage = () => {
                       className="h-14 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       <option value="">Select an option</option>
-                      <option value="platform">Platform clarity</option>
-                      <option value="partnership">Partnership strategy</option>
-                      <option value="research">Market intelligence</option>
-                      <option value="sustainability">Sustainability positioning</option>
-                      <option value="operations">Operations & distribution</option>
+                      <option value="platform">Platform implementation</option>
+                      <option value="partnership">Partnership collaboration</option>
+                      <option value="research">Research support</option>
+                      <option value="sustainability">Sustainability enablement</option>
+                      <option value="operations">Operations improvement</option>
+                      <option value="other">Other</option>
                     </select>
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="mb-3 block text-sm font-semibold text-slate-700">Share your Vision Map details *</label>
+                    <label htmlFor="message" className="mb-3 block text-sm font-semibold text-slate-700">Tell us about your opportunity *</label>
                     <Textarea
                       id="message"
                       name="message"
                       rows={6}
                       required
                       disabled={isSubmitting}
-                      placeholder="Tell us about your current product vision, target market and growth priorities."
+                      placeholder="Tell us about your goals, team, timeline, or specific challenge."
                       className="border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900 resize-none"
                     />
                   </div>
 
-                  <input type="hidden" name="_subject" value="New Vision Map Inquiry from Website" />
+                  <input type="hidden" name="_subject" value="New Contact Inquiry from Website" />
 
                   <Button
                     type="submit"
@@ -216,7 +217,7 @@ const ContactPage = () => {
                         Sending Message...
                       </>
                     ) : (
-                      'Submit Vision Map Inquiry'
+                      'Submit Inquiry'
                     )}
                   </Button>
                 </form>
@@ -225,28 +226,28 @@ const ContactPage = () => {
 
             <aside className="space-y-8 animate-fade-in-up">
               <div className="rounded-[2rem] border border-slate-200 bg-slate-950 p-8 text-white shadow-[0_30px_80px_rgba(15,23,42,0.12)]">
-                <p className="text-sm uppercase tracking-[0.28em] text-slate-400">Vision Map support</p>
-                <h2 className="mt-4 text-3xl font-serif">Align strategy, product and partners.</h2>
+                <p className="text-sm uppercase tracking-[0.28em] text-slate-400">Priority contact</p>
+                <h2 className="mt-4 text-3xl font-serif">Expert guidance for travel teams.</h2>
                 <p className="mt-4 text-slate-300 leading-7">
-                  Our Vision Map process helps you create a clear operating plan, connect the right partners, and scale with the best market intelligence.
+                  Our specialists support operators, suppliers and partners with platform, distribution and sustainability expertise.
                 </p>
                 <div className="mt-8 space-y-4 rounded-[1.75rem] bg-slate-900/80 p-6 ring-1 ring-white/10">
                   <div>
                     <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Platform clarity</p>
-                    <p className="mt-2 text-lg font-semibold text-white">One roadmap for sales, suppliers and operations.</p>
+                    <p className="mt-2 text-lg font-semibold text-white">Connect bookings, inventory and partner workflows.</p>
                   </div>
                   <div>
-                    <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Partner growth</p>
-                    <p className="mt-2 text-lg font-semibold text-white">Actions to support local and global distribution.</p>
+                    <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Partner enablement</p>
+                    <p className="mt-2 text-lg font-semibold text-white">Support for operators and destination collaborators.</p>
                   </div>
                 </div>
               </div>
 
               <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-[0_28px_70px_rgba(15,23,42,0.08)]">
                 <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Why it matters</p>
-                <h3 className="mt-4 text-2xl font-semibold text-slate-950">Future-ready travel operations</h3>
+                <h3 className="mt-4 text-2xl font-semibold text-slate-950">Stronger bookings, clearer operations</h3>
                 <p className="mt-3 text-slate-600 leading-7">
-                  The Vision Map turns ambition into a practical plan that improves bookings, accountability and sustainability across your business.
+                  We help travel businesses use data, supply networks and partner workflows to launch more confidently and manage growth reliably.
                 </p>
                 <div className="mt-8 space-y-4 text-slate-700">
                   <div className="rounded-3xl bg-slate-50 p-5">
@@ -255,7 +256,7 @@ const ContactPage = () => {
                   </div>
                   <div className="rounded-3xl bg-slate-50 p-5">
                     <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Sustainability</p>
-                    <p className="mt-2">Build premium products with stronger community and environmental impact.</p>
+                    <p className="mt-2">Build premium products with responsible travel outcomes.</p>
                   </div>
                 </div>
               </div>
@@ -267,7 +268,7 @@ const ContactPage = () => {
       <section className="py-12 sm:py-20 bg-slate-50">
         <div className="container max-w-7xl">
           <h2 className="text-4xl font-serif mb-12 text-center text-slate-950">
-            Meet the Vision Map team
+            Visit our Kampala office
           </h2>
           <div className="max-w-5xl mx-auto">
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
@@ -317,20 +318,20 @@ const ContactPage = () => {
           <div className="max-w-4xl mx-auto space-y-4">
             {[
               {
-                question: "What does the Vision Map include?",
-                answer: "The Vision Map includes a tailored roadmap for your platform, partner strategy, market signals, and sustainability positioning to support smarter growth."
+                question: "How can Dirt Trails help my travel business grow?",
+                answer: "We help operators and partners scale bookings, connect supplier workflows, and apply market intelligence so operations become more efficient and more profitable."
               },
               {
-                question: "Who is the Vision Map for?",
-                answer: "Operators and partners who want a clear path for bookings, distribution, supplier coordination, and impact reporting. It is ideal for businesses seeking intelligent structure and premium support."
+                question: "Can you integrate with our current systems?",
+                answer: "Yes. We support API integrations, channel management workflows and partner feeds to connect with your existing booking and supplier systems."
               },
               {
-                question: "How quickly can I get a Vision Map proposal?",
-                answer: "After we receive your inquiry, our team typically responds within one business day with next steps and a proposed scope."
+                question: "What type of partnership support is available?",
+                answer: "We offer onboarding, technical enablement, partner coordination and ongoing account support to help you build reliable supplier networks and distribution channels."
               },
               {
-                question: "Can the Vision Map support sustainability planning?",
-                answer: "Yes. We include sustainable product positioning and impact reporting in the Vision Map so your offerings can be premium and responsible."
+                question: "Do you help with sustainability and impact reporting?",
+                answer: "Yes. Our platform captures sustainability metrics and responsible travel outcomes in bookings, making it easier to report on impact and position premium products."
               }
             ].map((faq, index) => (
               <FaqItem 

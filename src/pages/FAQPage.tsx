@@ -4,24 +4,20 @@ import { Link } from 'react-router-dom';
 
 const faqs = [
   {
-    question: 'What is the Vision Map and who is it for?',
-    answer: 'The Vision Map is a strategic planning tool for travel operators, partners and destination teams. It combines market intelligence, partner workflows and sustainable product positioning into a clear growth roadmap.',
+    question: 'How does Dirt Trails help travel operators scale distribution?',
+    answer: 'Our platform centralizes bookings, inventory and partner connectivity so operators can distribute products through agents, OTAs and supplier networks without manual coordination.',
   },
   {
-    question: 'How does the Vision Map support distribution and partner strategy?',
-    answer: 'It surfaces the right channels, partner roles and commercial workflows so your packages, tours and premium products move through local and international networks with confidence.',
+    question: 'Can partners integrate with our existing systems?',
+    answer: 'Yes. Dirt Trails supports API integrations, channel management workflows and partner feeds to connect with your current booking and supplier systems.',
   },
   {
-    question: 'Can the Vision Map include sustainability and impact planning?',
-    answer: 'Yes. Sustainability is built into the Vision Map, with responsible travel positioning, impact reporting and compliance guidance layered into your product and partner strategy.',
+    question: 'How do you track sustainability and impact?',
+    answer: 'Integrated workflows capture carbon, community and compliance metrics within every booking, making it easy to report on responsible travel outcomes and partner impact.',
   },
   {
-    question: 'How do you turn the Vision Map into action?',
-    answer: 'Our team translates the Vision Map into practical recommendations, onboarding support and integration steps that help your operation move from strategy to delivery.',
-  },
-  {
-    question: 'What insights are included in the Vision Map?',
-    answer: 'We include market demand signals, pricing guidance, partner performance indicators and operational gaps so you can make better decisions and grow more sustainably.',
+    question: 'What support is available for onboarding?',
+    answer: 'We provide onboarding guidance, technical enablement, training for partner teams and ongoing support to help you launch faster and maintain smooth operations.',
   },
 ];
 
@@ -34,12 +30,12 @@ const FAQPage = () => {
         <div className="container mx-auto px-4 py-20 lg:px-8">
           <div className="max-w-4xl space-y-6">
             <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold uppercase tracking-[0.24em] text-slate-600">
-              Vision Map FAQs
+              FAQs
             </div>
-            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-slate-950">Frequently asked questions about the Vision Map.</h1>
-            <p className="text-lg leading-8 text-slate-600">Explore how the Vision Map aligns market intelligence, partner strategy and sustainable travel operations for travel teams and collaborators.</p>
+            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-slate-950">Frequently asked questions for partners and travel teams.</h1>
+            <p className="text-lg leading-8 text-slate-600">Find quick answers about how Dirt Trails supports distribution, integrations, sustainability reporting and partner success.</p>
             <Link to="/contact" className="inline-flex items-center justify-center rounded-full bg-[#2ECC71] px-8 py-3 text-base font-semibold text-white transition hover:bg-[#28b765]">
-              Start your Vision Map inquiry
+              Browse all resources
             </Link>
           </div>
         </div>
