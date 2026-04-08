@@ -664,7 +664,7 @@ const TourDetailPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {tours.filter(t => t.id !== tour.id && t.country === tour.country).slice(0, 3).map((relatedTour, index) => (
               <Link 
-                key={relatedTour.id} 
+                key={`${relatedTour.slug ?? relatedTour.id}-${index}`} 
                 to={`/tours/${relatedTour.slug}`}
                 className={`group bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] animate-fade-in-up border border-gray-200 tour-detail-related-${index}`}
               >

@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Leaf, Plane, Car, Ship, Bus, Calculator, Info, Train } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { Leaf, Plane, Car, Ship, Bus, Calculator, Info, Train, Briefcase, Globe, Building, BarChart3, ServerCog, Globe2, Plug, ShieldCheck, TreeDeciduous, Users, Award } from "lucide-react";
 
 const CarbonOffsetCalculator = () => {
   const navigate = useNavigate();
@@ -20,6 +21,13 @@ const CarbonOffsetCalculator = () => {
   const [detailedResults, setDetailedResults] = useState<any>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isCalculating, setIsCalculating] = useState(false);
+
+  const [demoCompanyName, setDemoCompanyName] = useState('');
+  const [demoBusinessType, setDemoBusinessType] = useState('DMC');
+  const [demoGeographicFocus, setDemoGeographicFocus] = useState('Africa');
+  const [demoKeySoftwareNeeds, setDemoKeySoftwareNeeds] = useState('');
+  const [demoSuccessMessage, setDemoSuccessMessage] = useState('');
+  const [demoErrors, setDemoErrors] = useState<{ [key: string]: string }>({});
   
   const validateInputs = () => {
     const newErrors: { [key: string]: string } = {};
@@ -196,6 +204,25 @@ const CarbonOffsetCalculator = () => {
     navigate('/environment/donate');
   };
 
+  const handleDemoSubmit = () => {
+    const validation: { [key: string]: string } = {};
+    if (!demoCompanyName.trim()) validation.companyName = 'Company name is required.';
+    if (!demoKeySoftwareNeeds.trim()) validation.keySoftwareNeeds = 'Please describe your software needs.';
+    setDemoErrors(validation);
+
+    if (Object.keys(validation).length > 0) {
+      setDemoSuccessMessage('');
+      return;
+    }
+
+    setDemoSuccessMessage('Thank you! Your demo request has been captured. We will reach out shortly.');
+    setDemoCompanyName('');
+    setDemoBusinessType('DMC');
+    setDemoGeographicFocus('Africa');
+    setDemoKeySoftwareNeeds('');
+    setDemoErrors({});
+  };
+
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-4xl mx-auto">
@@ -205,7 +232,245 @@ const CarbonOffsetCalculator = () => {
             Calculate your travel emissions using scientifically-backed emission factors and offset your impact
           </p>
         </div>
-        
+
+        <section className="mb-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+          <div className="mb-6 text-center">
+            <p className="text-sm uppercase tracking-[0.3em] text-slate-500">B2B audience</p>
+            <h2 className="text-3xl font-semibold mt-3">Built for DMCs, OTAs, Hotels and DMOs</h2>
+            <p className="max-w-2xl mx-auto text-slate-600 mt-3">
+              Incoming Agencies, Tour Operators, Hospitality Businesses and Destination Management Organizations rely on our modular platform to automate bookings, optimize inventory, scale global distribution and embed sustainability across every operation.
+            </p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 mb-4">
+                <Briefcase className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">Incoming Agencies (DMC)</h3>
+              <p className="mt-3 text-slate-600">
+                Automate inventory, transfers and confirmations while giving partners live access to your offers across markets.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 mb-4">
+                <Globe className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">Tour Operators</h3>
+              <p className="mt-3 text-slate-600">
+                Deliver real-time global distribution, automate bookings and keep tour packages live across channels without the usual fragmentation.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 mb-4">
+                <Building className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">Hospitality Businesses</h3>
+              <p className="mt-3 text-slate-600">
+                Manage rates, availability and reservations from one dashboard, while tracking sustainability progress for guest offers and packages.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 mb-4">
+                <BarChart3 className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">Destination Management Organizations</h3>
+              <p className="mt-3 text-slate-600">
+                Share live availability, optimize inventory and generate integrated sustainability reports that prove impact across regions.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="mb-6 text-center">
+            <p className="text-sm uppercase tracking-[0.3em] text-slate-500">Modular Solutions</p>
+            <h2 className="text-3xl font-semibold mt-3">Modular software modules for global tourism scale</h2>
+            <p className="max-w-2xl mx-auto text-slate-600 mt-3">
+              Don’t buy one big website. Choose software modules built for inventory, booking automation, distribution, sustainability reporting and seamless integration.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                <ServerCog className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">Dirt Trails Booking Engine</h3>
+              <p className="mt-3 text-slate-600">
+                Automate reservations, confirmations and flexible pricing for partners, packages and dynamic inventory.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                <Globe2 className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">Global Inventory & Distribution System</h3>
+              <p className="mt-3 text-slate-600">
+                Publish availability worldwide with real-time channel sync across OTAs, agents and destination platforms.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                <BarChart3 className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">Integrated Sustainability & Impact Reporting</h3>
+              <p className="mt-3 text-slate-600">
+                Track ESG outcomes, carbon data and community impact in one unified reporting dashboard.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                <Plug className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">API Integration Services</h3>
+              <p className="mt-3 text-slate-600">
+                Connect your existing systems with secure APIs for bookings, inventory management and sustainability data exchange.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+          <div className="mb-6 text-center">
+            <p className="text-sm uppercase tracking-[0.3em] text-slate-500">Technical & sustainable advantage</p>
+            <h2 className="text-3xl font-semibold mt-3">Optimized, connected and sustainability-first technology</h2>
+            <p className="max-w-2xl mx-auto text-slate-600 mt-3">
+              Our platform is built for global connectivity, modular scalability and embedded sustainability — not as an add-on, but as the foundation of every solution.
+            </p>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-3">
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                <Globe2 className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">Real-time Global Connectivity</h3>
+              <p className="mt-3 text-slate-600">
+                Connect partners, agents and distribution channels across borders with live availability and centralized pricing.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                <ServerCog className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">Customizable Modular System</h3>
+              <p className="mt-3 text-slate-600">
+                Compose the exact technology stack you need with modular building blocks that adapt to your business model.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                <ShieldCheck className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">Secure & Robust Architecture</h3>
+              <p className="mt-3 text-slate-600">
+                Rely on resilient infrastructure built for enterprise-scale bookings, distribution and data protection.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                <TreeDeciduous className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">Embedded Sustainability & Responsible Tourism Tools</h3>
+              <p className="mt-3 text-slate-600">
+                Embed carbon, community and conservation metrics directly into your operations to promote responsible growth.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="mb-6 text-center">
+            <p className="text-sm uppercase tracking-[0.3em] text-slate-500">Trusted partners & global impact</p>
+            <h2 className="text-3xl font-semibold mt-3">Partnering with international tourism, conservation and technology leaders</h2>
+            <p className="max-w-2xl mx-auto text-slate-600 mt-3">
+              We work with international tourism organizations, global conservation bodies and technology incubators to scale responsible tourism across Africa and beyond.
+            </p>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-3">
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                <Users className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">International Tourism Organizations</h3>
+              <p className="mt-3 text-slate-600">
+                Strengthen destination partnerships and unlock scalable distribution with trusted tourism networks.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                <Globe className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">Global Conservation Bodies</h3>
+              <p className="mt-3 text-slate-600">
+                Embed conservation and climate action into bookings, reporting and operational decision-making.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                <Award className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold">Technology Incubators</h3>
+              <p className="mt-3 text-slate-600">
+                Collaborate with innovation partners to deliver scalable travel tech and sustainability-first solutions.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+            <div className="mb-6 text-center">
+              <p className="text-sm uppercase tracking-[0.3em] text-slate-500">Our global figures</p>
+              <h3 className="text-2xl font-semibold mt-3">Data-driven proof of our platform’s global effectiveness</h3>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              <div className="rounded-3xl bg-white p-6 text-center shadow-sm">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                  <Globe2 className="h-5 w-5" />
+                </div>
+                <p className="text-3xl font-bold text-slate-900">1,200+</p>
+                <p className="mt-2 text-sm text-slate-600">Businesses Empowered Globally</p>
+              </div>
+
+              <div className="rounded-3xl bg-white p-6 text-center shadow-sm">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                  <ServerCog className="h-5 w-5" />
+                </div>
+                <p className="text-3xl font-bold text-slate-900">8M+</p>
+                <p className="mt-2 text-sm text-slate-600">Bookings Processed</p>
+              </div>
+
+              <div className="rounded-3xl bg-white p-6 text-center shadow-sm">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                  <TreeDeciduous className="h-5 w-5" />
+                </div>
+                <p className="text-3xl font-bold text-slate-900">120K+</p>
+                <p className="mt-2 text-sm text-slate-600">Carbon Offset Tons</p>
+              </div>
+
+              <div className="rounded-3xl bg-white p-6 text-center shadow-sm">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white mb-4">
+                  <Leaf className="h-5 w-5" />
+                </div>
+                <p className="text-3xl font-bold text-slate-900">500K+</p>
+                <p className="mt-2 text-sm text-slate-600">Trees Tracked via Our Platform</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <div className="grid gap-8 md:grid-cols-2">
           <Card>
             <CardHeader className="bg-green-50 rounded-t-lg">
@@ -384,6 +649,91 @@ const CarbonOffsetCalculator = () => {
             </div>
           </CardContent>
         </Card>
+
+        <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+          <div className="mb-6 text-center">
+            <p className="text-sm uppercase tracking-[0.3em] text-slate-500">Request a demo</p>
+            <h2 className="text-3xl font-semibold mt-3">Book a demo tailored to your tourism business</h2>
+            <p className="max-w-2xl mx-auto text-slate-600 mt-3">
+              Share your company details and software priorities, and our team will design the right solution for your organization.
+            </p>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="company-name">Company Name</Label>
+                <Input
+                  id="company-name"
+                  value={demoCompanyName}
+                  onChange={(e) => setDemoCompanyName(e.target.value)}
+                  placeholder="Enter your company name"
+                />
+                {demoErrors.companyName && <p className="text-red-600 text-sm mt-1">{demoErrors.companyName}</p>}
+              </div>
+
+              <div>
+                <Label htmlFor="business-type">Business Type</Label>
+                <Select value={demoBusinessType} onValueChange={setDemoBusinessType}>
+                  <SelectTrigger id="business-type">
+                    <SelectValue placeholder="Select business type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="DMC">DMC</SelectItem>
+                    <SelectItem value="OTA">OTA</SelectItem>
+                    <SelectItem value="Hotel">Hotel</SelectItem>
+                    <SelectItem value="DMO">DMO</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="geographic-focus">Geographic Focus</Label>
+                <Select value={demoGeographicFocus} onValueChange={setDemoGeographicFocus}>
+                  <SelectTrigger id="geographic-focus">
+                    <SelectValue placeholder="Select geographic focus" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Africa">Africa</SelectItem>
+                    <SelectItem value="Asia">Asia</SelectItem>
+                    <SelectItem value="Global">Global</SelectItem>
+                    <SelectItem value="Europe">Europe</SelectItem>
+                    <SelectItem value="Americas">Americas</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="software-needs">Key Software Needs</Label>
+                <Textarea
+                  id="software-needs"
+                  value={demoKeySoftwareNeeds}
+                  onChange={(e) => setDemoKeySoftwareNeeds(e.target.value)}
+                  rows={6}
+                  placeholder="e.g. Booking Engine, Sustainability Reporting"
+                />
+                {demoErrors.keySoftwareNeeds && <p className="text-red-600 text-sm mt-1">{demoErrors.keySoftwareNeeds}</p>}
+              </div>
+
+              {demoSuccessMessage && (
+                <div className="rounded-3xl border border-green-200 bg-green-50 p-4 text-sm text-green-900">
+                  {demoSuccessMessage}
+                </div>
+              )}
+
+              <div className="flex items-end justify-end">
+                <Button
+                  className="bg-[#2ECC71] text-white hover:bg-[#28b765] border-none"
+                  onClick={handleDemoSubmit}
+                >
+                  Request a Demo
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -87,21 +89,35 @@
 @layer base {
   * {
     @apply border-border;
+    box-sizing: border-box;
   }
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     @apply font-semibold leading-tight;
+  }
+
+  button, input, textarea, select {
+    font: inherit;
+  }
+
+  a {
+    @apply transition-colors duration-200;
   }
 
   .container {
     @apply px-4 mx-auto;
     max-width: 1280px;
+  }
+
+  .hero-card {
+    @apply rounded-[2rem] bg-white p-6 shadow-[0_35px_60px_-20px_rgba(15,23,42,0.18)];
   }
 
   .hero-pattern {
@@ -152,5 +168,27 @@
 
   .animate-delay-500 {
     animation-delay: 500ms;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-to-r,
+  .bg-gradient-to-l,
+  .bg-gradient-to-t,
+  .bg-gradient-to-b,
+  .bg-gradient-to-br,
+  .bg-gradient-to-bl,
+  .bg-gradient-to-tr,
+  .bg-gradient-to-tl {
+    background-image: none !important;
+    background-color: var(--tw-gradient-from, currentColor) !important;
+  }
+
+  .bg-clip-text {
+    background-image: none !important;
+    color: currentColor !important;
+    -webkit-text-fill-color: currentColor !important;
+    background-clip: border-box !important;
+    -webkit-background-clip: border-box !important;
   }
 }

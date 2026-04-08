@@ -5,10 +5,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { MapPin, Phone, Mail, Clock, Loader2, ChevronDown, ChevronUp } from 'lucide-react';
 import ChatBot from '@/components/ChatBot';
-import { useLocation, Link } from 'react-router-dom';
 
 const ContactPage = () => {
-  const location = useLocation();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
@@ -59,140 +57,157 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="bg-cream">
-      {/* Hero Section - Professional Single Color */}
-      <section className="relative py-24 bg-accent text-white overflow-hidden">
-        <div className="container relative max-w-7xl">
-          <div className="max-w-4xl animate-fade-in-up">
-            <h1 className="text-5xl md:text-6xl font-serif mb-6 text-white">
-              Contact Us
-            </h1>
-            <p className="text-xl text-white max-w-3xl leading-relaxed">
-              Have questions about our tours or need help planning your East African adventure? We're here to help.
-            </p>
+    <div className="bg-slate-50 text-slate-900">
+      <section className="relative overflow-hidden bg-slate-950 text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.2),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(16,185,129,0.18),_transparent_30%)]" />
+        <div className="relative container mx-auto max-w-7xl px-4 py-24 sm:py-28">
+          <div className="max-w-3xl space-y-8">
+            <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.35em] text-slate-300">
+              Vision Map inquiry
+            </span>
+            <div className="space-y-6">
+              <h1 className="text-5xl font-serif tracking-tight sm:text-6xl">Plan your next chapter with the Dirt Trails Vision Map.</h1>
+              <p className="max-w-2xl text-lg leading-8 text-slate-300">
+                Our Vision Map connects market intelligence, partner operations and sustainable product design so travel teams can grow with clarity and confidence.
+              </p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-3">
+              <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 shadow-[0_30px_90px_rgba(15,23,42,0.14)] backdrop-blur-xl">
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Roadmap speed</p>
+                <p className="mt-4 text-2xl font-semibold">Within 1 business day</p>
+              </div>
+              <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 shadow-[0_30px_90px_rgba(15,23,42,0.14)] backdrop-blur-xl">
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Strategic support</p>
+                <p className="mt-4 text-2xl font-semibold">Market-informed guidance</p>
+              </div>
+              <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 shadow-[0_30px_90px_rgba(15,23,42,0.14)] backdrop-blur-xl">
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Partner alignment</p>
+                <p className="mt-4 text-2xl font-semibold">Operator & destination strategy</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Form and Info - Professional */}
-      <section className="py-20 bg-white">
-        <div className="container max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-            {/* Contact Form */}
-            <div className="animate-fade-in-up">
-              <h2 className="text-4xl font-serif mb-8 text-brown-900">
-                Send Us a Message
-              </h2>
+      <section className="py-20">
+        <div className="container mx-auto max-w-7xl px-4">
+          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
+            <div className="animate-fade-in-up rounded-[2rem] border border-slate-200 bg-white p-10 shadow-[0_40px_120px_rgba(15,23,42,0.08)]">
+              <div className="mb-10 max-w-2xl">
+                <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Vision Map inquiry</p>
+                <h2 className="mt-4 text-4xl font-serif text-slate-950">Tell us about your Vision Map.</h2>
+                <p className="mt-4 text-base leading-8 text-slate-600">
+                  Share your current plans, market goals and partner ambitions so we can tailor a Vision Map that strengthens your operation and supports sustainable growth.
+                </p>
+              </div>
+
               {formSubmitted ? (
-                <div className="bg-cream border border-cream text-accent p-8 rounded-2xl shadow-lg">
-                  <h3 className="text-2xl font-serif mb-4">Thank You!</h3>
-                  <p className="text-lg mb-6">Your message has been sent successfully. We'll get back to you within 24 hours.</p>
-                  <Button 
+                <div className="rounded-[2rem] border border-slate-200 bg-slate-50 p-8 shadow-sm">
+                  <h3 className="text-2xl font-semibold text-slate-950">Thank you</h3>
+                  <p className="mt-4 text-slate-600 leading-7">
+                    Your request has been submitted. Our team will review it and respond within one business day.
+                  </p>
+                  <Button
                     onClick={() => {
                       setFormSubmitted(false);
                       setSubmitError(null);
                     }}
                     variant="outline"
-                    className="border-accent text-accent hover:bg-accent hover:text-white transition-all duration-300"
+                    className="mt-8 rounded-full border-slate-300 text-slate-950 hover:bg-slate-950 hover:text-white"
                   >
                     Send Another Message
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6 bg-cream p-8 rounded-2xl shadow-xl border border-cream">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   {submitError && (
-                    <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg">
-                      <p>{submitError}</p>
+                    <div className="rounded-3xl border border-red-200 bg-red-50 p-5 text-sm text-red-700">
+                      {submitError}
                     </div>
                   )}
-                  
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                  <div className="grid gap-6 sm:grid-cols-2">
                     <div>
-                      <label htmlFor="firstName" className="block mb-3 font-semibold text-gray-700">First Name *</label>
-                      <Input 
-                        id="firstName" 
-                        name="firstName" 
-                        required 
+                      <label htmlFor="firstName" className="mb-3 block text-sm font-semibold text-slate-700">First Name *</label>
+                      <Input
+                        id="firstName"
+                        name="firstName"
+                        required
                         disabled={isSubmitting}
-                        className="h-12 border-gray-300 focus:border-safari-green focus:ring-safari-green"
+                        className="h-14 border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
                       />
                     </div>
                     <div>
-                      <label htmlFor="lastName" className="block mb-3 font-semibold text-gray-700">Last Name *</label>
-                      <Input 
-                        id="lastName" 
-                        name="lastName" 
-                        required 
+                      <label htmlFor="lastName" className="mb-3 block text-sm font-semibold text-slate-700">Last Name *</label>
+                      <Input
+                        id="lastName"
+                        name="lastName"
+                        required
                         disabled={isSubmitting}
-                        className="h-12 border-gray-300 focus:border-safari-green focus:ring-safari-green"
+                        className="h-14 border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
                       />
                     </div>
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="email" className="block mb-3 font-semibold text-gray-700">Email Address *</label>
-                    <Input 
-                      id="email" 
-                      name="_replyto" 
-                      type="email" 
-                      required 
+                    <label htmlFor="email" className="mb-3 block text-sm font-semibold text-slate-700">Email Address *</label>
+                    <Input
+                      id="email"
+                      name="_replyto"
+                      type="email"
+                      required
                       disabled={isSubmitting}
-                      className="h-12 border-gray-300 focus:border-safari-green focus:ring-safari-green"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="phone" className="block mb-3 font-semibold text-gray-700">Phone Number</label>
-                    <Input 
-                      id="phone" 
-                      name="phone" 
-                      type="tel" 
-                      disabled={isSubmitting}
-                      className="h-12 border-gray-300 focus:border-safari-green focus:ring-safari-green"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="interest" className="block mb-3 font-semibold text-gray-700">I'm Interested In</label>
-                    <select 
-                      name="interest" 
-                      disabled={isSubmitting}
-                      className="flex h-12 w-full rounded-md border border-gray-300 bg-background px-4 py-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-safari-green focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                      <option value="">Select an option</option>
-                      <option value="safari">Safari Tours</option>
-                      <option value="gorilla">Gorilla Trekking</option>
-                      <option value="custom">Custom Itinerary</option> 
-                      <option value="Consultancy">Conservation Consultancy</option>
-                      <option value="Collaboration">Patnership & Collaboration</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="message" className="block mb-3 font-semibold text-gray-700">Your Message *</label>
-                    <Textarea 
-                      id="message" 
-                      name="message" 
-                      rows={6} 
-                      required 
-                      disabled={isSubmitting}
-                      placeholder="Tell us about your dream safari, preferred dates, group size, or any specific requirements..."
-                      className="border-gray-300 focus:border-safari-green focus:ring-safari-green resize-none"
+                      className="h-14 border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
                     />
                   </div>
 
-                  {/* Hidden field for subject line */}
-                  <input 
-                    type="hidden" 
-                    name="_subject" 
-                    value="New Safari Inquiry from Website"
-                  />
-                  
-                  <Button 
-                    type="submit" 
-                    size="lg" 
-                    className="w-full h-12 bg-accent hover:bg-accent/90 text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105" 
+                  <div>
+                    <label htmlFor="phone" className="mb-3 block text-sm font-semibold text-slate-700">Phone Number</label>
+                    <Input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      disabled={isSubmitting}
+                      className="h-14 border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="interest" className="mb-3 block text-sm font-semibold text-slate-700">Vision Map focus</label>
+                    <select
+                      id="interest"
+                      name="interest"
+                      disabled={isSubmitting}
+                      className="h-14 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      <option value="">Select an option</option>
+                      <option value="platform">Platform clarity</option>
+                      <option value="partnership">Partnership strategy</option>
+                      <option value="research">Market intelligence</option>
+                      <option value="sustainability">Sustainability positioning</option>
+                      <option value="operations">Operations & distribution</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="mb-3 block text-sm font-semibold text-slate-700">Share your Vision Map details *</label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      rows={6}
+                      required
+                      disabled={isSubmitting}
+                      placeholder="Tell us about your current product vision, target market and growth priorities."
+                      className="border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900 resize-none"
+                    />
+                  </div>
+
+                  <input type="hidden" name="_subject" value="New Vision Map Inquiry from Website" />
+
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full rounded-full bg-slate-950 px-8 py-4 text-white shadow-xl shadow-slate-950/20 transition hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-60"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
@@ -201,74 +216,61 @@ const ContactPage = () => {
                         Sending Message...
                       </>
                     ) : (
-                      'Send Message'
+                      'Submit Vision Map Inquiry'
                     )}
                   </Button>
                 </form>
               )}
             </div>
-            
-            {/* Contact Information - Professional */}
-            <div className="animate-fade-in-up">
-              <h2 className="text-4xl font-serif mb-8 text-brown-900">
-                Get In Touch
-              </h2>
-              <div className="bg-cream shadow-xl rounded-2xl p-8 mb-8 border border-cream">
-                <div className="space-y-6">
-                  <div className="flex items-start hover:bg-gray-50 p-4 rounded-lg transition-colors duration-300">
-                    <MapPin className="h-8 w-8 text-safari-green mr-6 shrink-0 mt-1" />
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2 text-gray-900">Our Office</h3>
-                      <address className="not-italic text-gray-600 leading-relaxed">
-                        MIICHub, Makerere University 
-                        <br />
-                        Kampala, Uganda
-                      </address>
-                    </div>
+
+            <aside className="space-y-8 animate-fade-in-up">
+              <div className="rounded-[2rem] border border-slate-200 bg-slate-950 p-8 text-white shadow-[0_30px_80px_rgba(15,23,42,0.12)]">
+                <p className="text-sm uppercase tracking-[0.28em] text-slate-400">Vision Map support</p>
+                <h2 className="mt-4 text-3xl font-serif">Align strategy, product and partners.</h2>
+                <p className="mt-4 text-slate-300 leading-7">
+                  Our Vision Map process helps you create a clear operating plan, connect the right partners, and scale with the best market intelligence.
+                </p>
+                <div className="mt-8 space-y-4 rounded-[1.75rem] bg-slate-900/80 p-6 ring-1 ring-white/10">
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Platform clarity</p>
+                    <p className="mt-2 text-lg font-semibold text-white">One roadmap for sales, suppliers and operations.</p>
                   </div>
-                  <div className="flex items-start hover:bg-gray-50 p-4 rounded-lg transition-colors duration-300">
-                    <Phone className="h-8 w-8 text-safari-green mr-6 shrink-0 mt-1" />
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2 text-gray-900">Phone</h3>
-                      <p className="text-gray-600 text-lg">+256 759 918649 | +256 772 560466</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start hover:bg-gray-50 p-4 rounded-lg transition-colors duration-300">
-                    <Mail className="h-8 w-8 text-safari-green mr-6 shrink-0 mt-1" />
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2 text-gray-900">Email</h3>
-                      <p className="text-gray-600 text-lg">safaris.dirttrails@gmail.com</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start hover:bg-gray-50 p-4 rounded-lg transition-colors duration-300">
-                    <Clock className="h-8 w-8 text-safari-green mr-6 shrink-0 mt-1" />
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2 text-gray-900">Office Hours</h3>
-                      <p className="text-gray-600 leading-relaxed">Monday to Friday: 9AM - 6PM<br />Saturday: 9AM - 1PM</p>
-                    </div>
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Partner growth</p>
+                    <p className="mt-2 text-lg font-semibold text-white">Actions to support local and global distribution.</p>
                   </div>
                 </div>
               </div>
-              
-              <div className="bg-accent/5 rounded-2xl p-8 border border-accent/20">
-                <h3 className="text-2xl font-serif mb-4 text-brown-900">Emergency Contact</h3>
-                <p className="text-brown-600 mb-4 leading-relaxed">
-                  For urgent matters outside of office hours, please contact our 24-hour emergency line:
+
+              <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-[0_28px_70px_rgba(15,23,42,0.08)]">
+                <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Why it matters</p>
+                <h3 className="mt-4 text-2xl font-semibold text-slate-950">Future-ready travel operations</h3>
+                <p className="mt-3 text-slate-600 leading-7">
+                  The Vision Map turns ambition into a practical plan that improves bookings, accountability and sustainability across your business.
                 </p>
-                <div className="font-bold text-xl text-accent">+256 759 918649</div>
+                <div className="mt-8 space-y-4 text-slate-700">
+                  <div className="rounded-3xl bg-slate-50 p-5">
+                    <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Market intelligence</p>
+                    <p className="mt-2">Use trend data to shape pricing and distribution decisions.</p>
+                  </div>
+                  <div className="rounded-3xl bg-slate-50 p-5">
+                    <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Sustainability</p>
+                    <p className="mt-2">Build premium products with stronger community and environmental impact.</p>
+                  </div>
+                </div>
               </div>
-            </div>
+            </aside>
           </div>
         </div>
       </section>
       {/* Map Section */}
-      <section className="py-12 sm:py-20 bg-cream">
+      <section className="py-12 sm:py-20 bg-slate-50">
         <div className="container max-w-7xl">
-          <h2 className="text-4xl font-serif mb-12 text-center text-brown-900">
-            Find Our Office
+          <h2 className="text-4xl font-serif mb-12 text-center text-slate-950">
+            Meet the Vision Map team
           </h2>
           <div className="max-w-5xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-cream">
+            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
               <div className="aspect-video">
                 <iframe 
                   src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3989.751207514449!2d32.5678668!3d0.3323261!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177dbb91e1a6c939%3A0x38793a83feb972e9!2sMakerere%20Innovation%20and%20Incubation%20Center!5e0!3m2!1sen!2sug!"
@@ -282,10 +284,10 @@ const ContactPage = () => {
                 />
               </div>
               <div className="p-8">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between flex-col gap-6 lg:flex-row">
                   <div>
-                    <h3 className="text-2xl font-serif mb-2 text-brown-900">Visit Our Office</h3>
-                    <p className="text-brown-600 leading-relaxed">
+                    <h3 className="text-2xl font-serif mb-2 text-slate-950">Visit Our Office</h3>
+                    <p className="text-slate-600 leading-relaxed">
                       MIICHub, Makerere University, Kampala, Uganda
                     </p>
                   </div>
@@ -294,7 +296,7 @@ const ContactPage = () => {
                       href="https://maps.app.goo.gl/9HwmBKsXjgLv9AKo7"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-6 py-3 bg-accent text-white rounded-lg hover:bg-accent/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                      className="inline-flex items-center px-6 py-3 bg-slate-950 text-white rounded-lg hover:bg-slate-900 transition-all duration-300 shadow-lg hover:shadow-xl"
                     >
                       <MapPin className="h-5 w-5 mr-2" />
                       Open in Maps
@@ -309,26 +311,26 @@ const ContactPage = () => {
       {/* FAQ Section */}
       <section className="py-12 sm:py-20 bg-white">
         <div className="container max-w-7xl">
-          <h2 className="text-4xl font-serif mb-12 text-center text-brown-900">
+          <h2 className="text-4xl font-serif mb-12 text-center text-slate-950">
             Frequently Asked Questions
           </h2>
           <div className="max-w-4xl mx-auto space-y-4">
             {[
               {
-                question: "What payment methods do you accept?",
-                answer: "We accept credit/debit cards (Visa, MasterCard, American Express), bank transfers, and mobile money services like M-Pesa for clients in Kenya. A deposit is required to secure your booking, with the balance due 60 days before departure."
+                question: "What does the Vision Map include?",
+                answer: "The Vision Map includes a tailored roadmap for your platform, partner strategy, market signals, and sustainability positioning to support smarter growth."
               },
               {
-                question: "How far in advance should I book my safari?",
-                answer: "We recommend booking at least 3-6 months in advance, especially if you plan to travel during peak season (June-October) or if you're interested in gorilla trekking, which requires permits that are limited and sell out quickly."
+                question: "Who is the Vision Map for?",
+                answer: "Operators and partners who want a clear path for bookings, distribution, supplier coordination, and impact reporting. It is ideal for businesses seeking intelligent structure and premium support."
               },
               {
-                question: "What vaccinations do I need for East Africa?",
-                answer: "Required and recommended vaccinations vary by country. Yellow fever vaccination is often required for entry. We recommend consulting with a travel medicine specialist for the most current health information and requirements."
+                question: "How quickly can I get a Vision Map proposal?",
+                answer: "After we receive your inquiry, our team typically responds within one business day with next steps and a proposed scope."
               },
               {
-                question: "What's your cancellation policy?",
-                answer: "Our standard cancellation policy allows for a full refund (minus administrative fees) for cancellations made more than 90 days before departure. Cancellations between 90-60 days receive a 50% refund. Unfortunately, we cannot offer refunds for cancellations made less than 60 days prior to departure."
+                question: "Can the Vision Map support sustainability planning?",
+                answer: "Yes. We include sustainable product positioning and impact reporting in the Vision Map so your offerings can be premium and responsible."
               }
             ].map((faq, index) => (
               <FaqItem 

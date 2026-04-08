@@ -146,9 +146,9 @@ const DestinationDetailPage = () => {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {destinationTours.map((tour) => (
+              {destinationTours.map((tour, tourIndex) => (
                 <Link 
-                  key={tour.id} 
+                  key={`${tour.slug ?? tour.id}-${tourIndex}`} 
                   to={`/tours/${tour.slug}`}
                   className="group block"
                 >

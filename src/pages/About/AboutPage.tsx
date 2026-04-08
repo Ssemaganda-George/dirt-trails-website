@@ -1,141 +1,129 @@
-import React from "react";
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/ui/button';
 import { Heart, Users, Globe, TreePine } from 'lucide-react';
 import ChatBot from '../../components/ChatBot';
 
 const AboutPage = () => (
-  <div className="bg-cream">
-    {/* Hero Section - Professional Color Scheme */}
-    <section className="relative py-16 sm:py-24 bg-accent text-white overflow-hidden">
-      <div className="absolute inset-0 bg-black/10"></div>
-      <div className="container relative max-w-7xl">
-        <div className="max-w-4xl animate-fade-in-up">
-          <h1 className="text-5xl md:text-6xl font-serif mb-6 text-white">
-            About Dirt Trails Safaris
+  <div className="bg-slate-50 text-slate-900">
+    <section className="relative overflow-hidden bg-slate-900 text-white py-20">
+      <div className="absolute inset-0 bg-slate-950/80"></div>
+      <div className="container relative mx-auto max-w-6xl px-4">
+        <div className="max-w-3xl space-y-6">
+          <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm uppercase tracking-[0.24em] text-slate-200">
+            About Us
+          </span>
+          <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
+            Global travel technology, built from local expertise.
           </h1>
-          <p className="text-xl text-white max-w-3xl leading-relaxed">
-            We're passionate about showcasing Africa's incredible wildlife, landscapes, and cultures while promoting sustainable and responsible tourism.
+          <p className="text-lg leading-8 text-slate-200/90">
+            Dirt Trails combines intelligent booking, distribution and sustainability systems with hands-on travel experience to help operators and partners scale with confidence. Founded in 2022 and rooted in East Africa, we now serve travel teams and operators across international markets.
           </p>
+          <div className="flex flex-wrap gap-4">
+            <Link to="/about/team" className="inline-flex items-center justify-center rounded-full bg-teal-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-teal-400">
+              Meet Our Team
+            </Link>
+            <Link to="/about/careers" className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/20">
+              Careers at Dirt Trails
+            </Link>
+          </div>
         </div>
       </div>
     </section>
 
-    {/* Our Story - Professional */}
-    <section className="py-12 sm:py-20 bg-white">
-      <div className="container max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center animate-fade-in-up">
+    <section className="py-20">
+      <div className="container mx-auto max-w-7xl px-4">
+        <div className="grid gap-16 lg:grid-cols-[1.1fr_0.9fr] items-start">
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <h2 className="text-3xl font-semibold">Our Story</h2>
+              <p className="text-base leading-8 text-slate-700">
+                Dirt Trails began when a local guide and a technology entrepreneur joined forces to build smarter travel intelligence for operators, distribution teams and impact programs. Since 2022, we have grown from a locally rooted team into a trusted travel-tech partner for operators, agents and impact-driven brands.
+              </p>
+              <p className="text-base leading-8 text-slate-700">
+                We believe travel should be intelligent, seamless and meaningful. Our platform is designed to connect operations, distribution and sustainability workflows so travel teams, suppliers and partners all benefit from better data and better decisions.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <h2 className="text-3xl font-semibold">What Sets Us Apart</h2>
+              <p className="text-base leading-8 text-slate-700">
+                We are a travel technology and intelligence company with real destination experience. That means our product decisions are grounded in the needs of operators, distribution partners, suppliers, sales teams and sustainability managers.
+              </p>
+              <ul className="space-y-3 text-slate-600 list-disc list-inside">
+                <li>Platform-first travel intelligence for booking, distribution and business operations.</li>
+                <li>Operators, agents and suppliers supported by market research, partner enablement and real-time insight.</li>
+                <li>Built-in impact workflows so sustainability is part of operations, not an extra system.</li>
+                <li>Local roots in East Africa with confidence to deliver value to global travel players.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] bg-white p-8 shadow-xl border border-slate-200">
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-2xl font-semibold">Our Values</h3>
+                <p className="mt-3 text-slate-600">Every decision is guided by people, performance and purpose.</p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <ValueCard
+                  title="Authentic Leadership"
+                  description="We combine local destination insight with modern product thinking to serve both travelers and operators."
+                />
+                <ValueCard
+                  title="Sustainable Growth"
+                  description="Our technology is designed to scale revenue while making measurable contributions to conservation and community impact."
+                />
+                <ValueCard
+                  title="Partner Centric"
+                  description="We collaborate with operators, agents and suppliers to improve distribution, simplify operations and grow trust."
+                />
+                <ValueCard
+                  title="Transparent Results"
+                  description="Data, reporting and accountability are built into every workflow, so teams can act faster and measure impact clearly."
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section className="py-20 bg-slate-900 text-white">
+      <div className="container mx-auto max-w-6xl px-4">
+        <div className="grid gap-10 lg:grid-cols-2 items-center">
           <div className="space-y-6">
-            <h2 className="text-4xl font-serif mb-8 text-brown-900">
-              Our Story
-            </h2>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              Dirt Trails Safaris was founded in 2022 by a team of a passionate local guide and a computer scientist with over 4 years of combined experience. What began as a small operation has grown into a leading tour provider, but our core values remain unchanged.
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              We believe that travel should be transformative, educational, and responsible. Our intimate knowledge of East Africa's wildlife patterns, hidden gems, and local communities allows us to create authentic experiences that go beyond the typical tourist destinations.
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              As a locally owned and operated company, we're committed to ensuring that tourism benefits the people, wildlife, and ecosystems of East Africa. We work closely with conservation organizations and community projects to ensure your visit has a positive impact.
+            <p className="text-sm uppercase tracking-[0.24em] text-teal-300">Founded on trust</p>
+            <h2 className="text-3xl font-semibold">From local beginnings to a global platform.</h2>
+            <p className="text-base leading-8 text-slate-200">
+              Our team brings first-hand travel operations knowledge, digital product experience and a passion for responsible tourism. That combination helps partners unlock revenue, build resilience and deliver next-level guest experiences.
             </p>
           </div>
-          <div className="rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 group">
-            <img 
-              src="/images/dirt-trails.jpg" 
-              alt="Safari guides"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            />
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <StatCard label="Year founded" value="2022" />
+            <StatCard label="Core markets" value="Travel tech, operations, sustainability" />
+            <StatCard label="Global reach" value="Operators, agents and partners across international markets" />
+            <StatCard label="Team focus" value="Technology, impact and premium travel" />
           </div>
         </div>
       </div>
     </section>
 
-    {/* Our Values - Professional */}
-    <section className="py-12 sm:py-20 bg-cream">
-      <div className="container max-w-7xl">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-4xl font-serif mb-6 text-brown-900">
-            Our Values
-          </h2>
-          <p className="text-xl text-brown-600 max-w-3xl mx-auto leading-relaxed">
-            Our core values guide everything we do, from designing our tours to working with local communities.
+    <section className="py-20 bg-white">
+      <div className="container mx-auto max-w-7xl px-4 text-center">
+        <div className="mx-auto max-w-2xl space-y-6">
+          <h2 className="text-3xl font-semibold">Join us in reimagining travel operations.</h2>
+          <p className="text-base leading-8 text-slate-600">
+            Whether you are a partner, operator or team member, Dirt Trails makes it easier to connect distribution, manage bookings and track sustainability across every part of the travel journey.
           </p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <ValueCard 
-            icon={<TreePine className="h-12 w-12 text-accent" />}
-            title="Sustainability First" 
-            description="We prioritize eco-friendly practices, ensuring every safari contributes to conservation and climate resilience."
-          />
-          <ValueCard 
-            icon={<Globe className="h-12 w-12 text-accent" />}
-            title="Community Empowerment" 
-            description="We partner with local guides and communities, creating jobs and opportunities while celebrating cultural heritage."
-          />
-          <ValueCard 
-            icon={<Heart className="h-12 w-12 text-accent" />}
-            title="Safety & Comfort" 
-            description="We guarantee safe, reliable, and comfortable travel experiences so guests can explore with peace of mind."
-          />
-          <ValueCard 
-            icon={<Users className="h-12 w-12 text-accent" />}
-            title="Innovation with Purpose" 
-            description="Through our digital platform, we make planning, booking, and enjoying safaris seamless and impactful."
-          />
-        </div>
-      </div>
-    </section>
-
-    {/* Conservation Efforts - Professional */}
-    <section className="py-12 sm:py-20 bg-white">
-      <div className="container max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center animate-fade-in-up">
-          <div className="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 group">
-            <img 
-              src="images/PORTRAIT.jpg" 
-              alt="Conservation efforts"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            />
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link to="/solutions" className="inline-flex items-center justify-center rounded-full bg-slate-900 px-8 py-3 text-sm font-semibold text-white transition hover:bg-slate-700">
+              Explore Solutions
+            </Link>
+            <Link to="/about/careers" className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-8 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100">
+              Careers & Culture
+            </Link>
           </div>
-          <div className="order-1 lg:order-2 space-y-6">
-            <h2 className="text-4xl font-serif mb-8 text-brown-900">
-              Our Conservation Commitment
-            </h2>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              We believe that tourism can be a powerful force for conservation. That's why we've established our Environmental Conservation Program, which directs a portion of every booking to support vital conservation initiatives across East Africa.
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              Through our Tree Planting Initiative, travelers can openly contribute to indigenous tree planting in areas affected by deforestation. With each contribution, you'll receive a certificate and tracking link that allows you to monitor the growth and impact of your trees for years to come.
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed mb-8">
-              We also partner with wildlife conservation organizations focused on protecting endangered species like elephants, rhinos, and mountain gorillas, ensuring that these magnificent creatures will be around for future generations to appreciate.
-            </p>
-            <Button size="lg" className="bg-safari-green hover:bg-safari-green/90 text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105" asChild>
-              <Link to="/contact">Learn How You Can Contribute</Link>
-            </Button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* CTA Section - Professional */}
-    <section className="py-12 sm:py-20 bg-accent text-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-black/10"></div>
-      <div className="container relative text-center max-w-7xl animate-fade-in-up">
-        <h2 className="text-4xl md:text-5xl font-serif mb-6 text-white">
-          Ready for Your African Adventure?
-        </h2>
-        <p className="text-xl mb-10 max-w-3xl mx-auto leading-relaxed text-white">
-          Contact our team to start planning your perfect safari adventure today.
-        </p>
-        <div className="flex flex-wrap justify-center gap-6">
-          <Button size="lg" variant="outline" className="bg-white text-accent hover:bg-brown-100 hover:text-brown-900 border-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105" asChild>
-            <Link to="/tours">Browse Tours</Link>
-          </Button>
-          <Button size="lg" className="bg-brown-600 hover:bg-brown-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105" asChild>
-            <Link to="/contact">Contact Us</Link>
-          </Button>
         </div>
       </div>
     </section>
@@ -144,21 +132,18 @@ const AboutPage = () => (
   </div>
 );
 
-// Value Card Component - Professional
-const ValueCard = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) => {
-  return (
-    <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-safari-brown/10 group animate-fade-in-up">
-      <div className="flex justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-        {icon}
-      </div>
-      <h3 className="text-2xl font-semibold mb-4 text-safari-brown group-hover:text-safari-green transition-colors duration-300">
-        {title}
-      </h3>
-      <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
-        {description}
-      </p>
-    </div>
-  );
-};
+const ValueCard = ({ title, description }: { title: string; description: string }) => (
+  <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+    <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+    <p className="mt-3 text-slate-600 leading-7">{description}</p>
+  </div>
+);
+
+const StatCard = ({ label, value }: { label: string; value: string }) => (
+  <div className="rounded-3xl border border-slate-200 bg-slate-800 p-6 text-left">
+    <p className="text-sm uppercase tracking-[0.24em] text-teal-300">{label}</p>
+    <p className="mt-4 text-2xl font-semibold text-white">{value}</p>
+  </div>
+);
 
 export default AboutPage;

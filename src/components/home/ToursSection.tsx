@@ -112,8 +112,8 @@ const ToursSection = () => {
             
               {/* Tours Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                {toursByCountry[country].map((tour) => (
-                  <TourCard key={tour.id} tour={tour} />
+                {toursByCountry[country].map((tour, tourIndex) => (
+                  <TourCard key={`${tour.slug ?? tour.id}-${country}-${tourIndex}`} tour={tour} />
                 ))}
               </div>
             

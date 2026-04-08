@@ -4,74 +4,208 @@ import { Menu, X, ChevronDown, Leaf, Users, Plus, Minus } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isConservationOpen, setIsConservationOpen] = useState(false);
+  const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+  const [isSustainabilityOpen, setIsSustainabilityOpen] = useState(false);
+  const [isPartnersOpen, setIsPartnersOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [isResourcesOpen, setIsResourcesOpen] = useState(false);
   // Add mobile-specific collapse states
+  const [isSolutionsExpanded, setIsSolutionsExpanded] = useState(false);
+  const [isSustainabilityExpanded, setIsSustainabilityExpanded] = useState(false);
+  const [isPartnersExpanded, setIsPartnersExpanded] = useState(false);
   const [isAboutExpanded, setIsAboutExpanded] = useState(false);
-  const [isConservationExpanded, setIsConservationExpanded] = useState(false);
+  const [isResourcesExpanded, setIsResourcesExpanded] = useState(false);
   const location = useLocation();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => {
     setIsMenuOpen(false);
-    setIsConservationOpen(false);
+    setIsSolutionsOpen(false);
+    setIsSustainabilityOpen(false);
+    setIsPartnersOpen(false);
     setIsAboutOpen(false);
+    setIsResourcesOpen(false);
+    setIsSolutionsExpanded(false);
+    setIsSustainabilityExpanded(false);
+    setIsPartnersExpanded(false);
     setIsAboutExpanded(false);
-    setIsConservationExpanded(false);
+    setIsResourcesExpanded(false);
   };
 
   const isActive = (path: string) => location.pathname === path;
-  const isConservationActive = () => location.pathname.startsWith('/environment');
-  const isAboutActive = () =>
-    location.pathname === '/about' ||
-    location.pathname.startsWith('/about/team') ||
-    location.pathname.startsWith('/about/guides');
+  const isSolutionsActive = () => location.pathname.startsWith('/solutions') || location.pathname.startsWith('/tours');
+  const isSustainabilityActive = () => location.pathname.startsWith('/environment') || location.pathname.startsWith('/sustainability');
+  const isPartnersActive = () => location.pathname === '/community';
+  const isAboutActive = () => location.pathname.startsWith('/about');
+  const isResourcesActive = () => location.pathname === '/contact' || location.pathname.startsWith('/resources');
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md border-b border-white/10 bg-cream/80">
-      <div className="absolute inset-0 bg-black/40 z-0"></div>
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
       <div className="container mx-auto px-2 sm:px-4 flex justify-between items-center h-20 relative z-10 max-w-7xl">
-        <Link to="/" className="flex items-center" onClick={closeMenu}>
+        <Link to="/" className="flex flex-col items-center justify-center gap-1" onClick={closeMenu}>
           <img 
             src="/images/logo.png" 
             alt="Dirt Trails Safaris Logo" 
             className="h-10 sm:h-12 w-auto" 
           />
+          <span className="text-center text-[0.65rem] uppercase tracking-[0.28em] text-slate-500">
+            Safari Intelligence
+          </span>
         </Link>
 
         <nav className="hidden md:flex items-center space-x-1">
           <Link
             to="/"
             onClick={closeMenu}
-            className={`px-6 py-2 text-brown-900 font-medium transition-all relative group ${
-              isActive('/') ? 'text-brown-900' : 'text-brown-600 hover:text-brown-900'
+            className={`px-4 py-2 text-slate-900 font-medium transition-all relative group ${
+              isActive('/') ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Home
             <span 
-              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-accent transition-all ${
+              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-[#2ECC71] transition-all ${
                 isActive('/') ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
               }`}
             />
           </Link>
-          <Link
-            to="/tours"
-            onClick={closeMenu}
-            className={`px-6 py-2 text-brown-900 font-medium transition-all relative group ${
-              isActive('/tours') ? 'text-brown-900' : 'text-brown-600 hover:text-brown-900'
-            }`}
-          >
-            Safaris & Tours
-            <span 
-              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-accent transition-all ${
-                isActive('/tours') ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
-              }`}
-            />
-          </Link>
+
           <div className="relative group">
             <button
-              className={`px-6 py-2 text-brown-900 font-medium flex items-center transition-all relative ${
-                isAboutActive() ? 'text-brown-900' : 'text-brown-600 hover:text-brown-900'
+              className={`px-4 py-2 text-slate-900 font-medium flex items-center transition-all relative ${
+                isSolutionsActive() ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'
+              }`}
+              onClick={() => setIsSolutionsOpen((v) => !v)}
+              onFocus={() => setIsSolutionsOpen(true)}
+              onBlur={(e) => {
+                if (!e.currentTarget.parentElement?.contains(e.relatedTarget)) {
+                  setIsSolutionsOpen(false);
+                }
+              }}
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={isSolutionsOpen}
+            >
+              Solutions
+              <ChevronDown className="ml-1 h-4 w-4" />
+            </button>
+            {isSolutionsOpen && (
+              <div
+                className="absolute top-full left-0 bg-white shadow-xl rounded-xl mt-2 w-80 z-50 border border-slate-200"
+                onMouseEnter={() => setIsSolutionsOpen(true)}
+                onMouseLeave={() => setIsSolutionsOpen(false)}
+              >
+                <div className="grid gap-2 p-4">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Booking & Distribution</p>
+                    <Link to="/solutions/booking-engine" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Booking Engine</Link>
+                    <Link to="/solutions/global-connectivity" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Global Connectivity</Link>
+                    <Link to="/solutions/api-integrations" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">API Integrations</Link>
+                    <Link to="/solutions/channel-manager" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Channel Manager</Link>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Management & Operations</p>
+                    <Link to="/solutions/inventory-management" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Inventory Management</Link>
+                    <Link to="/solutions/dynamic-pricing" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Dynamic Pricing</Link>
+                    <Link to="/solutions/crm" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">CRM</Link>
+                    <Link to="/solutions/analytics-reporting" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Analytics & Reporting</Link>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Sustainability & Impact</p>
+                    <Link to="/solutions/carbon-footprint" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Carbon Footprint Calculator</Link>
+                    <Link to="/solutions/responsibility-suite" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Responsibility Suite</Link>
+                    <Link to="/solutions/ethical-sourcing" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Ethical Sourcing</Link>
+                    <Link to="/solutions/community-impact" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Community Impact Tracking</Link>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="relative group">
+            <button
+              className={`px-4 py-2 text-slate-900 font-medium flex items-center transition-all relative ${
+                isSustainabilityActive() ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'
+              }`}
+              onClick={() => setIsSustainabilityOpen((v) => !v)}
+              onFocus={() => setIsSustainabilityOpen(true)}
+              onBlur={(e) => {
+                if (!e.currentTarget.parentElement?.contains(e.relatedTarget)) {
+                  setIsSustainabilityOpen(false);
+                }
+              }}
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={isSustainabilityOpen}
+            >
+              Sustainability
+              <ChevronDown className="ml-1 h-4 w-4" />
+            </button>
+            {isSustainabilityOpen && (
+              <div
+                className="absolute top-full left-0 bg-white shadow-xl rounded-xl mt-2 w-72 z-50 border border-slate-200"
+                onMouseEnter={() => setIsSustainabilityOpen(true)}
+                onMouseLeave={() => setIsSustainabilityOpen(false)}
+              >
+                <div className="grid gap-2 p-4">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Our Approach</p>
+                    <Link to="/sustainability/vision-mission" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Vision & Mission</Link>
+                    <Link to="/sustainability/certifications" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Certifications</Link>
+                    <Link to="/sustainability/partnerships" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Partnerships</Link>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Features</p>
+                    <Link to="/sustainability/carbon-offset-tracking" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Carbon Offset Tracking</Link>
+                    <Link to="/sustainability/tree-tracking-geotagging" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Tree Tracking & Geotagging</Link>
+                    <Link to="/sustainability/supplier-vetting" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Supplier Vetting</Link>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Impact Reports</p>
+                    <Link to="/resources/case-studies" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Case Studies</Link>
+                    <Link to="/resources/data-metrics" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Data & Metrics</Link>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="relative group">
+            <button
+              className={`px-4 py-2 text-slate-900 font-medium flex items-center transition-all relative ${
+                isPartnersActive() ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'
+              }`}
+              onClick={() => setIsPartnersOpen((v) => !v)}
+              onFocus={() => setIsPartnersOpen(true)}
+              onBlur={(e) => {
+                if (!e.currentTarget.parentElement?.contains(e.relatedTarget)) {
+                  setIsPartnersOpen(false);
+                }
+              }}
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={isPartnersOpen}
+            >
+              Partners
+              <ChevronDown className="ml-1 h-4 w-4" />
+            </button>
+            {isPartnersOpen && (
+              <div
+                className="absolute top-full left-0 bg-white shadow-xl rounded-xl mt-2 w-64 z-50 border border-slate-200"
+                onMouseEnter={() => setIsPartnersOpen(true)}
+                onMouseLeave={() => setIsPartnersOpen(false)}
+              >
+                <Link to="/partners" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Partners</Link>
+                <Link to="/community" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Our Clients</Link>
+                <Link to="/partners/become" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Become a Partner</Link>
+                <Link to="/partners/technology" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Technology Partners</Link>
+              </div>
+            )}
+          </div>
+
+          <div className="relative group">
+            <button
+              className={`px-4 py-2 text-slate-900 font-medium flex items-center transition-all relative ${
+                isAboutActive() ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'
               }`}
               onClick={() => setIsAboutOpen((v) => !v)}
               onFocus={() => setIsAboutOpen(true)}
@@ -81,126 +215,65 @@ const Header = () => {
                 }
               }}
               type="button"
-              tabIndex={0}
               aria-haspopup="true"
               aria-expanded={isAboutOpen}
             >
-              About
+              About Us
               <ChevronDown className="ml-1 h-4 w-4" />
-              <span 
-                className={`absolute bottom-0 left-0 right-0 h-0.5 bg-accent transition-all ${
-                  isAboutActive() ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
-                }`}
-              />
             </button>
             {isAboutOpen && (
               <div
-                className="absolute top-full left-0 bg-cream/95 backdrop-blur-md shadow-xl rounded-md mt-2 w-52 z-50 border border-cream"
+                className="absolute top-full left-0 bg-white shadow-xl rounded-xl mt-2 w-52 z-50 border border-slate-200"
                 onMouseEnter={() => setIsAboutOpen(true)}
                 onMouseLeave={() => setIsAboutOpen(false)}
-                tabIndex={-1}
               >
-                <Link 
-                  to="/about"
-                  className="block w-full text-left px-6 py-3 text-brown-600 hover:text-brown-900 hover:bg-cream transition-colors border-b border-cream"
-                  onClick={closeMenu}
-                  tabIndex={0}
-                >
-                  About
-                </Link>
-                <Link 
-                  to="/about/team"
-                  className="block w-full text-left px-6 py-3 text-brown-600 hover:text-brown-900 hover:bg-cream transition-colors border-b border-cream"
-                  onClick={closeMenu}
-                  tabIndex={0}
-                >
-                  Our Team
-                </Link>
-                <Link 
-                  to="/about/guides"
-                  className="block w-full text-left px-6 py-3 text-brown-600 hover:text-brown-900 hover:bg-cream transition-colors"
-                  onClick={closeMenu}
-                  tabIndex={0}
-                >
-                  Our Guides
-                </Link>
-                <Link 
-                  to="/community"
-                  className="block w-full text-left px-6 py-3 text-brown-600 hover:text-brown-900 hover:bg-cream transition-colors"
-                  onClick={closeMenu}
-                  tabIndex={0}
-                >
-                  Community
-                </Link>
+                <Link to="/about" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors border-b border-slate-200">Our Story</Link>
+                <Link to="/about/team" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors border-b border-slate-200">Our Team</Link>
+                <Link to="/about/careers" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Careers</Link>
               </div>
             )}
           </div>
+
           <div className="relative group">
-            <button 
-              className={`px-6 py-2 text-brown-900 font-medium flex items-center transition-all relative ${
-                isConservationActive() ? 'text-brown-900' : 'text-brown-600 hover:text-brown-900'
+            <button
+              className={`px-4 py-2 text-slate-900 font-medium flex items-center transition-all relative ${
+                isResourcesActive() ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'
               }`}
-              onClick={() => setIsConservationOpen((v) => !v)}
-              onFocus={() => setIsConservationOpen(true)}
+              onClick={() => setIsResourcesOpen((v) => !v)}
+              onFocus={() => setIsResourcesOpen(true)}
               onBlur={(e) => {
                 if (!e.currentTarget.parentElement?.contains(e.relatedTarget)) {
-                  setIsConservationOpen(false);
+                  setIsResourcesOpen(false);
                 }
               }}
               type="button"
-              tabIndex={0}
               aria-haspopup="true"
-              aria-expanded={isConservationOpen}
+              aria-expanded={isResourcesOpen}
             >
-              Conservation
+              Resources
               <ChevronDown className="ml-1 h-4 w-4" />
-              <span 
-                className={`absolute bottom-0 left-0 right-0 h-0.5 bg-accent transition-all ${
-                  isConservationActive() ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
-                }`}
-              />
             </button>
-            {isConservationOpen && (
+            {isResourcesOpen && (
               <div
-                className="absolute top-full left-0 bg-cream/95 backdrop-blur-md shadow-xl rounded-md mt-2 w-64 z-50 border border-cream"
-                onMouseEnter={() => setIsConservationOpen(true)}
-                onMouseLeave={() => setIsConservationOpen(false)}
-                tabIndex={-1}
+                className="absolute top-full left-0 bg-white shadow-xl rounded-xl mt-2 w-64 z-50 border border-slate-200"
+                onMouseEnter={() => setIsResourcesOpen(true)}
+                onMouseLeave={() => setIsResourcesOpen(false)}
               >
-                <Link 
-                  to="/environment/geotagging"
-                  className="block w-full text-left px-6 py-3 text-brown-600 hover:text-brown-900 hover:bg-cream transition-colors"
-                  onClick={closeMenu}
-                  tabIndex={0}
-                >
-                  Geotagging & Monitoring
-                </Link>
-                <Link 
-                  to="/environment/carbon-offset"
-                  className="block w-full text-left px-6 py-3 text-brown-600 hover:text-brown-900 hover:bg-cream transition-colors border-b border-cream"
-                  onClick={closeMenu}
-                  tabIndex={0}
-                >
-                  Calculate Carbon Offset
-                </Link>
-                <Link 
-                  to="/environment/tree-planting"
-                  className="block w-full text-left px-6 py-3 text-brown-600 hover:text-brown-900 hover:bg-cream transition-colors border-b border-cream"
-                  onClick={closeMenu}
-                  tabIndex={0}
-                >
-                  Tree Planting Initiatives
-                </Link>
+                <Link to="/resources/blog" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Blog</Link>
+                <Link to="/resources/case-studies" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Case Studies</Link>
+                <Link to="/resources/faqs" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors border-b border-slate-200">FAQs</Link>
+                <Link to="/resources/events" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Webinars & Events</Link>
               </div>
             )}
           </div>
-          <Link to="/contact" className="ml-4 px-6 py-2.5 bg-accent hover:bg-accent/90 text-white font-medium rounded-md transition-colors shadow-lg shadow-accent/20">
+
+          <Link to="/contact" className="ml-4 px-6 py-2.5 bg-[#2ECC71] hover:bg-[#2ECC71]/90 text-white font-medium rounded-md transition-colors shadow-lg shadow-accent/20">
             Contact Us
           </Link>
         </nav>
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-white p-2"
+          className="md:hidden text-slate-900 p-2"
           onClick={toggleMenu}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
@@ -208,133 +281,135 @@ const Header = () => {
         </button>
       </div>
       
-      {/* Mobile Top Navigation Bar */}
-      <div className="md:hidden bg-white/95 backdrop-blur-sm border-t border-brown-200">
-        <div className="container mx-auto px-2 py-2 max-w-7xl">
-          <div className="flex justify-around items-center overflow-x-auto">
-            <Link
-              to="/"
-              onClick={closeMenu}
-              className={`flex flex-col items-center px-2 py-1 rounded-lg transition-colors whitespace-nowrap ${
-                isActive('/') ? 'text-accent bg-cream font-bold' : 'text-brown-600 hover:text-accent hover:bg-cream font-semibold'
-              }`}
-            >
-              <span className="text-xs">Home</span>
-            </Link>
-            <Link
-              to="/tours"
-              onClick={closeMenu}
-              className={`flex flex-col items-center px-2 py-1 rounded-lg transition-colors whitespace-nowrap ${
-                isActive('/tours') ? 'text-accent bg-cream font-bold' : 'text-brown-600 hover:text-accent hover:bg-cream font-semibold'
-              }`}
-            >
-              <span className="text-xs">Safaris & Tours</span>
-            </Link>
-            <Link
-              to="/environment/geotagging"
-              onClick={closeMenu}
-              className={`flex flex-col items-center px-2 py-1 rounded-lg transition-colors whitespace-nowrap ${
-                location.pathname === '/environment/geotagging' ? 'text-accent bg-cream font-bold' : 'text-brown-600 hover:text-accent hover:bg-cream font-semibold'
-              }`}
-            >
-              <span className="text-xs">Geotagging</span>
-            </Link>
-            <Link
-              to="/contact"
-              onClick={closeMenu}
-              className={`flex flex-col items-center px-2 py-1 rounded-lg transition-colors whitespace-nowrap ${
-                isActive('/contact') ? 'text-accent bg-cream font-bold' : 'text-brown-600 hover:text-accent hover:bg-cream font-semibold'
-              }`}
-            >
-              <span className="text-xs">Contact Us</span>
-            </Link>
-          </div>
-        </div>
-      </div>
-      
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-cream/95 backdrop-blur-md border-t border-brown-200 z-40 max-h-[90vh] overflow-y-auto">
-          <div className="container mx-auto px-2 py-6 flex flex-col space-y-4 max-w-7xl">
-            {/* About Dropdown Mobile - Now Collapsible */}
+        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-slate-200 z-40 max-h-[90vh] overflow-y-auto">
+          <div className="container mx-auto px-4 py-6 flex flex-col space-y-4 max-w-7xl">
             <div className="flex flex-col space-y-2 pl-4">
               <button
-                onClick={() => setIsAboutExpanded(!isAboutExpanded)}
-                className="flex items-center justify-between text-accent py-2 hover:text-accent/80 transition-colors"
+                onClick={() => setIsSolutionsExpanded(!isSolutionsExpanded)}
+                className="flex items-center justify-between text-slate-900 py-2 hover:text-slate-700 transition-colors"
               >
                 <div className="flex items-center">
                   <Users className="mr-2 h-4 w-4" />
-                  About
+                  Solutions
+                </div>
+                {isSolutionsExpanded ? <Minus size={16} /> : <Plus size={16} />}
+              </button>
+              {isSolutionsExpanded && (
+                <div className="space-y-2 pl-6">
+                  <div className="text-sm font-semibold uppercase tracking-[0.16em] text-[#1A2B3C]">Booking & Distribution</div>
+                  <Link to="/solutions/booking-engine" className="block text-left text-slate-700 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Booking Engine</Link>
+                  <Link to="/solutions/global-connectivity" className="block text-left text-slate-700 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Global Connectivity</Link>
+                  <Link to="/solutions/api-integrations" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>API Integrations</Link>
+                  <Link to="/solutions/channel-manager" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Channel Manager</Link>
+                  <div className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#1A2B3C]">Management & Operations</div>
+                  <Link to="/solutions/inventory-management" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Inventory Management</Link>
+                  <Link to="/solutions/dynamic-pricing" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Dynamic Pricing</Link>
+                  <Link to="/solutions/crm" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>CRM</Link>
+                  <Link to="/solutions/analytics-reporting" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Analytics & Reporting</Link>
+                  <div className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#1A2B3C]">Sustainability & Impact</div>
+                  <Link to="/solutions/carbon-footprint" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Carbon Footprint Calculator</Link>
+                  <Link to="/solutions/responsibility-suite" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Responsibility Suite</Link>
+                  <Link to="/solutions/ethical-sourcing" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Ethical Sourcing</Link>
+                  <Link to="/solutions/community-impact" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Community Impact Tracking</Link>
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col space-y-2 pl-4">
+              <button
+                onClick={() => setIsSustainabilityExpanded(!isSustainabilityExpanded)}
+                className="flex items-center justify-between text-[#2ECC71] py-2 hover:text-[#2ECC71]/80 transition-colors"
+              >
+                <div className="flex items-center">
+                  <Leaf className="mr-2 h-4 w-4" />
+                  Sustainability
+                </div>
+                {isSustainabilityExpanded ? <Minus size={16} /> : <Plus size={16} />}
+              </button>
+              {isSustainabilityExpanded && (
+                <div className="space-y-2 pl-6">
+                  <div className="text-sm font-semibold uppercase tracking-[0.16em] text-[#1A2B3C]">Our Approach</div>
+                  <Link to="/sustainability/vision-mission" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Vision & Mission</Link>
+                  <Link to="/sustainability/certifications" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Certifications</Link>
+                  <Link to="/sustainability/partnerships" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Partnerships</Link>
+                  <div className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#1A2B3C]">Features</div>
+                  <Link to="/sustainability/carbon-offset-tracking" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Carbon Offset Tracking</Link>
+                  <Link to="/sustainability/tree-tracking-geotagging" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Tree Tracking & Geotagging</Link>
+                  <Link to="/sustainability/supplier-vetting" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Supplier Vetting</Link>
+                  <div className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#1A2B3C]">Impact Reports</div>
+                  <Link to="/resources/case-studies" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Case Studies</Link>
+                  <Link to="/resources/data-metrics" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Data & Metrics</Link>
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col space-y-2 pl-4">
+              <button
+                onClick={() => setIsPartnersExpanded(!isPartnersExpanded)}
+                className="flex items-center justify-between text-[#2ECC71] py-2 hover:text-[#2ECC71]/80 transition-colors"
+              >
+                <div className="flex items-center">
+                  <Users className="mr-2 h-4 w-4" />
+                  Partners
+                </div>
+                {isPartnersExpanded ? <Minus size={16} /> : <Plus size={16} />}
+              </button>
+              {isPartnersExpanded && (
+                <div className="space-y-2 pl-6">
+                  <Link to="/partners" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Partners</Link>
+                  <Link to="/community" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Our Clients</Link>
+                  <Link to="/partners/become" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Become a Partner</Link>
+                  <Link to="/partners/technology" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Technology Partners</Link>
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col space-y-2 pl-4">
+              <button
+                onClick={() => setIsAboutExpanded(!isAboutExpanded)}
+                className="flex items-center justify-between text-[#2ECC71] py-2 hover:text-[#2ECC71]/80 transition-colors"
+              >
+                <div className="flex items-center">
+                  <ChevronDown className="mr-2 h-4 w-4" />
+                  About Us
                 </div>
                 {isAboutExpanded ? <Minus size={16} /> : <Plus size={16} />}
               </button>
               {isAboutExpanded && (
                 <div className="space-y-2 pl-6">
-                  <Link 
-                    to="/about"
-                    className="block text-left text-brown-600 hover:text-brown-900 transition-colors py-2"
-                    onClick={closeMenu}
-                  >
-                    About
-                  </Link>
-                  <Link 
-                    to="/about/team"
-                    className="block text-left text-brown-600 hover:text-brown-900 transition-colors py-2"
-                    onClick={closeMenu}
-                  >
-                    Our Team
-                  </Link>
-                  <Link 
-                    to="/about/guides"
-                    className="block text-left text-brown-600 hover:text-brown-900 transition-colors py-2"
-                    onClick={closeMenu}
-                  >
-                    Our Guides
-                  </Link>
-                  <Link 
-                    to="/community"
-                    className="block text-left text-brown-600 hover:text-brown-900 transition-colors py-2"
-                    onClick={closeMenu}
-                  >
-                    Community
-                  </Link>
+                  <Link to="/about" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Our Story</Link>
+                  <Link to="/about/team" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Our Team</Link>
+                  <Link to="/about/careers" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Careers</Link>
                 </div>
               )}
             </div>
-            {/* Conservation Dropdown Mobile - Now Collapsible */}
+
             <div className="flex flex-col space-y-2 pl-4">
               <button
-                onClick={() => setIsConservationExpanded(!isConservationExpanded)}
-                className="flex items-center justify-between text-accent py-2 hover:text-accent/80 transition-colors"
+                onClick={() => setIsResourcesExpanded(!isResourcesExpanded)}
+                className="flex items-center justify-between text-[#2ECC71] py-2 hover:text-[#2ECC71]/80 transition-colors"
               >
                 <div className="flex items-center">
-                  <Leaf className="mr-2 h-4 w-4" />
-                  Conservation
+                  <Plus className="mr-2 h-4 w-4" />
+                  Resources
                 </div>
-                {isConservationExpanded ? <Minus size={16} /> : <Plus size={16} />}
+                {isResourcesExpanded ? <Minus size={16} /> : <Plus size={16} />}
               </button>
-              {isConservationExpanded && (
+              {isResourcesExpanded && (
                 <div className="space-y-2 pl-6">
-                  <Link 
-                    to="/environment/carbon-offset"
-                    className="block text-left text-brown-600 hover:text-brown-900 transition-colors py-2"
-                    onClick={closeMenu}
-                  >
-                    Calculate Carbon Offset
-                  </Link>
-                  <Link 
-                    to="/environment/tree-planting"
-                    className="block text-left text-brown-600 hover:text-brown-900 transition-colors py-2"
-                    onClick={closeMenu}
-                  >
-                    Tree Planting Initiative
-                  </Link>
+                  <Link to="/resources/blog" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Blog</Link>
+                  <Link to="/resources/case-studies" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Case Studies</Link>
+                  <Link to="/resources/faqs" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>FAQs</Link>
+                  <Link to="/resources/events" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Webinars & Events</Link>
                 </div>
               )}
             </div>
+
             <Link 
               to="/contact"
-              className="w-full text-center px-6 py-3 bg-accent hover:bg-accent/90 text-white font-medium rounded-md transition-colors shadow-lg shadow-accent/20"
+              className="w-full text-center px-6 py-3 bg-[#2ECC71] hover:bg-[#2ECC71]/90 text-white font-medium rounded-md transition-colors shadow-lg shadow-accent/20"
               onClick={closeMenu}
             >
               Contact Us

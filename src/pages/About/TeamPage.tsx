@@ -1,331 +1,228 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Linkedin, Twitter, Instagram, Mail, X, ChevronLeft, ChevronRight, Plus, Minus } from 'lucide-react';
 import ChatBot from '@/components/ChatBot';
 
 const team = [
-	{
-		name: 'Ariho Gerald',
-		title: 'Co-Founder & Conservation Lead',
-		image: '/images/Gerald.jpg',
-		bio: 'Gerald is a conservationist and local guide with deep roots in East Africa. He oversees our conservation programs and works closely with communities to ensure sustainable tourism and positive impact.',
-		accordion: [
-			{ title: 'Education', content: 'Bachelor of Science in Environmental Conservation from Makerere University.' },
-			{ title: 'Personal Haven', content: 'Enjoys hiking in the Maasai Mara and birdwatching.' }
-		],
-		linkedin: 'https://www.linkedin.com/in/ariho-gerald-1a4714174/',
-		twitter: 'https://twitter.com/geraldariho',
-		instagram: 'https://instagram.com/geraldariho',
-		email: 'gerald@dirttrails.com',
-	},
-	{
-		name: 'Mariam Wambui',
-		title: 'COO, Lead Technology & Growth',
-		image: '/images/Mariam.jpg',
-		bio: 'Mariam is our Chief Operating Officer, bringing exceptional technical expertise and strategic business acumen to Dirt Trails. She oversees our digital operations, marketing initiatives, and technology infrastructure while ensuring seamless guest experiences. Her proactive leadership and innovative approach drive our growth and operational excellence across all departments.',
-		accordion: [
-			{ title: 'Education', content: 'Bachelor of Science in Software Engineering from Makerere University.' },
-			{ title: 'Personal Haven', content: 'Loves reading tech blogs and exploring Kenyan coastlines.' }
-		],
-		linkedin: 'https://www.linkedin.com/in/mariam-wambui-942458278/',
-		twitter: 'https://twitter.com/mariamwambui',
-		instagram: 'https://instagram.com/mariamwambui',
-		email: 'mariam@dirttrails.com',
-	},
-	{
-		name: 'Nantongo Joselyne',
-		title: 'CMO & Logistics Manager',
-		image: '/images/Joselyne.jpg',
-		bio: 'Joselyne is the backbone of our operations, coordinating logistics, guest services, and on-the-ground support. Her attention to detail ensures every trip runs smoothly from start to finish.',
-		accordion: [
-			{ title: 'Education', content: 'Bachelor of Science in Hospitality Management from Makerere University.' },
-			{ title: 'Personal Haven', content: 'Passionate about cooking Ugandan cuisine and community volunteering.' }
-		],
-		linkedin: 'https://www.linkedin.com/in/nantongo-joselyn-6b395b294/',
-		twitter: 'https://twitter.com/joselynenantongo',
-		instagram: 'https://instagram.com/joselynenantongo',
-		email: 'joselyne@dirttrails.com',
-	},
-	{
-		name: 'Ssemaganda George',
-		title: 'Co-Founder & CTO',
-		image: '/images/George.jpg',
-		bio: 'George is a passionate technologist and safari enthusiast with a background in computer science and eco-tourism. He leads our digital innovation and ensures every guest enjoys a seamless, safe, and memorable experience.',
-		accordion: [
-			{ title: 'Education', content: 'Bachelor of Science in Computer Science from Makerere University.' },
-			{ title: 'Personal Haven', content: 'Enjoys coding open-source projects and safari photography.' }
-		],
-		linkedin: 'https://www.linkedin.com/in/ssemaganda-george-03bba8171/',
-		twitter: 'https://twitter.com/ssemagandageorge',
-		instagram: 'https://instagram.com/ssemagandageorge',
-		email: 'george@dirttrails.com',
-	},
+  {
+    name: 'Ariho Gerald',
+    title: 'Co-Founder & Conservation Lead',
+    image: '/images/Gerald.jpg',
+    bio: 'Gerald brings conservation leadership, field knowledge and community partnerships together to shape responsible travel offerings that protect wildlife and empower local stakeholders.',
+    accordion: [
+      { title: 'Expertise', content: 'Conservation strategy, community engagement and sustainable experience design.' },
+      { title: 'Background', content: 'Bachelor of Science in Environmental Conservation from Makerere University.' },
+    ],
+    linkedin: 'https://www.linkedin.com/in/ariho-gerald-1a4714174/',
+    twitter: 'https://twitter.com/geraldariho',
+    instagram: 'https://instagram.com/geraldariho',
+    email: 'gerald@dirttrails.com',
+  },
+  {
+    name: 'Mariam Wambui',
+    title: 'COO, Lead Technology & Growth',
+    image: '/images/Mariam.jpg',
+    bio: 'Mariam blends product leadership with travel operations to build digital systems that accelerate growth, improve performance and make partner workflows more efficient.',
+    accordion: [
+      { title: 'Expertise', content: 'Platform delivery, tech operations and go-to-market enablement.' },
+      { title: 'Background', content: 'Bachelor of Science in Software Engineering from Makerere University.' },
+    ],
+    linkedin: 'https://www.linkedin.com/in/mariam-wambui-942458278/',
+    twitter: 'https://twitter.com/mariamwambui',
+    instagram: 'https://instagram.com/mariamwambui',
+    email: 'mariam@dirttrails.com',
+  },
+  {
+    name: 'Nantongo Joselyne',
+    title: 'CMO & Logistics Manager',
+    image: '/images/Joselyne.jpg',
+    bio: 'Nantongo coordinates logistics, guest services and communications so every travel experience is smooth, memorable and reflects our operational standards.',
+    accordion: [
+      { title: 'Expertise', content: 'Guest services, logistics planning and partner communication.' },
+      { title: 'Background', content: 'Bachelor of Science in Hospitality Management from Makerere University.' },
+    ],
+    linkedin: 'https://www.linkedin.com/in/nantongo-joselyn-6b395b294/',
+    twitter: 'https://twitter.com/joselynenantongo',
+    instagram: 'https://instagram.com/joselynenantongo',
+    email: 'joselyne@dirttrails.com',
+  },
+  {
+    name: 'Ssemaganda George',
+    title: 'Co-Founder & CTO',
+    image: '/images/George.jpg',
+    bio: 'George leads our technology vision, making sure the platform is scalable, secure and easy for travel teams to adopt while supporting sustainability and distribution outcomes.',
+    accordion: [
+      { title: 'Expertise', content: 'Software architecture, product design and travel technology innovation.' },
+      { title: 'Background', content: 'Bachelor of Science in Computer Science from Makerere University.' },
+    ],
+    linkedin: 'https://www.linkedin.com/in/ssemaganda-george-03bba8171/',
+    twitter: 'https://twitter.com/ssemagandageorge',
+    instagram: 'https://instagram.com/ssemagandageorge',
+    email: 'george@dirttrails.com',
+  },
 ];
 
 const TeamPage = () => {
-	const [selected, setSelected] = useState<number | null>(null);
-	const [openAccordion, setOpenAccordion] = useState<number | null>(null);
+  const [selected, setSelected] = useState<number | null>(null);
+  const [openAccordion, setOpenAccordion] = useState<number | null>(null);
 
-	useEffect(() => {
-		if (selected !== null) {
-			document.body.style.overflow = 'hidden';
-		} else {
-			document.body.style.overflow = 'unset';
-		}
-		return () => {
-			document.body.style.overflow = 'unset';
-		};
-	}, [selected]);
+  useEffect(() => {
+    document.body.style.overflow = selected !== null ? 'hidden' : 'unset';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selected]);
 
-	const handlePrev = () => {
-		setSelected((prev) => (prev === 0 ? team.length - 1 : prev! - 1));
-		setOpenAccordion(null);
-	};
+  const handlePrev = () => {
+    setSelected((prev) => (prev === 0 ? team.length - 1 : prev! - 1));
+    setOpenAccordion(null);
+  };
 
-	const handleNext = () => {
-		setSelected((prev) => (prev === team.length - 1 ? 0 : prev! + 1));
-		setOpenAccordion(null);
-	};
+  const handleNext = () => {
+    setSelected((prev) => (prev === team.length - 1 ? 0 : prev! + 1));
+    setOpenAccordion(null);
+  };
 
-	const toggleAccordion = (index: number) => {
-		setOpenAccordion(openAccordion === index ? null : index);
-	};
+  return (
+    <div className="bg-slate-50 text-slate-900 min-h-screen">
+      <section className="bg-white py-20">
+        <div className="container mx-auto max-w-6xl px-4 text-center">
+          <p className="text-sm uppercase tracking-[0.3em] text-teal-600">Our Team</p>
+          <h1 className="mt-4 text-4xl font-semibold">Who builds the Dirt Trails platform</h1>
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-600">
+            Our team combines local travel expertise, sustainability leadership and software execution to support travel operators, distribution partners and impact-focused programs.
+          </p>
+        </div>
+      </section>
 
-	return (
-		<div className="bg-gradient-to-b from-gray-50 to-white min-h-screen">
-			<style>
-				{`
-					:root {
-						--color-background-warm: #F8F5EE;
-						--color-text-primary: #282828;
-						--color-accent: #85A89E;
-					}
-					.team-grid {
-						display: grid;
-						grid-template-columns: 1fr;
-						gap: 1.5rem;
-					}
-					@media (min-width: 768px) {
-						.team-grid {
-							grid-template-columns: repeat(2, 1fr);
-							gap: 2rem;
-						}
-					}
-					@media (min-width: 1024px) {
-						.team-grid {
-							grid-template-columns: repeat(4, 1fr);
-							gap: 2.5rem;
-						}
-					}
-					.team-member img {
-						aspect-ratio: 3 / 4;
-						object-fit: cover;
-					}
-					.modal-bg {
-						background-color: #4CAF50; /* safari-green */
-						transform: translateY(100%);
-						transition: transform 0.5s ease-out;
-					}
-					.modal-bg.open {
-						transform: translateY(0);
-					}
-					.accordion-title {
-						border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-						cursor: pointer;
-						display: flex;
-						justify-content: space-between;
-						align-items: center;
-						padding: 1rem 0;
-					}
-					.accordion-content {
-						padding: 1rem 0;
-						color: white;
-					}
-				`}
-			</style>
-			<section className="relative py-20" style={{ backgroundColor: 'var(--color-background-warm)' }}>
-				<div className="max-w-7xl mx-auto px-4">
-					<div className="text-center mb-12 animate-fade-in-up">
-						<h2 className="text-5xl md:text-6xl font-bold mb-4" style={{ color: 'var(--color-text-primary)' }}>
-							Meet The Team
-						</h2>
-						<p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-							Our experienced team is passionate about East Africa and committed to
-							creating unforgettable, sustainable safari experiences for every guest.
-						</p>
-					</div>
+      <section className="container mx-auto max-w-7xl px-4 pb-20">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {team.map((member, idx) => (
+            <button
+              key={member.name}
+              type="button"
+              onClick={() => setSelected(idx)}
+              className="group rounded-3xl border border-slate-200 bg-white p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+            >
+              <div className="overflow-hidden rounded-3xl bg-slate-100">
+                <img src={member.image} alt={member.name} className="aspect-[4/5] w-full object-cover transition duration-500 group-hover:scale-105" />
+              </div>
+              <div className="mt-5">
+                <h2 className="text-2xl font-semibold text-slate-900">{member.name}</h2>
+                <p className="mt-2 text-sm uppercase tracking-[0.18em] text-teal-600">{member.title}</p>
+                <p className="mt-4 text-slate-600 leading-7">{member.bio}</p>
+              </div>
+            </button>
+          ))}
+        </div>
+      </section>
 
-					<div className="team-grid">
-						{team.map((member, idx) => (
-							<div key={member.name} className="animate-fade-in-up" style={{ animationDelay: `${idx * 100}ms` }}>
-								<div
-									className="bg-white overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-safari-brown/10 group cursor-pointer"
-									onClick={() => setSelected(idx)}
-									tabIndex={0}
-									role="button"
-									aria-label={`View bio for ${member.name}`}
-									onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setSelected(idx); }}
-								>
-									<div className="relative overflow-hidden team-member">
-										<img
-											src={member.image}
-											alt={member.name}
-											className="w-full transition-transform duration-700 group-hover:scale-110"
-											loading="lazy"
-										/>
-									</div>
-								</div>
-								<div className="text-center mt-4">
-									<h3 className="text-2xl font-semibold mb-1 group-hover:text-safari-green transition-colors duration-300" style={{ color: 'var(--color-text-primary)' }}>
-										{member.name}
-									</h3>
-									<p className="font-medium mb-2" style={{ color: 'var(--color-accent)' }}>
-										{member.title}
-									</p>
-									<div className="flex justify-center space-x-4">
-										{member.linkedin && (
-											<a
-												href={member.linkedin}
-												target="_blank"
-												rel="noopener noreferrer"
-												className="hover:text-safari-orange transition-colors duration-300"
-												style={{ color: 'var(--color-accent)' }}
-												aria-label={`${member.name} LinkedIn`}
-												onClick={e => e.stopPropagation()}
-											>
-												<Linkedin size={20} />
-											</a>
-										)}
-										{member.twitter && (
-											<a
-												href={member.twitter}
-												target="_blank"
-												rel="noopener noreferrer"
-												className="hover:text-safari-orange transition-colors duration-300"
-												style={{ color: 'var(--color-accent)' }}
-												aria-label={`${member.name} Twitter`}
-												onClick={e => e.stopPropagation()}
-											>
-												<Twitter size={20} />
-											</a>
-										)}
-										{member.instagram && (
-											<a
-												href={member.instagram}
-												target="_blank"
-												rel="noopener noreferrer"
-												className="hover:text-safari-orange transition-colors duration-300"
-												style={{ color: 'var(--color-accent)' }}
-												aria-label={`${member.name} Instagram`}
-												onClick={e => e.stopPropagation()}
-											>
-												<Instagram size={20} />
-											</a>
-										)}
-										{member.email && (
-											<a
-												href={`mailto:${member.email}`}
-												className="hover:text-safari-orange transition-colors duration-300"
-												style={{ color: 'var(--color-accent)' }}
-												aria-label={`${member.name} Email`}
-												onClick={e => e.stopPropagation()}
-											>
-												<Mail size={20} />
-											</a>
-										)}
-									</div>
-								</div>
-							</div>
-						))}
-					</div>
-					{/* Full-Screen Modal */}
-					{selected !== null && (
-						<div className="fixed inset-0 z-50 modal-bg open flex">
-							<button
-								className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
-								onClick={() => setSelected(null)}
-								aria-label="Close modal"
-							>
-								<X size={32} />
-							</button>
-							<div className="flex flex-col md:flex-row w-full">
-								{/* Left Column: Image */}
-								<div className="w-full md:w-1/2 flex items-center justify-center bg-gray-200 h-full">
-									<img
-										src={team[selected].image}
-										alt={team[selected].name}
-										className="h-full w-full object-cover"
-										loading="lazy"
-									/>
-								</div>
-								{/* Right Column: Content */}
-								<div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center text-white overflow-y-auto">
-									<h1 className="text-4xl md:text-6xl font-serif mb-2">{team[selected].name}</h1>
-									<p className="text-xl md:text-2xl font-sans mb-6">{team[selected].title}</p>
-									<p className="text-base md:text-lg leading-relaxed mb-8">{team[selected].bio}</p>
-									{/* Accordion */}
-									<div className="mb-8">
-										{team[selected].accordion.map((item, idx) => (
-											<div key={idx}>
-												<div className="accordion-title" onClick={() => toggleAccordion(idx)}>
-													<span className="text-lg uppercase">{item.title}</span>
-													{openAccordion === idx ? <Minus size={20} /> : <Plus size={20} />}
-												</div>
-												{openAccordion === idx && (
-													<div className="accordion-content">
-														<p>{item.content}</p>
-													</div>
-												)}
-											</div>
-										))}
-									</div>
-									{/* Navigation */}
-									<div className="flex justify-between mt-auto">
-										<button onClick={handlePrev} className="flex items-center text-white hover:text-gray-300 transition-colors">
-											<ChevronLeft size={20} />
-											<span className="ml-2 uppercase">Previous</span>
-										</button>
-										<button onClick={handleNext} className="flex items-center text-white hover:text-gray-300 transition-colors">
-											<span className="mr-2 uppercase">Next</span>
-											<ChevronRight size={20} />
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					)}
-				</div>
-			</section>
-			<section className="py-16 bg-safari-green/5">
-				<div className="max-w-3xl mx-auto px-4 text-center">
-					<h2 className="text-3xl font-bold mb-4 text-safari-green">
-						Why Choose Us?
-					</h2>
-					<p className="text-lg text-gray-700 mb-6">
-						Our team combines local expertise, conservation passion, and digital
-						innovation to deliver safe, authentic, and impactful safaris. We are
-						committed to sustainability, community empowerment, and guest
-						satisfaction.
-					</p>
-					<div className="flex flex-col sm:flex-row justify-center gap-4 mt-4">
-						<Link
-							to="/about"
-							className="px-8 py-3 bg-safari-green text-white rounded-xl font-semibold shadow-lg hover:bg-safari-brown transition-all duration-300"
-						>
-							Learn More About Dirt Trails Safaris
-						</Link>
-						<Link
-							to="/contact"
-							className="px-8 py-3 bg-safari-orange text-white rounded-xl font-semibold shadow-lg hover:bg-safari-green transition-all duration-300"
-						>
-							Wish to Join Our Team?
-						</Link>
-					</div>
-				</div>
-			</section>
-			<ChatBot />
-		</div>
-	);
+      {selected !== null && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+          <div className="relative mx-auto w-full max-w-5xl overflow-hidden rounded-[2rem] bg-white shadow-2xl">
+            <button
+              className="absolute right-5 top-5 inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-white transition hover:bg-slate-700"
+              onClick={() => setSelected(null)}
+              aria-label="Close team member details"
+            >
+              <X size={24} />
+            </button>
+            <div className="grid gap-6 md:grid-cols-[0.9fr_1.1fr]">
+              <div className="overflow-hidden bg-slate-900 md:rounded-l-[2rem]">
+                <img src={team[selected].image} alt={team[selected].name} className="h-full w-full object-cover" />
+              </div>
+              <div className="p-8 md:p-12">
+                <h2 className="text-4xl font-semibold text-slate-900">{team[selected].name}</h2>
+                <p className="mt-3 text-xl uppercase tracking-[0.24em] text-teal-600">{team[selected].title}</p>
+                <p className="mt-6 text-base leading-8 text-slate-700">{team[selected].bio}</p>
+                <div className="mt-8 space-y-4">
+                  {team[selected].accordion.map((item, idx) => (
+                    <div key={item.title}>
+                      <button
+                        type="button"
+                        onClick={() => setOpenAccordion(openAccordion === idx ? null : idx)}
+                        className="flex w-full items-center justify-between border-b border-slate-200 pb-3 text-left text-slate-900"
+                      >
+                        <span className="text-base font-semibold">{item.title}</span>
+                        {openAccordion === idx ? <Minus size={18} /> : <Plus size={18} />}
+                      </button>
+                      {openAccordion === idx && (
+                        <p className="mt-3 text-slate-600 leading-7">{item.content}</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex gap-3 text-slate-700">
+                    {team[selected].linkedin && (
+                      <a href={team[selected].linkedin} target="_blank" rel="noreferrer" className="transition hover:text-slate-900">
+                        <Linkedin size={24} />
+                      </a>
+                    )}
+                    {team[selected].twitter && (
+                      <a href={team[selected].twitter} target="_blank" rel="noreferrer" className="transition hover:text-slate-900">
+                        <Twitter size={24} />
+                      </a>
+                    )}
+                    {team[selected].instagram && (
+                      <a href={team[selected].instagram} target="_blank" rel="noreferrer" className="transition hover:text-slate-900">
+                        <Instagram size={24} />
+                      </a>
+                    )}
+                    {team[selected].email && (
+                      <a href={`mailto:${team[selected].email}`} className="transition hover:text-slate-900">
+                        <Mail size={24} />
+                      </a>
+                    )}
+                  </div>
+                  <div className="flex gap-3">
+                    <button
+                      type="button"
+                      onClick={handlePrev}
+                      className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700"
+                    >
+                      <ChevronLeft size={18} /> Previous
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleNext}
+                      className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700"
+                    >
+                      Next <ChevronRight size={18} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <section className="bg-slate-900 py-20 text-white">
+        <div className="container mx-auto max-w-5xl px-4 text-center">
+          <h2 className="text-3xl font-semibold">Careers with Purpose</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-8 text-slate-300">
+            We are hiring across product, operations and partner success roles. Join a team that builds technology for travel operators and drives sustainable impact for communities.
+          </p>
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
+            <Link
+              to="/about/careers"
+              className="inline-flex items-center justify-center rounded-full bg-teal-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-teal-400"
+            >
+              View open roles
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/20"
+            >
+              Contact recruiting
+            </Link>
+          </div>
+        </div>
+      </section>
+      <ChatBot />
+    </div>
+  );
 };
 
 export default TeamPage;
