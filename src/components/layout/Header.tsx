@@ -89,7 +89,7 @@ const Header = () => {
             </button>
             {isSolutionsOpen && (
               <div
-                className="absolute top-full left-0 z-50 mt-3 w-80 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg"
+                className="absolute top-full left-0 z-50 mt-1 w-80 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg"
                 onMouseEnter={() => setIsSolutionsOpen(true)}
                 onMouseLeave={() => setIsSolutionsOpen(false)}
               >
@@ -145,7 +145,7 @@ const Header = () => {
             </button>
             {isSustainabilityOpen && (
               <div
-                className="absolute top-full left-0 bg-white shadow-xl rounded-xl mt-2 w-72 z-50 border border-slate-200"
+                className="absolute top-full left-0 bg-white shadow-xl rounded-xl mt-1 w-72 z-50 border border-slate-200"
                 onMouseEnter={() => setIsSustainabilityOpen(true)}
                 onMouseLeave={() => setIsSustainabilityOpen(false)}
               >
@@ -197,7 +197,7 @@ const Header = () => {
             </button>
             {isPartnersOpen && (
               <div
-                className="absolute top-full left-0 bg-white shadow-xl rounded-xl mt-2 w-64 z-50 border border-slate-200"
+                className="absolute top-full left-0 bg-white shadow-xl rounded-xl mt-1 w-64 z-50 border border-slate-200"
                 onMouseEnter={() => setIsPartnersOpen(true)}
                 onMouseLeave={() => setIsPartnersOpen(false)}
               >
@@ -234,7 +234,7 @@ const Header = () => {
             </button>
             {isAboutOpen && (
               <div
-                className="absolute top-full left-0 bg-white shadow-xl rounded-xl mt-2 w-52 z-50 border border-slate-200"
+                className="absolute top-full left-0 bg-white shadow-xl rounded-xl mt-1 w-52 z-50 border border-slate-200"
                 onMouseEnter={() => setIsAboutOpen(true)}
                 onMouseLeave={() => setIsAboutOpen(false)}
               >
@@ -270,7 +270,7 @@ const Header = () => {
             </button>
             {isResourcesOpen && (
               <div
-                className="absolute top-full left-0 bg-white shadow-xl rounded-xl mt-2 w-64 z-50 border border-slate-200"
+                className="absolute top-full left-0 bg-white shadow-xl rounded-xl mt-1 w-64 z-50 border border-slate-200"
                 onMouseEnter={() => setIsResourcesOpen(true)}
                 onMouseLeave={() => setIsResourcesOpen(false)}
               >

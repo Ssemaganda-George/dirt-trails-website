@@ -92,10 +92,19 @@
     box-sizing: border-box;
   }
 
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, sans-serif;
     line-height: 1.6;
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
   }
 
   h1, h2, h3, h4, h5, h6 {
