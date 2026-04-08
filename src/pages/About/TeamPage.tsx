@@ -102,7 +102,7 @@ const TeamPage = () => {
               key={member.name}
               type="button"
               onClick={() => setSelected(idx)}
-              className="group rounded-3xl border border-slate-200 bg-white p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+              className="group rounded-3xl bg-white p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
             >
               <div className="overflow-hidden rounded-3xl bg-slate-100">
                 <img src={member.image} alt={member.name} className="aspect-[4/5] w-full object-cover transition duration-500 group-hover:scale-105" />
@@ -110,7 +110,6 @@ const TeamPage = () => {
               <div className="mt-5">
                 <h2 className="text-2xl font-semibold text-slate-900">{member.name}</h2>
                 <p className="mt-2 text-sm uppercase tracking-[0.18em] text-teal-600">{member.title}</p>
-                <p className="mt-4 text-slate-600 leading-7">{member.bio}</p>
               </div>
             </button>
           ))}
