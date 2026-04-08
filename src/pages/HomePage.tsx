@@ -1,4 +1,4 @@
-import { Globe, ShieldCheck, ServerCog, Leaf, CheckCircle, MessageSquare, BarChart3, TrendingUp, LifeBuoy, Cpu } from 'lucide-react';
+import { Globe, ShieldCheck, ServerCog, Leaf, CheckCircle, MessageSquare, BarChart3, TrendingUp, LifeBuoy, Cpu, PlayCircle, Phone, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Hero from '@/components/home/Hero';
 
@@ -41,51 +41,43 @@ const HomePage = () => {
         </section>
 
         <section id="why-dirt-trails" className="mt-16 rounded-[2rem] bg-white p-12 shadow-xl border border-slate-200">
-          <div className="max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Why Dirt Trails</p>
-            <h2 className="mt-4 text-4xl font-semibold text-slate-950">A premium travel platform built for operators that want more than booking software.</h2>
-            <p className="mt-6 text-lg leading-8 text-slate-600">
-              Dirt Trails is the research-backed travel technology engine for local and global operators. We combine commercial booking systems, market intelligence and premium partner support so travel teams can scale with confidence.
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {[
-              {
-                label: 'Platform clarity',
-                description: 'One system for bookings, distribution and supplier workflows.',
-              },
-              {
-                label: 'Intelligent growth',
-                description: 'Market insight and demand signals that guide every decision.',
-              },
-              {
-                label: 'Premium support',
-                description: 'Onboarding, integrations and account guidance for every launch.',
-              },
-            ].map((item) => (
-              <div key={item.label} className="rounded-3xl border border-slate-200 bg-slate-50 p-7 shadow-sm">
-                <p className="text-base font-semibold text-slate-950">{item.label}</p>
-                <p className="mt-3 text-sm leading-6 text-slate-600">{item.description}</p>
+          <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
+            <div className="max-w-2xl">
+              <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Why Dirt Trails</p>
+              <h2 className="mt-4 text-4xl font-semibold text-slate-950">An innovative travel platform built for operators, partners and global distribution.</h2>
+              <p className="mt-6 text-base leading-8 text-slate-600 sm:text-lg">
+                Dirt Trails combines commercial booking systems, market intelligence, partner enablement and sustainability controls into a single platform for international growth.
+              </p>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                {[
+                  { label: 'Platform clarity', detail: 'Single view for bookings, distribution and supplier operations.' },
+                  { label: 'Intelligent growth', detail: 'Demand signals, pricing and launch guidance for better decisions.' },
+                  { label: 'Premium support', detail: 'Hands-on onboarding, integrations and account coordination.' },
+                  { label: 'Global readiness', detail: 'Multi-currency, multi-channel commerce for regional and international markets.' },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm">
+                    <p className="text-sm font-semibold text-slate-950">{item.label}</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">{item.detail}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-
-          <div className="mt-10 grid gap-5 sm:grid-cols-2">
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-7 shadow-sm">
-              <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Operate with confidence</p>
-              <p className="mt-3 text-3xl font-semibold text-slate-950">Connect sales, suppliers and operations in one workflow.</p>
             </div>
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-7 shadow-sm">
-              <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Scale with data</p>
-              <p className="mt-3 text-3xl font-semibold text-slate-950">Move faster with a platform built around insight.</p>
-            </div>
-          </div>
 
-          <div className="mt-10">
-            <Link to="/about" className="inline-flex items-center rounded-full bg-[#2ECC71] px-8 py-3 text-sm font-semibold text-white transition hover:bg-[#28b765]">
-              Discover the Dirt Trails difference
-            </Link>
+            <div className="space-y-4">
+              <div className="rounded-[2rem] border border-slate-200 bg-slate-50 p-6 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.28em] text-slate-500">Operational confidence</p>
+                <p className="mt-4 text-2xl font-semibold text-slate-950">Connect sales, suppliers and operations in a single workflow.</p>
+              </div>
+              <div className="rounded-[2rem] border border-slate-200 bg-slate-50 p-6 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.28em] text-slate-500">Strategic scale</p>
+                <p className="mt-4 text-2xl font-semibold text-slate-950">Move faster with a platform built around insight.</p>
+              </div>
+              <div className="mt-4">
+                <Link to="/about" className="inline-flex items-center rounded-full bg-slate-950 px-8 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">
+                  Discover the Dirt Trails difference
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -96,7 +88,7 @@ const HomePage = () => {
             <p className="mt-5 text-base leading-8 text-slate-300">
               Run reservations, inventory, payments and partner networks through a single platform designed for modern travel businesses.
             </p>
-            <div className="mt-8 space-y-4">
+            <div className="mt-8 grid gap-3">
               {[
                 'Unified booking engine for packages, lodges and experiences',
                 'Distribution across regional and international channels',
@@ -104,7 +96,7 @@ const HomePage = () => {
                 'Sustainability tools for premium product positioning',
                 'Supplier and partner network for trusted delivery',
               ].map((item) => (
-                <div key={item} className="rounded-3xl bg-slate-900 p-5">
+                <div key={item} className="rounded-3xl bg-slate-900 p-4">
                   <p className="text-sm leading-6 text-slate-300">{item}</p>
                 </div>
               ))}
@@ -117,7 +109,7 @@ const HomePage = () => {
             <p className="mt-5 text-base leading-8 text-slate-600">
               Use market research, analytics and guided implementation to make better decisions and keep your team moving.
             </p>
-            <div className="mt-8 space-y-4">
+            <div className="mt-8 grid gap-4">
               {[
                 'Market intelligence and trend reports',
                 'Demand signals and pricing optimisation',
@@ -165,6 +157,49 @@ const HomePage = () => {
                 </div>
                 <h3 className="mt-5 text-xl font-semibold text-slate-950">{item.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-slate-600">{item.copy}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="implementation-flow" className="mt-16 rounded-[2rem] bg-white p-10 shadow-xl border border-slate-200">
+          <div className="max-w-3xl">
+            <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Implementation flow</p>
+            <h2 className="mt-4 text-3xl font-semibold text-slate-950">Learn about the steps of our implementation flow</h2>
+            <p className="mt-5 text-base leading-8 text-slate-600">
+              From demo request to commissioning, our team supports you with clear steps, expert handoffs, and a tailored launch plan.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                title: 'Request a demo',
+                description: 'Complete the form with information about your company.',
+                icon: PlayCircle,
+              },
+              {
+                title: 'Our experts will contact you',
+                description: 'Once we receive the request, our travel distribution experts will reach out.',
+                icon: Phone,
+              },
+              {
+                title: 'We will offer the best solution',
+                description: 'We analyze your business and recommend the modules you need to grow.',
+                icon: Sparkles,
+              },
+              {
+                title: 'Commissioning',
+                description: "You're all set to get your project up and running with Dirt Trails.",
+                icon: CheckCircle,
+              },
+            ].map((item) => (
+              <div key={item.title} className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-emerald-400">
+                  <item.icon size={22} />
+                </div>
+                <h3 className="mt-5 text-xl font-semibold text-slate-950">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600">{item.description}</p>
               </div>
             ))}
           </div>

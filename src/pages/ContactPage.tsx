@@ -94,10 +94,10 @@ const ContactPage = () => {
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
             <div className="animate-fade-in-up rounded-[2rem] border border-slate-200 bg-white p-10 shadow-[0_40px_120px_rgba(15,23,42,0.08)]">
               <div className="mb-10 max-w-2xl">
-                <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Send us a message</p>
-                <h2 className="mt-4 text-4xl font-serif text-slate-950">Start your inquiry.</h2>
+                <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Request a demo</p>
+                <h2 className="mt-4 text-4xl font-serif text-slate-950">Request a demo tailored to your business.</h2>
                 <p className="mt-4 text-base leading-8 text-slate-600">
-                  Share your business goals, partner needs or operations challenges. Our team will respond with clear next steps for bookings, distribution, sustainability and partner collaboration.
+                  Share your company details, platform priorities and collaboration interests. Our team will respond with clear next steps for product demos and partner support.
                 </p>
               </div>
 
@@ -119,96 +119,171 @@ const ContactPage = () => {
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   {submitError && (
-                    <div className="rounded-3xl border border-red-200 bg-red-50 p-5 text-sm text-red-700">
+                    <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
                       {submitError}
                     </div>
                   )}
 
-                  <div className="grid gap-6 sm:grid-cols-2">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="sm:col-span-2">
+                      <label htmlFor="businessType" className="mb-3 block text-sm font-semibold text-slate-700">Business Type *</label>
+                      <select
+                        id="businessType"
+                        name="businessType"
+                        required
+                        disabled={isSubmitting}
+                        className="h-14 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
+                      >
+                        <option value="">Select business type</option>
+                        <option value="DMC">DMC</option>
+                        <option value="OTA">OTA</option>
+                        <option value="Hotel">Hotel</option>
+                        <option value="DMO">DMO</option>
+                        <option value="Supplier">Supplier</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
                     <div>
-                      <label htmlFor="firstName" className="mb-3 block text-sm font-semibold text-slate-700">First Name *</label>
+                      <label htmlFor="firstName" className="mb-2 block text-sm font-semibold text-slate-700">First Name *</label>
                       <Input
                         id="firstName"
                         name="firstName"
                         required
                         disabled={isSubmitting}
-                        className="h-14 border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
+                        className="h-14 rounded-xl border border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
                       />
                     </div>
                     <div>
-                      <label htmlFor="lastName" className="mb-3 block text-sm font-semibold text-slate-700">Last Name *</label>
+                      <label htmlFor="lastName" className="mb-2 block text-sm font-semibold text-slate-700">Last Name *</label>
                       <Input
                         id="lastName"
                         name="lastName"
                         required
                         disabled={isSubmitting}
-                        className="h-14 border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
+                        className="h-14 rounded-xl border border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
                       />
+                    </div>
+                    <div>
+                      <label htmlFor="companyName" className="mb-2 block text-sm font-semibold text-slate-700">Company Name *</label>
+                      <Input
+                        id="companyName"
+                        name="companyName"
+                        required
+                        disabled={isSubmitting}
+                        className="h-14 rounded-xl border border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="mb-2 block text-sm font-semibold text-slate-700">Email Address *</label>
+                      <Input
+                        id="email"
+                        name="_replyto"
+                        type="email"
+                        required
+                        disabled={isSubmitting}
+                        className="h-14 rounded-xl border border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="country" className="mb-2 block text-sm font-semibold text-slate-700">Country *</label>
+                      <Input
+                        id="country"
+                        name="country"
+                        type="text"
+                        required
+                        disabled={isSubmitting}
+                        placeholder="e.g. Kenya, Uganda, United Kingdom"
+                        className="h-14 rounded-xl border border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="phone" className="mb-2 block text-sm font-semibold text-slate-700">Phone Number</label>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        disabled={isSubmitting}
+                        className="h-14 rounded-xl border border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="website" className="mb-2 block text-sm font-semibold text-slate-700">Website</label>
+                      <Input
+                        id="website"
+                        name="website"
+                        type="url"
+                        disabled={isSubmitting}
+                        placeholder="https://"
+                        className="h-14 rounded-xl border border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="interest" className="mb-2 block text-sm font-semibold text-slate-700">What are you interested in? *</label>
+                      <select
+                        id="interest"
+                        name="interest"
+                        required
+                        disabled={isSubmitting}
+                        className="h-14 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
+                      >
+                        <option value="">Select an option</option>
+                        <option value="platform">Platform implementation</option>
+                        <option value="partnership">Partnership collaboration</option>
+                        <option value="research">Research support</option>
+                        <option value="sustainability">Sustainability enablement</option>
+                        <option value="operations">Operations improvement</option>
+                        <option value="other">Other</option>
+                      </select>
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="mb-3 block text-sm font-semibold text-slate-700">Email Address *</label>
-                    <Input
-                      id="email"
-                      name="_replyto"
-                      type="email"
-                      required
-                      disabled={isSubmitting}
-                      className="h-14 border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="phone" className="mb-3 block text-sm font-semibold text-slate-700">Phone Number</label>
-                    <Input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      disabled={isSubmitting}
-                      className="h-14 border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="interest" className="mb-3 block text-sm font-semibold text-slate-700">I'm interested in</label>
-                    <select
-                      id="interest"
-                      name="interest"
-                      disabled={isSubmitting}
-                      className="h-14 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
-                    >
-                      <option value="">Select an option</option>
-                      <option value="platform">Platform implementation</option>
-                      <option value="partnership">Partnership collaboration</option>
-                      <option value="research">Research support</option>
-                      <option value="sustainability">Sustainability enablement</option>
-                      <option value="operations">Operations improvement</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="mb-3 block text-sm font-semibold text-slate-700">Tell us about your opportunity *</label>
+                    <label htmlFor="message" className="mb-2 block text-sm font-semibold text-slate-700">Comments *</label>
                     <Textarea
                       id="message"
                       name="message"
                       rows={6}
                       required
                       disabled={isSubmitting}
-                      placeholder="Tell us about your goals, team, timeline, or specific challenge."
-                      className="border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900 resize-none"
+                      placeholder="Share your project scope, audience, timeline or platform priorities."
+                      className="min-h-[160px] rounded-xl border border-slate-300 bg-slate-50 text-slate-950 focus:border-slate-900 focus:ring-slate-900 resize-none"
                     />
                   </div>
 
-                  <input type="hidden" name="_subject" value="New Contact Inquiry from Website" />
+                  <div className="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                    <label className="flex items-start gap-3 text-sm text-slate-700">
+                      <input
+                        type="checkbox"
+                        id="privacyConsent"
+                        name="privacyConsent"
+                        required
+                        disabled={isSubmitting}
+                        className="mt-1 h-4 w-4 rounded border-slate-300 text-slate-950 focus:ring-slate-900"
+                      />
+                      <span className="text-slate-700 leading-relaxed">
+                        I have read and accept the <a href="/privacy" className="text-slate-950 underline">Privacy Policy</a> and agree to submit my data for this inquiry.
+                      </span>
+                    </label>
+                    <label className="flex items-start gap-3 text-sm text-slate-700">
+                      <input
+                        type="checkbox"
+                        id="receivePromotions"
+                        name="receivePromotions"
+                        disabled={isSubmitting}
+                        className="mt-1 h-4 w-4 rounded border-slate-300 text-slate-950 focus:ring-slate-900"
+                      />
+                      <span>Yes, I agree to receive promotions, product news and updates.</span>
+                    </label>
+                  </div>
+
+                  <input type="hidden" name="_subject" value="New Demo Request from Website" />
 
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full rounded-full bg-slate-950 px-8 py-4 text-white shadow-xl shadow-slate-950/20 transition hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="w-full rounded-full bg-slate-950 px-6 py-3 text-white shadow-lg shadow-slate-950/15 transition hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-60"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
@@ -217,7 +292,7 @@ const ContactPage = () => {
                         Sending Message...
                       </>
                     ) : (
-                      'Submit Inquiry'
+                      'Request a Demo'
                     )}
                   </Button>
                 </form>

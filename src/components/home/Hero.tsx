@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Globe, Leaf, ShieldCheck, BarChart3, LifeBuoy, Cpu } from 'lucide-react';
+import { Leaf, CheckCircle, PlayCircle, Phone, Sparkles } from 'lucide-react';
 
 const slides = [
   {
@@ -30,21 +30,20 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-[#F8F9FA] text-[#0F172A]">
+    <section className="relative overflow-hidden bg-white text-slate-950">
+      <div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-slate-950 via-slate-900 to-transparent opacity-5 pointer-events-none" />
       <div className="container mx-auto px-4 py-20 sm:py-24 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] items-start">
+        <div className="grid gap-12 xl:grid-cols-[1.1fr_0.9fr] items-start">
           <div className="max-w-2xl">
-            <div className="inline-flex flex-col gap-4">
-              <span className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 px-4 py-1.5 text-sm font-semibold uppercase tracking-[0.24em] text-slate-700 shadow-sm">
-                Platform + travel intelligence
-              </span>
-              <h1 className="mt-6 text-5xl sm:text-6xl font-semibold leading-tight tracking-tight text-slate-950">
-                A travel tech platform for local operators, with research-grade systems for global partners.
-              </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-                Build bookings, distribution and sustainability into one unified system — backed by market insights, partner support and enterprise-ready integrations.
-              </p>
-            </div>
+            <span className="inline-flex items-center rounded-full bg-slate-950 px-4 py-2 text-xs font-semibold uppercase tracking-[0.32em] text-emerald-200 shadow-sm">
+              Global travel intelligence
+            </span>
+            <h1 className="mt-6 text-4xl font-semibold leading-[1.05] tracking-tight text-slate-950 sm:text-5xl md:text-6xl">
+              Intelligent travel technology for operators, partners and sustainability teams.
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
+              A distinctly international platform designed to connect bookings, distribution and supplier workflows with premium business insights and partner support.
+            </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <button
@@ -57,18 +56,18 @@ const Hero = () => {
                 onClick={() => navigate('/contact')}
                 className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-10 py-3 text-base font-semibold text-slate-950 transition hover:bg-slate-50"
               >
-                Partner desk inquiry
+                Explore solutions
               </button>
             </div>
 
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
-                <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Trusted by</p>
-                <p className="mt-4 text-3xl font-semibold text-slate-950">Travel operators, suppliers and international partners.</p>
+              <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-5 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.28em] text-slate-500">Premier partners</p>
+                <p className="mt-3 text-xl font-semibold text-slate-950">Operators, OTAs and suppliers across markets.</p>
               </div>
-              <div className="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
-                <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Performance</p>
-                <p className="mt-4 text-3xl font-semibold text-slate-950">Bookings, intelligence and support in one platform.</p>
+              <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-5 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.28em] text-slate-500">Built for scale</p>
+                <p className="mt-3 text-xl font-semibold text-slate-950">Flexible modules for local launches and global growth.</p>
               </div>
             </div>
           </div>
@@ -76,43 +75,55 @@ const Hero = () => {
           <div className="space-y-6">
             <div className="rounded-[2rem] bg-slate-950 p-8 text-white shadow-2xl">
               <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Travel intelligence</p>
-              <h2 className="mt-4 text-3xl font-semibold">Research-backed growth for operators.</h2>
+              <h2 className="mt-4 text-3xl font-semibold">Research-backed growth for operators</h2>
               <div className="mt-6 grid gap-4">
-                <div className="rounded-3xl bg-slate-900 p-4">
-                  <p className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-500">Revenue channels</p>
-                  <p className="mt-2 text-xl font-semibold">Packages, lodges and experiences</p>
-                </div>
-                <div className="rounded-3xl bg-slate-900 p-4">
-                  <p className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-500">Market signals</p>
-                  <p className="mt-2 text-xl font-semibold">Demand, pricing and distribution trends</p>
-                </div>
-                <div className="rounded-3xl bg-slate-900 p-4">
-                  <p className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-500">Partner desk</p>
-                  <p className="mt-2 text-xl font-semibold">Dedicated support for every launch</p>
-                </div>
+                {[
+                  {
+                    label: 'Revenue channels',
+                    detail: 'Packages, lodges and experiences',
+                  },
+                  {
+                    label: 'Market signals',
+                    detail: 'Demand, pricing and distribution trends',
+                  },
+                  {
+                    label: 'Partner desk',
+                    detail: 'Dedicated support for every launch',
+                  },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-3xl bg-slate-900 p-4">
+                    <p className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-500">{item.label}</p>
+                    <p className="mt-2 text-xl font-semibold">{item.detail}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
             <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-3xl bg-slate-50 p-4">
-                  <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Market insights</p>
-                  <p className="mt-3 text-sm text-slate-700">Demand signals, trend reports and research for smarter pricing.</p>
-                </div>
-                <div className="rounded-3xl bg-slate-50 p-4">
-                  <p className="text-sm uppercase tracking-[0.24em] text-slate-500">API & integrations</p>
-                  <p className="mt-3 text-sm text-slate-700">Connect payments, OTAs and enterprise systems with ease.</p>
-                </div>
-              </div>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                <div className="rounded-3xl bg-slate-50 p-4">
-                  <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Support</p>
-                  <p className="mt-3 text-sm text-slate-700">Onboarding, training and account management for every operator.</p>
-                </div>
-                <div className="rounded-3xl bg-slate-50 p-4">
-                  <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Sustainability</p>
-                  <p className="mt-3 text-sm text-slate-700">Impact dashboards and compliance-ready reporting.</p>
-                </div>
+                {[
+                  {
+                    title: 'Market insights',
+                    description: 'Demand signals, trend reports and research for smarter pricing.',
+                  },
+                  {
+                    title: 'API & integrations',
+                    description: 'Connect payments, OTAs and enterprise systems with ease.',
+                  },
+                  {
+                    title: 'Support',
+                    description: 'Onboarding, training and account management for every operator.',
+                  },
+                  {
+                    title: 'Sustainability',
+                    description: 'Impact dashboards and compliance-ready reporting.',
+                  },
+                ].map((item) => (
+                  <div key={item.title} className="rounded-3xl bg-slate-50 p-4">
+                    <p className="text-sm uppercase tracking-[0.24em] text-slate-500">{item.title}</p>
+                    <p className="mt-3 text-sm text-slate-700">{item.description}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -124,7 +135,7 @@ const Hero = () => {
               key={index}
               onClick={() => setActiveIndex(index)}
               className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
-                index === activeIndex ? 'bg-[#2ECC71]' : 'bg-slate-300'
+                index === activeIndex ? 'bg-emerald-500' : 'bg-slate-300'
               }`}
               aria-label={`Slide ${index + 1}`}
             />
