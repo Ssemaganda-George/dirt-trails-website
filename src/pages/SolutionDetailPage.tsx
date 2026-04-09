@@ -209,11 +209,79 @@ const solutionContent = {
   },
 };
 
+const solutionSystems = {
+  'booking-engine': [
+    'Dirt Trails Booking Engine for multi-product commerce',
+    'Package builder for tours, accommodation and add-ons',
+    'Agent portal for trade sales and corporate quoting',
+  ],
+  'global-connectivity': [
+    'Partner Distribution Hub for OTA and trade feeds',
+    'White-label channel integrations for agent and direct sales',
+    'Live inventory and rate gateway for global partners',
+  ],
+  'api-integrations': [
+    'Secure API gateway for payments and partner systems',
+    'Booking and availability sync for external platforms',
+    'Data exchange with CRM, accounting and reporting tools',
+  ],
+  'channel-manager': [
+    'Real-time channel availability sync',
+    'Rate rule engine for partner and OTA pricing',
+    'Unified inventory distribution across sales channels',
+  ],
+  'inventory-management': [
+    'Supplier inventory control for rooms, tours and vehicles',
+    'Product catalog management for packages and add-ons',
+    'Availability dashboards for operations teams',
+  ],
+  'dynamic-pricing': [
+    'Rule-based pricing engine for demand and occupancy',
+    'Margin-preserving rate automation',
+    'Promotions and seasonality controls for travel products',
+  ],
+  crm: [
+    'Partner and guest CRM workflows for travel teams',
+    'Lead tracking for group requests and tour inquiries',
+    'Profile-driven communications for repeat clients',
+  ],
+  'analytics-reporting': [
+    'Commercial dashboards for channel and supplier performance',
+    'Financial and yield reporting for operations managers',
+    'Sustainability scorecards with business insights',
+  ],
+  'carbon-footprint': [
+    'Itinerary-level emissions estimation',
+    'Supplier and transport footprint reporting',
+    'Transparent carbon disclosures for corporate buyers',
+  ],
+  'responsibility-suite': [
+    'Social and environmental contribution tracking',
+    'Compliance workflows for responsible tourism',
+    'Verified impact metrics for partner reporting',
+  ],
+  'ethical-sourcing': [
+    'Supplier vetting and standards management',
+    'Ethical sourcing scorecards for experiences',
+    'Verified local procurement and quality checks',
+  ],
+  'community-impact': [
+    'Community benefit tracking for supplier spend',
+    'Local impact reporting for guest experiences',
+    'Stakeholder-ready data for sustainable product storytelling',
+  ],
+};
+
 const SolutionDetailPage = () => {
   const { solutionSlug } = useParams<{ solutionSlug: string }>();
   const page = useMemo(() => {
     if (!solutionSlug) return null;
     return solutionContent[solutionSlug as keyof typeof solutionContent] ?? null;
+  }, [solutionSlug]);
+
+  const systems = useMemo(() => {
+    if (!solutionSlug) return [];
+    return solutionSystems[solutionSlug as keyof typeof solutionSystems] ?? [];
   }, [solutionSlug]);
 
   if (!page) {
@@ -251,9 +319,9 @@ const SolutionDetailPage = () => {
           <div className="grid gap-8 lg:grid-cols-[0.9fr_0.7fr] items-start">
             <div>
               <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Stakeholder value</p>
-              <h2 className="mt-4 text-3xl font-semibold text-slate-950">Why partners and stakeholders choose this solution.</h2>
+              <h2 className="mt-4 text-3xl font-semibold text-slate-950">How this solution delivers commercial and operational impact.</h2>
               <p className="mt-5 text-base leading-8 text-slate-600">
-                This page explains how the solution helps operators reduce risk, scale distribution and create clear value for customers and partners.
+                This solution is designed to reduce complexity, improve partner confidence and keep your travel operations aligned with market demand, compliance requirements and guest expectations.
               </p>
             </div>
             <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
@@ -275,6 +343,20 @@ const SolutionDetailPage = () => {
                 <p className="mt-4 text-base leading-7 text-slate-700">{item}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="mt-16 rounded-[2rem] bg-white p-12 shadow-sm border border-slate-200">
+          <div>
+            <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Systems delivered</p>
+            <h2 className="mt-4 text-3xl font-semibold text-slate-950">Systems we’ve deployed for this capability</h2>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {systems.map((system) => (
+                <div key={system} className="rounded-3xl border border-slate-200 bg-slate-50 p-6 text-slate-700">
+                  <p className="text-base leading-7">{system}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 

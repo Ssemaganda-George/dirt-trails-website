@@ -129,18 +129,30 @@ const SolutionsPage = () => {
           <div className="grid gap-8 lg:grid-cols-[0.9fr_0.7fr] items-start">
             <div>
               <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Booking & Distribution</p>
-              <h2 className="mt-4 text-3xl font-semibold text-slate-950">A modern booking engine built for packages, agents and global sales.</h2>
+              <h2 className="mt-4 text-3xl font-semibold text-slate-950">A commercial engine for bookings, partners and global distribution.</h2>
               <p className="mt-5 text-base leading-8 text-slate-600">
-                Connect tour packages, lodges and experiences with live availability, channel management and partner distribution. Operators can sell more while reducing manual coordination.
+                Operators use Dirt Trails to centralize reservations, package creation and partner channel workflows in one platform. The result is faster quoting, fewer manual handoffs and better visibility across every route, lodge and experience.
               </p>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                {[
+                  { title: 'Booking Engine', summary: 'Unified booking flows for packages, groups and direct sales.' },
+                  { title: 'Global Connectivity', summary: 'OTA, partner and white-label distribution under one roof.' },
+                  { title: 'API Integrations', summary: 'Secure data exchange for payments, inventory and partner feeds.' },
+                  { title: 'Channel Manager', summary: 'Real-time rate and availability control across channels.' },
+                ].map((item) => (
+                  <div key={item.title} className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
+                    <p className="text-sm uppercase tracking-[0.24em] text-slate-500">{item.title}</p>
+                    <p className="mt-3 text-base text-slate-700">{item.summary}</p>
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
-              <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Key offering</p>
-              <p className="mt-3 text-lg font-semibold text-slate-950">Package & partner-ready engine</p>
+              <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Systems we have built</p>
               <ul className="mt-4 space-y-3 text-slate-600">
-                <li>Multi-product inventory for safari, lodge and experience bookings</li>
-                <li>Channel manager for OTA, trade and direct sales</li>
-                <li>Agent rates, corporate contracts and mobile booking workflows</li>
+                <li>Dirt Trails Booking Engine for package and inventory orchestration</li>
+                <li>Partner Distribution Hub for OTA, trade and direct sales feeds</li>
+                <li>Agent & OTA Channel Gateway for live connectivity and approvals</li>
               </ul>
             </div>
           </div>
@@ -149,18 +161,18 @@ const SolutionsPage = () => {
         <section id="operations" className="mt-16 rounded-[2rem] bg-slate-50 p-12 shadow-sm border border-slate-200">
           <div className="grid gap-8 lg:grid-cols-[0.7fr_0.9fr] items-start">
             <div className="rounded-3xl bg-white p-8 shadow-sm border border-slate-200">
-              <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Operations & Growth</p>
-              <h3 className="mt-4 text-2xl font-semibold text-slate-950">Simplify operations and unlock new revenue.</h3>
+              <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Management & Operations</p>
+              <h3 className="mt-4 text-2xl font-semibold text-slate-950">Streamline products, pricing and guest relationships.</h3>
               <p className="mt-4 text-base leading-8 text-slate-600">
-                Manage inventory, pricing and customer journeys from one system. Operators use Dirt Trails to improve availability accuracy, automate pricing and keep selling even when demand changes.
+                Bring inventory, pricing rules, CRM and reporting into one travel operations command center. Dirt Trails helps operators reduce manual updates, keep channels aligned and improve responsiveness as the market shifts.
               </p>
             </div>
             <div className="grid gap-4">
               {[
-                'Inventory management for rooms, seats and tours',
-                'Dynamic pricing rules based on season, occupancy and demand',
-                'CRM workflows for agents, suppliers and guests',
-                'Analytics for revenue, margin and sales performance',
+                'Inventory Management for rooms, tours and supplier stock',
+                'Dynamic Pricing driven by demand, occupancy and seasonality',
+                'CRM workflows for agents, sales and guest service',
+                'Analytics & Reporting for revenue, yield and partner performance',
               ].map((item) => (
                 <div key={item} className="rounded-3xl border border-slate-200 bg-white p-6">
                   <p className="text-sm text-slate-700">{item}</p>
@@ -168,24 +180,45 @@ const SolutionsPage = () => {
               ))}
             </div>
           </div>
+          <div className="mt-8 rounded-3xl border border-slate-200 bg-white p-8">
+            <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Systems we have built</p>
+            <ul className="mt-4 space-y-3 text-slate-600">
+              <li>Operations Control Center for inventory, booking and supplier workflows</li>
+              <li>Yield Pricing Engine for rate automation and channel performance</li>
+              <li>Travel CRM for partner enquiries, lead tracking and guest profiles</li>
+              <li>Performance Intelligence Hub for commercial and operational reporting</li>
+            </ul>
+          </div>
         </section>
 
         <section id="sustainability" className="mt-16 rounded-[2rem] bg-white p-12 shadow-sm border border-slate-200">
           <div className="grid gap-8 lg:grid-cols-[0.9fr_0.7fr] items-start">
             <div>
               <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Sustainability & Impact</p>
-              <h2 className="mt-4 text-3xl font-semibold text-slate-950">Embed impact reporting into every guest journey.</h2>
+              <h2 className="mt-4 text-3xl font-semibold text-slate-950">Make responsible tourism part of every booking.</h2>
               <p className="mt-5 text-base leading-8 text-slate-600">
-                Track carbon, community contributions and ethical sourcing as part of the booking workflow. Use verified impact data to sell premium experiences and build trust with partners.
+                Track emissions, supplier impact and local value as part of your product workflow. This gives operators confidence to sell responsible experiences and build stronger partnerships with communities and stakeholders.
               </p>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                {[
+                  { title: 'Carbon Footprint Calculator', summary: 'Estimate emissions across routes, accommodation and transport.' },
+                  { title: 'Responsibility Suite', summary: 'Capture social and environmental contributions from bookings.' },
+                  { title: 'Ethical Sourcing', summary: 'Verify supplier standards and responsible procurement criteria.' },
+                  { title: 'Community Impact Tracking', summary: 'Measure local benefit from supplier spend and experiences.' },
+                ].map((item) => (
+                  <div key={item.title} className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
+                    <p className="text-sm uppercase tracking-[0.24em] text-slate-500">{item.title}</p>
+                    <p className="mt-3 text-base text-slate-700">{item.summary}</p>
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
-              <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Platform capabilities</p>
+              <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Systems we have built</p>
               <ul className="mt-4 space-y-3 text-slate-600">
-                <li>Carbon footprint estimates for itineraries and accommodations</li>
-                <li>Community impact metrics for local supplier partnerships</li>
-                <li>Geotagged reporting and sustainability scorecards</li>
-                <li>Compliance-ready dashboards for responsible tourism teams</li>
+                <li>Impact Reporting Dashboard for carbon, community and supplier metrics</li>
+                <li>Responsible Sourcing Manager for supplier qualification and compliance</li>
+                <li>Community Benefit Tracker for local spend and conservation engagement</li>
               </ul>
             </div>
           </div>
@@ -195,9 +228,9 @@ const SolutionsPage = () => {
           <div className="grid gap-8 lg:grid-cols-[0.7fr_0.9fr] items-start">
             <div className="rounded-3xl bg-white p-8 shadow-sm border border-slate-200">
               <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Research & Support</p>
-              <h3 className="mt-4 text-2xl font-semibold text-slate-950">Market intelligence and support that keeps your business growing.</h3>
+              <h3 className="mt-4 text-2xl font-semibold text-slate-950">Research and launch support for travel operations.</h3>
               <p className="mt-4 text-base leading-8 text-slate-600">
-                Get the research, onboarding and partner desk support you need to launch, scale and maintain commercial travel operations with confidence.
+                We back the platform with demand intelligence, onboarding support and partner operations guidance so your systems launch quickly and stay aligned with market needs.
               </p>
             </div>
             <div className="grid gap-4">
