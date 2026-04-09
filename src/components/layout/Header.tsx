@@ -42,13 +42,11 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-xl shadow-sm">
       <div className="container mx-auto px-4 flex items-center justify-between gap-4 h-20 max-w-7xl">
-        <Link to="/" className="inline-flex items-center gap-3" onClick={closeMenu}>
-          <img 
-            src="/images/logo.png" 
-            alt="Dirt Trails logo" 
-            className="h-8 w-auto" 
-          />
-          <span className="text-[0.6rem] uppercase tracking-[0.28em] text-slate-500 font-semibold">
+        <Link to="/" className="inline-flex flex-col items-start gap-0" onClick={closeMenu}>
+          <span className="text-2xl font-bold tracking-tight text-slate-950">
+            DirtTrails<span className="text-emerald-500 ml-0.5">.</span>
+          </span>
+          <span className="text-[8px] font-medium uppercase tracking-[0.18em] text-slate-500 mt-1">
             Safari Intelligence
           </span>
         </Link>
