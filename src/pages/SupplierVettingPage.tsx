@@ -11,14 +11,32 @@ const SupplierVettingPage = () => (
       {
         title: 'What it enables',
         description:
-          'Keep supplier standards consistent, verify credentials and ensure that every offering aligns with your operational and sustainability goals.',
-        items: ['Supplier qualification tracking', 'Compliance checks for responsible tourism', 'Performance assessments and reviews'],
+          'Standardized supplier review processes help you verify credentials, manage risk and keep product quality consistent across every partner.',
+        items: [
+          'Supplier questionnaires, documents and certificates stored in one place',
+          'Compliance checks for responsible tourism, safety and local regulations',
+          'Performance scoring and review workflows for guides, lodges and activities',
+        ],
+      },
+      {
+        title: 'How it works',
+        description:
+          'Automate your vetting process with checklists, approval gates and review notes so partners only go live after meeting your standards.',
+        items: [
+          'Qualification status tracking for new and existing suppliers',
+          'Risk flags and renewal reminders for certificates and agreements',
+          'Supplier readiness workflows for new markets and partner launches',
+        ],
       },
       {
         title: 'Stakeholder impact',
         description:
           'Partners and stakeholders can trust that the products you distribute are built with quality, ethical sourcing and accountability in mind.',
-        items: ['More reliable partner relationships', 'Clear expectations for local suppliers', 'Safer scaling across new markets'],
+        items: [
+          'More reliable partner relationships',
+          'Clear expectations for local suppliers',
+          'Safer scaling across new markets',
+        ],
       },
     ]}
   />

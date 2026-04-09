@@ -9,16 +9,34 @@ const CaseStudiesPage = () => (
     imageNote="Placeholder for case study visuals or timeline."
     sections={[
       {
-        title: 'Operator impact',
+        title: 'Recent results',
         description:
-          'Case studies show how the platform supports real businesses with bookings, distribution and operational efficiency.',
-        items: ['Increased partner bookings through managed channels', 'Streamlined supplier operations for growth', 'Verified impact data for premium product placement'],
+          'These examples show how operators and partners became more efficient, more transparent and more competitive with the platform.',
+        items: [
+          'A safari operator increased partner bookings by 28% through managed distribution feeds',
+          'A lodge reduced manual supplier coordination time by 40% with automated confirmations',
+          'A conservation tourism program delivered verified community impact reporting to funders',
+        ],
       },
       {
         title: 'What stakeholders see',
         description:
-          'These stories help partners understand the value of the platform through measurable results and clear outcomes.',
-        items: ['Stronger sales performance', 'Improved sustainability credibility', 'Faster scaling across new markets'],
+          'Case studies help partners understand the value of the platform through measurable outcomes and clearer business stories.',
+        items: [
+          'Stronger sales performance from consistent product delivery',
+          'Better sustainability credibility backed by data',
+          'Faster expansion into new markets with partner-ready workflows',
+        ],
+      },
+      {
+        title: 'Platform value',
+        description:
+          'Operators use the platform to reduce risk, improve partner trust and make data-driven decisions across sales, operations and sustainability.',
+        items: [
+          'Improved partner coordination with reliable channel feeds',
+          'More consistent pricing and commission workflows',
+          'Verified reporting for guests, agencies and buyers',
+        ],
       },
     ]}
   />

@@ -11,14 +11,32 @@ const TreeTrackingPage = () => (
       {
         title: 'What is included',
         description:
-          'Track plantings with location data, verify growth progress and share responsible tourism impact with partners and guests.',
-        items: ['Geotagged tree planting records', 'Verification-ready project summaries', 'Integration with impact dashboards'],
+          'Track plantings with precise location data, verify growth progress and share responsible tourism impact with partners and guests.',
+        items: [
+          'Geotagged tree planting records with site coordinates and species details',
+          'Verification-ready project summaries for donors, guests and partners',
+          'Integration with impact dashboards and responsible tourism packages',
+        ],
       },
       {
-        title: 'Operational value',
+        title: 'Why it matters',
         description:
-          'This capability helps operators demonstrate authentic environmental action and build stronger stories for sustainability-minded partners.',
-        items: ['Stronger sustainability storytelling', 'Verified impact for responsible products', 'Improved partner and guest confidence'],
+          'This capability helps operators demonstrate authentic environmental action and build stronger sustainability stories for products and partners.',
+        items: [
+          'Stronger conservation storytelling with mapped project evidence',
+          'Verified impact for responsible packages and guest communications',
+          'Improved partner confidence through traceable project data',
+        ],
+      },
+      {
+        title: 'Partner value',
+        description:
+          'Use geotagged tracking to differentiate your programs, attract eco-minded guests and support local community initiatives.',
+        items: [
+          'Clear evidence of restoration and conservation investment',
+          'Better transparency for sustainability claims and certifications',
+          'Stronger collaboration with local planting and conservation partners',
+        ],
       },
     ]}
   />

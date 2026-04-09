@@ -11,14 +11,32 @@ const DataMetricsPage = () => (
       {
         title: 'What is tracked',
         description:
-          'We capture booking, channel, revenue and sustainability metrics so you can compare performance with confidence.',
-        items: ['Bookings by product and channel', 'Revenue and margin performance', 'Carbon and impact metrics'],
+          'We capture bookings, channel performance, revenue and sustainability metrics so you can measure product performance across the whole travel value chain.',
+        items: [
+          'Bookings and occupancy by product, date and channel',
+          'Revenue, margin and commission performance',
+          'Carbon, community and supplier impact metrics',
+        ],
       },
       {
         title: 'How partners use it',
         description:
-          'Data helps partners make better decisions around pricing, product design and sustainability programs.',
-        items: ['Informed pricing strategy', 'Evidence for partner planning', 'Clear KPIs for stakeholder reporting'],
+          'Partners use data to make smarter pricing, marketing and operational decisions with confidence.',
+        items: [
+          'Informed pricing strategies based on channel performance',
+          'Evidence for partner planning and product development',
+          'Clear KPIs for sustainability, sales and supplier teams',
+        ],
+      },
+      {
+        title: 'Decision support',
+        description:
+          'Bring stakeholders together with common metrics and reporting so your team can act faster on what matters most.',
+        items: [
+          'Dashboard views for bookings, revenue and impact',
+          'Trend analysis for seasonality and partner performance',
+          'Shared reports for operations, sales and sustainability teams',
+        ],
       },
     ]}
   />

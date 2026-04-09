@@ -5,20 +5,38 @@ const FeaturesPage = () => (
     title="Features"
     subtitle="The platform capabilities that power modern travel operations."
     heroBadge="Features"
-    heroText="Explore the core capabilities that make Dirt Trails a powerful platform for bookings, distribution, sustainability and partner support."
+    heroText="Explore the core modules that make Dirt Trails a reliable system for bookings, partner distribution, sustainability and operations."
     imageNote="Placeholder for feature overview grid or product UI."
     sections={[
       {
-        title: 'Commercial features',
+        title: 'Commercial core',
         description:
-          'Booking engine, channel management and payment integration work together to keep operations efficient and scalable.',
-        items: ['Package inventory and agent pricing', 'Channel connectivity for OTA and trade', 'Payments with local and international options'],
+          'A configurable booking engine and channel layer gives you control over product creation, pricing and distribution in one place.',
+        items: [
+          'Flexible product bundles for tours, lodges and transport',
+          'Agent and OTA channel feeds with live availability and rate rules',
+          'Secure payments, local settlement and commission handling',
+        ],
       },
       {
-        title: 'Support features',
+        title: 'Operations & partner support',
         description:
-          'Research reports, partner support and impact dashboards help teams make smarter decisions and launch with confidence.',
-        items: ['Partner desk onboarding and training', 'Market intelligence and analytics', 'Impact reporting and supplier vetting'],
+          'Tools for supplier management, partner workflows and customer handoff keep your operations predictable and easier to scale.',
+        items: [
+          'Partner desk onboarding, configuration and performance tracking',
+          'Automated confirmations, supplier notifications and booking validation',
+          'Market intelligence dashboards for yield, occupancy and partner performance',
+        ],
+      },
+      {
+        title: 'Sustainability and reporting',
+        description:
+          'Impact measurement is part of the product, so you can offer responsible tourism packages with real data and trusted reporting.',
+        items: [
+          'Carbon, community and supplier metrics linked to every booking',
+          'Verified impact dashboards and exportable stakeholder reports',
+          'Supplier vetting and ethical sourcing workflows for better product transparency',
+        ],
       },
     ]}
   />

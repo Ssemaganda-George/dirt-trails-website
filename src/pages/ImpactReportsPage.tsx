@@ -11,14 +11,32 @@ const ImpactReportsPage = () => (
       {
         title: 'What you can do',
         description:
-          'Generate concise, credible reports that show revenue, sustainability and partner impact in a single view.',
-        items: ['Operational performance dashboards', 'Carbon and community impact summaries', 'Partner-ready presentation materials'],
+          'Create clear reports that combine bookings, revenue, carbon and community impact into a single narrative for partners and stakeholders.',
+        items: [
+          'Exportable dashboards for sustainability, sales and supplier performance',
+          'Pre-built summaries for guests, corporate buyers and distribution partners',
+          'Custom report filters for date range, destination and product type',
+        ],
       },
       {
         title: 'Why it matters',
         description:
-          'Impact reports make it easier for stakeholders to measure success, spot opportunities and support responsible growth.',
-        items: ['Stronger reporting for investors and partners', 'Clear evidence for responsible tourism claims', 'Faster decision-making with aligned metrics'],
+          'Impact reports help you demonstrate credibility, reduce partner friction and support responsible tourism claims with measurable data.',
+        items: [
+          'Stronger reporting for investors, agencies and impact programs',
+          'Clear evidence for sustainability certifications and partner commitments',
+          'Faster decision-making through aligned operational and commercial metrics',
+        ],
+      },
+      {
+        title: 'Reporting formats',
+        description:
+          'Use the platform to generate internal summaries, guest-facing impact statements and partner-ready briefing decks.',
+        items: [
+          'PDF and dashboard exports for stakeholder meetings',
+          'Impact summaries that include carbon, community and supplier metrics',
+          'Shared report links for sales, marketing and partner teams',
+        ],
       },
     ]}
   />

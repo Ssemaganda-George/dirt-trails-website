@@ -11,14 +11,32 @@ const CarbonOffsetTrackingPage = () => (
       {
         title: 'What it does',
         description:
-          'Our platform estimates carbon emissions for travel products and shows how offset contributions can be used to meet responsible tourism goals.',
-        items: ['Itinerary-level footprint calculations', 'Supplier and transport emissions analysis', 'Offset reporting for partner communications'],
+          'The platform calculates emissions for every itinerary component and maps offset contributions to products, suppliers and guest communications.',
+        items: [
+          'Itinerary-level footprint calculations for accommodations, transport and activities',
+          'Automated offset recommendations and cost allocation per booking',
+          'Supplier emissions factors and transport mode differentiation',
+        ],
       },
       {
-        title: 'Why it matters',
+        title: 'Operational benefit',
         description:
-          'Partners and guests expect clear environmental transparency. This page helps operators demonstrate that responsible travel is real, measurable and achievable.',
-        items: ['Trust through measurable reporting', 'Premium product differentiation', 'Simplified claims for sustainability partners'],
+          'Use emissions data to create premium responsible packages, support partner compliance and simplify sustainability reporting.',
+        items: [
+          'Offset commitments mapped to each reservation and supplier partner',
+          'Guest-facing disclosure with carbon breakdown and project transparency',
+          'Partner-ready reporting for CSR, agency and distribution channels',
+        ],
+      },
+      {
+        title: 'Reporting and transparency',
+        description:
+          'Make carbon tracking easy to share with stakeholders and use the data to demonstrate responsible tourism performance.',
+        items: [
+          'Exportable carbon summaries for partners and corporate buyers',
+          'Dashboard views for offset, emissions and project allocations',
+          'Clear environmental claims backed by documented calculation methods',
+        ],
       },
     ]}
   />

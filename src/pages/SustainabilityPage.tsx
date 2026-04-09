@@ -5,20 +5,28 @@ const SustainabilityPage = () => (
     title="Sustainability"
     subtitle="Responsible travel operations with measurable impact."
     heroBadge="Sustainability"
-    heroText="Deliver transparency and accountability across every booking, supplier and experience with platform tools for impact reporting, carbon tracking and responsible sourcing."
+    heroText="Turn every booking into a verified sustainability story with carbon, community and supplier accountability built into your travel operations."
     imageNote="Dashboard-style impact overview or sustainability illustration."
     sections={[
       {
-        title: 'Why it matters',
+        title: 'Business outcomes',
         description:
-          'Sustainability is now a business requirement for partners, travelers and investors. Our platform helps you turn responsibility into a competitive advantage.',
-        items: ['Clear metrics for carbon, community and compliance', 'Verified reporting for partners and stakeholders', 'Premium positioning for responsible travel products'],
+          'Operators and partners demand more than promises. Our platform helps you quantify impact, reduce risk and win bookings with trusted sustainability credentials.',
+        items: [
+          'Carbon and community metrics tied to itineraries, accommodations and transport legs',
+          'Verified reporting for corporate buyers, travel agents and eco-conscious guests',
+          'Supplier standards and ethical sourcing controls embedded in product workflows',
+        ],
       },
       {
-        title: 'Platform capability',
+        title: 'How it works',
         description:
-          'Embedded sustainability workflows mean your team does not need a separate system for impact tracking — it is part of every booking and supplier connection.',
-        items: ['Carbon offset calculation', 'Community impact tracking', 'Supplier vetting and ethical sourcing'],
+          'Embed sustainability into the booking lifecycle so tracking, reporting and partner compliance happen automatically as part of every reservation.',
+        items: [
+          'Capture emissions factors and offset costs during booking',
+          'Track community contributions by destination, program and supplier',
+          'Maintain audit trails for supplier certifications, local partnerships and impact claims',
+        ],
       },
     ]}
   />
