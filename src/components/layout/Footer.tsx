@@ -12,7 +12,7 @@ const Footer = () => {
           <div>
             <p className="text-lg font-semibold uppercase tracking-[0.18em] text-slate-950">Dirt Trails</p>
             <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600">
-              A modular travel intelligence platform built to automate bookings, optimize inventory, surface business insights and connect operators, agents and suppliers through global distribution—while embedding sustainability across every workflow.
+              A modular travel intelligence platform built to automate bookings, optimize inventory, surface business insights and connect operators, agents and suppliers through global distribution, while embedding sustainability across every workflow.
             </p>
             <p className="mt-5 text-xs uppercase tracking-[0.24em] text-slate-500">
               Travel intelligence that extends value across operators, distributors, suppliers and impact teams.

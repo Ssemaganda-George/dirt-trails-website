@@ -55,19 +55,19 @@ const solutionContent = {
     icon: Cpu,
   },
   'channel-manager': {
-    title: 'Channel Manager',
-    subtitle: 'Manage rates, inventory and partner availability in one place.',
+    title: 'Digital Payments',
+    subtitle: 'Enable secure payments across travel channels and partner systems.',
     description:
-      'Ensure consistent pricing and availability across OTAs, agents and direct sales channels with centralized rules and real-time syncing.',
+      'Enable digital payment acceptance, routing and settlement for bookings, partner sales and direct travel experiences.',
     outcomes: [
-      'Reduce overbookings with automated inventory distribution.',
-      'Maintain margin through channel-specific rate controls.',
-      'Update partner availability instantly from one dashboard.',
+      'Support multiple payment methods across OTAs, agents and direct channels.',
+      'Route transactions securely through local and international payment gateways.',
+      'Reconcile settlements and fees across bookings and supplier channels.',
     ],
     benefits: [
-      'More reliable multi-channel operations',
-      'Improved revenue management across sales channels',
-      'Clear insight into partner booking performance',
+      'Faster checkout for partners and guests',
+      'Reduced payment exceptions and reconciliation overhead',
+      'More transparent payment flows across travel systems',
     ],
     icon: ShieldCheck,
   },

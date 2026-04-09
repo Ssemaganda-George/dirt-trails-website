@@ -72,7 +72,7 @@ const SolutionsPage = () => {
                   { label: 'Booking Engine', value: 'Integrated reservations + packages', to: '/solutions/booking-engine' },
                   { label: 'Global Connectivity', value: 'OTA, agent and partner channels', to: '/solutions/global-connectivity' },
                   { label: 'API Integrations', value: 'Secure payment and channel APIs', to: '/solutions/api-integrations' },
-                  { label: 'Channel Manager', value: 'Guardian of rate and availability consistency', to: '/solutions/channel-manager' },
+                  { label: 'Digital Payments', value: 'Secure payment routing and settlement for travel bookings', to: '/solutions/channel-manager' },
                 ].map((item) => (
                   <Link
                     key={item.label}
@@ -138,7 +138,7 @@ const SolutionsPage = () => {
                   { title: 'Booking Engine', summary: 'Unified booking flows for packages, groups and direct sales.' },
                   { title: 'Global Connectivity', summary: 'OTA, partner and white-label distribution under one roof.' },
                   { title: 'API Integrations', summary: 'Secure data exchange for payments, inventory and partner feeds.' },
-                  { title: 'Channel Manager', summary: 'Real-time rate and availability control across channels.' },
+                  { title: 'Digital Payments', summary: 'Enable secure travel payments, gateway routing and settlement across channels.' },
                 ].map((item) => (
                   <div key={item.title} className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
                     <p className="text-sm uppercase tracking-[0.24em] text-slate-500">{item.title}</p>

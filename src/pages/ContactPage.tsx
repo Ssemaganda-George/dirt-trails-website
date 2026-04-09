@@ -102,7 +102,7 @@ const ContactPage = () => {
                   <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Contact us</p>
                   <h2 className="text-4xl font-serif text-slate-950">Share your project details with our team.</h2>
                   <p className="max-w-xl text-base leading-8 text-slate-600">
-                    Tell us about your business, priorities, and timeline. We will respond with a clear next step within one business day.
+                    Tell us about your business, priorities and launch goals. Our team combines local travel operations experience with technology delivery to provide clear next steps within one business day.
                   </p>
                 </div>
 

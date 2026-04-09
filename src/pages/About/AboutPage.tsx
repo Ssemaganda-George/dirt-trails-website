@@ -5,17 +5,16 @@ import ChatBot from '../../components/ChatBot';
 
 const AboutPage = () => (
   <div className="bg-slate-50 text-slate-900">
-    <section className="relative overflow-hidden bg-slate-900 text-white py-20">
-      <div className="absolute inset-0 bg-slate-950/80"></div>
-      <div className="container relative mx-auto max-w-6xl px-4">
+    <section className="bg-white py-20 text-slate-900">
+      <div className="container mx-auto max-w-6xl px-4">
         <div className="max-w-3xl space-y-6">
-          <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm uppercase tracking-[0.24em] text-slate-200">
+          <span className="inline-flex rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-sm uppercase tracking-[0.24em] text-slate-700">
             About Us
           </span>
           <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
             Global travel technology, built from local expertise.
           </h1>
-          <p className="text-lg leading-8 text-slate-200/90">
+          <p className="text-lg leading-8 text-slate-700">
             Dirt Trails combines intelligent booking, distribution and sustainability systems with hands-on travel experience to help operators and partners scale with confidence. Founded in 2022 and rooted in East Africa, we now serve travel teams and operators across international markets.
           </p>
           <div className="flex flex-wrap gap-4">
@@ -37,24 +36,31 @@ const AboutPage = () => (
             <div className="space-y-4">
               <h2 className="text-3xl font-semibold">Our Story</h2>
               <p className="text-base leading-8 text-slate-700">
-                Dirt Trails began when a local guide and a technology entrepreneur joined forces to build smarter travel intelligence for operators, distribution teams and impact programs. Since 2022, we have grown from a locally rooted team into a trusted travel-tech partner for operators, agents and impact-driven brands.
+                Dirt Trails began in 2022 when a local field guide and a technology entrepreneur joined forces to solve real problems for travel operators in East Africa. Today we build intelligence that helps operators, agents and suppliers work together with fewer systems and better outcomes.
               </p>
               <p className="text-base leading-8 text-slate-700">
-                We believe travel should be intelligent, seamless and meaningful. Our platform is designed to connect operations, distribution and sustainability workflows so travel teams, suppliers and partners all benefit from better data and better decisions.
+                We believe travel should be profitable, responsible and easy to manage. Our platform connects bookings, distribution and sustainability workflows so operators can make faster decisions, strengthen partner relationships and deliver better guest experiences.
               </p>
             </div>
 
             <div className="space-y-4">
               <h2 className="text-3xl font-semibold">What Sets Us Apart</h2>
               <p className="text-base leading-8 text-slate-700">
-                We are a travel technology and intelligence company with real destination experience. That means our product decisions are grounded in the needs of operators, distribution partners, suppliers, sales teams and sustainability managers.
+                Dirt Trails combines destination knowledge with technology delivery. That means the products we build are informed by real operations, regional market dynamics and the sustainability needs of modern travel teams.
               </p>
               <ul className="space-y-3 text-slate-600 list-disc list-inside">
-                <li>Platform-first travel intelligence for booking, distribution and business operations.</li>
-                <li>Operators, agents and suppliers supported by market research, partner enablement and real-time insight.</li>
-                <li>Built-in impact workflows so sustainability is part of operations, not an extra system.</li>
-                <li>Local roots in East Africa with confidence to deliver value to global travel players.</li>
+                <li>One platform for bookings, supplier management, distribution and impact tracking.</li>
+                <li>Built to support operators, agents and suppliers with local insight and global standards.</li>
+                <li>Embedded sustainability workflows so impact tracking becomes part of daily operations.</li>
+                <li>Rooted in East Africa and designed to scale across new markets with confidence.</li>
               </ul>
+            </div>
+
+            <div className="space-y-4">
+              <h2 className="text-3xl font-semibold">Our Approach</h2>
+              <p className="text-base leading-8 text-slate-700">
+                We design technology around people and processes. Our goal is to make travel operations clearer, supplier relationships stronger and sustainability reporting easier for every partner.
+              </p>
             </div>
           </div>
 
@@ -88,13 +94,13 @@ const AboutPage = () => (
       </div>
     </section>
 
-    <section className="py-20 bg-slate-900 text-white">
+    <section className="py-20 bg-slate-100 text-slate-900">
       <div className="container mx-auto max-w-6xl px-4">
         <div className="grid gap-10 lg:grid-cols-2 items-center">
           <div className="space-y-6">
-            <p className="text-sm uppercase tracking-[0.24em] text-teal-300">Founded on trust</p>
+            <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Founded on trust</p>
             <h2 className="text-3xl font-semibold">From local beginnings to a global platform.</h2>
-            <p className="text-base leading-8 text-slate-200">
+            <p className="text-base leading-8 text-slate-700">
               Our team brings first-hand travel operations knowledge, digital product experience and a passion for responsible tourism. That combination helps partners unlock revenue, build resilience and deliver next-level guest experiences.
             </p>
           </div>
@@ -140,9 +146,9 @@ const ValueCard = ({ title, description }: { title: string; description: string 
 );
 
 const StatCard = ({ label, value }: { label: string; value: string }) => (
-  <div className="rounded-3xl border border-slate-200 bg-slate-800 p-6 text-left">
-    <p className="text-sm uppercase tracking-[0.24em] text-teal-300">{label}</p>
-    <p className="mt-4 text-2xl font-semibold text-white">{value}</p>
+  <div className="rounded-3xl border border-slate-200 bg-white p-6 text-left shadow-sm">
+    <p className="text-sm uppercase tracking-[0.24em] text-slate-500">{label}</p>
+    <p className="mt-4 text-2xl font-semibold text-slate-900">{value}</p>
   </div>
 );
 

@@ -97,7 +97,7 @@ const Header = () => {
                     <Link to="/solutions/booking-engine" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Booking Engine</Link>
                     <Link to="/solutions/global-connectivity" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Global Connectivity</Link>
                     <Link to="/solutions/api-integrations" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">API Integrations</Link>
-                    <Link to="/solutions/channel-manager" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Channel Manager</Link>
+                    <Link to="/solutions/channel-manager" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Digital Payments</Link>
                   </div>
                   <div>
                     <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Management & Operations</p>
@@ -148,12 +148,6 @@ const Header = () => {
                 onMouseLeave={() => setIsSustainabilityOpen(false)}
               >
                 <div className="grid gap-2 p-4">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Our Approach</p>
-                    <Link to="/sustainability/vision-mission" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Vision & Mission</Link>
-                    <Link to="/sustainability/certifications" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Certifications</Link>
-                    <Link to="/sustainability/partnerships" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Partnerships</Link>
-                  </div>
                   <div>
                     <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Features</p>
                     <Link to="/sustainability/carbon-offset-tracking" onClick={closeMenu} className="block mt-2 text-slate-700 hover:text-slate-900">Carbon Offset Tracking</Link>
@@ -236,8 +230,13 @@ const Header = () => {
                 onMouseEnter={() => setIsAboutOpen(true)}
                 onMouseLeave={() => setIsAboutOpen(false)}
               >
-                <Link to="/about" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors border-b border-slate-200">Our Story</Link>
-                <Link to="/about/team" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors border-b border-slate-200">Our Team</Link>
+                <div className="border-b border-slate-200">
+                  <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Our Approach</p>
+                  <Link to="/about" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Our Story</Link>
+                  <Link to="/sustainability/vision-mission" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Vision, Mission & Core Values</Link>
+                  <Link to="/about/team" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Our Team</Link>
+                  <Link to="/sustainability/certifications" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Certifications & Awards</Link>
+                </div>
                 <Link to="/about/careers" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Careers</Link>
               </div>
             )}
@@ -315,7 +314,7 @@ const Header = () => {
                   <Link to="/solutions/booking-engine" className="block text-left text-slate-700 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Booking Engine</Link>
                   <Link to="/solutions/global-connectivity" className="block text-left text-slate-700 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Global Connectivity</Link>
                   <Link to="/solutions/api-integrations" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>API Integrations</Link>
-                  <Link to="/solutions/channel-manager" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Channel Manager</Link>
+                  <Link to="/solutions/channel-manager" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Digital Payments</Link>
                   <div className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#1A2B3C]">Management & Operations</div>
                   <Link to="/solutions/inventory-management" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Inventory Management</Link>
                   <Link to="/solutions/dynamic-pricing" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Dynamic Pricing</Link>
@@ -344,8 +343,8 @@ const Header = () => {
               {isSustainabilityExpanded && (
                 <div className="space-y-2 pl-6">
                   <div className="text-sm font-semibold uppercase tracking-[0.16em] text-[#1A2B3C]">Our Approach</div>
-                  <Link to="/sustainability/vision-mission" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Vision & Mission</Link>
-                  <Link to="/sustainability/certifications" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Certifications</Link>
+                  <Link to="/sustainability/vision-mission" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Vision, Mission & Core Values</Link>
+                  <Link to="/sustainability/certifications" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Certifications & Awards</Link>
                   <Link to="/sustainability/partnerships" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Partnerships</Link>
                   <div className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#1A2B3C]">Features</div>
                   <Link to="/sustainability/carbon-offset-tracking" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Carbon Offset Tracking</Link>
@@ -392,8 +391,11 @@ const Header = () => {
               </button>
               {isAboutExpanded && (
                 <div className="space-y-2 pl-6">
+                  <div className="text-sm font-semibold uppercase tracking-[0.16em] text-[#1A2B3C]">Our Approach</div>
                   <Link to="/about" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Our Story</Link>
+                  <Link to="/sustainability/vision-mission" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Vision, Mission & Core Values</Link>
                   <Link to="/about/team" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Our Team</Link>
+                  <Link to="/sustainability/certifications" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Certifications & Awards</Link>
                   <Link to="/about/careers" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Careers</Link>
                 </div>
               )}
