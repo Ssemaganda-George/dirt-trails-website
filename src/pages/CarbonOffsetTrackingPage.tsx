@@ -1,4 +1,12 @@
 import PageTemplate from './PageTemplate';
+import SystemLinks from '../components/SystemLinks';
+
+const carbonSystems = [
+  {
+    title: 'Carbon calculator',
+    href: 'https://bookings.dirt-trails.com/conservation/carbon',
+  },
+];
 
 const CarbonOffsetTrackingPage = () => (
   <PageTemplate
@@ -7,6 +15,7 @@ const CarbonOffsetTrackingPage = () => (
     heroBadge="Carbon Offset Tracking"
     heroText="Provide transparent emissions insight for itineraries, accommodations and transportation so partners can sell with confidence."
     imageNote="Placeholder for carbon calculation dashboard or infographic."
+    beforeSections={<SystemLinks items={carbonSystems} />}
     sections={[
       {
         title: 'What it does',
@@ -36,6 +45,14 @@ const CarbonOffsetTrackingPage = () => (
           'Exportable carbon summaries for partners and corporate buyers',
           'Dashboard views for offset, emissions and project allocations',
           'Clear environmental claims backed by documented calculation methods',
+        ],
+      },
+      {
+        title: 'Systems delivered',
+        description:
+          'Systems we’ve deployed for this capability help operators run carbon tracking through a connected platform.',
+        items: [
+          'Carbon calculator',
         ],
       },
     ]}

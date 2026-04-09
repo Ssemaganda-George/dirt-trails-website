@@ -1,4 +1,12 @@
 import PageTemplate from './PageTemplate';
+import SystemLinks from '../components/SystemLinks';
+
+const treeTrackingSystems = [
+  {
+    title: 'Tree map',
+    href: 'https://bookings.dirt-trails.com/conservation/geotagging',
+  },
+];
 
 const TreeTrackingPage = () => (
   <PageTemplate
@@ -7,6 +15,7 @@ const TreeTrackingPage = () => (
     heroBadge="Tree Tracking"
     heroText="Capture the environmental contribution of reforestation and community conservation projects with geotagged tracking and verified reporting."
     imageNote="Placeholder for geotagging map or tree tracking visual."
+    beforeSections={<SystemLinks items={treeTrackingSystems} />}
     sections={[
       {
         title: 'What is included',
@@ -36,6 +45,14 @@ const TreeTrackingPage = () => (
           'Clear evidence of restoration and conservation investment',
           'Better transparency for sustainability claims and certifications',
           'Stronger collaboration with local planting and conservation partners',
+        ],
+      },
+      {
+        title: 'Systems delivered',
+        description:
+          'Systems we’ve deployed for this capability help operators run geotagging and conservation tracking through a connected platform.',
+        items: [
+          'Tree map',
         ],
       },
     ]}
