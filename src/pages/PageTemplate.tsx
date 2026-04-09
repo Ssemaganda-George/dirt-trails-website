@@ -17,6 +17,7 @@ type PageTemplateProps = {
   ctaLabel?: string;
   ctaTo?: string;
   imageNote?: string;
+  beforeSections?: ReactNode;
 };
 
 const PageTemplate = ({
@@ -28,6 +29,7 @@ const PageTemplate = ({
   ctaLabel,
   ctaTo,
   imageNote,
+  beforeSections,
 }: PageTemplateProps) => {
   return (
     <div className="bg-[#F8F9FA] text-[#0F172A]">
@@ -65,6 +67,7 @@ const PageTemplate = ({
       </section>
 
       <main className="container mx-auto px-4 pb-32 lg:px-8">
+        {beforeSections}
         <div className="grid gap-8 lg:grid-cols-2 mt-16">
           {sections.map((section) => (
             <div key={section.title} className="rounded-[2rem] bg-white p-10 shadow-sm border border-slate-200">

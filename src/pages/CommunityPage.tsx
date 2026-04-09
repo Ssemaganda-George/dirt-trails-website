@@ -1,4 +1,14 @@
 import PageTemplate from "./PageTemplate";
+import PartnerGrid from "../components/PartnerGrid";
+
+const clients = [
+  {
+    name: 'SafariIntel',
+    website: 'https://bookings.dirt-trails.com',
+    initials: 'SI',
+    color: '#1D4ED8',
+  },
+];
 
 const CommunityPage = () => (
   <PageTemplate
@@ -7,6 +17,12 @@ const CommunityPage = () => (
     heroText="Our clients use Dirt Trails to unify bookings, distribution and impact reporting so their teams and partners can focus on growth, quality and sustainability." 
     heroBadge="Our Clients"
     imageNote="Placeholder for client network or travel intelligence dashboard."
+    beforeSections={
+      <div className="rounded-[2rem] bg-white border border-slate-200 p-10 shadow-sm mb-10">
+        <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Our clients</p>
+        <PartnerGrid items={clients} />
+      </div>
+    }
     sections={[
       {
         title: "Travel teams we serve",
@@ -37,7 +53,7 @@ const CommunityPage = () => (
       },
       {
         title: "Global growth",
-        description: "We support travel clients in moving from local operations to broader regional and international markets through better connectivity and trusted business intelligence.",
+        description: "We help clients scale from local operations to broader regional and international markets with better partner connectivity and trusted business intelligence.",
         items: [
           "Access to international agent and technology networks",
           "Product readiness for multi-market distribution",

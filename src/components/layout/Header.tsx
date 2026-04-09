@@ -195,7 +195,6 @@ const Header = () => {
               >
                 <Link to="/partners" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Partners</Link>
                 <Link to="/community" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Our Clients</Link>
-                <Link to="/partners/become" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Become a Partner</Link>
                 <Link to="/partners/technology" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Technology Partners</Link>
               </div>
             )}
@@ -372,7 +371,6 @@ const Header = () => {
                 <div className="space-y-2 pl-6">
                   <Link to="/partners" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Partners</Link>
                   <Link to="/community" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Our Clients</Link>
-                  <Link to="/partners/become" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Become a Partner</Link>
                   <Link to="/partners/technology" className="block text-left text-slate-600 hover:text-slate-900 transition-colors py-2" onClick={closeMenu}>Technology Partners</Link>
                 </div>
               )}
