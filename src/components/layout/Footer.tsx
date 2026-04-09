@@ -35,6 +35,7 @@ const Footer = () => {
             <ul className="space-y-3 text-slate-600 text-sm">
               <FooterLink to="/blog">Blog</FooterLink>
               <FooterLink to="/resources/case-studies">Case Studies</FooterLink>
+              <FooterLink to="/resources/success-stories">Success Stories</FooterLink>
               <FooterLink to="/resources/faqs">FAQs</FooterLink>
               <FooterLink to="/resources/events">Webinars & Events</FooterLink>
             </ul>

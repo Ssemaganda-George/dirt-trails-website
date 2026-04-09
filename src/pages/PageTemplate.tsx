@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export type PageSection = {
   title: string;
-  description: string;
+  description?: string;
   items?: string[];
   badge?: string;
 };
@@ -72,7 +72,9 @@ const PageTemplate = ({
           {sections.map((section) => (
             <div key={section.title} className="rounded-[2rem] bg-white p-10 shadow-sm border border-slate-200">
               <p className="text-sm uppercase tracking-[0.24em] text-slate-500">{section.title}</p>
-              <p className="mt-4 text-base leading-8 text-slate-600">{section.description}</p>
+              {section.description && (
+                <p className="mt-4 text-base leading-8 text-slate-600">{section.description}</p>
+              )}
               {section.items && (
                 <ul className="mt-6 space-y-3 list-disc pl-5 text-slate-600">
                   {section.items.map((item) => (

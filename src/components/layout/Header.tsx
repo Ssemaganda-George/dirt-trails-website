@@ -272,6 +272,7 @@ const Header = () => {
               >
                 <Link to="/resources/blog" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Blog</Link>
                 <Link to="/resources/case-studies" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Case Studies</Link>
+                <Link to="/resources/success-stories" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Success Stories</Link>
                 <Link to="/resources/faqs" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors border-b border-slate-200">FAQs</Link>
                 <Link to="/resources/events" onClick={closeMenu} className="block w-full text-left px-6 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">Webinars & Events</Link>
               </div>

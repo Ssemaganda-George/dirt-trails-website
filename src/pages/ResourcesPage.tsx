@@ -16,7 +16,7 @@ const ResourcesPage = () => (
       {
         title: 'Client stories',
         description: 'See how travel operators, agents and suppliers have used Dirt Trails to improve performance, reporting and partner collaboration.',
-        items: ['Examples of booking process improvements', 'Sustainability outcomes from impact tracking', 'Supplier success stories and quality management'],
+        items: ['Examples of booking process improvements', 'Sustainability outcomes from impact tracking', 'Supplier success stories and quality management', 'Video reviews and project highlights on our Success Stories page'],
       },
       {
         title: 'Support & learning',

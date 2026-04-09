@@ -24,6 +24,7 @@ import ResourcesPage from "./pages/ResourcesPage";
 import BlogPage from "./pages/BlogPage";
 import FAQPage from "./pages/FAQPage";
 import EventsPage from "./pages/EventsPage";
+import SuccessStoriesPage from "./pages/SuccessStoriesPage";
 import FeaturesPage from "./pages/FeaturesPage";
 import CarbonOffsetTrackingPage from "./pages/CarbonOffsetTrackingPage";
 import TreeTrackingPage from "./pages/TreeTrackingPage";
@@ -78,6 +79,7 @@ const App = () => (
               <Route path="resources" element={<ResourcesPage />} />
               <Route path="resources/blog" element={<BlogPage />} />
               <Route path="resources/case-studies" element={<CaseStudiesPage />} />
+              <Route path="resources/success-stories" element={<SuccessStoriesPage />} />
               <Route path="resources/faqs" element={<FAQPage />} />
               <Route path="resources/events" element={<EventsPage />} />
               <Route path="sustainability/features" element={<FeaturesPage />} />
