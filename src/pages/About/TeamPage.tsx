@@ -50,15 +50,26 @@ const team = [
     name: 'Ssemaganda George',
     title: 'Co-Founder & CTO',
     image: '/images/George.jpg',
-    bio: 'George leads our technology vision, making sure the platform is scalable, secure and easy for travel teams to adopt while supporting sustainability and distribution outcomes.',
+    bio: 'George leads our business-technology vision, making sure the platform is scalable, secure and easy for travel teams to adopt while supporting sustainability and distribution outcomes.',
     accordion: [
       { title: 'Expertise', content: 'Software architecture, product design and travel technology innovation.' },
       { title: 'Background', content: 'Bachelor of Science in Computer Science from Makerere University.' },
     ],
     linkedin: 'https://www.linkedin.com/in/ssemaganda-george-03bba8171/',
-    twitter: 'https://twitter.com/ssemagandageorge',
+    twitter: 'https://twitter.com/ssemagandageor4',
     instagram: 'https://instagram.com/ssemagandageorge',
     email: 'george@dirttrails.com',
+  },
+  {
+    name: 'Mukisa Vaniah Christian',
+    title: 'Software Development Lead',
+    image: '/images/Vaniah.jpg',
+    bio: 'Vaniah connects our partner network with operational delivery, making sure every collaboration is executed smoothly and every client experience matches our service standards.',
+    accordion: [
+      { title: 'Expertise', content: 'Intelligent Software Sytems, Innovative Solutions.' },
+      { title: 'Background', content: 'Bachelor of Software Enginnering from Makerere University.' },
+    ],
+    email: 'vaniah@dirttrails.com',
   },
 ];
 
