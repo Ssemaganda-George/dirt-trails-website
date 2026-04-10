@@ -39,7 +39,7 @@ const Hero = () => {
               Intelligent travel technology.
             </h1>
             <p className="mt-8 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-              Digital tools designed to connect bookings, distribution and supplier workflows with premium business research and partner support.
+              Digital tools designed to connect bookings, distribution and supplier workflows automatically with premium business research and partner support.
             </p>
 
             <div className="mt-12 flex flex-col gap-4 sm:flex-row">
