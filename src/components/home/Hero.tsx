@@ -32,17 +32,14 @@ const Hero = () => {
   return (
     <section className="relative overflow-hidden bg-white text-slate-950">
       <div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-slate-950 via-slate-900 to-transparent opacity-5 pointer-events-none" />
-      <div className="container mx-auto px-4 py-24 sm:py-28 lg:px-8">
-        <div className="grid gap-16 xl:grid-cols-[1.1fr_0.9fr] items-start">
+      <div className="container mx-auto px-4 py-12 sm:py-16 lg:px-8">
+        <div className="grid gap-12 xl:grid-cols-[1.1fr_0.9fr] items-start">
           <div className="max-w-2xl">
-            <span className="inline-flex items-center rounded-full bg-slate-950 px-4 py-2 text-xs font-semibold uppercase tracking-[0.32em] text-emerald-200 shadow-sm">
-              Global travel intelligence
-            </span>
-            <h1 className="mt-8 text-4xl font-semibold leading-[1.05] tracking-tight text-slate-950 sm:text-5xl md:text-6xl">
+            <h1 className="mt-2 text-4xl font-semibold leading-[1.05] tracking-tight text-slate-950 sm:text-5xl md:text-6xl">
               Intelligent travel technology.
             </h1>
             <p className="mt-8 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-              A platform designed to connect bookings, distribution and supplier workflows with premium business research and partner support.
+              Digital tools designed to connect bookings, distribution and supplier workflows with premium business research and partner support.
             </p>
 
             <div className="mt-12 flex flex-col gap-4 sm:flex-row">
