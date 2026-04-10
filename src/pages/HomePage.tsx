@@ -93,10 +93,7 @@ const HomePage = () => {
         <section className="mt-16 grid gap-8 lg:grid-cols-2">
           <div className="rounded-[2rem] border border-slate-200 bg-white p-10 shadow-xl">
             <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Partners</p>
-            <h2 className="mt-4 text-3xl font-semibold text-slate-950">Trusted partner network for travel operators.</h2>
-            <p className="mt-5 text-base leading-8 text-slate-600">
-              See the partner ecosystem that supports bookings, distribution and payments across regional and international markets.
-            </p>
+            <h2 className="mt-4 text-3xl font-semibold text-slate-950">Our trusted partner network</h2>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {[
                 { name: 'MIIChub', initials: 'MII', color: 'bg-[#0F766E]' },
@@ -122,10 +119,7 @@ const HomePage = () => {
 
           <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-xl">
             <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Success stories</p>
-            <h2 className="mt-4 text-3xl font-semibold text-slate-950">Real project reviews and video highlights.</h2>
-            <p className="mt-4 text-base leading-7 text-slate-600">
-              Preview one short video and one written review before exploring the full collection.
-            </p>
+            <h2 className="mt-4 text-3xl font-semibold text-slate-950">Reviews and highlights.</h2>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4">
                 <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Launch review clip</p>
