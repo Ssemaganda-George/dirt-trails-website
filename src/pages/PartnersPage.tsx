@@ -18,39 +18,13 @@ const PartnersPage = () => (
       }
       sections={[
         {
-          title: "Our partner network",
-          description: "Connect your product to regional agents, distribution channels, suppliers and clients with faster onboarding and live visibility.",
+          title: "Trusted partnerships",
+          description:
+            "We work with technology, payments and operator partners that help safari businesses launch faster, sell more reliably and report impact with confidence.",
           items: [
-            "Travel operators and suppliers connected through shared inventory",
-            "Agents and distribution channels with consistent product feeds",
-            "Technology partners supporting payments, APIs and reconciliation",
-          ],
-        },
-        {
-          title: "Shared commercial value",
-          description: "Create stronger business relationships with aligned incentives, revenue transparency and flexible packaging.",
-          items: [
-            "Co-branded product development and packaging",
-            "Clear commercial terms, commission and payment workflows",
-            "Performance dashboards for partner revenue and yield",
-          ],
-        },
-        {
-          title: "Data & trust",
-          description: "Use data to build trust across your travel ecosystem, from sourcing to sustainability claims and partner reporting.",
-          items: [
-            "Real-time partner performance analytics",
-            "Verified sustainability metrics for product stories",
-            "Supplier scorecards and compliance monitoring",
-          ],
-        },
-        {
-          title: "Client and partner success",
-          description: "We help our partners and clients launch faster, scale responsibly and maintain high-quality service across every marketplace.",
-          items: [
-            "Partner onboarding and technical enablement",
-            "Distribution strategy and commercial support",
-            "Ongoing training and marketplace insights",
+            "Partner-ready distribution for operators, agents and suppliers",
+            "Payments, API and onboarding support for travel technology",
+            "Sustainability-aligned collaboration for verified impact claims",
           ],
         },
       ]}
