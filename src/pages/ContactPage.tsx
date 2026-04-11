@@ -123,13 +123,14 @@ const ContactPage = () => {
                       className="h-14 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       <option value="">Select business type</option>
-                      <option value="DMC">DMC</option>
-                      <option value="OTA">OTA</option>
-                      <option value="Hotel">Hotel</option>
-                      <option value="DMO">DMO</option>
-                      <option value="Supplier">Supplier</option>
+                      <option value="DMC">DMC / Tour operator</option>
+                      <option value="OTA">OTA / Online travel agency</option>
+                      <option value="Hotel">Hotel / Lodge</option>
+                      <option value="DMO">DMO / Destination marketing organisation</option>
+                      <option value="Supplier">Supplier / Activity provider</option>
                       <option value="Other">Other</option>
                     </select>
+                    <p className="mt-2 text-sm text-slate-500">Choose the category that best describes your business.</p>
                   </div>
                   <div>
                     <label htmlFor="firstName" className="mb-2 block text-sm font-semibold text-slate-700">First Name *</label>
