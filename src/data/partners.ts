@@ -12,4 +12,10 @@ export const partners: Partner[] = [
     initials: 'MII',
     color: '#0F766E',
   },
+  {
+    name: 'Marz Pay',
+    website: 'https://marzpay.com',
+    initials: 'MP',
+    color: '#1D4ED8',
+  },
 ];
