@@ -6,7 +6,7 @@ const SuccessStoriesPage = () => (
     subtitle="Review real project outcomes, client testimonials and video case studies."
     heroBadge="Success Stories"
     heroText="Explore how Dirt Trails has helped travel operators, partners and sustainability teams deliver better bookings, stronger partnerships and verified impact." 
-    imageNote="Placeholder for success story visuals or customer video thumbnails."
+    imageNote=""
     beforeSections={
       <div className="grid gap-6 sm:grid-cols-2 mt-10">
         {[

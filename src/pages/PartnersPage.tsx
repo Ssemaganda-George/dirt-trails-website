@@ -9,7 +9,7 @@ const PartnersPage = () => (
       subtitle="Partnerships, client relationships and distribution collaboration for travel businesses."
       heroText="Dirt Trails connects travel operators, suppliers, agents and technology partners so our network can deliver better distribution, clearer performance and shared value."
       heroBadge="Partners"
-      imageNote="Placeholder for partner ecosystem visual or network illustration."
+      imageNote=""
       beforeSections={
         <div className="rounded-[2rem] bg-white border border-slate-200 p-10 shadow-sm mb-10">
           <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Our partners</p>

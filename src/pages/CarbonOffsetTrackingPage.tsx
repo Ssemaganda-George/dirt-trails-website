@@ -14,7 +14,7 @@ const CarbonOffsetTrackingPage = () => (
     subtitle="Calculate and communicate emissions for travel products."
     heroBadge="Carbon Offset Tracking"
     heroText="Provide transparent emissions insight for itineraries, accommodations and transportation so partners can sell with confidence."
-    imageNote="Placeholder for carbon calculation dashboard or infographic."
+    imageNote=""
     beforeSections={<SystemLinks items={carbonSystems} />}
     sections={[
       {

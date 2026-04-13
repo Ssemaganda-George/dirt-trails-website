@@ -6,7 +6,7 @@ const CaseStudiesPage = () => (
     subtitle="Real operator stories that demonstrate platform value."
     heroBadge="Case Studies"
     heroText="Review how travel operators have improved bookings, partner reach and sustainability outcomes with Dirt Trails."
-    imageNote="Placeholder for case study visuals or timeline."
+    imageNote="Image Loading"
     sections={[
       {
         title: 'Recent results',

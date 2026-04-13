@@ -6,7 +6,7 @@ const SupplierVettingPage = () => (
     subtitle="Ensure every partner meets your responsible tourism standards."
     heroBadge="Supplier Vetting"
     heroText="Create a trusted supplier ecosystem by managing qualifications, compliance and partner performance from one centralized platform."
-    imageNote="Placeholder for supplier profile or vetting workflow visual."
+    imageNote=""
     sections={[
       {
         title: 'What it enables',

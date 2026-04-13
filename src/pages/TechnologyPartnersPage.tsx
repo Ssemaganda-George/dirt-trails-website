@@ -17,7 +17,7 @@ const TechnologyPartnersPage = () => (
       subtitle="Connect your travel technology with Dirt Trails for more reliable distribution and partner workflows."
       heroText="Our platform is built for API-first travel integrations that help operators, suppliers and agents work from the same data and workflows." 
       heroBadge="Tech Partners"
-      imageNote="Placeholder for technology integration or API ecosystem visual."
+      imageNote=""
       beforeSections={
         <div className="rounded-[2rem] bg-white border border-slate-200 p-10 shadow-sm mb-10">
           <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Technology partner</p>

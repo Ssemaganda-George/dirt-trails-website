@@ -16,7 +16,7 @@ const CommunityPage = () => (
     subtitle="Travel teams and partners using Dirt Trails to simplify bookings, distribution and impact reporting."
     heroText="Dirt Trails gives safari operators, agents and suppliers a single platform for bookings, partner workflows and verified sustainability." 
     heroBadge="Community"
-    imageNote="Placeholder for client network or travel intelligence dashboard."
+    imageNote=""
     beforeSections={
       <div className="rounded-[2rem] bg-white border border-slate-200 p-10 shadow-sm mb-10">
         <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Our clients</p>

@@ -122,13 +122,13 @@ const HomePage = () => {
             <h2 className="mt-4 text-3xl font-semibold text-slate-950">Reviews and highlights.</h2>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Launch review clip</p>
+                <p className="text-sm uppercase tracking-[0.24em] text-slate-500">what Clients Say</p>
                 <div className="mt-3 h-40 w-full overflow-hidden rounded-3xl bg-slate-900 text-white grid place-items-center">
-                  <span className="text-xs">Sample clip</span>
+                  <span className="text-xs">Video</span>
                 </div>
               </div>
               <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Written review</p>
+                <p className="text-sm uppercase tracking-[0.24em] text-slate-500">What Clients Write</p>
                 <div className="mt-3 rounded-3xl bg-slate-100 p-4">
                   <p className="text-sm leading-6 text-slate-700">
                     “Dirt Trails helped us cut manual partner bookings and speed up confirmations.”

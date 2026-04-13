@@ -20,7 +20,7 @@ const BlogPage = () => (
             <div className="h-[320px] rounded-[1.5rem] bg-slate-200 text-slate-500 grid place-items-center text-center px-6">
               <div>
                 <p className="text-sm uppercase tracking-[0.22em] text-slate-500">Image placeholder</p>
-                <p className="mt-4 text-base leading-7 text-slate-700">Featured blog visual or team insight image.</p>
+                <p className="mt-4 text-base leading-7 text-slate-700"></p>
               </div>
             </div>
           </div>

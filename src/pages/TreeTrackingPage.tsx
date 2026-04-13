@@ -14,7 +14,7 @@ const TreeTrackingPage = () => (
     subtitle="Verify conservation impact with location-based tracking."
     heroBadge="Tree Tracking"
     heroText="Capture the environmental contribution of reforestation and community conservation projects with geotagged tracking and verified reporting."
-    imageNote="Placeholder for geotagging map or tree tracking visual."
+    imageNote=""
     beforeSections={<SystemLinks items={treeTrackingSystems} />}
     sections={[
       {

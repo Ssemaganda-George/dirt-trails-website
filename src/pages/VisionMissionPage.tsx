@@ -6,7 +6,7 @@ const VisionMissionPage = () => (
     subtitle="How Dirt Trails builds travel technology for operators, partners and impact programs."
     heroBadge="Vision, Mission & Core Values"
     heroText="Our vision is to make travel intelligence practical for every operator. Our mission is to unite bookings, distribution and sustainability into a single platform that helps travel teams grow with confidence."
-    imageNote="Conceptual image or data visualization for vision, mission and core values."
+    imageNote="Image Loading"
     sections={[
       {
         title: 'Vision',

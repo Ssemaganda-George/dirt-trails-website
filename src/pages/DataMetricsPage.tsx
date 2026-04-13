@@ -6,7 +6,7 @@ const DataMetricsPage = () => (
     subtitle="Performance data that drives smarter travel decisions."
     heroBadge="Data & Metrics"
     heroText="Use operational, commercial and sustainability metrics to guide growth, improve partner performance and highlight the business case for responsible travel."
-    imageNote="Placeholder for metrics dashboard or KPI cards."
+    imageNote=""
     sections={[
       {
         title: 'What is tracked',

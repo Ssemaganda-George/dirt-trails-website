@@ -56,7 +56,7 @@ const CertificationsPage = () => {
             <div className="h-[360px] rounded-[1.5rem] bg-slate-200 text-slate-500 grid place-items-center text-center px-6">
               <div>
                 <p className="text-sm uppercase tracking-[0.22em] text-slate-500">Certificate gallery</p>
-                <p className="mt-4 text-base leading-7 text-slate-700">Images of certifications and compliance badges appear here.</p>
+                <p className="mt-4 text-base leading-7 text-slate-700">Images Loading</p>
               </div>
             </div>
           </div>
@@ -70,7 +70,7 @@ const CertificationsPage = () => {
               <div className="h-[360px] rounded-[1.5rem] bg-slate-200 text-slate-500 grid place-items-center text-center px-6">
                 <div>
                   <p className="text-sm uppercase tracking-[0.22em] text-slate-500">Awards showcase</p>
-                  <p className="mt-4 text-base leading-7 text-slate-700">Images of awards and recognition badges appear here.</p>
+                  <p className="mt-4 text-base leading-7 text-slate-700">Images Loading</p>
                 </div>
               </div>
             </div>
