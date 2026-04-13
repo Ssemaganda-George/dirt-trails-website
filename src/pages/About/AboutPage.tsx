@@ -15,7 +15,7 @@ const AboutPage = () => (
             Global travel technology, built from local expertise.
           </h1>
           <p className="text-lg leading-8 text-slate-700">
-            Dirt Trails combines intelligent booking, distribution and sustainability systems with hands-on travel experience to help operators and partners scale with confidence. Founded in 2022 and rooted in East Africa, we now serve travel teams and operators across international markets.
+            Dirt Trails combines intelligent booking, distribution and sustainability systems with hands-on travel experience to help operators and partners scale with confidence. Founded in 2022, now aiming to serve travel teams and operators across international markets.
           </p>
           <div className="flex flex-wrap gap-4">
             <Link to="/about/team" className="inline-flex items-center justify-center rounded-full bg-teal-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-teal-400">
