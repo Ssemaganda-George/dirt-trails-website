@@ -64,7 +64,7 @@ const team = [
     name: 'Mukisa Vaniah Christian',
     title: 'Software Development Lead',
     image: '/images/Vaniah.jpg',
-    bio: 'Vaniah leads the project tecnical departments, making sure every collaboration is executed smoothly  with our service delivery and standards matching client expectations.',
+    bio: 'Vaniah leads the projects technical departments, making sure every collaboration is executed smoothly  with our service delivery and standards matching client expectations.',
     accordion: [
       { title: 'Expertise', content: 'Intelligent software systems and innovative travel solutions.' },
       { title: 'Background', content: 'Bachelor of Software Engineering from Makerere University.' },
