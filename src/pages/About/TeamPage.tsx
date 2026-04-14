@@ -34,7 +34,7 @@ const team = [
   },
   {
     name: 'Nantongo Joselyne',
-    title: 'CMO & Logistics Manager',
+    title: 'Logistics Manager',
     image: '/images/Joselyne.jpg',
     bio: 'Nantongo coordinates logistics, guest services and communications so every travel experience is smooth, memorable and reflects our operational standards.',
     accordion: [
@@ -64,10 +64,21 @@ const team = [
     name: 'Mukisa Vaniah Christian',
     title: 'Software Development Lead',
     image: '/images/Vaniah.jpg',
-    bio: 'Vaniah connects our partner network with operational delivery, making sure every collaboration is executed smoothly and every client experience matches our service standards.',
+    bio: 'Vaniah leads the project tecnical departments, making sure every collaboration is executed smoothly  with our service delivery and standards matching client expectations.',
     accordion: [
       { title: 'Expertise', content: 'Intelligent software systems and innovative travel solutions.' },
       { title: 'Background', content: 'Bachelor of Software Engineering from Makerere University.' },
+    ],
+    email: 'vaniah@dirttrails.com',
+  },
+  {
+    name: 'Nalwoga Winfred',
+    title: 'Chief Marketing Officer',
+    image: '/images/Winnie.jpg',
+    bio: 'Vaniah leads the project tecnical departments, making sure every collaboration is executed smoothly  with our service delivery and standards matching client expectations.',
+    accordion: [
+      { title: 'Expertise', content: 'Guest services, logistics planning and partner communication.' },
+      { title: 'Background', content: 'Bachelor of Business Administration from  Makerere University Business School.' },
     ],
     email: 'vaniah@dirttrails.com',
   },
