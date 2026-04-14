@@ -75,7 +75,7 @@ const team = [
     name: 'Nalwoga Winfred',
     title: 'Chief Marketing Officer',
     image: '/images/Winnie.jpg',
-    bio: 'Vaniah leads the project tecnical departments, making sure every collaboration is executed smoothly  with our service delivery and standards matching client expectations.',
+    bio: 'With hands-on experience in lodge operations and the safari industry, Winnie understands the end-to-end traveler experience. She specializes in identifying market gaps, crafting compelling travel offerings, and driving visibility through strategic marketing and partnerships with tour operators and travel agencies. Winnie is passionate about leveraging digital platforms and innovative thinking to create accessible, well-structured, and high-impact solutions.',
     accordion: [
       { title: 'Expertise', content: 'Guest services, logistics planning and partner communication.' },
       { title: 'Background', content: 'Bachelor of Business Administration from  Makerere University Business School.' },
