@@ -128,7 +128,7 @@ const HomePage = () => {
                 </div>
               </div>
               <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                <p className="text-sm uppercase tracking-[0.24em] text-slate-500">What our Clients Write..</p>
+                <p className="text-sm uppercase tracking-[0.24em] text-slate-500">What our Clients Say..</p>
                 <div className="mt-3 rounded-3xl bg-slate-100 p-4">
                   <p className="text-sm leading-6 text-slate-700">
                     “Dirt Trails helped us cut manual partner bookings and speed up confirmations.”
