@@ -16,6 +16,11 @@ const events = [
     date: 'July 10, 2026',
     description: 'Join other operators and agents to discuss best practices for scaling partner sales and supplier collaboration.',
   },
+  {
+    title: 'Tech and Tourism Conference',
+    date: 'Nov 28, 2026',
+    description: 'Join other operators and agents to discuss technology impact in regards to tourism and how we can advance services and operations with digital tools.',
+  },
 ];
 
 const EventsPage = () => (
