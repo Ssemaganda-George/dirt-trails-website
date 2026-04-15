@@ -72,7 +72,7 @@ const team = [
     email: 'vaniah@dirttrails.com',
   },
   {
-    name: 'Nalwoga Winfred',
+    name: 'Nalwoga Winfred Tendo',
     title: 'Chief Marketing Officer',
     image: '/images/Winnie.jpg',
     bio: 'With hands-on experience in lodge operations and the safari industry, Winnie understands the end-to-end traveler experience. She specializes in identifying market gaps, crafting compelling travel offerings, and driving visibility through strategic marketing and partnerships with tour operators and travel agencies. Winnie is passionate about leveraging digital platforms and innovative thinking to create accessible, well-structured, and high-impact solutions.',
