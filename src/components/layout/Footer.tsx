@@ -40,8 +40,8 @@ const Footer = () => {
               <FooterLink to="/resources/events">Webinars & Events</FooterLink>
             </ul>
             <div className="mt-6">
-              <h4 className="font-semibold text-white mb-4 uppercase tracking-[0.16em] text-sm">Support</h4>
-              <ul className="space-y-3 text-slate-300 text-sm">
+              <h4 className="font-semibold text-slate-950 mb-5 uppercase tracking-[0.16em] text-sm">Support</h4>
+              <ul className="space-y-3 text-slate-600 text-sm">
                 <FooterLink to="/contact">Help Center</FooterLink>
                 <FooterLink to="/contact">Contact Support</FooterLink>
               </ul>
