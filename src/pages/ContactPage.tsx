@@ -58,7 +58,7 @@ const ContactPage = () => {
             <span className="inline-flex rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-xs uppercase tracking-[0.35em] text-slate-600">
               Contact our travel intelligence team
             </span>
-            <h1 className="mt-8 text-4xl font-semibold tracking-tight text-slate-950">
+            <h1 className="mt-8 text-3xl font-semibold tracking-tight text-slate-950">
               Talk to Dirt Trails about your next launch.
             </h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">
