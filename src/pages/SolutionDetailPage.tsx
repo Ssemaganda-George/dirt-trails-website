@@ -211,9 +211,21 @@ const solutionContent = {
 
 const solutionSystems = {
   'booking-engine': [
-    'Dirt Trails Booking Engine for multi-product commerce',
-    'Package builder for tours, accommodation and add-ons',
-    'Agent portal for trade sales and corporate quoting',
+  <div className="flex flex-col gap-3">
+    <span>Dirt Trails Booking Engine for multi-product commerce</span>
+
+    <a
+      href="https://bookings.dirt-trails.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex w-fit items-center rounded-full bg-[#2ECC71] px-3 py-1 text-sm font-medium text-white transition hover:bg-[#28b765]"
+    >
+      View system
+    </a>
+  </div>,
+
+  'Package builder for tours, accommodation and add-ons',
+  'Agent portal for trade sales and corporate quoting',
   ],
   'global-connectivity': [
     'Partner Distribution Hub for OTA and trade feeds',
@@ -351,11 +363,14 @@ const SolutionDetailPage = () => {
             <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Systems delivered</p>
             <h2 className="mt-4 text-3xl font-semibold text-slate-950">Systems we’ve deployed for this capability</h2>
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {systems.map((system) => (
-                <div key={system} className="rounded-3xl border border-slate-200 bg-slate-50 p-6 text-slate-700">
-                  <p className="text-base leading-7">{system}</p>
-                </div>
-              ))}
+              {systems.map((system, index) => (
+              <div
+                key={index}
+                className="rounded-3xl border border-slate-200 bg-slate-50 p-6 text-slate-700"
+              >
+                <p className="text-base leading-7">{system}</p>
+              </div>
+            ))}
             </div>
           </div>
         </section>
