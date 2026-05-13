@@ -57,7 +57,7 @@ const Hero = () => {
               </button>
             </div>
 
-            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            {/* <div className="mt-10 grid gap-4 sm:grid-cols-2">
               <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-5 shadow-sm">
                 <p className="text-xs uppercase tracking-[0.28em] text-slate-500">Premier partners</p>
                 <p className="mt-3 text-xl font-semibold text-slate-950">Operators, OTAs and suppliers across markets.</p>
@@ -66,7 +66,57 @@ const Hero = () => {
                 <p className="text-xs uppercase tracking-[0.28em] text-slate-500">Built for scale</p>
                 <p className="mt-3 text-xl font-semibold text-slate-950">Flexible modules for local launches and global growth.</p>
               </div>
+            </div> */}
+            <div className="mt-12">
+            <div className="mt-10 grid gap-4 grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  value: '20+',
+                  label: 'Bookings Supported',
+                  description: 'Coordinated travel requests and operational workflows.',
+                },
+                {
+                  value: '15+',
+                  label: 'Businesses Supported',
+                  description: 'Operators, suppliers and tourism brands onboarded.',
+                },
+                {
+                  value: '50+ KG',
+                  label: 'Carbon Offset',
+                  description: 'Impact linked to sustainable travel initiatives like tree planting.',
+                },
+                {
+                  value: '2,000+ KM',
+                  label: 'Operational Distance',
+                  description: 'Tourism and logistics movement coordinated.',
+                },
+                {
+                  value: '3+',
+                  label: 'Strategic Partners',
+                  description: 'Technology, payment and ecosystem collaborations.',
+                },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="group rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-lg"
+                >
+                  <p className="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
+                    {item.value}
+                  </p>
+
+                  <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+                    {item.label}
+                  </p>
+
+                  <div className="mt-4 h-px w-full bg-slate-100" />
+
+                  <p className="mt-4 text-sm leading-6 text-slate-600">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
             </div>
+          </div>
           </div>
 
           <div className="space-y-6">
