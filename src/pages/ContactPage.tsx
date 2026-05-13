@@ -219,6 +219,8 @@ const ContactPage = () => {
                       <option value="platform">Platform implementation</option>
                       <option value="partnership">Partnership collaboration</option>
                       <option value="research">Research support</option>
+                      <option value="apis">API integrations</option>
+                      <option value="payments">Digital Payments integration</option>
                       <option value="sustainability">Sustainability enablement</option>
                       <option value="operations">Operations improvement</option>
                       <option value="other">Other</option>
