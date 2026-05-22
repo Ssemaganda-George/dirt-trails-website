@@ -81,7 +81,7 @@ const Hero = () => {
                   description: 'Operators, suppliers and tourism brands onboarded.',
                 },
                 {
-                  value: '50+ KG',
+                  value: '60+ KG',
                   label: 'Carbon Offset',
                   description: 'Impact linked to sustainable travel initiatives like tree planting.',
                 },
