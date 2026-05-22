@@ -19,20 +19,6 @@ const team = [
     email: 'mariam@dirttrails.com',
   },
   {
-    name: 'Ariho Gerald',
-    title: 'Co-Founder & Conservation Lead',
-    image: '/images/Gerald.jpg',
-    bio: 'Gerald brings conservation leadership, field knowledge and community partnerships together to shape responsible travel offerings that protect wildlife and empower local stakeholders.',
-    accordion: [
-      { title: 'Expertise', content: 'Conservation strategy, community engagement and sustainable experience design.' },
-      { title: 'Background', content: 'Bachelor of Science in Environmental Conservation from Makerere University.' },
-    ],
-    linkedin: 'https://www.linkedin.com/in/ariho-gerald-1a4714174/',
-    twitter: 'https://twitter.com/geraldariho',
-    instagram: 'https://instagram.com/geraldariho',
-    email: 'gerald@dirttrails.com',
-  },
-  {
     name: 'Ahabwe Clarissa Petite',
     title: 'Co-Founder & CEO',
     image: '/images/clarisa.png',
@@ -45,6 +31,20 @@ const team = [
     twitter: '#',
     instagram: '#',
     email: '#',
+  },
+  {
+    name: 'Ariho Gerald',
+    title: 'Co-Founder & Conservation Lead',
+    image: '/images/Gerald.jpg',
+    bio: 'Gerald brings conservation leadership, field knowledge and community partnerships together to shape responsible travel offerings that protect wildlife and empower local stakeholders.',
+    accordion: [
+      { title: 'Expertise', content: 'Conservation strategy, community engagement and sustainable experience design.' },
+      { title: 'Background', content: 'Bachelor of Science in Environmental Conservation from Makerere University.' },
+    ],
+    linkedin: 'https://www.linkedin.com/in/ariho-gerald-1a4714174/',
+    twitter: 'https://twitter.com/geraldariho',
+    instagram: 'https://instagram.com/geraldariho',
+    email: 'gerald@dirttrails.com',
   },
   {
     name: 'Ssemaganda George',
