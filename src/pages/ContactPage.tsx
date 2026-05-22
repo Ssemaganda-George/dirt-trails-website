@@ -74,7 +74,7 @@ const ContactPage = () => {
                 <p className="mt-2 text-lg font-semibold text-slate-950">Professional travel technology guidance</p>
               </div>
               <div>
-                <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Dsirect Contact</p>
+                <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Contact</p>
                 <p className="mt-2 text-lg font-semibold text-slate-950">+256-759 918649</p>
               </div>
               <div>
