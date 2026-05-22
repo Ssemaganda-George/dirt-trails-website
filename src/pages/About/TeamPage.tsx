@@ -82,6 +82,17 @@ const team = [
     ],
     email: 'vaniah@dirttrails.com',
   },
+  {
+    name: 'Pascal Mutatina',
+    title: 'Quality Assurance',
+    image: '/images/Pascal.jpg',
+    bio: 'Handles product testing, quality control, system reliability assessments, workflow validation, and user experience feedback processes.',
+    accordion: [
+      { title: 'Expertise', content: 'Guest services, logistics planning and partner communication.' },
+      { title: 'Background', content: 'Bachelor of Business Administration from  Makerere University Business School.' },
+    ],
+    email: 'pascal@dirttrails.com',
+  },
 ];
 
 const TeamPage = () => {
