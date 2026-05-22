@@ -4,6 +4,20 @@ import { Linkedin, Twitter, Instagram, Mail, X, ChevronLeft, ChevronRight, Plus,
 import ChatBot from '@/components/ChatBot';
 
 const team = [
+   {
+    name: 'Mariam Wambui',
+    title: 'COO, Lead Technology & Growth',
+    image: '/images/Mariam.jpg',
+    bio: 'Mariam blends product leadership with travel operations to build digital systems that accelerate growth, improve performance and make partner workflows more efficient.',
+    accordion: [
+      { title: 'Expertise', content: 'Platform delivery, tech operations and go-to-market enablement.' },
+      { title: 'Background', content: 'Bachelor of Science in Software Engineering from Makerere University.' },
+    ],
+    linkedin: 'https://www.linkedin.com/in/mariam-wambui-942458278/',
+    twitter: 'https://twitter.com/mariamwambui',
+    instagram: 'https://instagram.com/mariamwambui',
+    email: 'mariam@dirttrails.com',
+  },
   {
     name: 'Ariho Gerald',
     title: 'Co-Founder & Conservation Lead',
@@ -17,20 +31,6 @@ const team = [
     twitter: 'https://twitter.com/geraldariho',
     instagram: 'https://instagram.com/geraldariho',
     email: 'gerald@dirttrails.com',
-  },
-  {
-    name: 'Mariam Wambui',
-    title: 'COO, Lead Technology & Growth',
-    image: '/images/Mariam.jpg',
-    bio: 'Mariam blends product leadership with travel operations to build digital systems that accelerate growth, improve performance and make partner workflows more efficient.',
-    accordion: [
-      { title: 'Expertise', content: 'Platform delivery, tech operations and go-to-market enablement.' },
-      { title: 'Background', content: 'Bachelor of Science in Software Engineering from Makerere University.' },
-    ],
-    linkedin: 'https://www.linkedin.com/in/mariam-wambui-942458278/',
-    twitter: 'https://twitter.com/mariamwambui',
-    instagram: 'https://instagram.com/mariamwambui',
-    email: 'mariam@dirttrails.com',
   },
   {
     name: 'Ahabwe Clarissa Petite',
