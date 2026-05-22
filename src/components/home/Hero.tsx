@@ -86,7 +86,7 @@ const Hero = () => {
                   description: 'Impact linked to sustainable travel initiatives like tree planting.',
                 },
                 {
-                  value: '2,000+ KM',
+                  value: '3,000+ KM',
                   label: 'Operational Distance',
                   description: 'Tourism and logistics movement coordinated.',
                 },
