@@ -49,6 +49,7 @@ import TeamPage from "./pages/About/TeamPage";
 import CareersPage from "./pages/About/CareersPage";
 import CommunityPage from "./pages/CommunityPage";
 import GuidesPage from "./pages/About/GuidesPage";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -105,6 +106,8 @@ const App = () => (
               <Route path="environment/donate" element={<DonatePage />} />
               <Route path="*" element={<NotFound />} />
             </Route>
+            {/* Admin Route */}
+            <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
           <GoogleTranslateWidget />
         </BrowserRouter>

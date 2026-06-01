@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Loader2 } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 const ContactPage = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -15,10 +16,26 @@ const ContactPage = () => {
     setIsSubmitting(true);
     setSubmitError(null);
     
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const payload = {
+      business_type: String(formData.get('businessType') || ''),
+      first_name: String(formData.get('firstName') || ''),
+      last_name: String(formData.get('lastName') || ''),
+      company_name: String(formData.get('companyName') || ''),
+      email: String(formData.get('_replyto') || ''),
+      country: String(formData.get('country') || ''),
+      phone: String(formData.get('phone') || ''),
+      website: String(formData.get('website') || ''),
+      interest: String(formData.get('interest') || ''),
+      message: String(formData.get('message') || ''),
+      privacy_consent: formData.get('privacyConsent') === 'on',
+      receive_promotions: formData.get('receivePromotions') === 'on',
+    };
 
     try {
-      const response = await fetch('https://formspree.io/f/xpwjoknq', {
+      const formspreeId = import.meta.env.VITE_FORMSPREE_CONTACT_ID;
+      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -26,17 +43,23 @@ const ContactPage = () => {
         }
       });
 
-      if (response.ok) {
-        setFormSubmitted(true);
-        toast({
-          title: 'Message Sent',
-          description: "Your message has been sent successfully. We'll get back to you within 24 hours.",
-        });
-        e.currentTarget.reset(); // Reset form after successful submission
-      } else {
+      if (!response.ok) {
         throw new Error('Failed to send message');
       }
 
+      const { error: dbError } = await supabase.from('website_inquiries').insert([payload]);
+
+      if (dbError) {
+        console.error('Supabase insert error:', dbError);
+        throw new Error('Failed to save inquiry to database');
+      }
+
+      setFormSubmitted(true);
+      toast({
+        title: 'Message Sent',
+        description: "Your message has been sent successfully. We'll get back to you within 24 hours.",
+      });
+      form.reset(); // Reset form after successful submission
     } catch (error) {
       console.error('Error sending message:', error);
       setSubmitError('Failed to send message. Please try again or contact us directly.');
