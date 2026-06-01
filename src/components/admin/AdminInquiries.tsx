@@ -26,6 +26,7 @@ export default function AdminInquiries() {
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedInterest, setSelectedInterest] = useState('all');
   const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -100,14 +101,24 @@ export default function AdminInquiries() {
     }
   };
 
-  const filteredInquiries = inquiries.filter(inquiry => {
+  const interestOptions = Array.from(
+    new Set(inquiries.map((inquiry) => (inquiry.interest?.trim() || 'General')).filter(Boolean))
+  );
+
+  const filteredInquiries = inquiries.filter((inquiry) => {
     const fullName = `${inquiry.first_name || ''} ${inquiry.last_name || ''}`.trim();
+    const inquiryInterest = inquiry.interest?.trim() || 'General';
+    const matchesInterest = selectedInterest === 'all' || inquiryInterest === selectedInterest;
+
     return (
-      inquiry.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      inquiry.company_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      inquiry.interest?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      inquiry.business_type?.toLowerCase().includes(searchTerm.toLowerCase())
+      matchesInterest &&
+      (
+        inquiry.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        inquiry.company_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        inquiry.interest?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        inquiry.business_type?.toLowerCase().includes(searchTerm.toLowerCase())
+      )
     );
   });
 
@@ -121,19 +132,37 @@ export default function AdminInquiries() {
 
   return (
     <div className="space-y-6">
-      <div className="flex gap-4">
-        <div className="flex-1 relative">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+        <div className="relative flex-1 min-w-0">
           <Search className="absolute left-3 top-3 text-gray-400" size={20} />
           <Input
-            placeholder="Search by email, name, or subject..."
+            placeholder="Search by email, name, subject, or interest..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10"
           />
         </div>
-        <Button onClick={fetchInquiries} variant="outline">
-          Refresh
-        </Button>
+        <div className="flex items-center gap-3">
+          <label htmlFor="interest-filter" className="sr-only">
+            Filter by interest
+          </label>
+          <select
+            id="interest-filter"
+            value={selectedInterest}
+            onChange={(e) => setSelectedInterest(e.target.value)}
+            className="h-12 rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition focus:border-blue-500"
+          >
+            <option value="all">All interests</option>
+            {interestOptions.map((interest) => (
+              <option key={interest} value={interest}>
+                {interest}
+              </option>
+            ))}
+          </select>
+          <Button onClick={fetchInquiries} variant="outline">
+            Refresh
+          </Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-4">
