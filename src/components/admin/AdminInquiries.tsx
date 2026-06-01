@@ -147,20 +147,20 @@ export default function AdminInquiries() {
             <div
               key={inquiry.id}
               className={`bg-white rounded-2xl p-6 shadow-sm border ${
-                inquiry.status === 'new' ? 'border-blue-100' : 'border-slate-200'
+                inquiry.status === 'new' ? 'border-red-100' : 'border-slate-200'
               }`}
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="flex-1 space-y-3">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div>
-                      <h3 className="text-lg font-semibold text-slate-950">
+                      <h3 className={`text-lg font-semibold ${inquiry.status === 'new' ? 'text-red-700' : 'text-slate-950'}`}>
                         {`${inquiry.first_name || ''} ${inquiry.last_name || ''}`.trim() || inquiry.email || 'Unknown'}
                       </h3>
                       <p className="text-sm text-slate-600">{inquiry.company_name || 'No company provided'}</p>
                     </div>
                     <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${
-                      inquiry.status === 'new' ? 'bg-blue-100 text-blue-800' : 'bg-slate-100 text-slate-600'
+                      inquiry.status === 'new' ? 'bg-red-100 text-red-700' : 'bg-slate-100 text-slate-600'
                     }`}>
                       {inquiry.status?.toUpperCase() || 'NEW'}
                     </span>
