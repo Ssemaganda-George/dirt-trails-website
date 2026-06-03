@@ -309,7 +309,7 @@ const Header = () => {
           </div>
 
           <Link to="/contact" className="ml-4 inline-flex items-center rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-900 shadow-sm shadow-slate-950/15">
-            Contact Us
+            Book a Demo
           </Link>
         </nav>
         {/* Mobile Menu Button */}
