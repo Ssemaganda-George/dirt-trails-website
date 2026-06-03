@@ -49,10 +49,9 @@ const AboutPage = () => (
                 Dirt Trails combines destination knowledge with technology delivery. That means the products we build are informed by real operations, regional market dynamics and the sustainability needs of modern travel teams.
               </p>
               <ul className="space-y-3 text-slate-600 list-disc list-inside">
-                <li>One platform for bookings, supplier management, distribution and impact tracking.</li>
+                <li>Innovative solutions for bookings, supplier management, distribution and impact tracking.</li>
                 <li>Built to support operators, agents and suppliers with local insight and global standards.</li>
                 <li>Embedded sustainability workflows so impact tracking becomes part of daily operations.</li>
-                <li>Rooted in East Africa and designed to scale across new markets with confidence.</li>
               </ul>
             </div>
 
@@ -72,19 +71,19 @@ const AboutPage = () => (
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <ValueCard
-                  title="Authentic Leadership"
-                  description="We combine local destination insight with modern product thinking to serve both travelers and operators."
+                  title="Professionalism"
+                  description="We combine local destination insights with modern product thinking to serve both travelers and operators."
                 />
                 <ValueCard
-                  title="Sustainable Growth"
+                  title="Sustainablity"
                   description="Our technology is designed to scale revenue while making measurable contributions to conservation and community impact."
                 />
                 <ValueCard
-                  title="Partner Centric"
-                  description="We collaborate with operators, agents and suppliers to improve distribution, simplify operations and grow trust."
+                  title="Innovation"
+                  description="Reserach based solutions for  operators, agents and suppliers to improve distribution, simplify operations and grow trust."
                 />
                 <ValueCard
-                  title="Transparent Results"
+                  title="Integrity"
                   description="Data, reporting and accountability are built into every workflow, so teams can act faster and measure impact clearly."
                 />
               </div>
