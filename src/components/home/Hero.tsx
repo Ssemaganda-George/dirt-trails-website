@@ -71,7 +71,7 @@ const Hero = () => {
             <div className="mt-10 grid gap-4 grid-cols-2 lg:grid-cols-3">
               {[
                 {
-                  value: '20+',
+                  value: '40+',
                   label: 'Bookings Supported',
                   description: 'Coordinated travel requests and operational workflows.',
                 },
@@ -81,12 +81,12 @@ const Hero = () => {
                   description: 'Operators, suppliers and tourism brands onboarded.',
                 },
                 {
-                  value: '100+ KG',
+                  value: '150+ KG',
                   label: 'Carbon Offset',
                   description: 'Impact linked to sustainable travel initiatives like tree planting.',
                 },
                 {
-                  value: '50,000+ KM',
+                  value: '100,000+ KM',
                   label: 'Operational Distance',
                   description: 'Tourism and logistics movement coordinated.',
                 },
